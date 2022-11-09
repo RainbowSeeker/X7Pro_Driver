@@ -48,7 +48,7 @@ else ()
     add_compile_options(-Og -g)
 endif ()
 
-include_directories(${includes} CODE)
+include_directories(${includes} CODE CODE/algo CODE/application CODE/device CODE/sensor)
 
 add_definitions(${defines})
 

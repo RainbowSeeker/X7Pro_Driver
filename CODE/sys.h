@@ -5,14 +5,19 @@
 #ifndef STM32H743IIT6_SYS_H
 #define STM32H743IIT6_SYS_H
 #include "stdio.h"
+#include "stdint.h"
+#include "board_config.h"
 
-//--------debug uart config-------------------
-#define DEBUG_UART      (huart7)
-#define DEBUG_USE_DMA   1
-#define DEBUG_CONFIG    (DEBUG_USE_DMA && USE_FREERTOS)
+
+//-------------sys config---------------------
+#define delay_ms        HAL_Delay
+#define delay_us        Sys_DelayUs
+#define printf          print
+#define UNUSED(x)       ((void)(x))
+#define DEBUG_UART_THRESHOLD    10
 
 //--------------assert------------------------
-#define ALARM_FREQ          0x004fffff
+#define ALARM_FREQ      0x00afffffu
 #define    __str(x)     #x
 #define    __xstr(x)    __str(x)
 
@@ -20,11 +25,20 @@
                     "\" failed, file " __xstr(__FILE__) \
                     ", line " __xstr(__LINE__) "\n"))
 
+#define TickCount(__FUNC__)     { \
+                                TickStart();\
+                                __FUNC__;   \
+                                print("Function \"%s\" cost %3.3f ms.\r\n", __xstr(__FUNC__), (float)TickEnd() / 1000);\
+                                }
 
 
+void soft_delay(uint32_t time);
 void Print_Init(void);
 void print(const void *format,...);
 void println(const void *format,...);
 void assert_failed(void *string);
 uint32_t Sys_GetTickUs(void);
+void Sys_DelayUs(uint32_t Delay);
+void TickStart(void);
+uint32_t TickEnd(void);
 #endif //STM32H743IIT6_SYS_H

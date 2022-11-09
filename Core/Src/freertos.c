@@ -27,6 +27,7 @@
 /* USER CODE BEGIN Includes */
 #include "fatfs.h"
 #include "include.h"
+#include "application/app_spi.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -105,12 +106,12 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the thread(s) */
   /* definition and creation of defaultTask */
-  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 256);
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 1024);
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of myTask02 */
   osThreadDef(myTask02, StartTask02, osPriorityNormal, 0, 1024);
-  myTask02Handle = osThreadCreate(osThread(myTask02), NULL);
+//  myTask02Handle = osThreadCreate(osThread(myTask02), NULL);
 
   /* USER CODE BEGIN RTOS_THREADS */
     /* add threads, ... */
@@ -128,14 +129,7 @@ void MX_FREERTOS_Init(void) {
 void StartDefaultTask(void const * argument)
 {
   /* USER CODE BEGIN StartDefaultTask */
-
-    /* Infinite loop */
-    while (1)
-    {
-//        UART_HandleMsg();
-        osDelay(50);
-    }
-
+    App_SPI_Main();
   /* USER CODE END StartDefaultTask */
 }
 
@@ -172,28 +166,22 @@ void StartTask02(void const * argument)
     uint32_t pWakeTime = osKernelSysTick();
     while (1)
     {
-        nowTick = HAL_GetTick();
-        sprintf(tickstr, "%lu\t", nowTick);
-        memcpy(bigdata, tickstr, strlen(tickstr));
+//        nowTick = HAL_GetTick();
+//        sprintf(tickstr, "%lu\t", nowTick);
+//        memcpy(bigdata, tickstr, strlen(tickstr));
 
-        if (SD_OK ==Test_Write("hello.xls", (char *)bigdata, sizeof(bigdata)))
-        {
-            count++;
-            avgTick += HAL_GetTick() - nowTick;
-            if (count % 10 == 0)
-            {
-                LED_Toggle(led1);
-                print("avg time:");
-                for (; avgTick > 50; avgTick -= 50)
-                {
-                    print("——");
-                }
-                println("——");
-
-                avgTick = 0;
-            }
-        }
-        osDelayUntil(&pWakeTime, 5);
+//        if (SD_OK ==Test_Write("hello.xls", (char *)bigdata, sizeof(bigdata)))
+//        {
+//            count++;
+//            avgTick += HAL_GetTick() - nowTick;
+//            if (count % 10 == 0)
+//            {
+//                LED_Toggle(led1);
+//                print("avgTime=%3.2f\r\n", (float)avgTick / 10);
+//                avgTick = 0;
+//            }
+//        }
+//        osDelayUntil(&pWakeTime, 5);
     }
 
   /* USER CODE END StartTask02 */

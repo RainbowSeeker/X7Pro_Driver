@@ -22,6 +22,8 @@
 #include "stm32h7xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "bus.h"
+#include "adis16470.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -36,7 +38,8 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+extern uint32_t spi_dma_flag;
+extern osMessageQId spiQueue;
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -57,8 +60,6 @@
 /* External variables --------------------------------------------------------*/
 extern MDMA_HandleTypeDef hmdma_mdma_channel40_sdmmc1_end_data_0;
 extern SD_HandleTypeDef hsd1;
-extern DMA_HandleTypeDef hdma_uart7_tx;
-extern DMA_HandleTypeDef hdma_uart7_rx;
 extern UART_HandleTypeDef huart7;
 extern TIM_HandleTypeDef htim1;
 
@@ -170,9 +171,20 @@ void DebugMon_Handler(void)
 void DMA1_Stream0_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Stream0_IRQn 0 */
-
+    if (LL_DMA_IsActiveFlag_TE0(DMA1))
+    {
+        LL_DMA_ClearFlag_TE0(DMA1);
+    }
+    if (LL_DMA_IsActiveFlag_FE0(DMA1))
+    {
+        LL_DMA_ClearFlag_FE0(DMA1);
+    }
+    if (LL_DMA_IsActiveFlag_TC0(DMA1))
+    {
+        LL_DMA_ClearFlag_TC0(DMA1);
+    }
   /* USER CODE END DMA1_Stream0_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_uart7_tx);
+
   /* USER CODE BEGIN DMA1_Stream0_IRQn 1 */
 
   /* USER CODE END DMA1_Stream0_IRQn 1 */
@@ -184,12 +196,39 @@ void DMA1_Stream0_IRQHandler(void)
 void DMA1_Stream1_IRQHandler(void)
 {
   /* USER CODE BEGIN DMA1_Stream1_IRQn 0 */
-
+    if (LL_DMA_IsActiveFlag_TE1(DMA1))
+    {
+        LL_DMA_ClearFlag_TE1(DMA1);
+    }
+    if (LL_DMA_IsActiveFlag_FE1(DMA1))
+    {
+        LL_DMA_ClearFlag_FE1(DMA1);
+    }
+    if (LL_DMA_IsActiveFlag_TC1(DMA1))
+    {
+        LL_DMA_ClearFlag_TC1(DMA1);
+//        SCB_InvalidateDCache_by_Addr((uint32_t*)SPI1_RX_REG,(SPI1_REG_SIZE>>2)+1);
+    }
+    SPI_RxIrqHandler(&adis16470);
   /* USER CODE END DMA1_Stream1_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_uart7_rx);
+
   /* USER CODE BEGIN DMA1_Stream1_IRQn 1 */
 
   /* USER CODE END DMA1_Stream1_IRQn 1 */
+}
+
+/**
+  * @brief This function handles EXTI line[9:5] interrupts.
+  */
+void EXTI9_5_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI9_5_IRQn 0 */
+
+  /* USER CODE END EXTI9_5_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_7);
+  /* USER CODE BEGIN EXTI9_5_IRQn 1 */
+
+  /* USER CODE END EXTI9_5_IRQn 1 */
 }
 
 /**
@@ -204,6 +243,20 @@ void TIM1_UP_IRQHandler(void)
   /* USER CODE BEGIN TIM1_UP_IRQn 1 */
 
   /* USER CODE END TIM1_UP_IRQn 1 */
+}
+
+/**
+  * @brief This function handles SPI1 global interrupt.
+  */
+void SPI1_IRQHandler(void)
+{
+  /* USER CODE BEGIN SPI1_IRQn 0 */
+
+  /* USER CODE END SPI1_IRQn 0 */
+  /* USER CODE BEGIN SPI1_IRQn 1 */
+
+
+  /* USER CODE END SPI1_IRQn 1 */
 }
 
 /**

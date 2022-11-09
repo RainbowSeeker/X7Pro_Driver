@@ -14,17 +14,18 @@
 #include "string.h"
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
-
+#include "spi.h"
 
 
 ////-------user 自定义头文件 -------
-#include "common.h"
 #include "sys.h"
+#include "status.h"
 #include "com.h"
 #include "task.h"
 #include "ledbeep.h"
 #include "sdop.h"
 
+#include "board_config.h"
 
 //-------uCosIII 头文件 ---------
 #if USE_UCOS

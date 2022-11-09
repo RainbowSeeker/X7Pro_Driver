@@ -45,6 +45,7 @@ sd_error_t Test_Write(const char* path, const char* string, uint32_t len)
 {
     UINT bw = 0;
     sd_error_t err = SD_OK;
+
 //    if (FR_OK != f_open(&SDFile, path, FA_OPEN_ALWAYS | FA_WRITE ))
 //    {
 //        err = SD_OPEN_ERR;
@@ -58,12 +59,12 @@ sd_error_t Test_Write(const char* path, const char* string, uint32_t len)
 //        goto errors;
 //    }
     f_write(&SDFile, string, len, &bw);
+
     if (bw < len)
     {
         err = SD_WRITE_ERR;
         goto errors;
     }
-    f_sync(&SDFile);
     errors:
     /* close file */
 //    f_close(&SDFile);
