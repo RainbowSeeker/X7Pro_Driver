@@ -51,7 +51,6 @@ int IO_Init(io_t io, uint32_t mode, uint32_t pull, uint32_t speed, uint32_t alte
             return -1;
     }
 
-    /*Configure GPIO pin : PE5 */
     GPIO_InitStruct.Pin = io.pin;
     GPIO_InitStruct.Mode = mode;
     GPIO_InitStruct.Pull = pull;

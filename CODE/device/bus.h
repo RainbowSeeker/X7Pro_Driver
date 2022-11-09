@@ -31,7 +31,9 @@ typedef enum
 typedef enum
 {
     DEV_SPI1 = (int)SPI1,
-    DEV_SPI2,
+    DEV_SPI2 = (int)SPI2,
+    DEV_SPI3 = (int)SPI3,
+    DEV_SPI4 = (int)SPI4,
 }device_e;
 
 
@@ -42,6 +44,7 @@ typedef struct bus_s
     uint8_t deviceCount;
     bool isInit;
 
+    osMutexId lock;
     union
     {
         // For those devices that need spi
@@ -66,13 +69,16 @@ typedef struct bus_s
     segment_t *curSegment;
 }bus_t;
 
+#define IS_DTCM(p) (((uint32_t)p & 0xfffe0000) == 0x20000000)
+#define DMA_DATA_ZERO_INIT          __attribute__ ((section(".dmaram_bss"), aligned(32)))
+#define DMA_DATA                    __attribute__ ((section(".dmaram_data"), aligned(32)))
+#define STATIC_DMA_DATA_AUTO        static DMA_DATA
 
-// don't use those
-bus_t *DeviceToBus(device_e device);
-void Bus_SetInitialVal(bus_t *bus);
-Status_t Bus_Driver_Init(bus_t *bus);
+extern uint8_t _dmaram_start__;
+extern uint8_t _dmaram_end__;
 
 // interface func
+bus_t * Register_Bus(device_e device);
 bool IsBusBusy(bus_t *bus);
 void waitBus(bus_t *bus);
 #endif //BUS_H

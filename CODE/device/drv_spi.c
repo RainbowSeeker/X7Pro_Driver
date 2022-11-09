@@ -74,6 +74,9 @@ Status_t Drv_SPI_Init(bus_t *spiBus)
         case (uint32_t)SPI1:
             MX_SPI1_Init();
             break;
+        case (uint32_t)SPI4:
+            MX_SPI4_Init();
+            break;
         default:    //don't support yet.
             return -1;
     }

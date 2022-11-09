@@ -8,25 +8,21 @@
 #include "drv_spi.h"
 
 static bus_t Bus[BUS_NUM] = {
+            //modify the following lines
         {   .busType = BUS_TYPE_SPI, .busType_u.spi.instance = SPI1,
-                 //modify the following lines
-                .enDMA = 1, .dmaTx = DMA1, .streamTx = LL_DMA_STREAM_0, .dmaRx = DMA1, .streamRx = LL_DMA_STREAM_1}
+                .enDMA = 1, .dmaTx = DMA1, .streamTx = LL_DMA_STREAM_0, .dmaRx = DMA1, .streamRx = LL_DMA_STREAM_1},
+        {   .busType = BUS_TYPE_SPI, .busType_u.spi.instance = SPI4,
+                .enDMA = 1, .dmaTx = DMA1, .streamTx = LL_DMA_STREAM_2, .dmaRx = DMA1, .streamRx = LL_DMA_STREAM_3},
 };
 
 
-bus_t *DeviceToBus(device_e device)
+static bus_t *DeviceToBus(device_e device)
 {
     bus_t *bus;
     switch (device)
     {
         case DEV_SPI1:
-#ifndef USE_SPI1
-            break;
-#endif
-        case DEV_SPI2:
-#ifndef USE_SPI1
-            break;
-#endif
+#ifdef USE_SPI1
             for (bus = &Bus[0]; bus; bus++)
             {
                 if (device == (int)bus->busType_u.spi.instance)
@@ -34,13 +30,48 @@ bus_t *DeviceToBus(device_e device)
                     return bus;
                 }
             }
+#endif
+            break;
+        case DEV_SPI2:
+#ifdef USE_SPI2
+            for (bus = &Bus[0]; bus; bus++)
+            {
+                if (device == (int)bus->busType_u.spi.instance)
+                {
+                    return bus;
+                }
+            }
+#endif
+            break;
+        case DEV_SPI3:
+#ifdef USE_SPI3
+            for (bus = &Bus[0]; bus; bus++)
+            {
+                if (device == (int)bus->busType_u.spi.instance)
+                {
+                    return bus;
+                }
+            }
+#endif
+            break;
+        case DEV_SPI4:
+#ifdef USE_SPI4
+            for (bus = &Bus[0]; bus; bus++)
+            {
+                if (device == (int)bus->busType_u.spi.instance)
+                {
+                    return bus;
+                }
+            }
+#endif
+            break;
         default:
             break;
     }
     return NULL;
 }
 
-void Bus_SetInitialVal(bus_t *bus)
+static void Bus_SetInitialVal(bus_t *bus)
 {
     bus->busStatus = BUS_READY;
     bus->deviceCount = 0;
@@ -48,7 +79,7 @@ void Bus_SetInitialVal(bus_t *bus)
     bus->curSegment = 0;
 }
 
-Status_t Bus_Driver_Init(bus_t *bus)
+static Status_t Bus_Driver_Init(bus_t *bus)
 {
     switch (bus->busType)
     {
@@ -61,6 +92,30 @@ Status_t Bus_Driver_Init(bus_t *bus)
     }
     return S_Error;
 }
+
+bus_t * Register_Bus(device_e device)
+{
+    bus_t *bus = DeviceToBus(device);
+    if (!bus) return NULL;
+
+    if (!bus->isInit)
+    {
+        Bus_SetInitialVal(bus);
+        if (Bus_Driver_Init(bus) != S_OK)   return NULL;
+
+        //ring buf init
+        Ring_Init(&bus->ring);
+
+        //lock init
+        osMutexDef(lock);
+        bus->lock = osMutexCreate(osMutex(lock));
+        bus->isInit = 1;
+    }
+    bus->deviceCount++;
+
+    return bus;
+}
+
 
 bool IsBusBusy(bus_t *bus)
 {

@@ -7,5 +7,5 @@
 #ifndef X7PRO_DRIVER_APP_SPI_H
 #define X7PRO_DRIVER_APP_SPI_H
 
-void App_SPI_Main(void);
+void App_SPI_Main(void const * argument);
 #endif //X7PRO_DRIVER_APP_SPI_H
