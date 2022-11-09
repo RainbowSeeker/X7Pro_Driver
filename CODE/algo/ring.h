@@ -8,8 +8,8 @@
 #define _RING_H
 
 #include <stdbool.h>
-#include "stdio.h"
-
+#include <stdio.h>
+#include "stdint.h"
 #define RING_MAX_LEN            64u
 
 typedef struct
@@ -17,7 +17,7 @@ typedef struct
     uint8_t *pTxData;
     uint8_t *pRxData;
     uint16_t len;
-    void (* callback)(uint8_t *ptr)
+    void (* callback)(uint8_t *ptr);
 }segment_t;
 
 typedef struct

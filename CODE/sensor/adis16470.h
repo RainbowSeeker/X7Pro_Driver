@@ -8,9 +8,6 @@
 #define ADIS16470_H
 #include "bus_spi.h"
 
-#define SENSORS_ON_Port         GPIOE
-#define SENSORS_ON_Pin          GPIO_PIN_3
-
 #define ADI_CS_Port             GPIOF
 #define ADI_CS_Pin              GPIO_PIN_10
 

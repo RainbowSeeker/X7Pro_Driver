@@ -207,7 +207,6 @@ void DMA1_Stream1_IRQHandler(void)
     if (LL_DMA_IsActiveFlag_TC1(DMA1))
     {
         LL_DMA_ClearFlag_TC1(DMA1);
-//        SCB_InvalidateDCache_by_Addr((uint32_t*)SPI1_RX_REG,(SPI1_REG_SIZE>>2)+1);
     }
     SPI_RxIrqHandler(&adis16470);
   /* USER CODE END DMA1_Stream1_IRQn 0 */
@@ -218,12 +217,62 @@ void DMA1_Stream1_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles DMA1 stream2 global interrupt.
+  */
+void DMA1_Stream2_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Stream2_IRQn 0 */
+    if (LL_DMA_IsActiveFlag_TE2(DMA1))
+    {
+        LL_DMA_ClearFlag_TE2(DMA1);
+    }
+    if (LL_DMA_IsActiveFlag_FE2(DMA1))
+    {
+        LL_DMA_ClearFlag_FE2(DMA1);
+    }
+    if (LL_DMA_IsActiveFlag_TC2(DMA1))
+    {
+        LL_DMA_ClearFlag_TC2(DMA1);
+    }
+  /* USER CODE END DMA1_Stream2_IRQn 0 */
+
+  /* USER CODE BEGIN DMA1_Stream2_IRQn 1 */
+
+  /* USER CODE END DMA1_Stream2_IRQn 1 */
+}
+
+/**
+  * @brief This function handles DMA1 stream3 global interrupt.
+  */
+void DMA1_Stream3_IRQHandler(void)
+{
+  /* USER CODE BEGIN DMA1_Stream3_IRQn 0 */
+    if (LL_DMA_IsActiveFlag_TE3(DMA1))
+    {
+        LL_DMA_ClearFlag_TE3(DMA1);
+    }
+    if (LL_DMA_IsActiveFlag_FE3(DMA1))
+    {
+        LL_DMA_ClearFlag_FE3(DMA1);
+    }
+    if (LL_DMA_IsActiveFlag_TC3(DMA1))
+    {
+        LL_DMA_ClearFlag_TC3(DMA1);
+    }
+  /* USER CODE END DMA1_Stream3_IRQn 0 */
+
+  /* USER CODE BEGIN DMA1_Stream3_IRQn 1 */
+
+  /* USER CODE END DMA1_Stream3_IRQn 1 */
+}
+
+/**
   * @brief This function handles EXTI line[9:5] interrupts.
   */
 void EXTI9_5_IRQHandler(void)
 {
   /* USER CODE BEGIN EXTI9_5_IRQn 0 */
-
+//    ADIS_Brust_Read();
   /* USER CODE END EXTI9_5_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_7);
   /* USER CODE BEGIN EXTI9_5_IRQn 1 */
@@ -251,6 +300,7 @@ void TIM1_UP_IRQHandler(void)
 void SPI1_IRQHandler(void)
 {
   /* USER CODE BEGIN SPI1_IRQn 0 */
+
 
   /* USER CODE END SPI1_IRQn 0 */
   /* USER CODE BEGIN SPI1_IRQn 1 */
@@ -285,6 +335,19 @@ void UART7_IRQHandler(void)
   /* USER CODE BEGIN UART7_IRQn 1 */
 
   /* USER CODE END UART7_IRQn 1 */
+}
+
+/**
+  * @brief This function handles SPI4 global interrupt.
+  */
+void SPI4_IRQHandler(void)
+{
+  /* USER CODE BEGIN SPI4_IRQn 0 */
+
+  /* USER CODE END SPI4_IRQn 0 */
+  /* USER CODE BEGIN SPI4_IRQn 1 */
+
+  /* USER CODE END SPI4_IRQn 1 */
 }
 
 /**

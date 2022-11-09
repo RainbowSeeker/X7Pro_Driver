@@ -12,12 +12,12 @@
 
 static inline uint16_t swap_u16(uint16_t num)
 {
-    return (num << 8) | (num >> 8);
+    return ((num & 0xff ) << 8) | ((num >> 8) & 0xff);
 }
 
 static inline int16_t swap_i16(int16_t num)
 {
-    return (num << 8) | (num >> 8);
+    return ((num & 0xff ) << 8) | ((num >> 8) & 0xff);
 }
 
 
