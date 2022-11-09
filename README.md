@@ -4,4 +4,6 @@
 目前：
 
 1. 移植 UCOSIII 系统
-2. 增加 SD + MDMA + FATFS 功能（未完成）
+2. 增加 SD + MDMA + FATFS 功能
+3. 增加 SPI + DMA 读写 ADIS16470
+4. 增加 spi 读写 bus
