@@ -4,7 +4,7 @@
 // Created by 19114 on 2022/11/8.
 //
 
-#include "ioconfig.h"
+#include "io.h"
 
 io_state_e IO_Read(io_t io)
 {
@@ -59,4 +59,9 @@ int IO_Init(io_t io, uint32_t mode, uint32_t pull, uint32_t speed, uint32_t alte
     HAL_GPIO_Init(io.port, &GPIO_InitStruct);
 
     return 0;
+}
+
+void IO_DeInit(io_t io)
+{
+    HAL_GPIO_DeInit(io.port, io.pin);
 }

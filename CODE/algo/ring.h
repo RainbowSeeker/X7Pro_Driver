@@ -10,19 +10,13 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include "stdint.h"
+
 #define RING_MAX_LEN            64u
 
-typedef struct
-{
-    uint8_t *pTxData;
-    uint8_t *pRxData;
-    uint16_t len;
-    void (* callback)(uint8_t *ptr);
-}segment_t;
 
 typedef struct
 {
-    segment_t   *segment[RING_MAX_LEN];
+    void        *element[RING_MAX_LEN];
     uint16_t    pHead;
     uint16_t    pTail;
 }ring_t;
@@ -31,8 +25,8 @@ typedef struct
 void Ring_Init(ring_t *ring);
 uint16_t Ring_GetSize(ring_t *ring);
 uint16_t Ring_GetCapcity(ring_t *ring);
-int Ring_PushBack(ring_t *ring, segment_t *segment);
-int Ring_PopBack(ring_t *ring, segment_t **segment);
-int Ring_PushFront(ring_t *ring, segment_t *segment);
-int Ring_PopFront(ring_t *ring, segment_t **segment);
+int Ring_PushBack(ring_t *ring, void *segment);
+int Ring_PopBack(ring_t *ring, void **segment);
+int Ring_PushFront(ring_t *ring, void *segment);
+int Ring_PopFront(ring_t *ring, void **segment);
 #endif //_RING_H

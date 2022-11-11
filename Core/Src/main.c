@@ -26,6 +26,7 @@
 /* USER CODE BEGIN Includes */
 #include "dma.h"
 #include "mdma.h"
+#include "init.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -97,12 +98,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   /* USER CODE BEGIN 2 */
-    MX_GPIO_Init();
-    LED_BEEP_Init();
-    MX_DMA_Init();
-    MX_MDMA_Init();
-    Print_Init();
-//    COM_Init();
+    Initialize();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
