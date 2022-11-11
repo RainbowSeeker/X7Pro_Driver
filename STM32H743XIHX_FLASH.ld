@@ -68,8 +68,8 @@ __config_start = ORIGIN(FLASH_CONFIG);
 __config_end = ORIGIN(FLASH_CONFIG) + LENGTH(FLASH_CONFIG);
 
 /* Generate a link error if heap and stack don't fit into RAM */
-_Min_Heap_Size = 0;      /* required amount of heap  */
-_Min_Stack_Size = 0x800; /* required amount of stack */
+_Min_Heap_Size = 0x1000 ;      /* required amount of heap  */
+_Min_Stack_Size = 0x1000 ; /* required amount of stack */
 
 /* Define output sections */
 SECTIONS

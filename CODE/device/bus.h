@@ -11,8 +11,11 @@
 #include <stdio.h>
 #include "stm32h7xx_ll_dma.h"
 #include "board_config.h"
-#include "ioconfig.h"
+#include "io.h"
 #include "algo/ring.h"
+#include "common.h"
+#include "device/dma.h"
+#include "board_config.h"
 
 typedef enum
 {
@@ -30,55 +33,111 @@ typedef enum
 
 typedef enum
 {
-    DEV_SPI1 = (int)SPI1,
-    DEV_SPI2 = (int)SPI2,
-    DEV_SPI3 = (int)SPI3,
-    DEV_SPI4 = (int)SPI4,
+    DEV_NULL = 0,
+#ifdef USE_SPI1
+    DEV_SPI1,
+#endif
+#ifdef USE_SPI2
+    DEV_SPI2,
+#endif
+#ifdef USE_SPI3
+    DEV_SPI3,
+#endif
+#ifdef USE_SPI4
+    DEV_SPI4,
+#endif
+#ifdef USE_SPI5
+    DEV_SPI5,
+#endif
+#ifdef USE_SPI6
+    DEV_SPI6,
+#endif
+    DEV_SPICOUNT,
+    DEV_I2C1,
+    DEV_ALLCOUNT,
 }device_e;
 
+
+typedef struct segment_s
+{
+    union {
+        struct {
+            // Transmit buffer
+            uint8_t *pTxData;
+            // Receive buffer, or in the case of the final segment to
+            uint8_t *pRxData;
+        } buffers;
+        struct {
+            // Link to the device associated with the next transfer
+            const struct device_s *dev;
+            // Segments to process in the next transfer.
+            volatile struct segment_s *segment;
+        } link;
+    } u;
+    int len;
+    bool negateCS; // Should CS be negated at the end of this segment
+    bus_status_e (* callback)(uint32_t arg);
+}segment_t;
 
 typedef struct bus_s
 {   // bus base info
     bus_type_e busType;
-    volatile bus_status_e busStatus;
-    uint8_t deviceCount;
-    bool isInit;
-
-    osMutexId lock;
     union
     {
         // For those devices that need spi
-        struct
+        struct  spiBus_s
         {
             SPI_TypeDef *instance;
             uint16_t speed;
+            bool leadingEdge;
         } spi;
         // For those devices that need i2c
     }busType_u;
     // for DMA initialization
 
     bool enDMA;
-    DMA_TypeDef *dmaTx;
-    DMA_TypeDef *dmaRx;
-    uint32_t streamTx;
-    uint32_t streamRx;
-    LL_DMA_InitTypeDef initTxDMA;
-    LL_DMA_InitTypeDef initRxDMA;
+    uint8_t deviceCount;
+    dma_t *dmaTx;
+    dma_t *dmaRx;
 
-    ring_t ring;
-    segment_t *curSegment;
+    LL_DMA_InitTypeDef *initTx;
+    LL_DMA_InitTypeDef *initRx;
+
+    volatile struct segment_s *volatile curSegment;
+    bool initSegment;
 }bus_t;
 
-#define IS_DTCM(p) (((uint32_t)p & 0xfffe0000) == 0x20000000)
-#define DMA_DATA_ZERO_INIT          __attribute__ ((section(".dmaram_bss"), aligned(32)))
-#define DMA_DATA                    __attribute__ ((section(".dmaram_data"), aligned(32)))
-#define STATIC_DMA_DATA_AUTO        static DMA_DATA
+// External device has an associated bus and bus dependent address
+typedef struct device_s {
+    char name[20];
+    bus_t *bus;
+    union {
+        struct spiDev_s {
+            uint16_t speed;
+            io_t csPin;
+            bool leadingEdge;
+        } spi;
+        struct i2cDev_s {
+            uint8_t address;
+        } i2c;
+    } busType_u;
 
-extern uint8_t _dmaram_start__;
-extern uint8_t _dmaram_end__;
+    LL_DMA_InitTypeDef  initTx;
+    LL_DMA_InitTypeDef  initRx;
 
-// interface func
-bus_t * Register_Bus(device_e device);
-bool IsBusBusy(bus_t *bus);
-void waitBus(bus_t *bus);
+    // Support disabling DMA on a per device basis
+    bool useDMA;
+    // Per device buffer reference if needed
+    uint8_t *txBuf, *rxBuf;
+    // Connected devices on the same bus may support different speeds
+    uint32_t callbackArg;
+}device_t;
+
+
+#define CACHE_LINE_SIZE 32
+#define CACHE_LINE_MASK (CACHE_LINE_SIZE - 1)
+
+#define IDX_BY_DEVICE(__X__)        ((__X__) - 1)
+
+void Bus_DeviceRegister(const device_t *dev);
 #endif //BUS_H

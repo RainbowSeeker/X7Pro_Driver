@@ -20,7 +20,6 @@ typedef struct
     uint16_t pin;
 }io_t;
 
-
 #define CS_CONFIG       GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_MEDIUM, 0
 
 
@@ -28,4 +27,5 @@ typedef struct
 io_state_e IO_Read(io_t io);
 void IO_Set(io_t gpio, io_state_e ioState);
 int IO_Init(io_t gpio, uint32_t mode, uint32_t pull, uint32_t speed, uint32_t alternate);
+void IO_DeInit(io_t io);
 #endif //IOCONFIG_H

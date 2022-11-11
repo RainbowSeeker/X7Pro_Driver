@@ -8,30 +8,36 @@
 #define _BUS_SPI_H
 #include "bus.h"
 
-typedef struct spi_device_s
+typedef struct spi_hw_s
 {
-    //don't change those
-    bus_t *bus;
-    uint8_t id;
+    SPI_TypeDef *instance;
+    io_t sck;
+    io_t miso;
+    io_t mosi;
 
-    //configure those following lines
-    char name[20];
+    uint8_t sckAF;
+    uint8_t misoAF;
+    uint8_t mosiAF;
 
-    // configure your gpio pin
-    io_t pwrPin;
-    io_t csPin;
+    volatile uint16_t errorCount;
+    bool leadingEdge;
 
-    // configure dma
-    bool useDMA;
+    uint8_t dmaIrqHandler;
+} spi_hw_t;
 
-    // operate function
-    int (* initialize)(struct spi_device_s *, device_e);
-    int (* read)(struct spi_device_s *, segment_t *segment);
-    int (* write)(struct spi_device_s *, segment_t *segment);
-}spi_device_t;
+void SPI_SetClkDivisor(device_t *dev, uint16_t divisor);
+void SPI_SetClkPhasePolarity(device_t *dev, bool leadingEdge);
+uint16_t SPI_CalDivider(uint32_t freq);
+bool SPI_SetBusInstance(device_t *dev, int device);
+void SPI_BusDeviceRegister(const device_t *dev);
+void SPI_InternalStopDMA(const device_t *dev);
+void SPI_SequenceStart(const device_t *dev);
 
-void waitSpiDevice(spi_device_t *spiDevice);
-Status_t SPI_Register_Bus(spi_device_t *spiDevice, device_e device);
-Status_t SPI_Transfer(spi_device_t *spiDevice, segment_t *segment);
-void SPI_RxIrqHandler(spi_device_t *spiDevice);
+void SPI_WriteReg(const device_t *dev, uint8_t reg, uint8_t data);
+uint8_t SPI_ReadReg(const device_t *dev, uint8_t reg);
+uint8_t SPI_ReadRegMsk(const device_t *dev, uint8_t reg);
+void SPI_ReadWriteBuf(const device_t *dev, uint8_t *txData, uint8_t *rxData, int len);
+
+void SPI_Init(void);
+void SPI_InitBusDMA(void);
 #endif //_BUS_SPI_H

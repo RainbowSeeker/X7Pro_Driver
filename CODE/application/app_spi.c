@@ -6,27 +6,23 @@
 
 #include "app_spi.h"
 #include "device/bus.h"
-#include "adis16470.h"
-#include "icm42688p.h"
+#include "accgyro_adis16470.h"
+#include "accgyro_icm42688p.h"
 
 
 
 void App_SPI_Main(void const * argument)
 {
-    ADIS_Init();
-//    ICM42688_Init();
+
     while (1)
     {
-//        println("ok");
-//        osDelay(100);
-        ADIS_Brust_Read();
-//        ADIS_Read_ID();
-        waitSpiDevice(&adis16470);
-        for (int t = 0; t < 3; ++t)
-        {
-            println("gyro[%d]=%5.3f, accl[%d]=%5.3f, ", t, (float )accValue.gyro[t] * 1e-1, t, (float )accValue.accl[t] * 1.25e-3);
-        }
-        println("temp=%5.3f", (float )accValue.temp*1e-1);
+        STATIC_DMA_DATA_AUTO uint8_t txBuf[24] = {0};
+        STATIC_DMA_DATA_AUTO uint8_t rxBuf[24] = {0};
+        txBuf[0] = BURST_READ >> 8;
+        txBuf[1] = BURST_READ & 0xff;
+
+        println("App_SPI_Main Running...");
+        osDelay(100);
     }
 
 }

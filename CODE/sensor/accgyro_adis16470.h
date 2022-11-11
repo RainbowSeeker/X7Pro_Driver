@@ -8,10 +8,6 @@
 #define ADIS16470_H
 #include "bus_spi.h"
 
-#define ADI_CS_Port             GPIOF
-#define ADI_CS_Pin              GPIO_PIN_10
-
-
 typedef struct
 {
     int16_t noUse1;             //just for occupy postion
@@ -87,8 +83,7 @@ typedef struct
 #define BURST_READ        			0x6800
 #define Dummy_Byte                  0x0FFF
 
-
-//      Global Commands (GLOB_CMD)命令
+//    Global Commands (GLOB_CMD)命令
 #define SOFTWARE_RESET            	 0x0080
 #define FLASH_MEMORY_TEST            0x0010
 #define FLASH_MEMORY_UPDATE          0x0008
@@ -96,9 +91,7 @@ typedef struct
 #define FACTORY_CALIBRATION_RESTORE  0x0002       //工厂校准恢复
 #define BIAS_CORRECTION_UPDATE       0x0001       //偏差纠正更新
 
-extern spi_device_t adis16470;
 extern acc_value_t accValue;
 
-void ADIS_Init(void);
-void ADIS_Brust_Read(void);
+uint8_t ADIS16470_Detect(const device_t *dev);
 #endif //ADIS16470_H

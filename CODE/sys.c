@@ -49,7 +49,7 @@ void Print_Init(void)
  * @param huart
  * @param buf
  */
-static void uart_putstr(UART_HandleTypeDef *huart, const void *buf)
+void uart_putstr(UART_HandleTypeDef *huart, const void *buf)
 {
 #if DEBUG_CONFIG
     uint16_t len = strlen(buf);
