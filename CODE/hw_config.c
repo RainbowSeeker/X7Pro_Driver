@@ -8,16 +8,18 @@
 #include "stm32h7xx_hal.h"
 
 
-const gyro_config_t gyroConfig[GYRO_NUM] = {
-#ifdef USE_GYRO_SPI_ADIS16470
+const mpu_hwconfig_t mpuConfig[MPU_NUM] = {
+#ifdef USE_MPU_SPI_ADIS16470
         {.name = "ADIS16470", .device = DEV_SPI1,
             .csPin = {.port = GPIOF, .pin = GPIO_PIN_10},
-            .extiPin = {.port = GPIOE, .pin = GPIO_PIN_7}},
+            .extiPin = {.port = GPIOE, .pin = GPIO_PIN_7}
+            },
 #endif
-#ifdef USE_GYRO_SPI_ICM42688P
+#ifdef USE_MPU_SPI_ICM42688P
         {.name = "ICM42688P", .device = DEV_SPI4,
             .csPin = {.port = GPIOA, .pin = GPIO_PIN_15},
-            .extiPin = {.port = GPIOB, .pin = GPIO_PIN_15}},
+            .extiPin = {.port = GPIOB, .pin = GPIO_PIN_15}
+            },
 #endif
 };
 

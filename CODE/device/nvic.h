@@ -9,4 +9,5 @@
 
 //prio must be > 5 due to rtos
 #define NVIC_PRIO_SPI_DMA       5
+#define NVIC_PRIO_EXTI          15
 #endif //X7PRO_DRIVER_NVIC_H

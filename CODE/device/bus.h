@@ -57,7 +57,9 @@ typedef enum
     DEV_ALLCOUNT,
 }device_e;
 
+#define SPI_NUM         (DEV_SPICOUNT - 1)
 
+typedef bus_status_e (* segment_callback)(uint32_t arg);
 typedef struct segment_s
 {
     union {
@@ -76,7 +78,7 @@ typedef struct segment_s
     } u;
     int len;
     bool negateCS; // Should CS be negated at the end of this segment
-    bus_status_e (* callback)(uint32_t arg);
+    segment_callback callback;
 }segment_t;
 
 typedef struct bus_s
@@ -109,7 +111,7 @@ typedef struct bus_s
 
 // External device has an associated bus and bus dependent address
 typedef struct device_s {
-    char name[20];
+    char  *name;
     bus_t *bus;
     union {
         struct spiDev_s {
@@ -127,8 +129,6 @@ typedef struct device_s {
 
     // Support disabling DMA on a per device basis
     bool useDMA;
-    // Per device buffer reference if needed
-    uint8_t *txBuf, *rxBuf;
     // Connected devices on the same bus may support different speeds
     uint32_t callbackArg;
 }device_t;

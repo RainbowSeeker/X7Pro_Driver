@@ -9,20 +9,17 @@
 #include "dma.h"
 #include "mdma.h"
 #include "bus_spi.h"
-#include "gyro.h"
+#include "mpu.h"
 
 void Initialize(void)
 {
     MX_GPIO_Init();
+    EXTI_Init();
     LED_BEEP_Init();
-    MX_DMA_Init();
-    MX_MDMA_Init();
+//    MX_DMA_Init();
+//    MX_MDMA_Init();
     Print_Init();
 //    COM_Init();
 
     SPI_Init();
-
-    Gyro_Init();
-
-    SPI_InitBusDMA();
 }
