@@ -4,22 +4,12 @@
 // Created by 19114 on 2022/11/10.
 //
 
-#ifndef X7PRO_DRIVER_SENSOR_H
-#define X7PRO_DRIVER_SENSOR_H
-
-#include "board_config.h"
-typedef enum
-{
-    MPU_NONE = 0,
-#ifdef USE_GYRO_SPI_ADIS16470
-    ADIS16470_SPI,
-#endif
-#ifdef USE_GYRO_SPI_ICM42688P
-    ICM42688P_SPI,
-#endif
-    MPU_COUNT,
-}sensor_e;
-
+#ifndef X7PRO_DRIVER_MPU_H
+#define X7PRO_DRIVER_MPU_H
+#include "bus.h"
+#include "bus_spi.h"
+#include "exti.h"
+#include "accgyro.h"
 
 // MPU6050
 #define MPU_RA_WHO_AM_I         0x75
@@ -128,4 +118,52 @@ typedef enum
 #define MPU_RA_FIFO_COUNTL      0x73
 #define MPU_RA_FIFO_R_W         0x74
 #define MPU_RA_WHO_AM_I         0x75
-#endif //X7PRO_DRIVER_SENSOR_H
+
+
+#define MPU_NUM                 (MPU_ALLCOUNT - 2)
+
+typedef enum
+{
+    MPU_NONE = 0,
+#ifdef USE_MPU_SPI_ADIS16470
+    ADIS16470_SPI,
+#endif
+#ifdef USE_MPU_SPI_ICM42688P
+    ICM42688P_SPI,
+#endif
+    MPU_GYROCOUNT,
+    MPU_ALLCOUNT,
+}mpu_e;
+
+
+typedef struct mpu_config_s {
+    char *name;
+    device_e device;
+    io_t csPin;
+    bool leadingEdge;
+    uint8_t i2cBus;
+    uint8_t i2cAddress;
+    io_t extiPin;
+} mpu_hwconfig_t;
+
+typedef struct mpu_s
+{
+    mpu_e       detectedMPU;
+    device_t    dev;
+
+    union
+    {
+        gyro_t gyro;
+        float nouse[6];
+    }u;
+
+}mpu_t;
+
+//typedef void *
+
+extern mpu_t mpuDevice[MPU_NUM];
+
+void MPU_Init(void);
+bool MPU_Update(mpu_e mpuID);
+void MPU_Wait(mpu_e mpuID);
+#endif //X7PRO_DRIVER_MPU_H

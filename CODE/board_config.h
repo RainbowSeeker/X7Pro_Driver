@@ -14,7 +14,7 @@
 #define EN_UART         1
 
 // Use DMA if possible if this many bytes are to be transferred
-#define BUS_DMA_THRESHOLD 8
+#define BUS_DMA_THRESHOLD   8
 
 
 //---------spi----------
@@ -45,7 +45,7 @@
 
 
 
-#define USE_GYRO_SPI_ICM42688P
-#define USE_GYRO_SPI_ADIS16470
+#define USE_MPU_SPI_ICM42688P
+#define USE_MPU_SPI_ADIS16470
 
 

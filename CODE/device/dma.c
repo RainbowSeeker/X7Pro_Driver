@@ -120,8 +120,8 @@ static const dma_peripheral_mapping_t dmaPeripheralMapping[] = {
         REQMAP_DIR(SPI, 5, MISO), // ditto
 #endif
 #ifdef USE_SPI6
-        // REQMAP_DIR(SPI, 6, MOSI), // SPI6 is on BDMA
-        // REQMAP_DIR(SPI, 6, MOSI), // ditto
+         REQMAP_DIR(SPI, 6, MOSI), // SPI6 is on BDMA
+         REQMAP_DIR(SPI, 6, MOSI), // ditto
 #endif // USE_SPI
 
 #ifdef USE_ADC

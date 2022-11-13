@@ -15,15 +15,15 @@ static uint8_t spiRegisteredDeviceCount = 0;
 static bus_t spiBus[SPI_NUM];
 
 
-void SPI_SetClkDivisor(device_t *dev, uint16_t divisor)
+void SPI_SetClkDivisor(const device_t *dev, uint16_t divisor)
 {
-    dev->busType_u.spi.speed = divisor;
+    ((device_t *)dev)->busType_u.spi.speed = divisor;
 }
 
 // Set the clock phase/polarity to be used for accesses by the given device
-void SPI_SetClkPhasePolarity(device_t *dev, bool leadingEdge)
+void SPI_SetClkPhasePolarity(const device_t *dev, bool leadingEdge)
 {
-    dev->busType_u.spi.leadingEdge = leadingEdge;
+    ((device_t *)dev)->busType_u.spi.leadingEdge = leadingEdge;
 }
 
 uint16_t SPI_CalDivider(uint32_t freq)
@@ -280,7 +280,7 @@ static void SPI_IrqHandler(const device_t *dev)
                 break;
 
             case BUS_ABORT:
-                bus->curSegment = (segment_t *) 0;
+                bus->curSegment = (segment_t *) BUS_SPI_FREE;
                 return;
 
             case BUS_READY:
@@ -310,7 +310,7 @@ static void SPI_IrqHandler(const device_t *dev)
         else
         {
             // The end of the segment list has been reached, so mark transactions as complete
-            bus->curSegment = (segment_t *) 0;
+            bus->curSegment = (segment_t *) BUS_SPI_FREE;
         }
     }
     else
@@ -411,10 +411,10 @@ bool SPI_SetBusInstance(device_t *dev, int device)
     bus->busType_u.spi.leadingEdge = false;
 
     bus->busType = BUS_TYPE_SPI;
-    bus->enDMA = false;
     bus->deviceCount = 1;
     bus->initTx = &dev->initTx;
     bus->initRx = &dev->initRx;
+    bus->enDMA = SPI_InitBusDMA(device);
 
     return true;
 }
@@ -423,13 +423,13 @@ bool SPI_SetBusInstance(device_t *dev, int device)
 void SPI_Wait(const device_t *dev)
 {
     // Wait for completion
-    while (dev->bus->curSegment != (segment_t *) 0);
+    while (dev->bus->curSegment != (segment_t *) BUS_SPI_FREE);
 }
 
 // Return true if DMA engine is busy
 bool SPI_IsBusy(const device_t *dev)
 {
-    return (dev->bus->curSegment != (segment_t *) 0);
+    return (dev->bus->curSegment != (segment_t *) BUS_SPI_FREE);
 }
 
 static bool SPI_InternalReadWriteBufPolled(SPI_TypeDef *instance, const uint8_t *txData, uint8_t *rxData, int len)
@@ -601,7 +601,7 @@ void SPI_SequenceStart(const device_t *dev)
                         break;
 
                     case BUS_ABORT:
-                        bus->curSegment = (segment_t *) 0;
+                        bus->curSegment = (segment_t *) BUS_SPI_FREE;
                         segmentComplete = false;
                         return;
 
@@ -632,7 +632,7 @@ void SPI_SequenceStart(const device_t *dev)
         else
         {
             // The end of the segment list has been reached, so mark transactions as complete
-            bus->curSegment = (segment_t *) 0;
+            bus->curSegment = (segment_t *) BUS_SPI_FREE;
         }
     }
 }
@@ -644,57 +644,66 @@ void SPI_Sequence(const device_t *dev, segment_t *segment)
     bool start = false;
 
     ATOMIC_ENTER_CRITICAL();
-    if (SPI_IsBusy(dev))     // if bus is busy, put data into next segmnet
     {
-        segment_t *endSegment;
-        // Defer this transfer to be triggered upon completion of the current transfer
-
-        // Find the last segment of the new transfer
-        for (endSegment = segment; endSegment->len; endSegment++);
-
-        segment_t *endCmpSegment = (segment_t *) bus->curSegment;
-
-        if (endCmpSegment)
+        if (SPI_IsBusy(dev))     // if bus is busy, put data into next segmnet
         {
-            while (true)
+            segment_t *endSegment;
+            // Defer this transfer to be triggered upon completion of the current transfer
+
+            // Find the last segment of the new transfer
+            for (endSegment = segment; endSegment->len; endSegment++);
+
+            segment_t *endCmpSegment = (segment_t *) bus->curSegment;
+
+            if (endCmpSegment)
             {
-                // Find the last segment of the current transfer
-                for (; endCmpSegment->len; endCmpSegment++);
+                while (true)
+                {
+                    // Find the last segment of the current transfer
+                    for (; endCmpSegment->len; endCmpSegment++);
 
-                if (endCmpSegment == endSegment)
-                {
-                    /* Attempt to use the new segment list twice in the same queue. Abort.
-                     * Note that this can only happen with non-blocking transfers so drivers must take
-                     * care to avoid this.
-                     * */
-                    break;
-                }
+                    if (endCmpSegment == endSegment)
+                    {
+                        /* Attempt to use the new segment list twice in the same queue. Abort.
+                         * Note that this can only happen with non-blocking transfers so drivers must take
+                         * care to avoid this.
+                         * */
+                        break;
+                    }
 
-                if (endCmpSegment->u.link.dev == NULL)  // End of the segment list queue reached
-                {
-                    // Record the dev and segments parameters in the terminating segment entry
-                    endCmpSegment->u.link.dev = dev;
-                    endCmpSegment->u.link.segment = segment;
-                    break;
-                }
-                else
-                {
-                    // Follow the link to the next queued segment list
-                    endCmpSegment = (segment_t *) endCmpSegment->u.link.segment;
+                    if (endCmpSegment->u.link.dev == NULL)  // End of the segment list queue reached
+                    {
+                        // Record the dev and segments parameters in the terminating segment entry
+                        endCmpSegment->u.link.dev = dev;
+                        endCmpSegment->u.link.segment = segment;
+                        break;
+                    }
+                    else
+                    {
+                        // Follow the link to the next queued segment list
+                        endCmpSegment = (segment_t *) endCmpSegment->u.link.segment;
+                    }
                 }
             }
         }
-    }
-    else
-    {
-        // Claim the bus with this list of segments
-        bus->curSegment = segment;
-        start = true;
+        else
+        {
+            // Claim the bus with this list of segments
+            bus->curSegment = segment;
+            start = true;
+        }
     }
     ATOMIC_EXIT_CRITICAL();
 
     if (start) SPI_SequenceStart(dev);
 }
+
+bool SPI_UseDMA(const device_t *dev)
+{
+    // Full DMA only requires both transmit and receive
+    return dev->bus->enDMA && dev->bus->dmaRx && dev->useDMA;
+}
+
 
 // Write data to a register
 void SPI_WriteReg(const device_t *dev, uint8_t reg, uint8_t data)
@@ -917,87 +926,86 @@ void SPI_Init(void)
 #endif
 }
 
-void SPI_InitBusDMA(void)
+bool SPI_InitBusDMA(device_e device)
 {
-    for (uint16_t device = DEV_NULL + 1; device < DEV_SPICOUNT; device++)
+    if (device <= DEV_NULL || device >= DEV_SPICOUNT)
+        return false;
+
+    bus_t *bus = &spiBus[IDX_BY_DEVICE(device)];
+
+    if (bus->busType != BUS_TYPE_SPI)
     {
-        bus_t *bus = &spiBus[IDX_BY_DEVICE(device)];
+        // This bus is not in use
+        return false;
+    }
 
-        if (bus->busType != BUS_TYPE_SPI)
+    dma_stream_e dmaTxStream = DMA_NONE;
+    dma_stream_e dmaRxStream = DMA_NONE;
+
+    int8_t dmaOpt = -1;
+    uint8_t dmaOptMin = 0;
+    uint8_t dmaOptMax = MAX_PERIPHERAL_DMA_OPTIONS - 1;
+
+    if (dmaOpt != -1)
+    {
+        dmaOptMin = dmaOpt;
+        dmaOptMax = dmaOpt;
+    }
+
+    for (uint8_t opt = dmaOptMin; opt <= dmaOptMax; opt++)
+    {
+        if (dmaTxStream == DMA_NONE)
         {
-            // This bus is not in use
-            continue;
-        }
+            const dma_channel_t *dmaTxChannelSpec = DMA_GetChannelSpecByPeripheral(DMA_PERIPH_SPI_MOSI, device, opt);
 
-        dma_stream_e dmaTxStream = DMA_NONE;
-        dma_stream_e dmaRxStream = DMA_NONE;
-
-        int8_t dmaOpt = -1;
-        uint8_t dmaOptMin = 0;
-        uint8_t dmaOptMax = MAX_PERIPHERAL_DMA_OPTIONS - 1;
-
-        if (dmaOpt != -1)
-        {
-            dmaOptMin = dmaOpt;
-            dmaOptMax = dmaOpt;
-        }
-
-        for (uint8_t opt = dmaOptMin; opt <= dmaOptMax; opt++)
-        {
-            if (dmaTxStream == DMA_NONE)
+            if (dmaTxChannelSpec)
             {
-                const dma_channel_t *dmaTxChannelSpec = DMA_GetChannelSpecByPeripheral(DMA_PERIPH_SPI_MOSI, device, opt);
+                dmaTxStream = DMA_GetIdentifier(dmaTxChannelSpec->ref);
 
-                if (dmaTxChannelSpec)
-                {
-                    dmaTxStream = DMA_GetIdentifier(dmaTxChannelSpec->ref);
+                bus->dmaTx = DMA_GetDescriptorByIdentifier(dmaTxStream);
+                bus->dmaTx->stream = DMA_DEVICE_INDEX(dmaTxStream);
+                bus->dmaTx->channel = dmaTxChannelSpec->channel;
 
-                    bus->dmaTx = DMA_GetDescriptorByIdentifier(dmaTxStream);
-                    bus->dmaTx->stream = DMA_DEVICE_INDEX(dmaTxStream);
-                    bus->dmaTx->channel = dmaTxChannelSpec->channel;
-
-                    DMA_Enable(dmaTxStream);
-                }
-            }
-            else if (dmaRxStream == DMA_NONE)
-            {
-                const dma_channel_t *dmaRxChannelSpec = DMA_GetChannelSpecByPeripheral(DMA_PERIPH_SPI_MISO, device, opt);
-
-                if (dmaRxChannelSpec)
-                {
-                    dmaRxStream = DMA_GetIdentifier(dmaRxChannelSpec->ref);
-
-                    bus->dmaRx = DMA_GetDescriptorByIdentifier(dmaRxStream);
-                    bus->dmaRx->stream = DMA_DEVICE_INDEX(dmaRxStream);
-                    bus->dmaRx->channel = dmaRxChannelSpec->channel;
-
-                    DMA_Enable(dmaRxStream);
-                    break;
-                }
+                DMA_Enable(dmaTxStream);
             }
         }
-
-        if (dmaTxStream && dmaRxStream)
+        else if (dmaRxStream == DMA_NONE)
         {
-            // Ensure streams are disabled
-            SPI_InternalResetStream(bus->dmaRx);
-            SPI_InternalResetStream(bus->dmaTx);
+            const dma_channel_t *dmaRxChannelSpec = DMA_GetChannelSpecByPeripheral(DMA_PERIPH_SPI_MISO, device, opt);
 
-            SPI_InternalResetDescriptors(bus);
+            if (dmaRxChannelSpec)
+            {
+                dmaRxStream = DMA_GetIdentifier(dmaRxChannelSpec->ref);
 
-            /* Note that this driver may be called both from the normal thread of execution, or from USB interrupt
-             * handlers, so the DMA completion interrupt must be at a higher priority
-             */
-            DMA_SetHandler(dmaRxStream, SPI_RxIrqHandler, NVIC_PRIO_SPI_DMA, 0);
+                bus->dmaRx = DMA_GetDescriptorByIdentifier(dmaRxStream);
+                bus->dmaRx->stream = DMA_DEVICE_INDEX(dmaRxStream);
+                bus->dmaRx->channel = dmaRxChannelSpec->channel;
 
-            bus->enDMA = true;
-        }
-        else
-        {
-            // Disassociate channels from bus
-            bus->dmaRx = (dma_t *) NULL;
-            bus->dmaTx = (dma_t *) NULL;
+                DMA_Enable(dmaRxStream);
+                break;
+            }
         }
     }
 
+    if (dmaTxStream && dmaRxStream)
+    {
+        // Ensure streams are disabled
+        SPI_InternalResetStream(bus->dmaRx);
+        SPI_InternalResetStream(bus->dmaTx);
+
+        SPI_InternalResetDescriptors(bus);
+
+        /* Note that this driver may be called both from the normal thread of execution, or from USB interrupt
+         * handlers, so the DMA completion interrupt must be at a higher priority
+         */
+        DMA_SetHandler(dmaRxStream, SPI_RxIrqHandler, NVIC_PRIO_SPI_DMA, 0);
+        return true;
+    }
+    else
+    {
+        // Disassociate channels from bus
+        bus->dmaRx = (dma_t *) NULL;
+        bus->dmaTx = (dma_t *) NULL;
+    }
+    return false;
 }

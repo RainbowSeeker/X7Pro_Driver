@@ -28,4 +28,6 @@ io_state_e IO_Read(io_t io);
 void IO_Set(io_t gpio, io_state_e ioState);
 int IO_Init(io_t gpio, uint32_t mode, uint32_t pull, uint32_t speed, uint32_t alternate);
 void IO_DeInit(io_t io);
+int IO_GPIOPinIdx(io_t io);
+uint32_t IO_EXTI_Line(io_t io);
 #endif //IOCONFIG_H

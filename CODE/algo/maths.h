@@ -42,4 +42,15 @@ static inline float constrainf(float amt, float low, float high)
         return amt;
 }
 
+// non ISO variant from linux kernel; checks ptr type, but triggers 'ISO C forbids braced-groups within expressions [-Wpedantic]'
+//  __extension__ is here to disable this warning
+#define container_of(ptr, type, member)  ( __extension__ ({     \
+        const typeof( ((type *)0)->member ) *__mptr = (ptr);    \
+        (type *)( (char *)__mptr - offsetof(type,member) );}))
+
+static inline int16_t cmp16(uint16_t a, uint16_t b) { return (int16_t)(a-b); }
+static inline int32_t cmp32(uint32_t a, uint32_t b) { return (int32_t)(a-b); }
+
+static inline uint32_t llog2(uint32_t n) { return 31 - __builtin_clz(n | 1); }
+
 #endif //_SWAP_H

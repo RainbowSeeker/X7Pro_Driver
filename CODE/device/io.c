@@ -65,3 +65,21 @@ void IO_DeInit(io_t io)
 {
     HAL_GPIO_DeInit(io.port, io.pin);
 }
+
+// zero based pin index
+int IO_GPIOPinIdx(io_t io)
+{
+    if (!io.port) {
+        return -1;
+    }
+    return 31 - __builtin_clz(io.pin);  // CLZ is a bit faster than FFS
+}
+
+// mask on stm32f103, bit index on stm32f303
+uint32_t IO_EXTI_Line(io_t io)
+{
+    if (!io.port) {
+        return 0;
+    }
+    return 1 << IO_GPIOPinIdx(io);
+}

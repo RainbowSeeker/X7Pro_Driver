@@ -31,6 +31,7 @@
 #define USE_DSHOT_CACHE_MGMT
 #define USE_LATE_TASK_STATISTICS
 // Move ISRs to fast ram to avoid flash latency.
+//#define FAST_IRQ_HANDLER
 #define FAST_IRQ_HANDLER FAST_CODE
 
 // DMA to/from any memory
@@ -56,8 +57,8 @@ extern uint8_t _dmaram_end__;
 
 
 #define FAST_CODE                   __attribute__((section(".tcm_code")))
-// Handle case where we'd prefer code to be in ITCM, but it won't fit on the F745
-#define FAST_CODE_PREF                  __attribute__((section(".tcm_code")))
+// Handle case where we'd prefer code to be in ITCM
+#define FAST_CODE_PREF              __attribute__((section(".tcm_code")))
 #define FAST_CODE_NOINLINE          NOINLINE
 
 
