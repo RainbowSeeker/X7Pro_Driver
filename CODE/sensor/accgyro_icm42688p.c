@@ -3,33 +3,34 @@
 //
 // Created by 19114 on 2022/11/9.
 //
-
+#include "board_config.h"
+#ifdef USE_SENSOR_SPI_ICM42688P
 #include "accgyro_icm42688p.h"
 #include "maths.h"
 
-icm_value_t icmValue = {0};
-
+icm426xx_value_t icm426xxValue = {0};
+static icm426xx_value_t stageValue = {0};
 STATIC_DMA_DATA_AUTO uint8_t icm426xxBuf[GYRO_BUF_SIZE];
 
 bool ICM426xx_Init(gyro_t *gyro);
+static void ICM426xx_Callback(uint8_t *pRxData);
 
 const gyro_config_t icm426xx_config = {
         .gyroExtiMode   = GYRO_EXTI_INT_DMA,
         .maxClk         = ICM426XX_MAX_SPI_CLK_HZ,
         .gyroDataReg    = ICM426XX_RA_ACCEL_DATA_X1 | 0x80,
         .pTxData        = icm426xxBuf,
-        .pRxData        = &icm426xxBuf[GYRO_BUF_SIZE/2],
-        .transferDst    = (uint8_t *)&icmValue,
+        .pRxData        = &icm426xxBuf[GYRO_BUF_SIZE / 2],
+        .transferDst    = (uint8_t *)&stageValue,
         .len            = 13,
-        .scale          = GYRO_SCALE_2000DPS,
-        .gyroDmaMaxDuration = 5,
         .initFunc       = ICM426xx_Init,
-        .callback       = NULL,
+        .callback       = ICM426xx_Callback,
         .aligenment     = 1,
 };
 
 
-typedef enum {
+typedef enum
+{
     ODR_CONFIG_8K = 0,
     ODR_CONFIG_4K,
     ODR_CONFIG_2K,
@@ -37,7 +38,8 @@ typedef enum {
     ODR_CONFIG_COUNT
 } odr_config_e;
 
-typedef enum {
+typedef enum
+{
     AAF_CONFIG_258HZ = 0,
     AAF_CONFIG_536HZ,
     AAF_CONFIG_997HZ,
@@ -45,7 +47,8 @@ typedef enum {
     AAF_CONFIG_COUNT
 } aaf_config_e;
 
-typedef struct aaf_config_s {
+typedef struct aaf_config_s
+{
     uint8_t delt;
     uint16_t deltSqr;
     uint8_t bitshift;
@@ -61,17 +64,17 @@ static uint8_t odrLUT[ODR_CONFIG_COUNT] = {  // see GYRO_ODR in section 5.6
 
 // Possible gyro Anti-Alias Filter (AAF) cutoffs
 static aaf_config_t aafLUT[AAF_CONFIG_COUNT] = {  // see table in section 5.3
-        [AAF_CONFIG_258HZ]  = {  6,   36, 10 },
-        [AAF_CONFIG_536HZ]  = { 12,  144,  8 },
-        [AAF_CONFIG_997HZ]  = { 21,  440,  6 },
-        [AAF_CONFIG_1962HZ] = { 37, 1376,  4 },
+        [AAF_CONFIG_258HZ]  = {6, 36, 10},
+        [AAF_CONFIG_536HZ]  = {12, 144, 8},
+        [AAF_CONFIG_997HZ]  = {21, 440, 6},
+        [AAF_CONFIG_1962HZ] = {37, 1376, 4},
 };
 
 uint8_t ICM426xx_Detect(const device_t *dev)
 {
     SPI_WriteReg(dev, ICM426XX_RA_PWR_MGMT0, 0x00);
 
-    uint8_t detected = MPU_NONE;
+    uint8_t detected = SENSOR_NONE;
     uint8_t attemptsRemaining = 20;
     while (attemptsRemaining--)
     {
@@ -83,16 +86,16 @@ uint8_t ICM426xx_Detect(const device_t *dev)
                 detected = ICM42688P_SPI;
                 break;
             default:
-                detected = MPU_NONE;
+                detected = SENSOR_NONE;
                 break;
         }
-        if (detected != MPU_NONE)
+        if (detected != SENSOR_NONE)
         {
             break;
         }
         if (!attemptsRemaining)
         {
-            return MPU_NONE;
+            return SENSOR_NONE;
         }
     }
 
@@ -101,19 +104,12 @@ uint8_t ICM426xx_Detect(const device_t *dev)
 
 bool ICM426xx_Init(gyro_t *gyro)
 {
-    const device_t *dev = gyro->dev;
-    SPI_WriteReg(dev, ICM426XX_RA_PWR_MGMT0, ICM426XX_PWR_MGMT0_TEMP_DISABLE_OFF | ICM426XX_PWR_MGMT0_ACCEL_MODE_LN | ICM426XX_PWR_MGMT0_GYRO_MODE_LN);
+    const device_t *dev = &gyro->dev;
+    SPI_WriteReg(dev, ICM426XX_RA_PWR_MGMT0, ICM426XX_PWR_MGMT0_TEMP_DISABLE_OFF | ICM426XX_PWR_MGMT0_ACCEL_MODE_LN |ICM426XX_PWR_MGMT0_GYRO_MODE_LN);
     delay_ms(15);
 
     // Get desired output data rate
-    uint8_t odrConfig;
-    const unsigned decim = llog2(gyro->mpuDividerDrops + 1);
-    if (gyro->gyroRateKHz && decim < ODR_CONFIG_COUNT) {
-        odrConfig = odrLUT[decim];
-    } else {
-        odrConfig = odrLUT[ODR_CONFIG_1K];
-        gyro->gyroRateKHz = GYRO_RATE_1_kHz;
-    }
+    uint8_t odrConfig = odrLUT[ODR_CONFIG_2K];
 
     assert(INV_FSR_2000DPS == 3);
     SPI_WriteReg(dev, ICM426XX_RA_GYRO_CONFIG0, (3 - INV_FSR_2000DPS) << 5 | (odrConfig & 0x0F));
@@ -136,9 +132,11 @@ bool ICM426xx_Init(gyro_t *gyro)
     SPI_WriteReg(dev, ICM426XX_RA_ACCEL_CONFIG_STATIC4, (aafConfig.deltSqr >> 8) | (aafConfig.bitshift << 4));
 
     // Configure gyro and acc UI Filters
-    SPI_WriteReg(dev, ICM426XX_RA_GYRO_ACCEL_CONFIG0, ICM426XX_ACCEL_UI_FILT_BW_LOW_LATENCY | ICM426XX_GYRO_UI_FILT_BW_LOW_LATENCY);
+    SPI_WriteReg(dev, ICM426XX_RA_GYRO_ACCEL_CONFIG0,
+                 ICM426XX_ACCEL_UI_FILT_BW_LOW_LATENCY | ICM426XX_GYRO_UI_FILT_BW_LOW_LATENCY);
 
-    SPI_WriteReg(dev, ICM426XX_RA_INT_CONFIG, ICM426XX_INT1_MODE_PULSED | ICM426XX_INT1_DRIVE_CIRCUIT_PP | ICM426XX_INT1_POLARITY_ACTIVE_HIGH);
+    SPI_WriteReg(dev, ICM426XX_RA_INT_CONFIG,
+                 ICM426XX_INT1_MODE_PULSED | ICM426XX_INT1_DRIVE_CIRCUIT_PP | ICM426XX_INT1_POLARITY_ACTIVE_HIGH);
     SPI_WriteReg(dev, ICM426XX_RA_INT_CONFIG0, ICM426XX_UI_DRDY_INT_CLEAR_ON_SBR);
 
     SPI_WriteReg(dev, ICM426XX_RA_INT_SOURCE0, ICM426XX_UI_DRDY_INT1_EN_ENABLED);
@@ -151,3 +149,17 @@ bool ICM426xx_Init(gyro_t *gyro)
     SPI_WriteReg(dev, ICM426XX_RA_INT_CONFIG1, intConfig1Value);
     return true;
 }
+
+static void ICM426xx_Callback(uint8_t *pRxData)
+{
+    icm426xx_value_t *pValue = (icm426xx_value_t *)pRxData;
+    for (int i = 0; i < 3; ++i)
+    {
+        icm426xxValue.gyro[i] = __builtin_bswap16(pValue->gyro[i]);
+        icm426xxValue.acc[i] = __builtin_bswap16(pValue->acc[i]);
+    }
+}
+
+
+
+#endif

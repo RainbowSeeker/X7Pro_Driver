@@ -5,16 +5,17 @@
 //
 
 #include "board_config.h"
-#ifdef USE_MPU_SPI_ADIS16470
+#ifdef USE_SENSOR_SPI_ADIS16470
 #include <stdlib.h>
 #include "accgyro_adis16470.h"
 #include "maths.h"
 
 
 adi_value_t adiValue = {0};
+static adi_value_t stageValue = {0};
 STATIC_DMA_DATA_AUTO uint8_t adiBuf[ADI_BUF_SIZE];
 
-static bus_status_e ADI_IntCallback(uint32_t arg);
+static void ADI_Callback(uint8_t *pRxData);
 bool ADIS16470_Init(gyro_t *gyro);
 
 const gyro_config_t adi_config = {
@@ -23,13 +24,11 @@ const gyro_config_t adi_config = {
         .gyroDataReg    = BURST_READ,
         .pTxData        = adiBuf,
         .pRxData        = &adiBuf[ADI_BUF_SIZE/2],
-        .transferDst    = (uint8_t *)&adiValue,
+        .transferDst    = (uint8_t *)&stageValue,
         .len            = 24,
-        .scale          = GYRO_SCALE_2000DPS,
-        .gyroDmaMaxDuration = 5,
         .initFunc       = ADIS16470_Init,
-        .callback       = NULL,
-        .aligenment     = 0,
+        .callback       = ADI_Callback,     //指定数据更新的回调函数
+        .aligenment     = 4,
 };
 
 
@@ -39,7 +38,7 @@ uint8_t ADIS16470_Detect(const device_t *dev)
     uint8_t txData[2] = {ADI_PROD_ID, 0};
     uint8_t rxData[2] = {0};
 
-    uint8_t detected = MPU_NONE;
+    uint8_t detected = SENSOR_NONE;
     uint8_t attemptsRemaining = 20;
     while (attemptsRemaining--)
     {
@@ -53,7 +52,7 @@ uint8_t ADIS16470_Detect(const device_t *dev)
         }
         if (!attemptsRemaining)
         {
-            return MPU_NONE;
+            return SENSOR_NONE;
         }
     }
     return detected;
@@ -66,15 +65,18 @@ bool ADIS16470_Init(gyro_t *gyro)
     return true;
 }
 
-void ADI_Revise(adi_value_t *pValue)
+
+static void ADI_Callback(uint8_t *pRxData)
 {
+    adi_value_t *pValue = (adi_value_t *)pRxData;
     for (int i = 0; i < 3; ++i)
     {
-        pValue->gyro[i] = __builtin_bswap16(pValue->gyro[i]);
-        pValue->acc[i] = __builtin_bswap16(pValue->acc[i]);
+        adiValue.gyro[i] = __builtin_bswap16(pValue->gyro[i]);
+        adiValue.acc[i] = __builtin_bswap16(pValue->acc[i]);
     }
-    pValue->temp = __builtin_bswap16(pValue->temp);
+    adiValue.temp = __builtin_bswap16(pValue->temp);
 }
+
 
 void ADI_CalChecknum(uint8_t *pRxData)
 {

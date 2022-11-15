@@ -26,7 +26,7 @@ void SPI_SetClkPhasePolarity(const device_t *dev, bool leadingEdge)
     ((device_t *)dev)->busType_u.spi.leadingEdge = leadingEdge;
 }
 
-uint16_t SPI_CalDivider(uint32_t freq)
+uint16_t SPI_CalculateDivider(uint32_t freq)
 {
 #ifdef STM32H7
     uint32_t spiClk = 100000000;
@@ -67,70 +67,70 @@ static uint32_t SPI_DivisorToBRbits(SPI_TypeDef *instance, uint16_t divisor)
 #endif
 }
 
-device_e SPI_DeviceByInstance(SPI_TypeDef *instance)
+bus_e SPI_BusByInstance(SPI_TypeDef *instance)
 {
 #ifdef USE_SPI1
     if (instance == SPI1)
     {
-        return DEV_SPI1;
+        return BUS_SPI1;
     }
 #endif
 #ifdef USE_SPI2
     if (instance == SPI2) {
-        return DEV_SPI2;
+        return BUS_SPI2;
     }
 #endif
 #ifdef USE_SPI3
     if (instance == SPI3) {
-        return DEV_SPI3;
+        return BUS_SPI3;
     }
 #endif
 #ifdef USE_SPI4
     if (instance == SPI4)
     {
-        return DEV_SPI4;
+        return BUS_SPI4;
     }
 #endif
 #ifdef USE_SPI5
     if (instance == SPI5) {
-        return DEV_SPI5;
+        return BUS_SPI5;
     }
 #endif
 #ifdef USE_SPI6
     if (instance == SPI6) {
-        return DEV_SPI6;
+        return BUS_SPI6;
     }
 #endif
 
-    return DEV_NULL;
+    return BUS_NULL;
 }
 
-SPI_TypeDef *SPI_InstanceByDevice(device_e device)
+SPI_TypeDef *SPI_InstanceByBus(bus_e busE)
 {
-    switch (device)
+    switch (busE)
     {
 #ifdef USE_SPI1
-        case DEV_SPI1:
+        case BUS_SPI1:
             return SPI1;
 #endif
 #ifdef USE_SPI2
-            case DEV_SPI2:
+            case BUS_SPI2:
                 return SPI2;
 #endif
 #ifdef USE_SPI3
-            case DEV_SPI3:
+            case BUS_SPI3:
                 return SPI3;
 #endif
 #ifdef USE_SPI4
-        case DEV_SPI4:
+        case BUS_SPI4:
             return SPI4;
 #endif
 #ifdef USE_SPI5
-            case DEV_SPI5:
+            case BUS_SPI5:
                 return SPI5;
 #endif
 #ifdef USE_SPI6
-            case DEV_SPI6:
+            case BUS_SPI6:
                 return SPI6;
 #endif
         default:
@@ -382,14 +382,14 @@ static void SPI_RxIrqHandler(dma_t *descriptor)
 }
 
 // Mark this bus as being SPI and record the first owner to use it
-bool SPI_SetBusInstance(device_t *dev, int device)
+bool SPI_SetBusInstance(device_t *dev, int busE)
 {
-    if (device <= DEV_NULL || device >= DEV_SPICOUNT)
+    if (busE <= BUS_NULL || busE >= BUS_SPICOUNT)
     {
         return false;
     }
 
-    dev->bus = &spiBus[IDX_BY_DEVICE(device)];
+    dev->bus = &spiBus[IDX_BY_BUS(busE)];
 
     // By default each device should use SPI DMA if the bus supports it
     dev->useDMA = true;
@@ -402,7 +402,7 @@ bool SPI_SetBusInstance(device_t *dev, int device)
     }
     bus_t *bus = dev->bus;
 
-    bus->busType_u.spi.instance = SPI_InstanceByDevice(device);
+    bus->busType_u.spi.instance = SPI_InstanceByBus(busE);
 
     if (bus->busType_u.spi.instance == NULL)
     {
@@ -414,7 +414,7 @@ bool SPI_SetBusInstance(device_t *dev, int device)
     bus->deviceCount = 1;
     bus->initTx = &dev->initTx;
     bus->initRx = &dev->initRx;
-    bus->enDMA = SPI_InitBusDMA(device);
+    bus->enDMA = SPI_InitBusDMA(busE);
 
     return true;
 }
@@ -484,7 +484,7 @@ void SPI_SequenceStart(const device_t *dev)
 {
     bus_t *bus = dev->bus;
     SPI_TypeDef *instance = bus->busType_u.spi.instance;
-    const spi_hw_t *spi = &spiHardware[IDX_BY_DEVICE(SPI_DeviceByInstance(instance))];
+    const spi_hw_t *spi = &spiHardware[IDX_BY_BUS(SPI_BusByInstance(instance))];
     bool dmaSafe = dev->useDMA && bus->enDMA;
     uint32_t xferLen = 0;
     uint32_t segmentCount = 0;
@@ -720,6 +720,19 @@ void SPI_WriteReg(const device_t *dev, uint8_t reg, uint8_t data)
     SPI_Wait(dev);
 }
 
+// Write data to a register, returning false if the bus is busy
+bool SPI_WriteRegRB(const device_t *dev, uint8_t reg, uint8_t data)
+{
+    // Ensure any prior DMA has completed before continuing
+    if (SPI_IsBusy(dev)) {
+        return false;
+    }
+
+    SPI_WriteReg(dev, reg, data);
+
+    return true;
+}
+
 // Wait for bus to become free, then read a byte from a register
 uint8_t SPI_ReadReg(const device_t *dev, uint8_t reg)
 {
@@ -744,6 +757,40 @@ uint8_t SPI_ReadRegMsk(const device_t *dev, uint8_t reg)
     return SPI_ReadReg(dev, reg | 0x80);
 }
 
+// Read a block of data from a register
+void SPI_ReadRegBuf(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
+{
+    // This routine blocks so no need to use static data
+    segment_t segments[] = {
+            {.u.buffers = {&reg, NULL}, sizeof(reg), false, NULL},
+            {.u.buffers = {NULL, data}, length, true, NULL},
+            {.u.link = {NULL, NULL}, 0, true, NULL},
+    };
+
+    SPI_Sequence(dev, &segments[0]);
+
+    SPI_Wait(dev);
+}
+
+// Read a block of data from a register, returning false if the bus is busy
+bool SPI_ReadRegBufRB(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
+{
+    // Ensure any prior DMA has completed before continuing
+    if (SPI_IsBusy(dev)) {
+        return false;
+    }
+
+    SPI_ReadRegBuf(dev, reg, data, length);
+
+    return true;
+}
+
+// Read a block of data where the register is ORed with 0x80, returning false if the bus is busy
+bool SPI_ReadRegMskBufRB(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
+{
+    return SPI_ReadRegBufRB(dev, reg | 0x80, data, length);
+}
+
 // Wait for bus to become free, then read/write block of data
 void SPI_ReadWriteBuf(const device_t *dev, uint8_t *txData, uint8_t *rxData, int len)
 {
@@ -765,37 +812,37 @@ void SPI_BusDeviceRegister(const device_t *dev)
     spiRegisteredDeviceCount++;
 }
 
-static void SPI_EnableClock(device_e device)
+static void SPI_EnableClock(bus_e busE)
 {
-    switch (device)
+    switch (busE)
     {
 #ifdef USE_SPI1
-        case DEV_SPI1:
+        case BUS_SPI1:
             LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SPI1);
             break;
 #endif
 #ifdef USE_SPI2
-            case DEV_SPI2:
-            LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SPI2);
+            case BUS_SPI2:
+            LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_SPI2);
             break;
 #endif
 #ifdef USE_SPI3
-            case DEV_SPI3:
+            case BUS_SPI3:
             LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SPI3);
             break;
 #endif
 #ifdef USE_SPI4
-        case DEV_SPI4:
+        case BUS_SPI4:
             LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SPI4);
             break;
 #endif
 #ifdef USE_SPI5
-            case DEV_SPI5:
+            case BUS_SPI5:
             LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SPI5);
             break;
 #endif
 #ifdef USE_SPI6
-            case DEV_SPI6:
+            case BUS_SPI6:
             LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SPI6);
             break;
 #endif
@@ -817,12 +864,12 @@ static LL_SPI_InitTypeDef defaultInit =
                 .ClockPhase = LL_SPI_PHASE_2EDGE,
         };
 
-static void SPI_InitDevice(device_e device)
+static void SPI_InitBus(bus_e busE)
 {
-    const spi_hw_t *spi = &spiHardware[IDX_BY_DEVICE(device)];
+    const spi_hw_t *spi = &spiHardware[IDX_BY_BUS(busE)];
     SPI_TypeDef *instance = spi->instance;
 
-    if (!instance || device <= DEV_NULL || device >= DEV_SPICOUNT)
+    if (!instance || busE <= BUS_NULL || busE >= BUS_SPICOUNT)
         return;
 
     // Enable SPI clock
@@ -844,7 +891,7 @@ static void SPI_InitDevice(device_e device)
     }
 
     /* Peripheral clock enable */
-    SPI_EnableClock(device);
+    SPI_EnableClock(busE);
 
     IO_Init(spi->miso, GPIO_MODE_AF_PP, GPIO_PULLUP, GPIO_SPEED_FREQ_VERY_HIGH, spi->misoAF);
     IO_Init(spi->mosi, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_VERY_HIGH, spi->mosiAF);
@@ -907,31 +954,31 @@ void SPI_InternalResetDescriptors(bus_t *bus)
 void SPI_Init(void)
 {
 #ifdef USE_SPI1
-    SPI_InitDevice(DEV_SPI1);
+    SPI_InitBus(BUS_SPI1);
 #endif
 #ifdef USE_SPI2
-    SPI_InitDevice(DEV_SPI2);
+    SPI_InitBus(BUS_SPI2);
 #endif
 #ifdef USE_SPI3
-    SPI_InitDevice(DEV_SPI1);
+    SPI_InitBus(BUS_SPI1);
 #endif
 #ifdef USE_SPI4
-    SPI_InitDevice(DEV_SPI4);
+    SPI_InitBus(BUS_SPI4);
 #endif
 #ifdef USE_SPI5
-    SPI_InitDevice(DEV_SPI5);
+    SPI_InitBus(BUS_SPI5);
 #endif
 #ifdef USE_SPI6
-    SPI_InitDevice(DEV_SPI6);
+    SPI_InitBus(BUS_SPI6);
 #endif
 }
 
-bool SPI_InitBusDMA(device_e device)
+bool SPI_InitBusDMA(bus_e busE)
 {
-    if (device <= DEV_NULL || device >= DEV_SPICOUNT)
+    if (busE <= BUS_NULL || busE >= BUS_SPICOUNT)
         return false;
 
-    bus_t *bus = &spiBus[IDX_BY_DEVICE(device)];
+    bus_t *bus = &spiBus[IDX_BY_BUS(busE)];
 
     if (bus->busType != BUS_TYPE_SPI)
     {
@@ -956,7 +1003,7 @@ bool SPI_InitBusDMA(device_e device)
     {
         if (dmaTxStream == DMA_NONE)
         {
-            const dma_channel_t *dmaTxChannelSpec = DMA_GetChannelSpecByPeripheral(DMA_PERIPH_SPI_MOSI, device, opt);
+            const dma_channel_t *dmaTxChannelSpec = DMA_GetChannelSpecByPeripheral(DMA_PERIPH_SPI_MOSI, busE, opt);
 
             if (dmaTxChannelSpec)
             {
@@ -971,7 +1018,7 @@ bool SPI_InitBusDMA(device_e device)
         }
         else if (dmaRxStream == DMA_NONE)
         {
-            const dma_channel_t *dmaRxChannelSpec = DMA_GetChannelSpecByPeripheral(DMA_PERIPH_SPI_MISO, device, opt);
+            const dma_channel_t *dmaRxChannelSpec = DMA_GetChannelSpecByPeripheral(DMA_PERIPH_SPI_MISO, busE, opt);
 
             if (dmaRxChannelSpec)
             {

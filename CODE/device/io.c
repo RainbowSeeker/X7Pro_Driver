@@ -47,6 +47,12 @@ int IO_Init(io_t io, uint32_t mode, uint32_t pull, uint32_t speed, uint32_t alte
         case (uint32_t)GPIOH:
             __HAL_RCC_GPIOH_CLK_ENABLE();
             break;
+        case (uint32_t)GPIOI:
+            __HAL_RCC_GPIOI_CLK_ENABLE();
+            break;
+        case (uint32_t)GPIOJ:
+            __HAL_RCC_GPIOJ_CLK_ENABLE();
+            break;
         default:
             return -1;
     }

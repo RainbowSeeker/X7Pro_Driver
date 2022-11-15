@@ -71,8 +71,8 @@ DEFINE_DMA_IRQ_HANDLER(2, 7, DMA2_ST7_HANDLER)
  * remap
  */
 #define REQMAP_SGL(periph) { DMA_PERIPH_ ## periph, 0, DMA_REQUEST_ ## periph }
-#define REQMAP(periph, device) { DMA_PERIPH_ ## periph, periph ## DEV_ ## device, DMA_REQUEST_ ## periph ## device }
-#define REQMAP_DIR(periph, device, dir) { DMA_PERIPH_ ## periph ## _ ## dir, DEV_ ## periph ## device  , DMA_REQUEST_ ## periph ## device ## _ ## dir }
+#define REQMAP(periph, device) { DMA_PERIPH_ ## periph, periph ## BUS_ ## device, DMA_REQUEST_ ## periph ## device }
+#define REQMAP_DIR(periph, device, dir) { DMA_PERIPH_ ## periph ## _ ## dir, BUS_ ## periph ## device  , DMA_REQUEST_ ## periph ## device ## _ ## dir }
 #define REQMAP_TIMUP(periph, timno) { DMA_PERIPH_TIMUP, timno - 1, DMA_REQUEST_ ## TIM ## timno ## _UP }
 
 // Resolve UART/USART mess
@@ -98,6 +98,8 @@ DEFINE_DMA_IRQ_HANDLER(2, 7, DMA2_ST7_HANDLER)
 #define DMA_REQUEST_SPI4_MISO DMA_REQUEST_SPI4_RX
 #define DMA_REQUEST_SPI5_MOSI DMA_REQUEST_SPI5_TX
 #define DMA_REQUEST_SPI5_MISO DMA_REQUEST_SPI5_RX
+#define DMA_REQUEST_SPI6_MOSI BDMA_REQUEST_SPI6_TX
+#define DMA_REQUEST_SPI6_MISO BDMA_REQUEST_SPI6_RX
 static const dma_peripheral_mapping_t dmaPeripheralMapping[] = {
 #ifdef USE_SPI1
         REQMAP_DIR(SPI, 1, MOSI),

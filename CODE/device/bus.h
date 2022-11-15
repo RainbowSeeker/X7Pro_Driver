@@ -16,6 +16,7 @@
 #include "common.h"
 #include "device/dma.h"
 #include "board_config.h"
+#include "exti.h"
 
 typedef enum
 {
@@ -33,31 +34,31 @@ typedef enum
 
 typedef enum
 {
-    DEV_NULL = 0,
+    BUS_NULL = 0,
 #ifdef USE_SPI1
-    DEV_SPI1,
+    BUS_SPI1,
 #endif
 #ifdef USE_SPI2
-    DEV_SPI2,
+    BUS_SPI2,
 #endif
 #ifdef USE_SPI3
-    DEV_SPI3,
+    BUS_SPI3,
 #endif
 #ifdef USE_SPI4
-    DEV_SPI4,
+    BUS_SPI4,
 #endif
 #ifdef USE_SPI5
-    DEV_SPI5,
+    BUS_SPI5,
 #endif
 #ifdef USE_SPI6
-    DEV_SPI6,
+    BUS_SPI6,
 #endif
-    DEV_SPICOUNT,
-    DEV_I2C1,
-    DEV_ALLCOUNT,
-}device_e;
+    BUS_SPICOUNT,
+    BUS_I2C1,
+    BUS_ALLCOUNT,
+}bus_e;
 
-#define SPI_NUM         (DEV_SPICOUNT - 1)
+#define SPI_NUM         (BUS_SPICOUNT - 1)
 
 typedef bus_status_e (* segment_callback)(uint32_t arg);
 typedef struct segment_s
@@ -110,7 +111,9 @@ typedef struct bus_s
 }bus_t;
 
 // External device has an associated bus and bus dependent address
-typedef struct device_s {
+typedef struct device_s
+{
+    uint8_t  deviceID;
     char  *name;
     bus_t *bus;
     union {
@@ -131,13 +134,23 @@ typedef struct device_s {
     bool useDMA;
     // Connected devices on the same bus may support different speeds
     uint32_t callbackArg;
+
+    const io_t          *extiPin;
+    exti_callback_rec_t exti;
 }device_t;
 
 
 #define CACHE_LINE_SIZE 32
 #define CACHE_LINE_MASK (CACHE_LINE_SIZE - 1)
 
-#define IDX_BY_DEVICE(__X__)        ((__X__) - 1)
+#define IDX_BY_BUS(__X__)        ((__X__) - 1)
 
 void Bus_DeviceRegister(const device_t *dev);
+bool Bus_WriteRegisterStart(const device_t *dev, uint8_t reg, uint8_t data);
+bool Bus_RawWriteRegister(const device_t *dev, uint8_t reg, uint8_t data);
+bool Bus_RawWriteRegisterStart(const device_t *dev, uint8_t reg, uint8_t data);
+bool Bus_RawReadRegisterBuffer(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length);
+bool Bus_RawReadRegisterBufferStart(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length);
+bool Bus_ReadRegisterBufferStart(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length);
+bool Bus_Busy(const device_t *dev, bool *error);
 #endif //BUS_H

@@ -9,7 +9,7 @@
 #include "dma.h"
 #include "mdma.h"
 #include "bus_spi.h"
-#include "mpu.h"
+#include "sensor.h"
 
 void Initialize(void)
 {

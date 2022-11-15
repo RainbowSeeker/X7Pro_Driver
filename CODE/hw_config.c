@@ -8,18 +8,23 @@
 #include "stm32h7xx_hal.h"
 
 
-const mpu_hwconfig_t mpuConfig[MPU_NUM] = {
-#ifdef USE_MPU_SPI_ADIS16470
-        {.name = "ADIS16470", .device = DEV_SPI1,
+const sensor_hw_config_t sensorConfig[SENSOR_NUM] = {
+#ifdef USE_SENSOR_SPI_ADIS16470
+        {.name = "ADIS16470", .device = BUS_SPI1,
             .csPin = {.port = GPIOF, .pin = GPIO_PIN_10},
             .extiPin = {.port = GPIOE, .pin = GPIO_PIN_7}
             },
 #endif
-#ifdef USE_MPU_SPI_ICM42688P
-        {.name = "ICM42688P", .device = DEV_SPI4,
+#ifdef USE_SENSOR_SPI_ICM42688P
+        {.name = "ICM42688P", .device = BUS_SPI4,
             .csPin = {.port = GPIOA, .pin = GPIO_PIN_15},
             .extiPin = {.port = GPIOB, .pin = GPIO_PIN_15}
             },
+#endif
+#ifdef USE_SENSOR_SPI_MS5611
+        {.name = "MS5611", .device = BUS_SPI4,
+                .csPin = {.port = GPIOG, .pin = GPIO_PIN_10},
+        },
 #endif
 };
 

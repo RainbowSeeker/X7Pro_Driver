@@ -7,9 +7,9 @@
 #ifndef X7PRO_DRIVER_HW_CONFIG_H
 #define X7PRO_DRIVER_HW_CONFIG_H
 #include "bus_spi.h"
-#include "mpu.h"
+#include "sensor.h"
 
 
 extern const spi_hw_t spiHardware[SPI_NUM];
-extern const mpu_hwconfig_t mpuConfig[MPU_NUM];
+extern const sensor_hw_config_t sensorConfig[SENSOR_NUM];
 #endif //X7PRO_DRIVER_HW_CONFIG_H
