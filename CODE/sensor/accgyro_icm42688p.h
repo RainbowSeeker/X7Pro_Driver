@@ -8,7 +8,7 @@
 #define X7PRO_DRIVER_ACCGYRO_ICM42688P_H
 #include "bus_spi.h"
 #include "log.h"
-#include "mpu.h"
+#include "sensor.h"
 
 // 24 MHz max SPI frequency
 #define ICM426XX_MAX_SPI_CLK_HZ 24000000
@@ -67,12 +67,11 @@
 
 typedef struct
 {
-    int16_t nouse;
     int16_t acc[3];
     int16_t gyro[3];
-}icm_value_t;
+}icm426xx_value_t;
 
-extern icm_value_t icmValue;
+extern icm426xx_value_t icm426xxValue;
 extern const gyro_config_t icm426xx_config;
 
 uint8_t ICM426xx_Detect(const device_t *dev);

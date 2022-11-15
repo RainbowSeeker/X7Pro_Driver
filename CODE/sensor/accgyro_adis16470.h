@@ -7,7 +7,7 @@
 #ifndef ADIS16470_H
 #define ADIS16470_H
 #include "bus_spi.h"
-#include "mpu.h"
+#include "sensor.h"
 #include "accgyro.h"
 
 #define ADI_ID                     0x4056     //ADIS16470
@@ -89,14 +89,14 @@
 
 typedef struct
 {
-    int16_t noUse1;             //just for occupy postion
-    int16_t stat;
+//    int16_t noUse1;             //just for occupy postion
+//    int16_t stat;
     int16_t gyro[3];
     int16_t acc[3];
     int16_t temp;
-    int16_t cntr;
-    int16_t checknum;
-    int16_t noUse2;             //just for occupy postion
+//    int16_t cntr;
+//    int16_t checknum;
+//    int16_t noUse2;             //just for occupy postion
 }adi_value_t;
 
 

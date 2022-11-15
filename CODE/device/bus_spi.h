@@ -28,7 +28,7 @@ typedef struct spi_hw_s
 
 void SPI_SetClkDivisor(const device_t *dev, uint16_t divisor);
 void SPI_SetClkPhasePolarity(const device_t *dev, bool leadingEdge);
-uint16_t SPI_CalDivider(uint32_t freq);
+uint16_t SPI_CalculateDivider(uint32_t freq);
 bool SPI_SetBusInstance(device_t *dev, int device);
 void SPI_BusDeviceRegister(const device_t *dev);
 void SPI_InternalStopDMA(const device_t *dev);
@@ -37,11 +37,16 @@ void SPI_Sequence(const device_t *dev, segment_t *segment);
 
 bool SPI_UseDMA(const device_t *dev);
 void SPI_Wait(const device_t *dev);
+bool SPI_IsBusy(const device_t *dev);
 void SPI_WriteReg(const device_t *dev, uint8_t reg, uint8_t data);
+bool SPI_WriteRegRB(const device_t *dev, uint8_t reg, uint8_t data);
 uint8_t SPI_ReadReg(const device_t *dev, uint8_t reg);
 uint8_t SPI_ReadRegMsk(const device_t *dev, uint8_t reg);
+void SPI_ReadRegBuf(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length);
+bool SPI_ReadRegBufRB(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length);
+bool SPI_ReadRegMskBufRB(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length);
 void SPI_ReadWriteBuf(const device_t *dev, uint8_t *txData, uint8_t *rxData, int len);
 
 void SPI_Init(void);
-bool SPI_InitBusDMA(device_e device);
+bool SPI_InitBusDMA(bus_e device);
 #endif //_BUS_SPI_H
