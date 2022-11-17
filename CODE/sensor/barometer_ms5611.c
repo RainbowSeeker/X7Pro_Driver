@@ -7,7 +7,30 @@
 #ifdef USE_SENSOR_SPI_MS5611
 #include "barometer_ms5611.h"
 #include "bus_spi.h"
-#include "sensor.h"
+
+static bool MS5611_Init(baro_t *baro);
+
+static void MS6511_Handle(baro_t *baro)
+{
+    println("pressure=%3.2f, ",baro->pressure / 100.0f);
+    println("temperature=%3.2f, ",baro->temperature / 100.0f);
+    println("altitude=%3.2f, ",baro->altitude / 10.0f);
+}
+
+
+baro_t ms5611 = {
+        .init = MS5611_Init,
+        .updateCallback = MS6511_Handle,
+};
+
+
+
+
+
+
+//---------------------------------------
+
+
 
 static uint32_t ms5611_ut;  // static result of temperature measurement
 static uint32_t ms5611_up;  // static result of pressure measurement
@@ -15,6 +38,7 @@ static uint16_t ms5611_c[PROM_NB];  // on-chip ROM
 static uint8_t ms5611_osr = CMD_ADC_4096;
 #define MS5611_DATA_FRAME_SIZE 3
 static DMA_DATA_ZERO_INIT uint8_t sensor_data[MS5611_DATA_FRAME_SIZE];
+
 
 static void MS5611_Reset(const device_t *dev)
 {
@@ -65,48 +89,17 @@ static int8_t MS5611_CRC(uint16_t *prom)
     return -1;
 }
 
-uint8_t MS5611_Detect(const device_t *dev)
-{
-    uint8_t sig;
-    uint16_t remainingTime = 20;
-    delay_ms(10);
-    SPI_SetClkDivisor(dev, SPI_CalculateDivider(MS5611_MAX_SPI_CLK_HZ));
 
-    MS5611_Reset(dev);
-    while (remainingTime--)
-    {
-        if (!Bus_RawReadRegisterBuffer(dev, CMD_PROM_RD, &sig, 1) || sig == 0xFF)
-        {
-            continue;
-        }
-
-        // read all coefficients
-        for (int i = 0; i < PROM_NB; i++)
-            ms5611_c[i] = MS5611_Prom(dev, i);
-
-        // check crc, bail out if wrong - we are probably talking to BMP085 w/o XCLR line!
-        if (MS5611_CRC(ms5611_c) == 0)
-        {
-            return MS5611_SPI;
-        }
-    }
-
-    return SENSOR_NONE;
-
-}
 
 
 static void MS5611_ReadAdc(const device_t *dev)
 {
-
     SPI_ReadRegBuf(dev, CMD_ADC_READ, sensor_data, MS5611_DATA_FRAME_SIZE); // read ADC
-//    Bus_RawReadRegisterBufferStart(dev, CMD_ADC_READ, sensor_data, MS5611_DATA_FRAME_SIZE); // read ADC
 }
 
 static void MS5611_StartUT(baro_t *baro)
 {
     SPI_WriteReg(&baro->dev, CMD_ADC_CONV + CMD_ADC_D2 + ms5611_osr, 1); // D2 (temperature) conversion start!
-//    Bus_RawWriteRegisterStart(&baro->dev, CMD_ADC_CONV + CMD_ADC_D2 + ms5611_osr, 1); // D2 (temperature) conversion start!
 }
 
 static bool MS5611_ReadUT(baro_t *baro)
@@ -134,7 +127,6 @@ static bool MS5611_GetUT(baro_t *baro)
 static void MS5611_StartUP(baro_t *baro)
 {
     SPI_WriteReg(&baro->dev, CMD_ADC_CONV + CMD_ADC_D1 + ms5611_osr, 1); // D1 (pressure) conversion start!
-//    Bus_RawWriteRegisterStart(&baro->dev, CMD_ADC_CONV + CMD_ADC_D1 + ms5611_osr, 1); // D1 (pressure) conversion start!
 }
 
 static bool MS5611_ReadUP(baro_t *baro)
@@ -191,8 +183,48 @@ static void MS5611_Calculate(int32_t *pressure, int32_t *temperature)
         *temperature = temp;
 }
 
-bool MS5611_Init(baro_t *baro)
+
+
+device_e MS5611_Detect(const device_t *dev)
 {
+    uint8_t sig;
+    uint16_t remainingTime = 20;
+    SPI_SetClkDivisor(dev, SPI_CalculateDivider(MS5611_MAX_SPI_CLK_HZ));
+
+    MS5611_Reset(dev);
+    while (remainingTime--)
+    {
+        delay_ms(10);
+        if (!Bus_RawReadRegisterBuffer(dev, CMD_PROM_RD, &sig, 1) || sig == 0xFF)
+        {
+            continue;
+        }
+
+        // read all coefficients
+        for (int i = 0; i < PROM_NB; i++)
+            ms5611_c[i] = MS5611_Prom(dev, i);
+
+        // check crc, bail out if wrong - we are probably talking to BMP085 w/o XCLR line!
+        if (MS5611_CRC(ms5611_c) == 0)
+        {
+            return MS5611_SPI;
+        }
+    }
+
+    return DEV_NONE;
+
+}
+
+static bool MS5611_Init(baro_t *baro)
+{
+    const hw_config_t hwConfig ={
+            .name = "MS5611", .busE = BUS_SPI4,
+            .csPin = {.port = GPIOG, .pin = GPIO_PIN_10},
+    };
+
+    if(!Baro_MspInit(baro, MS5611_Detect, &hwConfig))
+        return false;
+
     baro->ut_delay = 10000;
     baro->up_delay = 10000;
     baro->start_ut = MS5611_StartUT;

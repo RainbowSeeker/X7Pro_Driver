@@ -9,18 +9,21 @@
 
 #include "stdio.h"
 #include <stdarg.h>
+#include "math.h"
 
-#define ARRAYLEN(x) (sizeof(x) / sizeof((x)[0]))
+#define ARRAYLEN(x)         (sizeof(x) / sizeof((x)[0]))
 
+#define max(_X1, _X2)       (((_X1) > (_X2)) ? (_X1) : (_X2))
+#define min(_X1, _X2)       (((_X1) < (_X2)) ? (_X1) : (_X2))
 
 static inline uint16_t swap_u16(uint16_t num)
 {
-    return ((num & 0xff ) << 8) | ((num >> 8) & 0xff);
+    return __builtin_bswap16(num);
 }
 
 static inline int16_t swap_i16(int16_t num)
 {
-    return ((num & 0xff ) << 8) | ((num >> 8) & 0xff);
+    return __builtin_bswap16(num);
 }
 static inline int constrain(int amt, int low, int high)
 {

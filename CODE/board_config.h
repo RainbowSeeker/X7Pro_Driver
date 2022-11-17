@@ -19,7 +19,7 @@
 
 //---------spi----------
 #define USE_SPI1
-//#define USE_SPI2
+#define USE_SPI2
 //#define USE_SPI3
 #define USE_SPI4
 //#define USE_SPI5
@@ -43,11 +43,14 @@
 #define SENSORS_ON_Port         GPIOE
 #define SENSORS_ON_Pin          GPIO_PIN_3
 
+//外部中断信息统计
+#define ENABLE_EXIT_STAT
 
 #define USE_SENSOR_SPI_ADIS16470
 #define USE_SENSOR_SPI_ICM42688P
 #define USE_SENSOR_SPI_MS5611
+#define USE_SENSOR_SPI_RM3100
 
-
+#define USE_FRAM_FM25V05
 
 

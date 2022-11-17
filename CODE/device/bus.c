@@ -7,6 +7,119 @@
 #include "bus.h"
 #include "bus_spi.h"
 
+#include "nvic.h"
+#include "maths.h"
+
+static void Dev_ExtiIntHandler(exti_callback_rec_t *cb)
+{
+    device_t *dev = container_of(cb, device_t, extiCallbackRec);
+#ifdef ENABLE_EXIT_STAT
+    exti_stat_t *extiStat = &dev->extiStat;
+
+    uint32_t nowTick = HAL_GetTick();
+    int32_t lastPeriod = (int32_t) (nowTick - extiStat->lastExtiTick);
+    if ((extiStat->shortPeriod == 0) || (lastPeriod < extiStat->shortPeriod))
+    {
+        extiStat->syncEXTI = extiStat->lastExtiTick + extiStat->dmaMaxDuration;
+    }
+
+    extiStat->lastExtiTick = nowTick;
+    extiStat->recordTime += lastPeriod;
+    extiStat->intoExti++;
+
+    if (extiStat->intoExti % extiStat->capAvgFreq == 0)
+    {
+        extiStat->capAvgFreq = 1000 * extiStat->intoExti / extiStat->recordTime;
+        extiStat->recordTime = 0;
+        extiStat->intoExti = 0;
+    }
+#endif
+
+    SPI_Sequence(dev, dev->segments);
+}
+
+static bool Device_BindByHardware(device_t *dev, const hw_config_t *config)
+{
+    if (!config || !dev)
+        return false;
+
+    if (config->busE > BUS_NULL && config->busE < BUS_SPICOUNT)
+    {
+        return SPI_DeviceBindByHardware(dev, config);
+    }
+    else if (config->busE > BUS_SPICOUNT && config->busE < BUS_ALLCOUNT)
+    {
+        return false;
+    }
+    return false;
+}
+bool Device_PreConfigDataReady(device_t *dev, const dr_config_t *config)
+{
+    if (!config)    return true;
+
+    //check config is available.
+    if (!dev->extiPin.port || config->pRxData < config->pTxData || !config->startDataReg || config->len < 0)
+        return false;
+
+    memset(config->pTxData, 0xff, config->len);
+    memset(&dev->segments[0], 0, sizeof(segment_t) * 2);
+
+    config->pTxData[0] = config->startDataReg;
+    dev->segments[0].len = config->len;
+    dev->segments[0].callback = NULL;
+    dev->segments[0].u.buffers.pTxData = config->pTxData;
+    dev->segments[0].u.buffers.pRxData = config->pRxData;
+    dev->segments[0].negateCS = true;
+    dev->segments[1].negateCS = true;
+    dev->callbackArg = (uint32_t) 0;
+    dev->transferSize = config->transferSize == 0 ? config->len - config->aligenment : config->transferSize;
+    dev->aligenment = config->aligenment;
+    return true;
+}
+
+
+bool Device_PreConfigHardware(device_t *dev, detect_func_t detectFunc, const hw_config_t *hwConfig)
+{
+    if (!dev || !hwConfig || !Device_BindByHardware(dev, hwConfig))
+        return false;
+
+    dev->deviceID = detectFunc(dev);
+
+    if (dev->deviceID <= DEV_NONE || dev->deviceID >=DEV_ALLCOUNT)
+        return false;
+
+    dev->extiPin = hwConfig->extiPin;
+    if (dev->extiPin.port)
+    {
+        dev->extiCallbackRec.fn = Dev_ExtiIntHandler;
+        EXTI_Config(dev->extiPin, &dev->extiCallbackRec, NVIC_PRIO_EXTI, EXTI_RISING);
+        EXTI_Disable(dev->extiPin);
+
+#ifdef ENABLE_EXIT_STAT
+        dev->extiStat.lastExtiTick = 0;
+        dev->extiStat.syncEXTI = 0;
+        dev->extiStat.dmaMaxDuration = 0;
+        dev->extiStat.shortPeriod = 0;
+        dev->extiStat.recordTime = 0;
+        dev->extiStat.intoExti = 0;
+        dev->extiStat.capAvgFreq = 100;
+#endif
+    }
+
+    return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 void Bus_DeviceRegister(const device_t *dev)
 {
     switch (dev->bus->busType) {

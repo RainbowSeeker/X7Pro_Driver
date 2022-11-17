@@ -19,7 +19,7 @@ void Log_Info(const void *format,...)
     vsprintf(buf, format, args);
     va_end(args);
 
-    print("\r\n<<LOG_INFO %5.2fs>> %s\r\n", (float )HAL_GetTick() * 1e-3, buf);
+    print("\r\n<<LOG_INFO %5.2fs>> %s", (float )HAL_GetTick() * 1e-3, buf);
 }
 
 void Log_Error(const void *format,...)
@@ -30,5 +30,5 @@ void Log_Error(const void *format,...)
     vsprintf(buf, format, args);
     va_end(args);
 
-    print("\r\n<<LOG_ERROR%5.2fs>> %s\r\n", (float )HAL_GetTick() * 1e-3, buf);
+    print("\r\n<<LOG_ERROR%5.2fs>> %s", (float )HAL_GetTick() * 1e-3, buf);
 }

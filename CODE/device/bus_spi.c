@@ -7,12 +7,60 @@
 #include "bus_spi.h"
 #include "atomic.h"
 #include "maths.h"
-#include "hw_config.h"
+
 #include "nvic.h"
 
 static uint8_t spiRegisteredDeviceCount = 0;
 
 static bus_t spiBus[SPI_NUM];
+
+const spi_hw_t spiHardware[SPI_NUM] = {
+#ifdef USE_SPI1
+        {
+                .instance = SPI1,
+                .sck = {.port = GPIOG, .pin = GPIO_PIN_11}, .sckAF = GPIO_AF5_SPI1,
+                .miso = {.port = GPIOA, .pin = GPIO_PIN_6}, .misoAF = GPIO_AF5_SPI1,
+                .mosi = {.port = GPIOD, .pin = GPIO_PIN_7}, .mosiAF = GPIO_AF5_SPI1,
+        },
+#endif
+#ifdef USE_SPI2
+        {
+                .instance = SPI2,
+                .sck = {.port = GPIOI, .pin = GPIO_PIN_1}, .sckAF = GPIO_AF5_SPI2,
+                .miso = {.port = GPIOI, .pin = GPIO_PIN_2}, .misoAF = GPIO_AF5_SPI2,
+                .mosi = {.port = GPIOI, .pin = GPIO_PIN_3}, .mosiAF = GPIO_AF5_SPI2,
+        },
+#endif
+#ifdef USE_SPI3
+        {
+                NULL
+        },
+#endif
+#ifdef USE_SPI4
+        {
+                .instance = SPI4,
+                .sck = {.port = GPIOE, .pin = GPIO_PIN_2}, .sckAF = GPIO_AF5_SPI4,
+                .miso = {.port = GPIOE, .pin = GPIO_PIN_13}, .misoAF = GPIO_AF5_SPI4,
+                .mosi = {.port = GPIOE, .pin = GPIO_PIN_6}, .mosiAF = GPIO_AF5_SPI4,
+        },
+#endif
+#ifdef USE_SPI5
+        {
+                .instance = SPI4,
+                .sck = {.port = GPIOF, .pin = GPIO_PIN_7},
+                .miso = {.port = GPIOF, .pin = GPIO_PIN_8},
+                .mosi = {.port = GPIOF, .pin = GPIO_PIN_9},
+        },
+#endif
+#ifdef USE_SPI6
+        {
+            .instance = SPI6,
+            .sck = {.port = GPIOG, .pin = GPIO_PIN_13},
+            .miso = {.port = GPIOG, .pin = GPIO_PIN_12},
+            .mosi = {.port = GPIOA, .pin = GPIO_PIN_7},
+        }
+#endif
+};
 
 
 void SPI_SetClkDivisor(const device_t *dev, uint16_t divisor)
@@ -384,11 +432,6 @@ static void SPI_RxIrqHandler(dma_t *descriptor)
 // Mark this bus as being SPI and record the first owner to use it
 bool SPI_SetBusInstance(device_t *dev, int busE)
 {
-    if (busE <= BUS_NULL || busE >= BUS_SPICOUNT)
-    {
-        return false;
-    }
-
     dev->bus = &spiBus[IDX_BY_BUS(busE)];
 
     // By default each device should use SPI DMA if the bus supports it
@@ -772,6 +815,12 @@ void SPI_ReadRegBuf(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t len
     SPI_Wait(dev);
 }
 
+// Read a block of data where the register is ORed with 0x80
+void SPI_ReadRegMskBuf(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
+{
+    return SPI_ReadRegBuf(dev, reg | 0x80, data, length);
+}
+
 // Read a block of data from a register, returning false if the bus is busy
 bool SPI_ReadRegBufRB(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
 {
@@ -1055,4 +1104,25 @@ bool SPI_InitBusDMA(bus_e busE)
         bus->dmaTx = (dma_t *) NULL;
     }
     return false;
+}
+
+bool SPI_DeviceBindByHardware(device_t *dev, const hw_config_t *config)
+{
+    if (!config->csPin.port || !SPI_SetBusInstance(dev, config->busE))
+    {
+        return false;
+    }
+
+    dev->name = config->name;
+    SPI_SetClkPhasePolarity(dev, config->leadingEdge);
+
+    dev->busType_u.spi.csPin = config->csPin;
+
+    IO_Init(dev->busType_u.spi.csPin, CS_CONFIG);
+    IO_Set(dev->busType_u.spi.csPin, IO_HIGH);
+
+    while (HAL_GetTick() < 100);
+
+    SPI_SetClkDivisor(dev, SPI_CalculateDivider(1000000));
+    return true;
 }
