@@ -30,6 +30,7 @@ typedef void (*baroCalculateFuncPtr)(int32_t *pressure, int32_t *temperature); /
 typedef struct baro_s
 {
     device_t dev;
+
     bool combined_read;
     uint16_t ut_delay;
     uint16_t up_delay;
@@ -41,11 +42,17 @@ typedef struct baro_s
     baroGetFuncPtr get_up;
     baroCalculateFuncPtr calculate;
 
+
     float altitude;
     int32_t temperature;                    // Use temperature for telemetry
     int32_t pressure;                       // Use pressure for telemetry
+
+
+    bool (* init)(struct baro_s *);
+    void (* updateCallback)(struct baro_s *);
 }baro_t;
 
+bool Baro_MspInit(baro_t *baro, detect_func_t detectFunc, const hw_config_t *hwConfig);
 bool Baro_Init(baro_t *baro);
 uint32_t Baro_Update(baro_t *baro, uint32_t currentTimeUs);
 void baroStartCalibration(void);

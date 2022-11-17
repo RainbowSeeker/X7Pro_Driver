@@ -6,7 +6,6 @@
 
 #ifndef X7PRO_DRIVER_ACCGYRO_H
 #define X7PRO_DRIVER_ACCGYRO_H
-#include "exti.h"
 #include "bus_spi.h"
 
 #define GYRO_SCALE_2000DPS              (2000.0f / (1 << 15))   // 16.384 dps/lsb scalefactor for 2000dps sensors
@@ -160,49 +159,43 @@ typedef enum {
     GYRO_RATE_32_kHz,
 }gyro_rate_e;
 
-typedef enum {
-    GYRO_EXTI_INT_DMA = 0,
-    GYRO_EXTI_INT,
-    GYRO_EXTI_NO_INT
-}gyro_mode_e;
-
-struct gyro_s;
-typedef struct
+typedef enum
 {
-    uint32_t maxClk;
-    uint8_t *pTxData;
-    uint8_t *pRxData;
-    uint8_t *transferDst;
-    int16_t len;
-    uint8_t gyroDataReg;
+    X = 0,
+    Y,
+    Z
+}axis_e;
 
-    gyro_mode_e gyroExtiMode;
-    uint8_t aligenment;
-
-    bool (*initFunc)(struct gyro_s *gyro);        // init function
-    void (*callback)(uint8_t *pRxData);
-}gyro_config_t;
+typedef enum {
+    SAMPLE_EXTI_INT_DMA = 0,
+    SAMPLE_EXTI_INT,
+    SAMPLE_NO_INT,
+    SAMPLE_NO_INIT,
+}sample_mode_e;
 
 typedef struct gyro_s
 {
-    device_t  dev;
-    segment_t segments[2];
-    volatile bool dataReady;
-    const gyro_config_t *config;
-    uint32_t lastExtiTick;
-    uint32_t gyroSyncEXTI;
-    // Check that minimum number of interrupts have been detected
-    // We need some offset from the gyro interrupts to ensure sampling after the interrupt
-    int32_t gyroDmaMaxDuration;
-    int32_t gyroShortPeriod;
-    uint32_t recordTime;
-    uint32_t intoExti;
-    uint32_t capAvgFreq;
+    device_t dev;
+    sample_mode_e sampleMode;
+    uint16_t accRaw[3];
+    uint16_t gyroRaw[3];
+    uint16_t tempRaw;
+
+    float acc[3];
+    float gyro[3];
+    float temp;         //optional
+
+
+
+    //must bind func before init.
+    bool (* init)(struct gyro_s *);
+    void (* updateCallback)(struct gyro_s *);
 }gyro_t;
 
 
 
-bool Gyro_Init(gyro_t *gyro);
+bool Gyro_MspInit(gyro_t *gyro, detect_func_t detectFunc, const hw_config_t *hwConfig, const dr_config_t *drConfig);
+void Gyro_StartSample(gyro_t *gyro);
+void Gyro_StopSample(gyro_t *gyro);
 bool Gyro_Update(gyro_t *gyro);
-void Gyro_Wait(gyro_t *gyro);
 #endif //X7PRO_DRIVER_ACCGYRO_H

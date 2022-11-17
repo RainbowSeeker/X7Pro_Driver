@@ -27,6 +27,5 @@
 #define CMD_PROM_RD             0xA0 // Prom read command
 #define PROM_NB                 8
 
-uint8_t MS5611_Detect(const device_t *dev);
-bool MS5611_Init(baro_t *baro);
+extern baro_t ms5611;
 #endif //X7PRO_DRIVER_BAROMETER_MS5611_H

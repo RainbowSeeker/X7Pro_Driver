@@ -8,25 +8,45 @@
 #include "accgyro_icm42688p.h"
 #include "maths.h"
 
-icm426xx_value_t icm426xxValue = {0};
-static icm426xx_value_t stageValue = {0};
-STATIC_DMA_DATA_AUTO uint8_t icm426xxBuf[GYRO_BUF_SIZE];
 
-bool ICM426xx_Init(gyro_t *gyro);
-static void ICM426xx_Callback(uint8_t *pRxData);
 
-const gyro_config_t icm426xx_config = {
-        .gyroExtiMode   = GYRO_EXTI_INT_DMA,
-        .maxClk         = ICM426XX_MAX_SPI_CLK_HZ,
-        .gyroDataReg    = ICM426XX_RA_ACCEL_DATA_X1 | 0x80,
-        .pTxData        = icm426xxBuf,
-        .pRxData        = &icm426xxBuf[GYRO_BUF_SIZE / 2],
-        .transferDst    = (uint8_t *)&stageValue,
-        .len            = 13,
-        .initFunc       = ICM426xx_Init,
-        .callback       = ICM426xx_Callback,
-        .aligenment     = 1,
+static bool ICM426xx_Init(gyro_t *gyro);
+static void ICM426xx_Callback(gyro_t *gyro)
+{
+    for (int i = 0; i < 3; ++i)
+    {
+        gyro->gyro[i] = (float )swap_i16(gyro->gyroRaw[i]) * GYRO_SCALE_2000DPS;
+        gyro->acc[i] = (float )swap_i16(gyro->accRaw[i]) * GYRO_SCALE_2000DPS;
+    }
+}
+
+
+gyro_t icm426xx = {
+        .init = ICM426xx_Init,
+        .updateCallback = ICM426xx_Callback,
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//------------------------------------------
 
 
 typedef enum
@@ -70,11 +90,11 @@ static aaf_config_t aafLUT[AAF_CONFIG_COUNT] = {  // see table in section 5.3
         [AAF_CONFIG_1962HZ] = {37, 1376, 4},
 };
 
-uint8_t ICM426xx_Detect(const device_t *dev)
+device_e ICM426xx_Detect(const device_t *dev)
 {
     SPI_WriteReg(dev, ICM426XX_RA_PWR_MGMT0, 0x00);
 
-    uint8_t detected = SENSOR_NONE;
+    uint8_t detected = DEV_NUM;
     uint8_t attemptsRemaining = 20;
     while (attemptsRemaining--)
     {
@@ -86,25 +106,46 @@ uint8_t ICM426xx_Detect(const device_t *dev)
                 detected = ICM42688P_SPI;
                 break;
             default:
-                detected = SENSOR_NONE;
+                detected = DEV_NUM;
                 break;
         }
-        if (detected != SENSOR_NONE)
+        if (detected != DEV_NUM)
         {
             break;
         }
         if (!attemptsRemaining)
         {
-            return SENSOR_NONE;
+            return DEV_NUM;
         }
     }
 
     return detected;
 }
 
-bool ICM426xx_Init(gyro_t *gyro)
+STATIC_DMA_DATA_AUTO uint8_t icm426xxBuf[GYRO_BUF_SIZE];
+
+static bool ICM426xx_Init(gyro_t *gyro)
 {
+    const hw_config_t hwConfig ={
+            .name = "ICM42688P", .busE = BUS_SPI4,
+            .csPin = {.port = GPIOA, .pin = GPIO_PIN_15},
+            .extiPin = {.port = GPIOB, .pin = GPIO_PIN_15}
+    };
+    const dr_config_t drConfig ={
+            .pTxData        = icm426xxBuf,
+            .pRxData        = &icm426xxBuf[GYRO_BUF_SIZE / 2],
+            .len            = 13,
+            .startDataReg    = ICM426XX_RA_ACCEL_DATA_X1 | 0x80,
+            .aligenment     = 1,
+    };
+    if(!Gyro_MspInit(gyro, ICM426xx_Detect, &hwConfig, &drConfig))
+        return false;
+
+
+
     const device_t *dev = &gyro->dev;
+    SPI_SetClkDivisor(dev, SPI_CalculateDivider(ICM426XX_MAX_SPI_CLK_HZ));
+
     SPI_WriteReg(dev, ICM426XX_RA_PWR_MGMT0, ICM426XX_PWR_MGMT0_TEMP_DISABLE_OFF | ICM426XX_PWR_MGMT0_ACCEL_MODE_LN |ICM426XX_PWR_MGMT0_GYRO_MODE_LN);
     delay_ms(15);
 
@@ -150,15 +191,7 @@ bool ICM426xx_Init(gyro_t *gyro)
     return true;
 }
 
-static void ICM426xx_Callback(uint8_t *pRxData)
-{
-    icm426xx_value_t *pValue = (icm426xx_value_t *)pRxData;
-    for (int i = 0; i < 3; ++i)
-    {
-        icm426xxValue.gyro[i] = __builtin_bswap16(pValue->gyro[i]);
-        icm426xxValue.acc[i] = __builtin_bswap16(pValue->acc[i]);
-    }
-}
+
 
 
 

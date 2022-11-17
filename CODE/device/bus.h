@@ -20,6 +20,24 @@
 
 typedef enum
 {
+    DEV_NONE = 0,
+#ifdef USE_SENSOR_SPI_ADIS16470
+    ADIS16470_SPI,
+#endif
+#ifdef USE_SENSOR_SPI_ICM42688P
+    ICM42688P_SPI,
+#endif
+#ifdef USE_SENSOR_SPI_MS5611
+    MS5611_SPI,
+#endif
+#ifdef USE_SENSOR_SPI_RM3100
+    RM3100_SPI,
+#endif
+    DEV_ALLCOUNT,
+}device_e;
+
+typedef enum
+{
     BUS_TYPE_NONE = 0,
     BUS_TYPE_SPI,
     BUS_TYPE_I2C,
@@ -57,8 +75,6 @@ typedef enum
     BUS_I2C1,
     BUS_ALLCOUNT,
 }bus_e;
-
-#define SPI_NUM         (BUS_SPICOUNT - 1)
 
 typedef bus_status_e (* segment_callback)(uint32_t arg);
 typedef struct segment_s
@@ -110,6 +126,43 @@ typedef struct bus_s
     bool initSegment;
 }bus_t;
 
+
+typedef struct
+{
+    char *name;
+    uint8_t busE;
+    io_t csPin;
+    bool leadingEdge;
+    uint8_t i2cBus;
+    uint8_t i2cAddress;
+    io_t extiPin;
+} hw_config_t;
+
+typedef struct
+{
+    uint8_t *pTxData;
+    uint8_t *pRxData;
+    int16_t len;
+    uint8_t startDataReg;
+    uint8_t aligenment;
+    uint8_t transferSize;
+}dr_config_t;
+
+#ifdef ENABLE_EXIT_STAT
+typedef struct
+{
+    uint32_t lastExtiTick;
+    uint32_t syncEXTI;
+    // Check that minimum number of interrupts have been detected
+    // We need some offset from the gyro interrupts to ensure sampling after the interrupt
+    int32_t dmaMaxDuration;
+    int32_t shortPeriod;
+    uint32_t recordTime;
+    uint32_t intoExti;
+    uint32_t capAvgFreq;
+}exti_stat_t;
+#endif
+
 // External device has an associated bus and bus dependent address
 typedef struct device_s
 {
@@ -135,15 +188,27 @@ typedef struct device_s
     // Connected devices on the same bus may support different speeds
     uint32_t callbackArg;
 
-    const io_t          *extiPin;
-    exti_callback_rec_t exti;
+    io_t extiPin;
+#ifdef ENABLE_EXIT_STAT
+    exti_stat_t extiStat;
+#endif
+    exti_callback_rec_t extiCallbackRec;
+    segment_t segments[2];
+    uint8_t transferSize;
+    uint8_t aligenment;
 }device_t;
 
+
+#define SPI_NUM         (BUS_SPICOUNT - 1)
+#define DEV_NUM         (DEV_ALLCOUNT - 1)
 
 #define CACHE_LINE_SIZE 32
 #define CACHE_LINE_MASK (CACHE_LINE_SIZE - 1)
 
 #define IDX_BY_BUS(__X__)        ((__X__) - 1)
+
+
+
 
 void Bus_DeviceRegister(const device_t *dev);
 bool Bus_WriteRegisterStart(const device_t *dev, uint8_t reg, uint8_t data);
@@ -153,4 +218,9 @@ bool Bus_RawReadRegisterBuffer(const device_t *dev, uint8_t reg, uint8_t *data, 
 bool Bus_RawReadRegisterBufferStart(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length);
 bool Bus_ReadRegisterBufferStart(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length);
 bool Bus_Busy(const device_t *dev, bool *error);
+
+
+typedef  device_e (* detect_func_t)(const device_t *dev);
+bool Device_PreConfigDataReady(device_t *dev, const dr_config_t *config);
+bool Device_PreConfigHardware(device_t *dev, detect_func_t detectFunc, const hw_config_t *hwConfig);
 #endif //BUS_H

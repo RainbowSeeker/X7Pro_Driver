@@ -5,8 +5,9 @@
 //
 
 #include "barometer.h"
-#include "sensor.h"
+
 #include "barometer_ms5611.h"
+#include "log.h"
 
 #define NUM_CALIBRATION_CYCLES   100        // 10 seconds init_delay + 100 * 25 ms = 12.5 seconds before valid baro altitude
 #define NUM_GROUND_LEVEL_CYCLES   10        // calibrate baro to new ground level (10 * 25 ms = ~250 ms non blocking)
@@ -14,21 +15,27 @@
 static uint16_t calibrationCycles = 0;      // baro calibration = get new ground pressure value
 static float baroGroundAltitude = 0.0f;
 static bool baroCalibrated = false;
-static bool baroReady = false;
+
+
+bool Baro_MspInit(baro_t *baro, detect_func_t detectFunc, const hw_config_t *hwConfig)
+{
+    device_t *dev = &baro->dev;
+    if (Device_PreConfigHardware(dev, detectFunc, hwConfig) && Device_PreConfigDataReady(dev, NULL))
+    {
+        LOG_INFO("Detected Baro[%d]: %s", dev->deviceID, dev->name);
+    }
+    else
+    {
+        LOG_ERROR("Cann't Initialize Baro Device: %s.\r\nPlease check your configuration.", dev->name);
+        return false;
+    }
+
+    return true;
+}
 
 bool Baro_Init(baro_t *baro)
 {
-    switch (baro->dev.deviceID)
-    {
-#ifdef USE_SENSOR_SPI_MS5611
-        case MS5611_SPI:
-            baroReady = MS5611_Init(baro);
-            break;
-#endif
-        default:
-            return false;
-    }
-    return baroReady;
+
 }
 
 static float PressureToAltitude(const float pressure)
@@ -141,9 +148,10 @@ uint32_t Baro_Update(baro_t *baro, uint32_t currentTimeUs)
                 baro->altitude = 0.0f;
             }
 
-            println("pressure=%3.2f, ",baro->pressure / 100.0f);
-            println("temperature=%3.2f, ",baro->temperature / 100.0f);
-            println("altitude=%3.2f, ",baro->altitude / 10.0f);
+            if (baro->updateCallback)
+            {
+                baro->updateCallback(baro);
+            }
 
             if (baro->combined_read)
             {

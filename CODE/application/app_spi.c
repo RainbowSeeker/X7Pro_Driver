@@ -5,31 +5,37 @@
 //
 
 #include "app_spi.h"
-#include "sensor.h"
 #include "accgyro_adis16470.h"
 #include "accgyro_icm42688p.h"
+#include "magn_rm3100.h"
+#include "FRAM/fm25vx.h"
+#include "barometer_ms5611.h"
 
 void Print_Gyro()
 {
     for (int i = 0; i < 3; ++i)
     {
-        println("gyro[%d]=%3.2f, acc[%d]=%3.2f, ", i, (float )adiValue.gyro[i]*GYRO_SCALE_2000DPS, i, (float )adiValue.acc[i]*GYRO_SCALE_2000DPS);
+        println("gyro[%d]=%.2f, acc[%d]=%.2f, ", i, icm426xx.gyro[i], i, icm426xx.acc[i]);
     }
-    println("AvgFreq=%lu", sensorDevice[ADIS16470_SPI - 1].u.gyro.capAvgFreq);
+    println("temp=%.1f", adis16470.temp);
 }
 
 void App_SPI_Main(void const * argument)
 {
-    Sensor_Init();
+    assert(adis16470.init(&adis16470));
+    assert(icm426xx.init(&icm426xx));
+    Gyro_StartSample(&adis16470);
+    Gyro_StartSample(&icm426xx);
+
+
 
     while (1)
     {
-        Sensor_Update(ICM42688P_SPI);
-        Sensor_Update(ADIS16470_SPI);
-        Print_Gyro();
+        Gyro_Update(&adis16470);
+        Gyro_Update(&icm426xx);
+//        Print_Gyro();
+//        println("magx=%.2f, magy=%.2f, magz=%.2f, ", rm3100Value.mag[X], rm3100Value.mag[Y], rm3100Value.mag[Z]);
         osDelay(5);
-//        Sensor_Update(MS5611_SPI);
-//        osDelay(25);
     }
 
 }
