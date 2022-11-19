@@ -5,7 +5,7 @@
 //
 #include "magn.h"
 #include "magn_rm3100.h"
-#include "log.h"
+#include "cli/log.h"
 
 static bus_status_e Magn_IntCallback(uint32_t arg)
 {
@@ -18,14 +18,9 @@ static bus_status_e Magn_IntCallback(uint32_t arg)
 bool Magn_MspInit(magn_t *magn, detect_func_t detectFunc, const hw_config_t *hwConfig, const dr_config_t *drConfig)
 {
     device_t *dev = &magn->dev;
-    if (Device_PreConfigHardware(dev, detectFunc, hwConfig) && Device_PreConfigDataReady(dev, drConfig))
-    {
-        LOG_INFO("Detected Magn[%d]: %s", dev->deviceID, dev->name);
-    }
-    else
+    if (!Device_PreConfigHardware(dev, detectFunc, hwConfig) || !Device_PreConfigDataReady(dev, drConfig))
     {
         magn->sampleMode = SAMPLE_NO_INIT;
-        LOG_ERROR("Cann't Initialize Magn Device: %s.\r\nPlease check your configuration.", dev->name);
         return false;
     }
 
@@ -53,8 +48,45 @@ void Magn_StopSample(magn_t *magn)
 
 bool Magn_Init(magn_t *magn)
 {
+    if (magn->init(magn))
+    {
+        LOG_INFO("Initialized Magn[%d]: %s", magn->dev.deviceID, magn->dev.name);
+    }
+    else
+    {
+        LOG_ERROR("Cann't Initialize Magn Device: %s.\r\nPlease check your configuration.", magn->dev.name);
+        return false;
+    }
 
+    Magn_StartSample(magn);
+    return true;
 }
+
+
+bool Magn_Update(magn_t *magn)
+{
+    switch (magn->sampleMode)
+    {
+        case SAMPLE_NO_INT:
+        {
+            SPI_Sequence(&magn->dev, &magn->dev.segments[0]);
+
+            // Wait for completion
+            SPI_Wait(&magn->dev);
+        }
+        case SAMPLE_EXTI_INT:
+        case SAMPLE_EXTI_INT_DMA:
+            if (magn->updateCallback)
+            {
+                magn->updateCallback(magn);
+            }
+        default:
+            break;
+    }
+
+    return true;
+}
+
 
 
 

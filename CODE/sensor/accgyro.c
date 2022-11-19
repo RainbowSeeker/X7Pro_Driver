@@ -10,7 +10,7 @@
 #include "accgyro_adis16470.h"
 #include "maths.h"
 #include "nvic.h"
-#include "log.h"
+#include "cli/log.h"
 
 static bus_status_e Gyro_IntCallback(uint32_t arg)
 {
@@ -23,14 +23,9 @@ static bus_status_e Gyro_IntCallback(uint32_t arg)
 bool Gyro_MspInit(gyro_t *gyro, detect_func_t detectFunc, const hw_config_t *hwConfig, const dr_config_t *drConfig)
 {
     device_t *dev = &gyro->dev;
-    if (Device_PreConfigHardware(dev, detectFunc, hwConfig) && Device_PreConfigDataReady(dev, drConfig))
-    {
-        LOG_INFO("Detected Gyro[%d]: %s", dev->deviceID, dev->name);
-    }
-    else
+    if (!Device_PreConfigHardware(dev, detectFunc, hwConfig) || !Device_PreConfigDataReady(dev, drConfig))
     {
         gyro->sampleMode = SAMPLE_NO_INIT;
-        LOG_ERROR("Cann't Initialize Gyro Device: %s.\r\nPlease check your configuration.", dev->name);
         return false;
     }
 
@@ -53,6 +48,22 @@ void Gyro_StartSample(gyro_t *gyro)
 void Gyro_StopSample(gyro_t *gyro)
 {
     EXTI_Disable(gyro->dev.extiPin);
+}
+
+bool Gyro_Init(gyro_t *gyro)
+{
+    if (gyro->init(gyro))
+    {
+        LOG_INFO("Initialized Gyro[%d]: %s", gyro->dev.deviceID, gyro->dev.name);
+    }
+    else
+    {
+        LOG_ERROR("Cann't Initialize Gyro Device: %s.\r\nPlease check your configuration.", gyro->dev.name);
+        return false;
+    }
+
+    Gyro_StartSample(gyro);
+    return true;
 }
 
 bool Gyro_Update(gyro_t *gyro)

@@ -7,7 +7,7 @@
 #ifndef X7PRO_DRIVER_ACCGYRO_ICM42688P_H
 #define X7PRO_DRIVER_ACCGYRO_ICM42688P_H
 #include "bus_spi.h"
-#include "log.h"
+#include "cli/log.h"
 #include "accgyro.h"
 
 // 24 MHz max SPI frequency

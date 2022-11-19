@@ -55,9 +55,9 @@ const spi_hw_t spiHardware[SPI_NUM] = {
 #ifdef USE_SPI6
         {
             .instance = SPI6,
-            .sck = {.port = GPIOG, .pin = GPIO_PIN_13},
-            .miso = {.port = GPIOG, .pin = GPIO_PIN_12},
-            .mosi = {.port = GPIOA, .pin = GPIO_PIN_7},
+            .sck = {.port = GPIOG, .pin = GPIO_PIN_13}, .sckAF = GPIO_AF5_SPI6,
+            .miso = {.port = GPIOG, .pin = GPIO_PIN_12}, .misoAF = GPIO_AF5_SPI6,
+            .mosi = {.port = GPIOA, .pin = GPIO_PIN_7}, .mosiAF = GPIO_AF8_SPI6,
         }
 #endif
 };
@@ -196,40 +196,74 @@ void SPI_InternalStartDMA(const device_t *dev)
     // Use the correct callback argument
     dmaRx->userParam = (uint32_t) dev;
 
-    // Clear transfer flags
-    DMA_CLEAR_FLAG(dmaTx, DMA_IT_HTIF | DMA_IT_TEIF | DMA_IT_TCIF);
-    DMA_CLEAR_FLAG(dmaRx, DMA_IT_HTIF | DMA_IT_TEIF | DMA_IT_TCIF);
-
-    DMA_Stream_TypeDef *streamRegsTx = dmaTx->ref;
-    DMA_Stream_TypeDef *streamRegsRx = dmaRx->ref;
-
-    // Disable streams to enable update
-    LL_DMA_WriteReg(streamRegsTx, CR, 0U);
-    LL_DMA_WriteReg(streamRegsRx, CR, 0U);
-
-    /* Use the Rx interrupt as this occurs once the SPI operation is complete whereas the Tx interrupt
-     * occurs earlier when the Tx FIFO is empty, but the SPI operation is still in progress
-     */
-
-    LL_EX_DMA_EnableIT_TC(streamRegsRx);
-
-    // Update streams
-    LL_DMA_Init(dmaTx->dma, dmaTx->stream, bus->initTx);
-    LL_DMA_Init(dmaRx->dma, dmaRx->stream, bus->initRx);
-
     LL_SPI_SetTransferSize(dev->bus->busType_u.spi.instance, dev->bus->curSegment->len);
-    LL_DMA_EnableStream(dmaTx->dma, dmaTx->stream);
-    LL_DMA_EnableStream(dmaRx->dma, dmaRx->stream);
+    if (dmaTx->dma == BDMA)
+    {
+        // Clear transfer flags
+        BDMA_CLEAR_FLAG(dmaTx, BDMA_IT_HTIF | BDMA_IT_TEIF | BDMA_IT_TCIF);
+        BDMA_CLEAR_FLAG(dmaRx, BDMA_IT_HTIF | BDMA_IT_TEIF | BDMA_IT_TCIF);
+
+        BDMA_Channel_TypeDef *streamRegsTx = dmaTx->ref;
+        BDMA_Channel_TypeDef *streamRegsRx = dmaRx->ref;
+
+        // Disable streams to enable update
+        LL_DMA_WriteReg(streamRegsTx, CCR, 0U);
+        LL_DMA_WriteReg(streamRegsRx, CCR, 0U);
+
+        /* Use the Rx interrupt as this occurs once the SPI operation is complete whereas the Tx interrupt
+         * occurs earlier when the Tx FIFO is empty, but the SPI operation is still in progress
+         */
+
+        LL_EX_BDMA_EnableIT_TC(streamRegsRx);
+
+        // Update streams
+        LL_BDMA_Init(dmaTx->dma, dmaTx->stream, (LL_BDMA_InitTypeDef *)bus->initTx);
+        LL_BDMA_Init(dmaRx->dma, dmaRx->stream, (LL_BDMA_InitTypeDef *)bus->initRx);
+
+
+        LL_BDMA_EnableChannel(dmaTx->dma, dmaTx->stream);
+        LL_BDMA_EnableChannel(dmaRx->dma, dmaRx->stream);
+    }
+    else
+    {
+        // Clear transfer flags
+        DMA_CLEAR_FLAG(dmaTx, DMA_IT_HTIF | DMA_IT_TEIF | DMA_IT_TCIF);
+        DMA_CLEAR_FLAG(dmaRx, DMA_IT_HTIF | DMA_IT_TEIF | DMA_IT_TCIF);
+
+        DMA_Stream_TypeDef *streamRegsTx = dmaTx->ref;
+        DMA_Stream_TypeDef *streamRegsRx = dmaRx->ref;
+
+        // Disable streams to enable update
+        LL_DMA_WriteReg(streamRegsTx, CR, 0U);
+        LL_DMA_WriteReg(streamRegsRx, CR, 0U);
+
+        /* Use the Rx interrupt as this occurs once the SPI operation is complete whereas the Tx interrupt
+         * occurs earlier when the Tx FIFO is empty, but the SPI operation is still in progress
+         */
+
+        LL_EX_DMA_EnableIT_TC(streamRegsRx);
+
+        // Update streams
+        LL_DMA_Init(dmaTx->dma, dmaTx->stream, bus->initTx);
+        LL_DMA_Init(dmaRx->dma, dmaRx->stream, bus->initRx);
+
+
+        LL_DMA_EnableStream(dmaTx->dma, dmaTx->stream);
+        LL_DMA_EnableStream(dmaRx->dma, dmaRx->stream);
+    }
+
     LL_SPI_EnableDMAReq_TX(dev->bus->busType_u.spi.instance);
     LL_SPI_EnableDMAReq_RX(dev->bus->busType_u.spi.instance);
     LL_SPI_Enable(dev->bus->busType_u.spi.instance);
     LL_SPI_StartMasterTransfer(dev->bus->busType_u.spi.instance);
+
 }
 
 static void SPI_InternalInitStream(const device_t *dev, bool preInit)
 {
     STATIC_DMA_DATA_AUTO uint8_t dummyTxByte = 0xff;
     STATIC_DMA_DATA_AUTO uint8_t dummyRxByte;
+
     bus_t *bus = dev->bus;
 
     segment_t *segment = (segment_t *) bus->curSegment;
@@ -254,7 +288,7 @@ static void SPI_InternalInitStream(const device_t *dev, bool preInit)
     {
 #ifdef __DCACHE_PRESENT
 #ifdef STM32H7
-        if ((txData < &_dmaram_start__) || (txData >= &_dmaram_end__))
+        if (txData < &_dmaram_start__ || txData >= &_dmaram_end__)
         {
 #else
             // No need to flush DTCM memory
@@ -267,7 +301,7 @@ static void SPI_InternalInitStream(const device_t *dev, bool preInit)
         }
 #endif // __DCACHE_PRESENT
         initTx->MemoryOrM2MDstAddress = (uint32_t) txData;
-        initTx->MemoryOrM2MDstIncMode = LL_DMA_MEMORY_INCREMENT;
+        initTx->MemoryOrM2MDstIncMode = bus->dmaTx->dma == BDMA ? LL_BDMA_MEMORY_INCREMENT : LL_DMA_MEMORY_INCREMENT;
     }
     else
     {
@@ -288,7 +322,7 @@ static void SPI_InternalInitStream(const device_t *dev, bool preInit)
 #ifdef __DCACHE_PRESENT
         // No need to flush/invalidate DTCM memory
 #ifdef STM32H7
-        if ((rxData < &_dmaram_start__) || (rxData >= &_dmaram_end__))
+        if (rxData < &_dmaram_start__ || rxData >= &_dmaram_end__)
         {
 #else
             // No need to flush DTCM memory
@@ -300,7 +334,7 @@ static void SPI_InternalInitStream(const device_t *dev, bool preInit)
         }
 #endif // __DCACHE_PRESENT
         initRx->MemoryOrM2MDstAddress = (uint32_t) rxData;
-        initRx->MemoryOrM2MDstIncMode = LL_DMA_MEMORY_INCREMENT;
+        initRx->MemoryOrM2MDstIncMode = bus->dmaTx->dma == BDMA ? LL_BDMA_MEMORY_INCREMENT : LL_DMA_MEMORY_INCREMENT;
     }
     else
     {
@@ -411,9 +445,8 @@ static void SPI_RxIrqHandler(dma_t *descriptor)
 
 #ifdef __DCACHE_PRESENT
 #ifdef STM32H7
-    if (bus->curSegment->u.buffers.pRxData &&
-        ((bus->curSegment->u.buffers.pRxData < &_dmaram_start__) ||
-         (bus->curSegment->u.buffers.pRxData >= &_dmaram_end__)))
+    if (bus->curSegment->u.buffers.pRxData &&(bus->curSegment->u.buffers.pRxData < &_dmaram_start__ ||
+                                        bus->curSegment->u.buffers.pRxData >= &_dmaram_end__))
     {
 #else
         if (bus->curSegment->u.buffers.rxData) {
@@ -509,17 +542,27 @@ void SPI_InternalStopDMA(const device_t *dev)
     dma_t *dmaRx = bus->dmaRx;
     SPI_TypeDef *instance = bus->busType_u.spi.instance;
 
-    // Disable the DMA engine and SPI interface
-    LL_DMA_DisableStream(dmaRx->dma, dmaRx->stream);
-    LL_DMA_DisableStream(dmaTx->dma, dmaTx->stream);
+    if (dmaTx->dma == BDMA)
+    {
+        LL_BDMA_DisableChannel(dmaRx->dma, dmaRx->stream);
+        LL_BDMA_DisableChannel(dmaTx->dma, dmaTx->stream);
 
-    // Clear transfer flags
-    DMA_CLEAR_FLAG(dmaRx, DMA_IT_HTIF | DMA_IT_TEIF | DMA_IT_TCIF);
+        BDMA_CLEAR_FLAG(dmaRx, BDMA_IT_HTIF | BDMA_IT_TEIF | BDMA_IT_TCIF);
+    }
+    else
+    {
+        // Disable the DMA engine and SPI interface
+        LL_DMA_DisableStream(dmaRx->dma, dmaRx->stream);
+        LL_DMA_DisableStream(dmaTx->dma, dmaTx->stream);
 
+        // Clear transfer flags
+        DMA_CLEAR_FLAG(dmaRx, DMA_IT_HTIF | DMA_IT_TEIF | DMA_IT_TCIF);
+    }
     LL_SPI_DisableDMAReq_TX(instance);
     LL_SPI_DisableDMAReq_RX(instance);
-    LL_SPI_ClearFlag_TXTF(dev->bus->busType_u.spi.instance);
-    LL_SPI_Disable(dev->bus->busType_u.spi.instance);
+    LL_SPI_ClearFlag_TXTF(instance);
+    LL_SPI_Disable(instance);
+
 }
 
 // DMA transfer setup and start
@@ -574,16 +617,21 @@ void SPI_SequenceStart(const device_t *dev)
             // DTCM can't be accessed by DMA1/2 on the H7
             (IS_DTCM(checkSegment->u.buffers.pRxData) ||
              // Memory declared as DMA_RAM will have an address between &_dmaram_start__ and &_dmaram_end__
-             (((checkSegment->u.buffers.pRxData < &_dmaram_start__) ||
-               (checkSegment->u.buffers.pRxData >= &_dmaram_end__)) &&
+             ((bus->dmaTx->dma == BDMA ? ((checkSegment->u.buffers.pRxData < &_dmaramd3_start__) ||
+                                        (checkSegment->u.buffers.pRxData >= &_dmaramd3_end__)) :
+                                        ((checkSegment->u.buffers.pRxData < &_dmaram_start__) ||
+                                        (checkSegment->u.buffers.pRxData >= &_dmaram_end__))) &&
               (((uint32_t) checkSegment->u.buffers.pRxData & (CACHE_LINE_SIZE - 1)) ||
                (checkSegment->len & (CACHE_LINE_SIZE - 1))))))
         {
             dmaSafe = false;
             break;
+
         }
             // Check if TX data can be DMAed
-        else if ((checkSegment->u.buffers.pTxData) && IS_DTCM(checkSegment->u.buffers.pTxData))
+        else if ((checkSegment->u.buffers.pTxData) && (IS_DTCM(checkSegment->u.buffers.pTxData) ||
+                (bus->dmaTx->dma == BDMA ? ((checkSegment->u.buffers.pTxData < &_dmaramd3_start__) ||
+                                            (checkSegment->u.buffers.pTxData >= &_dmaramd3_end__)) : 0)))
         {
             dmaSafe = false;
             break;
@@ -892,7 +940,7 @@ static void SPI_EnableClock(bus_e busE)
 #endif
 #ifdef USE_SPI6
             case BUS_SPI6:
-            LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SPI6);
+            LL_APB4_GRP1_EnableClock(LL_APB4_GRP1_PERIPH_SPI6);
             break;
 #endif
         default:
@@ -933,7 +981,12 @@ static void SPI_InitBus(bus_e busE)
         PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SPI45;
         PeriphClkInitStruct.Spi45ClockSelection = RCC_SPI45CLKSOURCE_D2PCLK1;
     }
-    else return;
+    else if (instance == SPI6)
+    {
+        PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SPI6;
+        PeriphClkInitStruct.Spi6ClockSelection = RCC_SPI6CLKSOURCE_D3PCLK1;
+    }
+    else    assert(0);
     if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
     {
         return;
@@ -958,12 +1011,20 @@ static void SPI_InitBus(bus_e busE)
 
 void SPI_InternalResetStream(dma_t *descriptor)
 {
-    // Disable the stream
-    LL_DMA_DisableStream(descriptor->dma, descriptor->stream);
-    while (LL_DMA_IsEnabledStream(descriptor->dma, descriptor->stream));
-
-    // Clear any pending interrupt flags
-    DMA_CLEAR_FLAG(descriptor, DMA_IT_HTIF | DMA_IT_TEIF | DMA_IT_TCIF);
+    if (descriptor->dma == BDMA)
+    {
+        LL_BDMA_DisableChannel(descriptor->dma, descriptor->stream);
+        while (LL_BDMA_IsEnabledChannel(descriptor->dma, descriptor->stream));
+        BDMA_CLEAR_FLAG(descriptor, BDMA_IT_HTIF | BDMA_IT_TEIF | BDMA_IT_TCIF);
+    }
+    else
+    {
+        // Disable the stream
+        LL_DMA_DisableStream(descriptor->dma, descriptor->stream);
+        while (LL_DMA_IsEnabledStream(descriptor->dma, descriptor->stream));
+        // Clear any pending interrupt flags
+        DMA_CLEAR_FLAG(descriptor, DMA_IT_HTIF | DMA_IT_TEIF | DMA_IT_TCIF);
+    }
 }
 
 void SPI_InternalResetDescriptors(bus_t *bus)
@@ -975,7 +1036,7 @@ void SPI_InternalResetDescriptors(bus_t *bus)
     initTx->PeriphRequest = bus->dmaTx->channel;
 
     initTx->Mode = LL_DMA_MODE_NORMAL;
-    initTx->Direction = LL_DMA_DIRECTION_MEMORY_TO_PERIPH;
+    initTx->Direction = bus->dmaTx->dma == BDMA ? LL_BDMA_DIRECTION_MEMORY_TO_PERIPH : LL_DMA_DIRECTION_MEMORY_TO_PERIPH;
 
     initTx->PeriphOrM2MSrcAddress = (uint32_t) &bus->busType_u.spi.instance->TXDR;
     initTx->Priority = LL_DMA_PRIORITY_LOW;
@@ -1035,13 +1096,15 @@ bool SPI_InitBusDMA(bus_e busE)
         return false;
     }
 
-    dma_stream_e dmaTxStream = DMA_NONE;
-    dma_stream_e dmaRxStream = DMA_NONE;
+    uint8_t dmaTxStream = DMA_NONE;
+    uint8_t dmaRxStream = DMA_NONE;
+    dma_peripheral_e dmaTxPeripheral = bus->busType_u.spi.instance == SPI6 ? BDMA_PERIPH_SPI_MOSI : DMA_PERIPH_SPI_MOSI;
+    dma_peripheral_e dmaRxPeripheral = bus->busType_u.spi.instance == SPI6 ? BDMA_PERIPH_SPI_MISO : DMA_PERIPH_SPI_MISO;
+
 
     int8_t dmaOpt = -1;
     uint8_t dmaOptMin = 0;
     uint8_t dmaOptMax = MAX_PERIPHERAL_DMA_OPTIONS - 1;
-
     if (dmaOpt != -1)
     {
         dmaOptMin = dmaOpt;
@@ -1052,7 +1115,7 @@ bool SPI_InitBusDMA(bus_e busE)
     {
         if (dmaTxStream == DMA_NONE)
         {
-            const dma_channel_t *dmaTxChannelSpec = DMA_GetChannelSpecByPeripheral(DMA_PERIPH_SPI_MOSI, busE, opt);
+            const dma_channel_t *dmaTxChannelSpec = DMA_GetChannelSpecByPeripheral(dmaTxPeripheral, busE, opt);
 
             if (dmaTxChannelSpec)
             {
@@ -1067,7 +1130,7 @@ bool SPI_InitBusDMA(bus_e busE)
         }
         else if (dmaRxStream == DMA_NONE)
         {
-            const dma_channel_t *dmaRxChannelSpec = DMA_GetChannelSpecByPeripheral(DMA_PERIPH_SPI_MISO, busE, opt);
+            const dma_channel_t *dmaRxChannelSpec = DMA_GetChannelSpecByPeripheral(dmaRxPeripheral, busE, opt);
 
             if (dmaRxChannelSpec)
             {
@@ -1095,15 +1158,15 @@ bool SPI_InitBusDMA(bus_e busE)
          * handlers, so the DMA completion interrupt must be at a higher priority
          */
         DMA_SetHandler(dmaRxStream, SPI_RxIrqHandler, NVIC_PRIO_SPI_DMA, 0);
-        return true;
     }
     else
     {
         // Disassociate channels from bus
         bus->dmaRx = (dma_t *) NULL;
         bus->dmaTx = (dma_t *) NULL;
+        return false;
     }
-    return false;
+    return true;
 }
 
 bool SPI_DeviceBindByHardware(device_t *dev, const hw_config_t *config)

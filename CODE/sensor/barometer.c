@@ -7,7 +7,7 @@
 #include "barometer.h"
 
 #include "barometer_ms5611.h"
-#include "log.h"
+#include "cli/log.h"
 
 #define NUM_CALIBRATION_CYCLES   100        // 10 seconds init_delay + 100 * 25 ms = 12.5 seconds before valid baro altitude
 #define NUM_GROUND_LEVEL_CYCLES   10        // calibrate baro to new ground level (10 * 25 ms = ~250 ms non blocking)
@@ -20,13 +20,8 @@ static bool baroCalibrated = false;
 bool Baro_MspInit(baro_t *baro, detect_func_t detectFunc, const hw_config_t *hwConfig)
 {
     device_t *dev = &baro->dev;
-    if (Device_PreConfigHardware(dev, detectFunc, hwConfig) && Device_PreConfigDataReady(dev, NULL))
+    if (!Device_PreConfigHardware(dev, detectFunc, hwConfig) || !Device_PreConfigDataReady(dev, NULL))
     {
-        LOG_INFO("Detected Baro[%d]: %s", dev->deviceID, dev->name);
-    }
-    else
-    {
-        LOG_ERROR("Cann't Initialize Baro Device: %s.\r\nPlease check your configuration.", dev->name);
         return false;
     }
 
@@ -35,7 +30,17 @@ bool Baro_MspInit(baro_t *baro, detect_func_t detectFunc, const hw_config_t *hwC
 
 bool Baro_Init(baro_t *baro)
 {
+    if (baro->init(baro))
+    {
+        LOG_INFO("Initialized Baro[%d]: %s", baro->dev.deviceID, baro->dev.name);
+    }
+    else
+    {
+        LOG_ERROR("Cann't Initialize Baro Device: %s.\r\nPlease check your configuration.", baro->dev.name);
+        return false;
+    }
 
+    return true;
 }
 
 static float PressureToAltitude(const float pressure)

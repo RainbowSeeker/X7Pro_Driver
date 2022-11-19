@@ -197,5 +197,7 @@ typedef struct gyro_s
 bool Gyro_MspInit(gyro_t *gyro, detect_func_t detectFunc, const hw_config_t *hwConfig, const dr_config_t *drConfig);
 void Gyro_StartSample(gyro_t *gyro);
 void Gyro_StopSample(gyro_t *gyro);
+
+bool Gyro_Init(gyro_t *gyro);
 bool Gyro_Update(gyro_t *gyro);
 #endif //X7PRO_DRIVER_ACCGYRO_H

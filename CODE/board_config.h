@@ -23,7 +23,7 @@
 //#define USE_SPI3
 #define USE_SPI4
 //#define USE_SPI5
-//#define USE_SPI6
+#define USE_SPI6
 #if defined(USE_SPI1) || defined(USE_SPI2) || defined(USE_SPI3) || defined(USE_SPI4) || defined(USE_SPI5) || defined(USE_SPI6)
 #define USE_SPI
 #endif
@@ -48,6 +48,7 @@
 
 #define USE_SENSOR_SPI_ADIS16470
 #define USE_SENSOR_SPI_ICM42688P
+#define USE_SENSOR_SPI_ICM20689
 #define USE_SENSOR_SPI_MS5611
 #define USE_SENSOR_SPI_RM3100
 

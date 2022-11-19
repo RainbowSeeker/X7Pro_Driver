@@ -11,12 +11,12 @@
 #include <stdio.h>
 #include "stm32h7xx_ll_dma.h"
 #include "board_config.h"
-#include "io.h"
+#include "driver/io.h"
 #include "algo/ring.h"
 #include "common.h"
-#include "device/dma.h"
+#include "driver/dma.h"
 #include "board_config.h"
-#include "exti.h"
+#include "driver/exti.h"
 
 typedef enum
 {
@@ -27,11 +27,17 @@ typedef enum
 #ifdef USE_SENSOR_SPI_ICM42688P
     ICM42688P_SPI,
 #endif
+#ifdef USE_SENSOR_SPI_ICM20689
+    ICM20689_SPI,
+#endif
 #ifdef USE_SENSOR_SPI_MS5611
     MS5611_SPI,
 #endif
 #ifdef USE_SENSOR_SPI_RM3100
     RM3100_SPI,
+#endif
+#ifdef USE_FRAM_FM25V05
+    FM25V05_SPI,
 #endif
     DEV_ALLCOUNT,
 }device_e;
