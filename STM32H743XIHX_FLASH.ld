@@ -50,7 +50,7 @@ MEMORY
     RAM (rwx)         : ORIGIN = 0x24000000, LENGTH = 512K
 
     D2_RAM (rwx)      : ORIGIN = 0x30000000, LENGTH = 256K /* SRAM1 + SRAM2 */
-
+    RAM_D3 (rwx)      : ORIGIN = 0x38000000, LENGTH = 64K
     MEMORY_B1 (rx)    : ORIGIN = 0x60000000, LENGTH = 0K
 }
 
@@ -257,6 +257,20 @@ SECTIONS
     _edmaram_bss = .;
     __dmaram_bss_end__ = _edmaram_bss;
   } >RAM
+
+  . = ALIGN(32);
+  .dmaramd3_data :
+  {
+    PROVIDE(dmaramd3_start = .);
+    _sdmaramd3 = .;
+    _dmaramd3_start__ = _sdmaramd3;
+    _sdmaramd3_data = .;        /* create a global symbol at data start */
+    *(.dmaramd3_data)           /* .data sections */
+    *(.dmaramd3_data*)          /* .data* sections */
+    . = ALIGN(32);
+    _edmaramd3_data = .;        /* define a global symbol at data end */
+    _dmaramd3_end__ = _edmaramd3_data;
+  } >RAM_D3 AT >FLASH1
 
   . = ALIGN(32);
   .DMA_RAM (NOLOAD) :

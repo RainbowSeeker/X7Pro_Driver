@@ -236,6 +236,19 @@ void SPI4_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles SPI6 global interrupt.
+  */
+void SPI6_IRQHandler(void)
+{
+  /* USER CODE BEGIN SPI6_IRQn 0 */
+
+  /* USER CODE END SPI6_IRQn 0 */
+  /* USER CODE BEGIN SPI6_IRQn 1 */
+
+  /* USER CODE END SPI6_IRQn 1 */
+}
+
+/**
   * @brief This function handles MDMA global interrupt.
   */
 void MDMA_IRQHandler(void)

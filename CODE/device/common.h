@@ -48,6 +48,9 @@
 
 extern uint8_t _dmaram_start__;
 extern uint8_t _dmaram_end__;
+
+extern uint8_t _dmaramd3_start__;
+extern uint8_t _dmaramd3_end__;
 #endif
 
 
@@ -55,6 +58,8 @@ extern uint8_t _dmaram_end__;
 #define DMA_DATA                    __attribute__ ((section(".dmaram_data"), aligned(32)))
 #define STATIC_DMA_DATA_AUTO        static DMA_DATA
 
+#define BDMA_DATA                    __attribute__ ((section(".dmaramd3_data"), aligned(32)))
+#define STATIC_BDMA_DATA_AUTO        static BDMA_DATA
 
 #define FAST_CODE                   __attribute__((section(".tcm_code")))
 // Handle case where we'd prefer code to be in ITCM

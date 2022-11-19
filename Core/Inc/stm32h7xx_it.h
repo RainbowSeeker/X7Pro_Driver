@@ -57,6 +57,7 @@ void SPI1_IRQHandler(void);
 void SDMMC1_IRQHandler(void);
 void UART7_IRQHandler(void);
 void SPI4_IRQHandler(void);
+void SPI6_IRQHandler(void);
 void MDMA_IRQHandler(void);
 /* USER CODE BEGIN EFP */
 

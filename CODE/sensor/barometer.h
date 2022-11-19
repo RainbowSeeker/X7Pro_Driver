@@ -7,7 +7,7 @@
 #ifndef X7PRO_DRIVER_BAROMETER_H
 #define X7PRO_DRIVER_BAROMETER_H
 #include "bus.h"
-#include "exti.h"
+#include "driver/exti.h"
 
 typedef enum
 {

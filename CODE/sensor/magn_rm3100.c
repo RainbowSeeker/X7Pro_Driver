@@ -155,10 +155,11 @@ static bool RM3100_Init(magn_t *magn)
 
     const device_t *dev = &magn->dev;
     SPI_SetClkDivisor(dev, SPI_CalculateDivider(RM3100_MAX_SPI_CLK_HZ));
-    if (!RM3100_VerifyCCV(dev) || !RM3100_ModifyTMRC(dev, UR_150HZ) || !RM3100_ModifyCCM(dev))
+    if (!RM3100_VerifyCCV(dev) || !RM3100_ModifyTMRC(dev, UR_150HZ))
     {
         return false;
     }
+    while (!RM3100_ModifyCCM(dev));
 
     return true;
 }

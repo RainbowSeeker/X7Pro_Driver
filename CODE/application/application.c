@@ -23,7 +23,7 @@ void Application_Create(void)
     osThreadDef(app_test, App_Test_Main, osPriorityNormal, 0, 512);
     app_testHandle = osThreadCreate(osThread(app_test), NULL);
 
-    osThreadDef(app_spi, App_SPI_Main, osPriorityRealtime, 0, 512);
+    osThreadDef(app_spi, App_SPI_Main, osPriorityNormal, 0, 512);
     app_spiHandle = osThreadCreate(osThread(app_spi), NULL);
 
     osThreadDef(app_sd, App_SD_Main, osPriorityNormal, 0, 512);

@@ -12,8 +12,8 @@
 typedef struct magn_s
 {
     device_t dev;
-
     sample_mode_e sampleMode;
+
     uint8_t magRaw[9];
 
     float mag[3];
@@ -24,7 +24,9 @@ typedef struct magn_s
 
 
 bool Magn_MspInit(magn_t *magn, detect_func_t detectFunc, const hw_config_t *hwConfig, const dr_config_t *drConfig);
-bool Magn_Init(magn_t *magn);
 void Magn_StartSample(magn_t *magn);
 void Magn_StopSample(magn_t *magn);
+
+bool Magn_Init(magn_t *magn);
+bool Magn_Update(magn_t *magn);
 #endif //X7PRO_DRIVER_MAGN_H

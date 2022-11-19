@@ -7,29 +7,35 @@
 #include "app_test.h"
 #include "accgyro_adis16470.h"
 #include "accgyro_icm42688p.h"
+#include "accgyro_icm20689.h"
 #include "barometer_ms5611.h"
 #include "FRAM/fm25vx.h"
 #include "magn_rm3100.h"
 
 void App_Test_Main(void const * argument)
 {
-    ms5611.init(&ms5611);
+    Magn_Init(&rm3100);
+    Baro_Init(&ms5611);
     baroStartCalibration();
-//    FM25Vx_Init();
-//    uint8_t txbuf[20] = "HelloWorld";
-//    uint8_t rxbuf[20] = {0};
-//    uint8_t len = strlen((char *)txbuf);
-    rm3100.init(&rm3100);
-    Magn_StartSample(&rm3100);
+
+    Fram_Init(&fm25vx);
+    uint8_t txbuf[25] = "fm25vx read & write test";
+    uint8_t rxbuf[25] = {0};
+    uint8_t len = strlen((char *)txbuf);
+
     while (1)
     {
+        Magn_Update(&rm3100);
         for (int i = 0; i < 3; ++i)
         {
             println("mag[%d]=%.2f", i, rm3100.mag[i]);
         }
-//        osDelay(Baro_Update(&ms5611, Sys_GetTickUs()) / 1000);
-//        fm25vx.write(0x00C1, txbuf, len);
-//        fm25vx.read(0x00C1, rxbuf, len);
-//        println("%s", rxbuf);
+
+        osDelay(Baro_Update(&ms5611, Sys_GetTickUs()) / 1000);
+
+        fm25vx.write(0x00C1, txbuf, len);
+        fm25vx.read(0x00C1, rxbuf, len);
+        println("%s", rxbuf);
+
     }
 }
