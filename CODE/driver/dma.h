@@ -102,8 +102,15 @@ typedef enum {
 #define MAX_PERIPHERAL_DMA_OPTIONS      (16 + 8)        // dma + bdma
 #define MAX_TIMER_DMA_OPTIONS           16
 
+// For H743 and H750, if it's not in D3 peripheral area, then it's DMA1/2 and it's stream based.
+// If not, it's BDMA and it's channel based.
+#define IS_DMA_ENABLED(reg) \
+    ((uint32_t)(reg) < D3_AHB1PERIPH_BASE) ? \
+        (((DMA_Stream_TypeDef *)(reg))->CR & DMA_SxCR_EN) : \
+        (((BDMA_Channel_TypeDef *)(reg))->CCR & BDMA_CCR_EN)
+
 struct dma_s;
-typedef void (*dma_callback_func_ptr)(struct dma_s *channelDescriptor);
+typedef void (*dma_callback_func_ptr)(struct dma_s *dma);
 
 typedef struct dma_s
 {

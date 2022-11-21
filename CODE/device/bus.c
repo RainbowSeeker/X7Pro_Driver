@@ -38,10 +38,10 @@ static void Dev_ExtiIntHandler(exti_callback_rec_t *cb)
     SPI_Sequence(dev, dev->segments);
 }
 
+
 static bool Device_BindByHardware(device_t *dev, const hw_config_t *config)
 {
-    if (!config || !dev)
-        return false;
+    if (!config || !dev)    return false;
 
     if (config->busE > BUS_NULL && config->busE < BUS_SPICOUNT)
     {
@@ -53,7 +53,8 @@ static bool Device_BindByHardware(device_t *dev, const hw_config_t *config)
     }
     return false;
 }
-bool Device_PreConfigDataReady(device_t *dev, const dr_config_t *config)
+
+static bool Device_PreConfigDataReady(device_t *dev, const dr_config_t *config)
 {
     if (!config)    return true;
 
@@ -78,7 +79,7 @@ bool Device_PreConfigDataReady(device_t *dev, const dr_config_t *config)
 }
 
 
-bool Device_PreConfigHardware(device_t *dev, detect_func_t detectFunc, const hw_config_t *hwConfig)
+static bool Device_PreConfigHardware(device_t *dev, detect_func_t detectFunc, const hw_config_t *hwConfig)
 {
     if (!dev || !hwConfig || !Device_BindByHardware(dev, hwConfig))
         return false;
@@ -110,8 +111,20 @@ bool Device_PreConfigHardware(device_t *dev, detect_func_t detectFunc, const hw_
 }
 
 
+bool Device_PreConfig(device_t *dev, detect_func_t detectFunc, const hw_config_t *hwConfig, const dr_config_t *drConfig)
+{
+    if (!Device_PreConfigHardware(dev, detectFunc, hwConfig) || !Device_PreConfigDataReady(dev, drConfig))
+    {
+        return false;
+    }
+    return true;
+}
 
-
+void Device_BindRxCallback(device_t *dev, segment_callback callback, uint32_t arg)
+{
+    dev->segments[0].callback = callback;
+    dev->callbackArg = (uint32_t) arg;
+}
 
 
 

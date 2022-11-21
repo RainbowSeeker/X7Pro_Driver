@@ -67,5 +67,7 @@
 
 
 
-extern gyro_t icm426xx;
+extern gyro_t icm42688;
+
+void Print_ICM42688();
 #endif //X7PRO_DRIVER_ACCGYRO_ICM42688P_H

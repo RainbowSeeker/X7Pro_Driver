@@ -199,9 +199,9 @@ typedef struct device_s
     exti_stat_t extiStat;
 #endif
     exti_callback_rec_t extiCallbackRec;
+    uint16_t transferSize;
+    uint8_t  aligenment;
     segment_t segments[2];
-    uint8_t transferSize;
-    uint8_t aligenment;
 }device_t;
 
 
@@ -227,6 +227,6 @@ bool Bus_Busy(const device_t *dev, bool *error);
 
 
 typedef  device_e (* detect_func_t)(const device_t *dev);
-bool Device_PreConfigDataReady(device_t *dev, const dr_config_t *config);
-bool Device_PreConfigHardware(device_t *dev, detect_func_t detectFunc, const hw_config_t *hwConfig);
+bool Device_PreConfig(device_t *dev, detect_func_t detectFunc, const hw_config_t *hwConfig, const dr_config_t *drConfig);
+void Device_BindRxCallback(device_t *dev, segment_callback callback, uint32_t arg);
 #endif //BUS_H

@@ -8,6 +8,7 @@
 #include "maths.h"
 #include "board_config.h"
 #include "bus.h"
+#include "uart.h"
 
 /*
  * DMA descriptors.
@@ -75,6 +76,7 @@ DEFINE_BDMA_IRQ_HANDLER(7, BDMA_CH7_HANDLER)
 #define REQMAP(periph, device) { DMA_PERIPH_ ## periph, periph ## BUS_ ## device, DMA_REQUEST_ ## periph ## device }
 #define REQMAP_DIR(periph, device, dir) { DMA_PERIPH_ ## periph ## _ ## dir, BUS_ ## periph ## device  , DMA_REQUEST_ ## periph ## device ## _ ## dir }
 #define REQMAP_DIRB(periph, device, dir) { BDMA_PERIPH_ ## periph ## _ ## dir, BUS_ ## periph ## device  , DMA_REQUEST_ ## periph ## device ## _ ## dir }
+#define REQMAP_UART(periph, device, dir) { DMA_PERIPH_ ## periph ## _ ## dir, periph ## _ ## device  , DMA_REQUEST_ ## periph ## device ## _ ## dir }
 #define REQMAP_TIMUP(periph, timno) { DMA_PERIPH_TIMUP, timno - 1, DMA_REQUEST_ ## TIM ## timno ## _UP }
 
 // Resolve UART/USART mess
@@ -134,28 +136,43 @@ static const dma_peripheral_mapping_t dmaPeripheralMapping[] = {
         REQMAP(ADC, 3),
 #endif
 
-#ifdef USE_UART
-        REQMAP_DIR(UART, 1, TX),
-        REQMAP_DIR(UART, 1, RX),
-        REQMAP_DIR(UART, 2, TX),
-        REQMAP_DIR(UART, 2, RX),
-        REQMAP_DIR(UART, 3, TX),
-        REQMAP_DIR(UART, 3, RX),
-        REQMAP_DIR(UART, 4, TX),
-        REQMAP_DIR(UART, 4, RX),
-        REQMAP_DIR(UART, 5, TX),
-        REQMAP_DIR(UART, 5, RX),
-        REQMAP_DIR(UART, 6, TX),
-        REQMAP_DIR(UART, 6, RX),
-        REQMAP_DIR(UART, 7, TX),
-        REQMAP_DIR(UART, 7, RX),
-        REQMAP_DIR(UART, 8, TX),
-        REQMAP_DIR(UART, 8, RX),
+#ifdef USE_UART1
+        REQMAP_UART(UART, 1, TX),
+        REQMAP_UART(UART, 1, RX),
+#endif
+#ifdef USE_UART2
+        REQMAP_UART(UART, 2, TX),
+        REQMAP_UART(UART, 2, RX),
+#endif
+#ifdef USE_UART3
+        REQMAP_UART(UART, 3, TX),
+        REQMAP_UART(UART, 3, RX),
+#endif
+#ifdef USE_UART4
+        REQMAP_UART(UART, 4, TX),
+        REQMAP_UART(UART, 4, RX),
+#endif
+#ifdef USE_UART5
+        REQMAP_UART(UART, 5, TX),
+        REQMAP_UART(UART, 5, RX),
+#endif
+#ifdef USE_UART6
+        REQMAP_UART(UART, 6, TX),
+        REQMAP_UART(UART, 6, RX),
+#endif
+#ifdef USE_UART7
+        REQMAP_UART(UART, 7, TX),
+        REQMAP_UART(UART, 7, RX),
+#endif
+#ifdef USE_UART8
+        REQMAP_UART(UART, 8, TX),
+        REQMAP_UART(UART, 8, RX),
+#endif
 #ifdef USE_LPUART1
         { DMA_PERIPH_UART_TX, LPUARTDEV_1, BDMA_REQUEST_LPUART1_TX },
         { DMA_PERIPH_UART_RX, LPUARTDEV_1, BDMA_REQUEST_LPUART1_RX },
 #endif
-#endif
+
 
 #ifdef USE_TIMER
         // Pseudo peripheral for TIMx_UP channel

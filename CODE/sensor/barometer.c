@@ -20,7 +20,7 @@ static bool baroCalibrated = false;
 bool Baro_MspInit(baro_t *baro, detect_func_t detectFunc, const hw_config_t *hwConfig)
 {
     device_t *dev = &baro->dev;
-    if (!Device_PreConfigHardware(dev, detectFunc, hwConfig) || !Device_PreConfigDataReady(dev, NULL))
+    if (!Device_PreConfig(dev, detectFunc, hwConfig, NULL))
     {
         return false;
     }

@@ -76,4 +76,20 @@ extern uint8_t _dmaramd3_end__;
 #endif // USE_FAST_DATA
 
 
+#define ATOMIC_BLOCK(prio) for ( uint8_t __basepri_save __attribute__ ((__cleanup__ (__basepriRestoreMem), __unused__)) = __get_BASEPRI(), \
+                                     __ToDo = __basepriSetMemRetVal(prio); __ToDo ; __ToDo = 0 )
+
+// set BASEPRI_MAX, with global memory barrier, returns true
+static inline uint8_t __basepriSetMemRetVal(uint8_t prio)
+{
+    __set_BASEPRI_MAX(prio);
+    return 1;
+}
+
+
+// restore BASEPRI (called as cleanup function), with global memory barrier
+static inline void __basepriRestoreMem(uint8_t *val)
+{
+    __set_BASEPRI(*val);
+}
 #endif //_COMMON_H

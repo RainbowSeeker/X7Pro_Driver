@@ -11,22 +11,22 @@
 #include <stdio.h>
 #include "stdint.h"
 
-#define RING_MAX_LEN            64u
 
 
 typedef struct
 {
-    void        *element[RING_MAX_LEN];
+    uint8_t     *element;
     uint16_t    pHead;
     uint16_t    pTail;
+    uint16_t    size ;
 }ring_t;
 
 
-void Ring_Init(ring_t *ring);
+void Ring_Init(ring_t *ring, uint8_t *pData, uint32_t size);
 uint16_t Ring_GetSize(ring_t *ring);
 uint16_t Ring_GetCapcity(ring_t *ring);
-int Ring_PushBack(ring_t *ring, void *segment);
-int Ring_PopBack(ring_t *ring, void **segment);
-int Ring_PushFront(ring_t *ring, void *segment);
-int Ring_PopFront(ring_t *ring, void **segment);
+int Ring_PushBack(ring_t *ring, uint8_t element);
+int Ring_PopBack(ring_t *ring, uint8_t *element);
+int Ring_PushFront(ring_t *ring, uint8_t element);
+int Ring_PopFront(ring_t *ring, uint8_t *element);
 #endif //_RING_H

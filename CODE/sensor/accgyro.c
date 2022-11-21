@@ -23,14 +23,13 @@ static bus_status_e Gyro_IntCallback(uint32_t arg)
 bool Gyro_MspInit(gyro_t *gyro, detect_func_t detectFunc, const hw_config_t *hwConfig, const dr_config_t *drConfig)
 {
     device_t *dev = &gyro->dev;
-    if (!Device_PreConfigHardware(dev, detectFunc, hwConfig) || !Device_PreConfigDataReady(dev, drConfig))
+    if (!Device_PreConfig(dev, detectFunc, hwConfig, drConfig))
     {
         gyro->sampleMode = SAMPLE_NO_INIT;
         return false;
     }
 
-    dev->callbackArg = (uint32_t)gyro;
-    dev->segments[0].callback = Gyro_IntCallback;
+    Device_BindRxCallback(dev, Gyro_IntCallback, (uint32_t)gyro);
 
     if (gyro->dev.extiPin.port)
     {

@@ -7,13 +7,17 @@
 #include "application.h"
 #include "FreeRTOS.h"
 #include "cmsis_os.h"
-#include "app_spi.h"
-#include "app_sd.h"
-#include "app_test.h"
+
 
 osThreadId app_testHandle;
 osThreadId app_spiHandle;
 osThreadId app_sdHandle;
+osThreadId app_pwmHandle;
+
+extern void App_Test_Main(void const * argument);
+extern void App_SPI_Main(void const * argument);
+extern void App_SD_Main(void const * argument);
+extern void App_PWM_Main(void const * argument);
 
 extern osThreadId defaultTaskHandle;
 void Application_Create(void)
@@ -28,6 +32,9 @@ void Application_Create(void)
 
     osThreadDef(app_sd, App_SD_Main, osPriorityNormal, 0, 512);
 //    app_sdHandle = osThreadCreate(osThread(app_sd), NULL);
+
+    osThreadDef(app_pwm, App_PWM_Main, osPriorityNormal, 0, 512);
+//    app_pwmHandle = osThreadCreate(osThread(app_pwm), NULL);
 
     osThreadTerminate(defaultTaskHandle);
     taskEXIT_CRITICAL();

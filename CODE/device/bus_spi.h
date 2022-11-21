@@ -8,7 +8,8 @@
 #define _BUS_SPI_H
 #include "bus.h"
 
-
+// Use DMA if possible if this many bytes are to be transferred
+#define BUS_DMA_THRESHOLD   8
 #define BUS_SPI_FREE    0
 
 typedef struct spi_hw_s

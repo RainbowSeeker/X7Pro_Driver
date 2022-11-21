@@ -53,4 +53,6 @@
 
 
 extern gyro_t icm20689;
+
+void Print_ICM20689();
 #endif //X7PRO_DRIVER_ACCGYRO_ICM20689_H

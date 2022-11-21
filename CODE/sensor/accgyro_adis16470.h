@@ -89,5 +89,5 @@
 
 extern gyro_t adis16470;
 
-
+void Print_ADIS16470();
 #endif //ADIS16470_H

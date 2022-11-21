@@ -9,6 +9,8 @@
 #include "dma.h"
 #include "mdma.h"
 #include "bus_spi.h"
+#include "driver/uart.h"
+#include "cli/cli.h"
 
 
 void Initialize(void)
@@ -16,9 +18,12 @@ void Initialize(void)
     MX_GPIO_Init();
     EXTI_Init();
     LED_BEEP_Init();
+    UART_BspInit();
+    Cli_Init();
+
 //    MX_DMA_Init();
 //    MX_MDMA_Init();
-    Print_Init();
+//    Print_Init();
 //    COM_Init();
 
     SPI_Init();

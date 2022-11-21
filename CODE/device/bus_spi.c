@@ -1102,16 +1102,7 @@ bool SPI_InitBusDMA(bus_e busE)
     dma_peripheral_e dmaRxPeripheral = bus->busType_u.spi.instance == SPI6 ? BDMA_PERIPH_SPI_MISO : DMA_PERIPH_SPI_MISO;
 
 
-    int8_t dmaOpt = -1;
-    uint8_t dmaOptMin = 0;
-    uint8_t dmaOptMax = MAX_PERIPHERAL_DMA_OPTIONS - 1;
-    if (dmaOpt != -1)
-    {
-        dmaOptMin = dmaOpt;
-        dmaOptMax = dmaOpt;
-    }
-
-    for (uint8_t opt = dmaOptMin; opt <= dmaOptMax; opt++)
+    for (uint8_t opt = 0; opt <= MAX_PERIPHERAL_DMA_OPTIONS - 1; opt++)
     {
         if (dmaTxStream == DMA_NONE)
         {
