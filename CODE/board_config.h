@@ -11,11 +11,20 @@
 
 
 //-----------hardware config------------------
-#define EN_UART         1
 
-// Use DMA if possible if this many bytes are to be transferred
-#define BUS_DMA_THRESHOLD   8
-
+//--------uart----------
+//#define USE_UART1
+//#define USE_UART2
+//#define USE_UART3
+//#define USE_UART4
+//#define USE_UART5
+//#define USE_UART6
+#define USE_UART7
+//#define USE_UART8
+//#define USE_LPUART1
+#if defined(USE_UART1) || defined(USE_UART2) || defined(USE_UART3) || defined(USE_UART4) || defined(USE_UART5) || defined(USE_UART6) || defined(USE_UART7) || defined(USE_UART8) || defined(USE_LPUART1)
+#define USE_UART
+#endif
 
 //---------spi----------
 #define USE_SPI1
@@ -29,14 +38,6 @@
 #endif
 
 
-
-
-#if EN_UART
-//--------debug uart config-------------------
-#define DEBUG_UART      (huart7)
-#define DEBUG_EN_DMA    0
-#define DEBUG_CONFIG    (DEBUG_EN_DMA && SUPPORT_OS)
-#endif
 
 
 //---------sensor--------

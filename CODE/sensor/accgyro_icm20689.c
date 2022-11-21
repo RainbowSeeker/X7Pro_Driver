@@ -29,7 +29,14 @@ gyro_t icm20689 = {
 
 
 
-
+void Print_ICM20689()
+{
+    for (int i = 0; i < 3; ++i)
+    {
+        println("gyro[%d]=%.2f, acc[%d]=%.2f, ", i, icm20689.gyro[i], i, icm20689.acc[i]);
+    }
+    println("AvgFreq=%d", icm20689.dev.extiStat.capAvgFreq);
+}
 
 
 

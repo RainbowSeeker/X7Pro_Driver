@@ -4,7 +4,7 @@
 // Created by 19114 on 2022/11/9.
 //
 
-#include "app_sd.h"
+
 #include "sdop.h"
 #include "fatfs.h"
 

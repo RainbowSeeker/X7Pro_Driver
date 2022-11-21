@@ -18,14 +18,13 @@ static bus_status_e Magn_IntCallback(uint32_t arg)
 bool Magn_MspInit(magn_t *magn, detect_func_t detectFunc, const hw_config_t *hwConfig, const dr_config_t *drConfig)
 {
     device_t *dev = &magn->dev;
-    if (!Device_PreConfigHardware(dev, detectFunc, hwConfig) || !Device_PreConfigDataReady(dev, drConfig))
+    if (!Device_PreConfig(dev, detectFunc, hwConfig, drConfig))
     {
         magn->sampleMode = SAMPLE_NO_INIT;
         return false;
     }
 
-    dev->callbackArg = (uint32_t)magn;
-    dev->segments[0].callback = Magn_IntCallback;
+    Device_BindRxCallback(dev, Magn_IntCallback, (uint32_t)magn);
 
     if (magn->dev.extiPin.port)
     {

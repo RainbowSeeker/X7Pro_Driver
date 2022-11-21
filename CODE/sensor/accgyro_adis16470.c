@@ -28,7 +28,14 @@ gyro_t adis16470 = {
 };
 
 
-
+void Print_ADIS16470()
+{
+    for (int i = 0; i < 3; ++i)
+    {
+        println("gyro[%d]=%.2f, acc[%d]=%.2f, ", i, adis16470.gyro[i], i, adis16470.acc[i]);
+    }
+    println("AvgFreq=%d", adis16470.dev.extiStat.capAvgFreq);
+}
 
 
 

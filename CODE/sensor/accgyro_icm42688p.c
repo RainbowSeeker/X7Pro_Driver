@@ -21,12 +21,20 @@ static void ICM426xx_Callback(gyro_t *gyro)
 }
 
 
-gyro_t icm426xx = {
+gyro_t icm42688 = {
         .init = ICM426xx_Init,
         .updateCallback = ICM426xx_Callback,
 };
 
 
+void Print_ICM42688()
+{
+    for (int i = 0; i < 3; ++i)
+    {
+        println("gyro[%d]=%.2f, acc[%d]=%.2f, ", i, icm42688.gyro[i], i, icm42688.acc[i]);
+    }
+    println("AvgFreq=%d", icm42688.dev.extiStat.capAvgFreq);
+}
 
 
 

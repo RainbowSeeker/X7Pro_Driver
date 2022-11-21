@@ -33,8 +33,6 @@
 
 
 void soft_delay(uint32_t time);
-void Print_Init(void);
-void uart_putstr(UART_HandleTypeDef *huart, const void *buf);
 void print(const void *format,...);
 void println(const void *format,...);
 void assert_failed(void *string);

@@ -105,7 +105,7 @@ static bool FM25Vx_Init(fram_t *fram)
             .csPin = {.port = GPIOF, .pin = GPIO_PIN_5}
     };
 
-    if (!Device_PreConfigHardware(&fram->dev, FM25V05_Detect, &fm25vx_config))
+    if (!Device_PreConfig(&fram->dev, FM25V05_Detect, &fm25vx_config, NULL))
     {
         return false;
     }
