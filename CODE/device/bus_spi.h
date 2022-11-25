@@ -46,7 +46,7 @@ bool SPI_ReadRegBufRB(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t l
 bool SPI_ReadRegMskBufRB(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length);
 void SPI_ReadWriteBuf(const device_t *dev, uint8_t *txData, uint8_t *rxData, int len);
 
-void SPI_Init(void);
+void SPI_BspInit(void);
 bool SPI_InitBusDMA(bus_e device);
 
 

@@ -5,7 +5,7 @@
 //
 
 #include "fm25vx.h"
-#include "maths.h"
+#include "algo/math/maths.h"
 #include "bus_spi.h"
 
 static bool FM25Vx_Init(fram_t *fram);

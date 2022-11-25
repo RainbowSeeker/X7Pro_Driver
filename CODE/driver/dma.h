@@ -7,7 +7,7 @@
 #ifndef X7PRO_DRIVER_DMA_H
 #define X7PRO_DRIVER_DMA_H
 #include "stm32h7xx.h"
-#include "common.h"
+#include "system/common.h"
 
 #define DMA_IDENTIFIER_TO_INDEX(x) ((x) - 1)
 

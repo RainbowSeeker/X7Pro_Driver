@@ -8,7 +8,7 @@
 #ifdef USE_SENSOR_SPI_ADIS16470
 #include <stdlib.h>
 #include "accgyro_adis16470.h"
-#include "maths.h"
+#include "algo/math/maths.h"
 
 
 static bool ADIS16470_Init(gyro_t *gyro);

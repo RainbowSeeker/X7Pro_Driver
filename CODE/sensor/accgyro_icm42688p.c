@@ -6,7 +6,7 @@
 #include "board_config.h"
 #ifdef USE_SENSOR_SPI_ICM42688P
 #include "accgyro_icm42688p.h"
-#include "maths.h"
+#include "algo/math/maths.h"
 
 
 

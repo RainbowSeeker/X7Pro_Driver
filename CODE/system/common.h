@@ -8,6 +8,8 @@
 #define _COMMON_H
 
 #include "stm32h7xx_hal.h"
+#include "cmsis_os.h"
+#include "error.h"
 
 #ifdef STM32H7
 #define USE_ITCM_RAM
@@ -92,4 +94,12 @@ static inline void __basepriRestoreMem(uint8_t *val)
 {
     __set_BASEPRI(*val);
 }
+
+
+#define OS_ENTER_CRITICAL       vPortEnterCritical()
+#define OS_EXIT_CRITICAL        vPortExitCritical()
+
+#define MALLOC          pvPortMalloc
+#define FREE            vPortFree
+
 #endif //_COMMON_H

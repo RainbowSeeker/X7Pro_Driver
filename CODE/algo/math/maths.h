@@ -16,6 +16,10 @@
 #define max(_X1, _X2)       (((_X1) > (_X2)) ? (_X1) : (_X2))
 #define min(_X1, _X2)       (((_X1) < (_X2)) ? (_X1) : (_X2))
 
+#define PI 3.14159265358979f
+#define RAD2DEG(u) ((u)*180.0f / PI)
+#define DEG2RAD(u) ((u)*PI / 180.0f)
+
 static inline uint16_t swap_u16(uint16_t num)
 {
     return __builtin_bswap16(num);
@@ -45,8 +49,13 @@ static inline float constrainf(float amt, float low, float high)
         return amt;
 }
 
-// non ISO variant from linux kernel; checks ptr type, but triggers 'ISO C forbids braced-groups within expressions [-Wpedantic]'
-//  __extension__ is here to disable this warning
+/**
+ * container_of - cast a member of a structure out to the containing structure
+ * @ptr:        the pointer to the member.
+ * @type:       the type of the container struct this is embedded in.
+ * @member:     the name of the member within the struct.
+ *
+ */
 #define container_of(ptr, type, member)  ( __extension__ ({     \
         const typeof( ((type *)0)->member ) *__mptr = (ptr);    \
         (type *)( (char *)__mptr - offsetof(type,member) );}))

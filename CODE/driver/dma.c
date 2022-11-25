@@ -5,7 +5,7 @@
 //
 
 #include "dma.h"
-#include "maths.h"
+#include "algo/math/maths.h"
 #include "board_config.h"
 #include "bus.h"
 #include "uart.h"

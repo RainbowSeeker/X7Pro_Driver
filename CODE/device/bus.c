@@ -8,7 +8,7 @@
 #include "bus_spi.h"
 
 #include "nvic.h"
-#include "maths.h"
+#include "algo/math/maths.h"
 
 static void Dev_ExtiIntHandler(exti_callback_rec_t *cb)
 {
