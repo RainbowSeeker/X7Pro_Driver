@@ -10,8 +10,8 @@
 
 
 #define PWM_MAX_DUTY        10000
-#define PWM_PERIOD          1000
-#define PWM_CONFIG          10*1000*1000, PWM_PERIOD, 0, 0
+#define PWM_PERIOD          5000
+#define PWM_CONFIG          1*1000*1000, PWM_PERIOD, 0, 0
 
 
 typedef struct {

@@ -8,20 +8,62 @@
 #include "accgyro_icm20689.h"
 #include "accgyro_icm42688p.h"
 #include "accgyro_adis16470.h"
-#include "maths.h"
+#include "algo/math/maths.h"
+#include "algo/array.h"
+#include "syscmd.h"
 #include <stdarg.h>
-
 typedef struct
 {
-    char *cmdString;
+    char *praseName;
     prase_func_t praseFunc;
-}cli_command_t;
+    char *annotation;
+}prase_t;
 
-cli_command_t cliCommand[] = {
-        {"adis16470", Print_ADIS16470},
-        {"icm42688", Print_ICM42688},
-        {"icm20689", Print_ICM20689},
+static int cmd_list(int argc, char** argv);
+extern int cmd_mcn(int argc, char** argv);
+prase_t praseFuncTable[] = {
+        {"list", cmd_list, "list all available commands"},
+        {"mcn", cmd_mcn, "show & control mcn topics"},
 };
+
+static uint32_t cmd_maxlen()
+{
+    uint32_t maxLen = 0;
+    for (int i = 0; i < ARRAYLEN(praseFuncTable); ++i)
+    {
+        uint32_t len = strlen(praseFuncTable[i].praseName);
+        if (maxLen < len)
+        {
+            maxLen = len;
+        }
+    }
+    return maxLen;
+}
+static int cmd_list(int argc, char** argv)
+{
+    UNUSED(argc);
+    UNUSED(argv);
+    uint32_t maxLen = cmd_maxlen() + 2;
+    printf("\r\nAll available commands are as follows:\r\n");
+    syscmd_putc('-', maxLen);
+    printf("\r\n");
+    for (int i = 0; i < ARRAYLEN(praseFuncTable); ++i)
+    {
+        printf("%-*s\t", maxLen - 2, praseFuncTable[i].praseName);
+        if (praseFuncTable[i].annotation)
+        {
+            printf("-->%s", praseFuncTable[i].annotation);
+        }
+        printf("\r\n");
+    }
+    syscmd_putc('-', maxLen);
+    printf("\r\n");
+    return 0;
+}
+
+
+
+
 
 
 #define CLI_IN_BUFFER_SIZE 256
@@ -32,53 +74,59 @@ static char cliBuffer[CLI_IN_BUFFER_SIZE] = {0};
 static uint8_t bufIndex = 0;
 
 
+
 void Cli_Init()
 {
     cli.uart = Uart_Init(CLI_UART, NULL);
     println("Cli start.");
 }
 
-bool NextArg(uint8_t ch)
+
+void Cli_Print(uint8_t *str, uint16_t len)
 {
-    if ((ch >= 'a' && ch <= 'z') || (bufIndex && (ch == ' ' || (ch >= '0' && ch <= '9'))))
-    {
-        cliBuffer[bufIndex++] = ch;
-    }
-    else if (bufIndex)
-    {
-        bufIndex = 0;
-        return true;
-    }
-    return false;
+    Uart_Write(cli.uart, (uint8_t *)str, len);
 }
 
-void CLi_Prase(const char *str, prase_func_t prase)
+bool Cli_IsReceived()
 {
-    uint8_t idx = 0;
-    while (str[idx] && str[idx] == cliBuffer[idx])
-    {
-        idx++;
-    }
-    if (!str[idx])
-    {
-        prase();
-        memset(cliBuffer, 0, idx);
-    }
+    return Uart_TotalRxBytesWaiting(cli.uart) > 0 ? true : false;
 }
+
+const char separator[] = " ";
 
 void CLi_Handle()
 {
     uart_t *uart = cli.uart;
+    bool isOver = 0;
     while (Uart_TotalRxBytesWaiting(uart))
     {
         uint8_t ch = Uart_ReadByte(uart);
-        if (NextArg(ch))
+        if (ch == '\n')
         {
-            for (int i = 0; i < ARRAYLEN(cliCommand); ++i)
+            isOver = 1;
+            break;
+        }
+        cliBuffer[bufIndex++] = ch;
+    }
+
+    if (isOver)
+    {
+        int argc = 0;
+        char **argv = NULL;
+        if (cliBuffer[bufIndex - 1] == '\r') cliBuffer[bufIndex - 1] = 0;
+        argc = split_ch(cliBuffer, separator, argv);
+        if (argc > 0)
+        {
+            for (int i = 0; i < ARRAYLEN(praseFuncTable); ++i)
             {
-                CLi_Prase(cliCommand[i].cmdString, cliCommand[i].praseFunc);
+                if (strcmp(praseFuncTable[i].praseName, argv[0]) == 0)
+                {
+                    praseFuncTable[i].praseFunc(argc, argv);
+                }
             }
         }
+        memset(cliBuffer, 0, bufIndex);
+        bufIndex = 0;
     }
 }
 
@@ -89,7 +137,7 @@ void CLi_Handle()
  * @param format
  * @param ...
  */
-void print(const void *format,...)
+int print(const void *format,...)
 {
     va_list args;
     char buf[256];
@@ -97,14 +145,16 @@ void print(const void *format,...)
     vsprintf(buf, format, args);
     va_end (args);
 
-    Uart_Write(cli.uart, (uint8_t *)buf, strlen(buf));
+    uint16_t len = strlen(buf);
+    Cli_Print( (uint8_t *)buf, len);
+    return len;
 }
 /**
  * 自定义打印函数 println，使用 DMA 发送
  * @param format
  * @param ...
  */
-void println(const void *format,...)
+int println(const void *format,...)
 {
     va_list args;
     char buf[256];
@@ -112,8 +162,10 @@ void println(const void *format,...)
     vsprintf(buf, format, args);
     va_end (args);
 
-    Uart_Write(cli.uart, (uint8_t *)buf, strlen(buf));
-    Uart_Write(cli.uart, (uint8_t *)"\r\n", 2);
+    uint16_t len = strlen(buf) + 2;
+    Cli_Print( (uint8_t *)buf, len);
+    Cli_Print( (uint8_t *)"\r\n", 2);
+    return len;
 }
 
 /**
@@ -123,7 +175,7 @@ void println(const void *format,...)
  */
 int __io_putchar(int ch)
 {
-    Uart_Write(cli.uart, (uint8_t *)&ch, 1);
+    Cli_Print((uint8_t *)&ch, 1);
     return ch;
 }
 /**
@@ -134,6 +186,6 @@ int __io_putchar(int ch)
  */
 int fputc(int ch, FILE *f)
 {
-    Uart_Write(cli.uart, (uint8_t *)&ch, 1);
+    Cli_Print( (uint8_t *)&ch, 1);
     return ch;
 }

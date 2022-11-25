@@ -13,7 +13,7 @@
 #include "board_config.h"
 #include "driver/io.h"
 #include "algo/ring.h"
-#include "common.h"
+#include "system/common.h"
 #include "driver/dma.h"
 #include "board_config.h"
 #include "driver/exti.h"

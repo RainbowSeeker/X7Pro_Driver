@@ -6,7 +6,7 @@
 
 #include "bus_spi.h"
 #include "atomic.h"
-#include "maths.h"
+#include "algo/math/maths.h"
 
 #include "nvic.h"
 
@@ -1061,7 +1061,7 @@ void SPI_InternalResetDescriptors(bus_t *bus)
 }
 
 
-void SPI_Init(void)
+void SPI_BspInit(void)
 {
 #ifdef USE_SPI1
     SPI_InitBus(BUS_SPI1);

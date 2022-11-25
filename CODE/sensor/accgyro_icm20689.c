@@ -6,7 +6,7 @@
 #include "board_config.h"
 #ifdef USE_SENSOR_SPI_ICM20689
 #include "accgyro_icm20689.h"
-#include "maths.h"
+#include "algo/math/maths.h"
 
 
 static bool ICM20689_Init(gyro_t *gyro);

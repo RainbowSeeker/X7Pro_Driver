@@ -8,7 +8,7 @@
 #include "accgyro.h"
 #include "accgyro_icm42688p.h"
 #include "accgyro_adis16470.h"
-#include "maths.h"
+#include "algo/math/maths.h"
 #include "nvic.h"
 #include "cli/log.h"
 

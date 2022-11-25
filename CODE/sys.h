@@ -33,8 +33,8 @@
 
 
 void soft_delay(uint32_t time);
-void print(const void *format,...);
-void println(const void *format,...);
+int print(const void *format,...);
+int println(const void *format,...);
 void assert_failed(void *string);
 uint32_t Sys_GetTickUs(void);
 void Sys_DelayUs(uint32_t Delay);

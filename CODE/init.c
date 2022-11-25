@@ -11,6 +11,7 @@
 #include "bus_spi.h"
 #include "driver/uart.h"
 #include "cli/cli.h"
+#include "mcn/mcn.h"
 
 
 void Initialize(void)
@@ -26,5 +27,7 @@ void Initialize(void)
 //    Print_Init();
 //    COM_Init();
 
-    SPI_Init();
+    SPI_BspInit();
+
+    mcn_init();
 }

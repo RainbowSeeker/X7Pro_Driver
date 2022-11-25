@@ -15,7 +15,7 @@
 
 #define UART_NUM                    (UART_COUNT - 1)
 #define UART_COMMON_CONFIG
-#define UART_TX_BUF_SIZE            128
+#define UART_TX_BUF_SIZE            256
 #define UART_RX_BUF_SIZE            64
 
 typedef enum {
@@ -86,7 +86,7 @@ typedef struct
     DMA_HandleTypeDef txDMAHandle;
     bool useDMA;
 
-    osMutexId lock;
+//    osMutexId lock;
 
     uint8_t *txBuffer;
     uint16_t txBufferTail;

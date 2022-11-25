@@ -8,7 +8,7 @@
 #include "dma.h"
 #include "nvic.h"
 #include "atomic.h"
-#include "maths.h"
+#include "algo/math/maths.h"
 
 static uart_t uartDev[UART_NUM];
 
@@ -400,8 +400,8 @@ uart_t *Uart_Init(uart_device_e uartDevice, uart_receive_callback rxCallback)
     uart->callbackParam = (uint32_t) uart;
     uart->txDMAEmpty = true;
 
-    osSemaphoreDef(uart);
-    uart->lock = osSemaphoreCreate(osSemaphore(uart), 1);
+//    osSemaphoreDef(uart);
+//    uart->lock = osSemaphoreCreate(osSemaphore(uart), 1);
 
     if (uart->huart.hdmarx)    uart->rxDMAPos = __HAL_DMA_GET_COUNTER(uart->huart.hdmarx);
     return uart;
@@ -410,26 +410,27 @@ uart_t *Uart_Init(uart_device_e uartDevice, uart_receive_callback rxCallback)
 
 static void Uart_TryStartTxDMA(uart_t *uart)
 {
-    osSemaphoreWait(uart->lock, osWaitForever);
     if (IS_DMA_ENABLED(uart->huart.hdmatx))
     {
         // DMA is already in progress
-        goto Fail;
+        return;
     }
 
     HAL_UART_StateTypeDef state = HAL_UART_GetState(&uart->huart);
     if ((state & HAL_UART_STATE_BUSY_TX) == HAL_UART_STATE_BUSY_TX)
     {
         // UART is still transmitting
-        goto Fail;
+        return;
     }
 
     if (uart->txBufferHead == uart->txBufferTail)
     {
         // No more data to transmit
         uart->txDMAEmpty = true;
-        goto Fail;
+        return;
     }
+
+    ATOMIC_ENTER_CRITICAL();
 
     uint16_t size;
     uint32_t fromwhere = uart->txBufferTail;
@@ -446,8 +447,8 @@ static void Uart_TryStartTxDMA(uart_t *uart)
     uart->txDMAEmpty = false;
 
     HAL_UART_Transmit_DMA(&uart->huart, (uint8_t *) &uart->txBuffer[fromwhere], size);
-    Fail:
-    osSemaphoreRelease(uart->lock);
+
+    ATOMIC_EXIT_CRITICAL();
 }
 
 void Uart_Write(uart_t *uart, uint8_t *str, uint16_t len)
@@ -455,11 +456,13 @@ void Uart_Write(uart_t *uart, uint8_t *str, uint16_t len)
     uint16_t remainingLen = uart->txBufferSize - (uart->txBufferHead - uart->txBufferTail + uart->txBufferSize) % uart->txBufferSize - 1;
     uint16_t trueLen = min(remainingLen, len);
 
+    OS_ENTER_CRITICAL;
     for (uint16_t i = 0; i < trueLen; ++i)
     {
         uart->txBuffer[uart->txBufferHead] = str[i];
         uart->txBufferHead = (uart->txBufferHead + 1) % uart->txBufferSize;
     }
+    OS_EXIT_CRITICAL;
 
     if (uart->huart.hdmatx)
     {

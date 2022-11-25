@@ -7,7 +7,7 @@
 #include "cmsis_os.h"
 #include "driver/pwm.h"
 #include "stm32h7xx_ll_tim.h"
-#include "maths.h"
+#include "algo/math/maths.h"
 
 pwm_t pwm[8];
 
@@ -30,7 +30,7 @@ void App_PWM_Main(void const * argument)
 
     for (int i = 0; i < ARRAYLEN(pwm); ++i)
     {
-        //actual freq = 10MHz / period = 10k, cycle = 1 / freq = 0.1ms;
+        //actual freq = 1MHz / period = 200Hz, cycle = 1 / freq = 20ms;
         PWM_Init(&pwm[i], &pwmHw[i], PWM_CONFIG);
     }
 
