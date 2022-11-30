@@ -11,6 +11,9 @@
 #include "algo/math/maths.h"
 #include "nvic.h"
 #include "cli/log.h"
+#include "sensor_hub.h"
+
+static uint8_t imu_num = 0;
 
 static bus_status_e Gyro_IntCallback(uint32_t arg)
 {
@@ -62,6 +65,7 @@ bool Gyro_Init(gyro_t *gyro)
     }
 
     Gyro_StartSample(gyro);
+    register_sensor_imu(NULL, NULL, imu_num++);
     return true;
 }
 

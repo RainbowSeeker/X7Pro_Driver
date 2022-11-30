@@ -262,136 +262,136 @@ static void mlog_start_cb(void)
     airspeed_data_updated = 1;
 }
 
-//static void init_parameter(void)
-//{
-//#define FMT_CHECK(func) assert(func == E_OK)
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_HOR_Q_BIAS), &INS_PARAM.GPS_HOR_Q_BIAS));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_HOR_Q_SCALE), &INS_PARAM.GPS_HOR_Q_SCALE));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_VER_Q_BIAS), &INS_PARAM.GPS_VER_Q_BIAS));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_VER_Q_SCALE), &INS_PARAM.GPS_VER_Q_SCALE));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_VEL_Q_BIAS), &INS_PARAM.GPS_VEL_Q_BIAS));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_VEL_Q_SCALE), &INS_PARAM.GPS_VEL_Q_SCALE));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, ATT_GAIN), &INS_PARAM.ATT_GAIN));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, HEADING_GAIN), &INS_PARAM.HEADING_GAIN));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, MAG_GAIN), &INS_PARAM.MAG_GAIN));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, BIAS_G_GAIN), &INS_PARAM.BIAS_G_GAIN));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_POS_GAIN), &INS_PARAM.GPS_POS_GAIN));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_VEL_GAIN), &INS_PARAM.GPS_VEL_GAIN));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_BIAS_A_GAIN), &INS_PARAM.GPS_BIAS_A_GAIN));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_POS_DELAY), &INS_PARAM.GPS_POS_DELAY));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_VEL_DELAY), &INS_PARAM.GPS_VEL_DELAY));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, OPF_VEL_GAIN), &INS_PARAM.OPF_VEL_GAIN));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, OPF_BIAS_A_GAIN), &INS_PARAM.OPF_BIAS_A_GAIN));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, OPF_VEL_DELAY), &INS_PARAM.OPF_VEL_DELAY));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, BARO_H_GAIN), &INS_PARAM.BARO_H_GAIN));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, BARO_VZ_GAIN), &INS_PARAM.BARO_VZ_GAIN));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, BARO_BIAS_AZ_GAIN), &INS_PARAM.BARO_BIAS_AZ_GAIN));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, BARO_H_DELAY), &INS_PARAM.BARO_H_DELAY));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, RF_H_GAIN), &INS_PARAM.RF_H_GAIN));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, RF_VZ_GAIN), &INS_PARAM.RF_VZ_GAIN));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, RF_BIAS_AZ_GAIN), &INS_PARAM.RF_BIAS_AZ_GAIN));
-//    FMT_CHECK(param_link_variable(PARAM_GET(INS, RF_H_DELAY), &INS_PARAM.RF_H_DELAY));
-//}
+static void init_parameter(void)
+{
+#define FMT_CHECK(func) assert(func == E_OK)
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_HOR_Q_BIAS), &INS_PARAM.GPS_HOR_Q_BIAS));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_HOR_Q_SCALE), &INS_PARAM.GPS_HOR_Q_SCALE));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_VER_Q_BIAS), &INS_PARAM.GPS_VER_Q_BIAS));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_VER_Q_SCALE), &INS_PARAM.GPS_VER_Q_SCALE));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_VEL_Q_BIAS), &INS_PARAM.GPS_VEL_Q_BIAS));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_VEL_Q_SCALE), &INS_PARAM.GPS_VEL_Q_SCALE));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, ATT_GAIN), &INS_PARAM.ATT_GAIN));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, HEADING_GAIN), &INS_PARAM.HEADING_GAIN));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, MAG_GAIN), &INS_PARAM.MAG_GAIN));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, BIAS_G_GAIN), &INS_PARAM.BIAS_G_GAIN));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_POS_GAIN), &INS_PARAM.GPS_POS_GAIN));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_VEL_GAIN), &INS_PARAM.GPS_VEL_GAIN));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_BIAS_A_GAIN), &INS_PARAM.GPS_BIAS_A_GAIN));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_POS_DELAY), &INS_PARAM.GPS_POS_DELAY));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, GPS_VEL_DELAY), &INS_PARAM.GPS_VEL_DELAY));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, OPF_VEL_GAIN), &INS_PARAM.OPF_VEL_GAIN));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, OPF_BIAS_A_GAIN), &INS_PARAM.OPF_BIAS_A_GAIN));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, OPF_VEL_DELAY), &INS_PARAM.OPF_VEL_DELAY));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, BARO_H_GAIN), &INS_PARAM.BARO_H_GAIN));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, BARO_VZ_GAIN), &INS_PARAM.BARO_VZ_GAIN));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, BARO_BIAS_AZ_GAIN), &INS_PARAM.BARO_BIAS_AZ_GAIN));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, BARO_H_DELAY), &INS_PARAM.BARO_H_DELAY));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, RF_H_GAIN), &INS_PARAM.RF_H_GAIN));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, RF_VZ_GAIN), &INS_PARAM.RF_VZ_GAIN));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, RF_BIAS_AZ_GAIN), &INS_PARAM.RF_BIAS_AZ_GAIN));
+    FMT_CHECK(param_link_variable(PARAM_GET(INS, RF_H_DELAY), &INS_PARAM.RF_H_DELAY));
+}
 
-//void ins_interface_step(uint32_t timestamp)
-//{
-//    /* get sensor data */
-//    if (mcn_poll(ins_handle.imu_sub_node_t)) {
-//        mcn_copy(MCN_HUB(sensor_imu0), ins_handle.imu_sub_node_t, &ins_handle.imu_report);
-//
-//        INS_U.IMU.gyr_x = ins_handle.imu_report.gyr_B_radDs[0];
-//        INS_U.IMU.gyr_y = ins_handle.imu_report.gyr_B_radDs[1];
-//        INS_U.IMU.gyr_z = ins_handle.imu_report.gyr_B_radDs[2];
-//        INS_U.IMU.acc_x = ins_handle.imu_report.acc_B_mDs2[0];
-//        INS_U.IMU.acc_y = ins_handle.imu_report.acc_B_mDs2[1];
-//        INS_U.IMU.acc_z = ins_handle.imu_report.acc_B_mDs2[2];
-//        // INS_U.IMU.timestamp = time_now - ins_handle.start_time;
-//        INS_U.IMU.timestamp = timestamp;
-//
-//        imu_data_updated = 1;
-//    }
-//
-//    if (mcn_poll(ins_handle.mag_sub_node_t)) {
-//        mcn_copy(MCN_HUB(sensor_mag0), ins_handle.mag_sub_node_t, &ins_handle.mag_report);
-//
-//        INS_U.MAG.mag_x = ins_handle.mag_report.mag_B_gauss[0];
-//        INS_U.MAG.mag_y = ins_handle.mag_report.mag_B_gauss[1];
-//        INS_U.MAG.mag_z = ins_handle.mag_report.mag_B_gauss[2];
-//        INS_U.MAG.timestamp = timestamp;
-//
-//        mag_data_updated = 1;
-//    }
-//
-//    if (mcn_poll(ins_handle.baro_sub_node_t)) {
-//        mcn_copy(MCN_HUB(sensor_baro), ins_handle.baro_sub_node_t, &ins_handle.baro_report);
-//
-//        INS_U.Barometer.pressure = (float)ins_handle.baro_report.pressure_pa;
-//        INS_U.Barometer.temperature = ins_handle.baro_report.temperature_deg;
-//        INS_U.Barometer.timestamp = timestamp;
-//
-//        baro_data_updated = 1;
-//    }
-//
-//    /* update gps data */
-//    if (mcn_poll(ins_handle.gps_sub_node_t)) {
-//        mcn_copy(MCN_HUB(sensor_gps), ins_handle.gps_sub_node_t, &ins_handle.gps_report);
-//
-//        INS_U.GPS_uBlox.fixType = ins_handle.gps_report.fixType;
-//        INS_U.GPS_uBlox.lat = ins_handle.gps_report.lat;
-//        INS_U.GPS_uBlox.lon = ins_handle.gps_report.lon;
-//        INS_U.GPS_uBlox.height = ins_handle.gps_report.height;
-//        INS_U.GPS_uBlox.velN = (int32_t)(ins_handle.gps_report.velN * 1e3);
-//        INS_U.GPS_uBlox.velE = (int32_t)(ins_handle.gps_report.velE * 1e3);
-//        INS_U.GPS_uBlox.velD = (int32_t)(ins_handle.gps_report.velD * 1e3);
-//        INS_U.GPS_uBlox.hAcc = (uint32_t)(ins_handle.gps_report.hAcc * 1e3);
-//        INS_U.GPS_uBlox.vAcc = (uint32_t)(ins_handle.gps_report.vAcc * 1e3);
-//        INS_U.GPS_uBlox.sAcc = (uint32_t)(ins_handle.gps_report.sAcc * 1e3);
-//        INS_U.GPS_uBlox.numSV = ins_handle.gps_report.numSV;
-//        INS_U.GPS_uBlox.timestamp = timestamp;
-//
-//        gps_data_updated = 1;
-//    }
-//
-//    /* update rangefinder data */
-//    if (mcn_poll(ins_handle.rf_sub_node_t)) {
-//        mcn_copy(MCN_HUB(sensor_rangefinder), ins_handle.rf_sub_node_t, &ins_handle.rf_report);
-//
-//        INS_U.Rangefinder.distance = ins_handle.rf_report.distance_m;
-//        INS_U.Rangefinder.timestamp = timestamp;
-//
-//        rf_data_updated = 1;
-//    }
-//
-//    /* update optical flow data */
-//    if (mcn_poll(ins_handle.optflow_sub_node_t)) {
-//        mcn_copy(MCN_HUB(sensor_optflow), ins_handle.optflow_sub_node_t, &ins_handle.optflow_report);
-//
-//        INS_U.Optical_Flow.vx = ins_handle.optflow_report.vx_mPs;
-//        INS_U.Optical_Flow.vy = ins_handle.optflow_report.vy_mPs;
-//        INS_U.Optical_Flow.quality = ins_handle.optflow_report.quality;
-//        INS_U.Optical_Flow.timestamp = timestamp;
-//
-//        optflow_data_updated = 1;
-//    }
-//
-//    /* update airspeed data */
-//    if (mcn_poll(ins_handle.airspeed_sub_node_t)) {
-//        mcn_copy(MCN_HUB(sensor_airspeed), ins_handle.airspeed_sub_node_t, &ins_handle.airspeed_report);
-//
-//        INS_U.AirSpeed.diff_pressure = ins_handle.airspeed_report.diff_pressure_pa;
-//        INS_U.AirSpeed.temperature = ins_handle.airspeed_report.temperature_deg;
-//        INS_U.AirSpeed.timestamp = timestamp;
-//
-//        airspeed_data_updated = 1;
-//    }
-//
-//    /* run INS */
-//    INS_step();
-//
-//    /* publish INS output */
-//    mcn_publish(MCN_HUB(ins_output), &INS_Y.INS_Out);
-//
-//    /* record INS input bus data if updated */
+void ins_interface_step(uint32_t timestamp)
+{
+    /* get sensor data */
+    if (mcn_poll(ins_handle.imu_sub_node_t)) {
+        mcn_copy(MCN_HUB(sensor_imu0), ins_handle.imu_sub_node_t, &ins_handle.imu_report);
+
+        INS_U.IMU.gyr_x = ins_handle.imu_report.gyr_B_radDs[0];
+        INS_U.IMU.gyr_y = ins_handle.imu_report.gyr_B_radDs[1];
+        INS_U.IMU.gyr_z = ins_handle.imu_report.gyr_B_radDs[2];
+        INS_U.IMU.acc_x = ins_handle.imu_report.acc_B_mDs2[0];
+        INS_U.IMU.acc_y = ins_handle.imu_report.acc_B_mDs2[1];
+        INS_U.IMU.acc_z = ins_handle.imu_report.acc_B_mDs2[2];
+        // INS_U.IMU.timestamp = time_now - ins_handle.start_time;
+        INS_U.IMU.timestamp = timestamp;
+
+        imu_data_updated = 1;
+    }
+
+    if (mcn_poll(ins_handle.mag_sub_node_t)) {
+        mcn_copy(MCN_HUB(sensor_mag0), ins_handle.mag_sub_node_t, &ins_handle.mag_report);
+
+        INS_U.MAG.mag_x = ins_handle.mag_report.mag_B_gauss[0];
+        INS_U.MAG.mag_y = ins_handle.mag_report.mag_B_gauss[1];
+        INS_U.MAG.mag_z = ins_handle.mag_report.mag_B_gauss[2];
+        INS_U.MAG.timestamp = timestamp;
+
+        mag_data_updated = 1;
+    }
+
+    if (mcn_poll(ins_handle.baro_sub_node_t)) {
+        mcn_copy(MCN_HUB(sensor_baro), ins_handle.baro_sub_node_t, &ins_handle.baro_report);
+
+        INS_U.Barometer.pressure = (float)ins_handle.baro_report.pressure_pa;
+        INS_U.Barometer.temperature = ins_handle.baro_report.temperature_deg;
+        INS_U.Barometer.timestamp = timestamp;
+
+        baro_data_updated = 1;
+    }
+
+    /* update gps data */
+    if (mcn_poll(ins_handle.gps_sub_node_t)) {
+        mcn_copy(MCN_HUB(sensor_gps), ins_handle.gps_sub_node_t, &ins_handle.gps_report);
+
+        INS_U.GPS_uBlox.fixType = ins_handle.gps_report.fixType;
+        INS_U.GPS_uBlox.lat = ins_handle.gps_report.lat;
+        INS_U.GPS_uBlox.lon = ins_handle.gps_report.lon;
+        INS_U.GPS_uBlox.height = ins_handle.gps_report.height;
+        INS_U.GPS_uBlox.velN = (int32_t)(ins_handle.gps_report.velN * 1e3);
+        INS_U.GPS_uBlox.velE = (int32_t)(ins_handle.gps_report.velE * 1e3);
+        INS_U.GPS_uBlox.velD = (int32_t)(ins_handle.gps_report.velD * 1e3);
+        INS_U.GPS_uBlox.hAcc = (uint32_t)(ins_handle.gps_report.hAcc * 1e3);
+        INS_U.GPS_uBlox.vAcc = (uint32_t)(ins_handle.gps_report.vAcc * 1e3);
+        INS_U.GPS_uBlox.sAcc = (uint32_t)(ins_handle.gps_report.sAcc * 1e3);
+        INS_U.GPS_uBlox.numSV = ins_handle.gps_report.numSV;
+        INS_U.GPS_uBlox.timestamp = timestamp;
+
+        gps_data_updated = 1;
+    }
+
+    /* update rangefinder data */
+    if (mcn_poll(ins_handle.rf_sub_node_t)) {
+        mcn_copy(MCN_HUB(sensor_rangefinder), ins_handle.rf_sub_node_t, &ins_handle.rf_report);
+
+        INS_U.Rangefinder.distance = ins_handle.rf_report.distance_m;
+        INS_U.Rangefinder.timestamp = timestamp;
+
+        rf_data_updated = 1;
+    }
+
+    /* update optical flow data */
+    if (mcn_poll(ins_handle.optflow_sub_node_t)) {
+        mcn_copy(MCN_HUB(sensor_optflow), ins_handle.optflow_sub_node_t, &ins_handle.optflow_report);
+
+        INS_U.Optical_Flow.vx = ins_handle.optflow_report.vx_mPs;
+        INS_U.Optical_Flow.vy = ins_handle.optflow_report.vy_mPs;
+        INS_U.Optical_Flow.quality = ins_handle.optflow_report.quality;
+        INS_U.Optical_Flow.timestamp = timestamp;
+
+        optflow_data_updated = 1;
+    }
+
+    /* update airspeed data */
+    if (mcn_poll(ins_handle.airspeed_sub_node_t)) {
+        mcn_copy(MCN_HUB(sensor_airspeed), ins_handle.airspeed_sub_node_t, &ins_handle.airspeed_report);
+
+        INS_U.AirSpeed.diff_pressure = ins_handle.airspeed_report.diff_pressure_pa;
+        INS_U.AirSpeed.temperature = ins_handle.airspeed_report.temperature_deg;
+        INS_U.AirSpeed.timestamp = timestamp;
+
+        airspeed_data_updated = 1;
+    }
+
+    /* run INS */
+    INS_step();
+
+    /* publish INS output */
+    mcn_publish(MCN_HUB(ins_output), &INS_Y.INS_Out);
+
+    /* record INS input bus data if updated */
 //    if (imu_data_updated) {
 //        imu_data_updated = 0;
 //        /* Log IMU data if IMU updated */
@@ -440,7 +440,7 @@ static void mlog_start_cb(void)
 //        /* Log INS out data */
 //        mlog_push_msg((uint8_t*)&INS_Y.INS_Out, INS_Out_ID, sizeof(INS_Y.INS_Out));
 //    }
-//}
+}
 
 void ins_interface_init(void)
 {
@@ -476,7 +476,7 @@ void ins_interface_init(void)
 
     mlog_register_callback(MLOG_CB_START, mlog_start_cb);
 
-//    INS_init();
-//
-//    init_parameter();
+    INS_init();
+
+    init_parameter();
 }

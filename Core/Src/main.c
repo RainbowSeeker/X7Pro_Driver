@@ -25,7 +25,6 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "dma.h"
-#include "mdma.h"
 #include "init.h"
 /* USER CODE END Includes */
 

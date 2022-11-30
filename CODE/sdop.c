@@ -2,8 +2,10 @@
 // Created by 19114 on 2022/10/11.
 //
 
+#include "system/common.h"
 #include "sdop.h"
 #include "fatfs.h"
+#include "sdmmc.h"
 
 HAL_SD_CardInfoTypeDef SDCardInfo;									//SD卡信息
 #define SD_ON       HAL_GPIO_WritePin(SDEN_GPIO_Port, SDEN_Pin, GPIO_PIN_SET)
@@ -13,7 +15,7 @@ HAL_SD_CardInfoTypeDef SDCardInfo;									//SD卡信息
  * 挂载函数 f_mount 内置 SD 初始化
  * 默认挂载点为 "0:/"
  */
-void SD_Init()
+void SdCard_Init()
 {
     SD_ON;      // enable vdd output of sdcard
     MX_SDMMC1_SD_Init();
@@ -51,21 +53,23 @@ sd_error_t Test_Write(const char* path, const char* string, uint32_t len)
 //        err = SD_OPEN_ERR;
 //        goto errors;
 //    }
-    f_sync(&SDFile);
+//    f_sync(&SDFile);
     //Move to end of the file to append data
 //    if(FR_OK != f_lseek(&SDFile, f_size(&SDFile)))
 //    {
 //        err = SD_WRITE_ERR;
 //        goto errors;
 //    }
-    f_write(&SDFile, string, len, &bw);
 
-    if (bw < len)
-    {
-        err = SD_WRITE_ERR;
-        goto errors;
-    }
-    errors:
+    f_puts(string, &SDFile);
+//    f_write(&SDFile, string, len, &bw);
+
+//    if (bw < len)
+//    {
+//        err = SD_WRITE_ERR;
+//        goto errors;
+//    }
+//    errors:
     /* close file */
 //    f_close(&SDFile);
     return err;
