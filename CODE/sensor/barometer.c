@@ -8,6 +8,9 @@
 
 #include "barometer_ms5611.h"
 #include "cli/log.h"
+#include "sensor_hub.h"
+
+static uint8_t baro_num = 0;
 
 #define NUM_CALIBRATION_CYCLES   100        // 10 seconds init_delay + 100 * 25 ms = 12.5 seconds before valid baro altitude
 #define NUM_GROUND_LEVEL_CYCLES   10        // calibrate baro to new ground level (10 * 25 ms = ~250 ms non blocking)
@@ -15,7 +18,6 @@
 static uint16_t calibrationCycles = 0;      // baro calibration = get new ground pressure value
 static float baroGroundAltitude = 0.0f;
 static bool baroCalibrated = false;
-
 
 bool Baro_MspInit(baro_t *baro, detect_func_t detectFunc, const hw_config_t *hwConfig)
 {
@@ -40,6 +42,8 @@ bool Baro_Init(baro_t *baro)
         return false;
     }
 
+    register_sensor_barometer(NULL);
+    baro_num++;
     return true;
 }
 

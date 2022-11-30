@@ -6,6 +6,10 @@
 #include "magn.h"
 #include "magn_rm3100.h"
 #include "cli/log.h"
+#include "sensor_hub.h"
+
+static uint8_t magn_num = 0;
+
 
 static bus_status_e Magn_IntCallback(uint32_t arg)
 {
@@ -58,6 +62,7 @@ bool Magn_Init(magn_t *magn)
     }
 
     Magn_StartSample(magn);
+    register_sensor_mag(NULL, magn_num++);
     return true;
 }
 

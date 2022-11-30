@@ -14,7 +14,7 @@ typedef enum
 }sd_error_t;
 
 
-void SD_Init();
+void SdCard_Init();
 void Show_SD_Info(void);
 sd_error_t Test_Write(const char* path, const char* string, uint32_t len);
 

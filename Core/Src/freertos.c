@@ -25,7 +25,6 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "fatfs.h"
 #include "include.h"
 #include "application.h"
 /* USER CODE END Includes */

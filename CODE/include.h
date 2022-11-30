@@ -6,7 +6,6 @@
 #define STM32H743IIT6_INCLUDE_H
 
 //-------driver 头文件 ----------
-#include "sdmmc.h"
 #include "usart.h"
 #include "gpio.h"
 #include  <stm32h7xx_hal.h>

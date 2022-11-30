@@ -707,9 +707,6 @@ void sensor_collect(void)
     {
         imu_data.timestamp_ms = systime_now_ms();
 
-//        Gyro_Update(&icm42688);
-//        Gyro_Update(&icm20689);
-
 #ifdef USE_SENSOR_SPI_ADIS16470
         /* Collect imu0 data */
         if (Gyro_Update(&adis16470))
@@ -736,6 +733,7 @@ void sensor_collect(void)
             mcn_publish(MCN_HUB(sensor_imu0), &imu_data);
         }
 #endif
+
         /* Collect imu1 data */
         if (imu_dev[1] != NULL)
         {

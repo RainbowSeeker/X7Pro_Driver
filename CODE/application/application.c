@@ -32,7 +32,7 @@ void Application_Create(void)
     osThreadDef(app_spi, App_SPI_Main, osPriorityNormal, 0, 512);
     app_spiHandle = osThreadCreate(osThread(app_spi), NULL);
 
-    osThreadDef(app_sd, App_SD_Main, osPriorityNormal, 0, 512);
+    osThreadDef(app_sd, App_SD_Main, osPriorityHigh, 0, 1024);
 //    app_sdHandle = osThreadCreate(osThread(app_sd), NULL);
 
     osThreadDef(app_pwm, App_PWM_Main, osPriorityNormal, 0, 512);

@@ -28,7 +28,7 @@
 #define USE_PERSISTENT_OBJECTS
 #define USE_DMA_RAM
 #define USE_USB_MSC
-#define USE_RTC_TIME
+//#define USE_RTC_TIME
 #define USE_PERSISTENT_MSC_RTC
 #define USE_DSHOT_CACHE_MGMT
 #define USE_LATE_TASK_STATISTICS
@@ -102,4 +102,5 @@ static inline void __basepriRestoreMem(uint8_t *val)
 #define MALLOC          pvPortMalloc
 #define FREE            vPortFree
 
+#define FALLTHROUGH do {} while(0)
 #endif //_COMMON_H

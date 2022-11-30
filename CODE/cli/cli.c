@@ -78,7 +78,7 @@ static uint8_t bufIndex = 0;
 void Cli_Init()
 {
     cli.uart = Uart_Init(CLI_UART, NULL);
-    println("Cli start.");
+    println("\r\nCli start.");
 }
 
 

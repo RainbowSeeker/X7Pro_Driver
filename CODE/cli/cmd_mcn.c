@@ -301,7 +301,7 @@ static int echo_topic(optparse_t options)
 
         if (period)
         {
-            delay_ms(period);
+            osDelay(period);
         }
     }
 
