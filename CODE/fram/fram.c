@@ -5,18 +5,20 @@
 //
 
 #include "fram.h"
-#include "cli/log.h"
 
+
+#define LOG_TAG     "fram"
+#include "ulog.h"
 
 bool Fram_Init(fram_t *fram)
 {
     if (fram->init(fram))
     {
-        LOG_INFO("Initialized Fram[%d]: %s", fram->dev.deviceID, fram->dev.name);
+        LOG_I("Initialized Fram[%d]: %s", fram->dev.deviceID, fram->dev.name);
     }
     else
     {
-        LOG_ERROR("Cann't Initialize Fram Device: %s.\r\nPlease check your configuration.", fram->dev.name);
+        LOG_E("Cann't Initialize Fram Device: %s.\r\nPlease check your configuration.", fram->dev.name);
         return false;
     }
 

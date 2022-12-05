@@ -10,6 +10,7 @@
 #include "nvic.h"
 #include "algo/math/maths.h"
 
+
 static void Dev_ExtiIntHandler(exti_callback_rec_t *cb)
 {
     device_t *dev = container_of(cb, device_t, extiCallbackRec);

@@ -6,7 +6,7 @@
 
 #include "bus_spi.h"
 #include "atomic.h"
-#include "algo/math/maths.h"
+#include <module_common.h>
 
 #include "nvic.h"
 
@@ -54,10 +54,10 @@ const spi_hw_t spiHardware[SPI_NUM] = {
 #endif
 #ifdef USE_SPI6
         {
-            .instance = SPI6,
-            .sck = {.port = GPIOG, .pin = GPIO_PIN_13}, .sckAF = GPIO_AF5_SPI6,
-            .miso = {.port = GPIOG, .pin = GPIO_PIN_12}, .misoAF = GPIO_AF5_SPI6,
-            .mosi = {.port = GPIOA, .pin = GPIO_PIN_7}, .mosiAF = GPIO_AF8_SPI6,
+                .instance = SPI6,
+                .sck = {.port = GPIOG, .pin = GPIO_PIN_13}, .sckAF = GPIO_AF5_SPI6,
+                .miso = {.port = GPIOG, .pin = GPIO_PIN_12}, .misoAF = GPIO_AF5_SPI6,
+                .mosi = {.port = GPIOA, .pin = GPIO_PIN_7}, .mosiAF = GPIO_AF8_SPI6,
         }
 #endif
 };
@@ -65,13 +65,13 @@ const spi_hw_t spiHardware[SPI_NUM] = {
 
 void SPI_SetClkDivisor(const device_t *dev, uint16_t divisor)
 {
-    ((device_t *)dev)->busType_u.spi.speed = divisor;
+    ((device_t *) dev)->busType_u.spi.speed = divisor;
 }
 
 // Set the clock phase/polarity to be used for accesses by the given device
 void SPI_SetClkPhasePolarity(const device_t *dev, bool leadingEdge)
 {
-    ((device_t *)dev)->busType_u.spi.leadingEdge = leadingEdge;
+    ((device_t *) dev)->busType_u.spi.leadingEdge = leadingEdge;
 }
 
 uint16_t SPI_CalculateDivider(uint32_t freq)
@@ -94,7 +94,7 @@ static uint32_t SPI_DivisorToBRbits(SPI_TypeDef *instance, uint16_t divisor)
 {
     UNUSED(instance);
 
-    divisor = constrain(divisor, 2, 256);
+    divisor = constrain_uint16(divisor, 2, 256);
 
 #ifdef STM32H7
     const uint32_t baudRatePrescaler[8] = {
@@ -124,7 +124,8 @@ bus_e SPI_BusByInstance(SPI_TypeDef *instance)
     }
 #endif
 #ifdef USE_SPI2
-    if (instance == SPI2) {
+    if (instance == SPI2)
+    {
         return BUS_SPI2;
     }
 #endif
@@ -145,7 +146,8 @@ bus_e SPI_BusByInstance(SPI_TypeDef *instance)
     }
 #endif
 #ifdef USE_SPI6
-    if (instance == SPI6) {
+    if (instance == SPI6)
+    {
         return BUS_SPI6;
     }
 #endif
@@ -162,8 +164,8 @@ SPI_TypeDef *SPI_InstanceByBus(bus_e busE)
             return SPI1;
 #endif
 #ifdef USE_SPI2
-            case BUS_SPI2:
-                return SPI2;
+        case BUS_SPI2:
+            return SPI2;
 #endif
 #ifdef USE_SPI3
             case BUS_SPI3:
@@ -178,8 +180,8 @@ SPI_TypeDef *SPI_InstanceByBus(bus_e busE)
                 return SPI5;
 #endif
 #ifdef USE_SPI6
-            case BUS_SPI6:
-                return SPI6;
+        case BUS_SPI6:
+            return SPI6;
 #endif
         default:
             return NULL;
@@ -217,8 +219,8 @@ void SPI_InternalStartDMA(const device_t *dev)
         LL_EX_BDMA_EnableIT_TC(streamRegsRx);
 
         // Update streams
-        LL_BDMA_Init(dmaTx->dma, dmaTx->stream, (LL_BDMA_InitTypeDef *)bus->initTx);
-        LL_BDMA_Init(dmaRx->dma, dmaRx->stream, (LL_BDMA_InitTypeDef *)bus->initRx);
+        LL_BDMA_Init(dmaTx->dma, dmaTx->stream, (LL_BDMA_InitTypeDef *) bus->initTx);
+        LL_BDMA_Init(dmaRx->dma, dmaRx->stream, (LL_BDMA_InitTypeDef *) bus->initRx);
 
 
         LL_BDMA_EnableChannel(dmaTx->dma, dmaTx->stream);
@@ -286,20 +288,13 @@ static void SPI_InternalInitStream(const device_t *dev, bool preInit)
 
     if (txData)
     {
-#ifdef __DCACHE_PRESENT
-#ifdef STM32H7
-        if (txData < &_dmaram_start__ || txData >= &_dmaram_end__)
+        // No need to flush DTCM memory
+        if (!IS_DTCM(txData))
         {
-#else
-            // No need to flush DTCM memory
-        if (!IS_DTCM(txData)) {
-#endif
             // Flush the D cache to ensure the data to be written is in main memory
-            SCB_CleanDCache_by_Addr(
-                    (uint32_t *) ((uint32_t) txData & ~CACHE_LINE_MASK),
-                    (((uint32_t) txData & CACHE_LINE_MASK) + len - 1 + CACHE_LINE_SIZE) & ~CACHE_LINE_MASK);
+            scb_flush_dcache(txData, len);
         }
-#endif // __DCACHE_PRESENT
+
         initTx->MemoryOrM2MDstAddress = (uint32_t) txData;
         initTx->MemoryOrM2MDstIncMode = bus->dmaTx->dma == BDMA ? LL_BDMA_MEMORY_INCREMENT : LL_DMA_MEMORY_INCREMENT;
     }
@@ -319,20 +314,11 @@ static void SPI_InternalInitStream(const device_t *dev, bool preInit)
          * the cache will be invalidated after the transfer and any valid data
          * just before/after must be in memory at that point
          */
-#ifdef __DCACHE_PRESENT
-        // No need to flush/invalidate DTCM memory
-#ifdef STM32H7
-        if (rxData < &_dmaram_start__ || rxData >= &_dmaram_end__)
+        // No need to flush DTCM memory
+        if (!IS_DTCM(rxData))
         {
-#else
-            // No need to flush DTCM memory
-            if (!IS_DTCM(rxData)) {
-#endif
-            SCB_CleanInvalidateDCache_by_Addr(
-                    (uint32_t *) ((uint32_t) rxData & ~CACHE_LINE_MASK),
-                    (((uint32_t) rxData & CACHE_LINE_MASK) + len - 1 + CACHE_LINE_SIZE) & ~CACHE_LINE_MASK);
+            scb_flush_invalidate_dcache(rxData, len);
         }
-#endif // __DCACHE_PRESENT
         initRx->MemoryOrM2MDstAddress = (uint32_t) rxData;
         initRx->MemoryOrM2MDstIncMode = bus->dmaTx->dma == BDMA ? LL_BDMA_MEMORY_INCREMENT : LL_DMA_MEMORY_INCREMENT;
     }
@@ -443,21 +429,11 @@ static void SPI_RxIrqHandler(dma_t *descriptor)
 
     SPI_InternalStopDMA(dev);
 
-#ifdef __DCACHE_PRESENT
-#ifdef STM32H7
-    if (bus->curSegment->u.buffers.pRxData &&(bus->curSegment->u.buffers.pRxData < &_dmaram_start__ ||
-                                        bus->curSegment->u.buffers.pRxData >= &_dmaram_end__))
+    if (bus->curSegment->u.buffers.pRxData && !IS_DTCM(bus->curSegment->u.buffers.pRxData))
     {
-#else
-        if (bus->curSegment->u.buffers.rxData) {
-#endif
         // Invalidate the D cache covering the area into which data has been read
-        SCB_InvalidateDCache_by_Addr(
-                (uint32_t *) ((uint32_t) bus->curSegment->u.buffers.pRxData & ~CACHE_LINE_MASK),
-                (((uint32_t) bus->curSegment->u.buffers.pRxData & CACHE_LINE_MASK) +
-                 bus->curSegment->len - 1 + CACHE_LINE_SIZE) & ~CACHE_LINE_MASK);
+        scb_invalidate_dcache(bus->curSegment->u.buffers.pRxData, bus->curSegment->len);
     }
-#endif // __DCACHE_PRESENT
 
     SPI_IrqHandler(dev);
 }
@@ -618,9 +594,9 @@ void SPI_SequenceStart(const device_t *dev)
             (IS_DTCM(checkSegment->u.buffers.pRxData) ||
              // Memory declared as DMA_RAM will have an address between &_dmaram_start__ and &_dmaram_end__
              ((bus->dmaTx->dma == BDMA ? ((checkSegment->u.buffers.pRxData < &_dmaramd3_start__) ||
-                                        (checkSegment->u.buffers.pRxData >= &_dmaramd3_end__)) :
-                                        ((checkSegment->u.buffers.pRxData < &_dmaram_start__) ||
-                                        (checkSegment->u.buffers.pRxData >= &_dmaram_end__))) &&
+                                          (checkSegment->u.buffers.pRxData >= &_dmaramd3_end__)) :
+               ((checkSegment->u.buffers.pRxData < &_dmaram_start__) ||
+                (checkSegment->u.buffers.pRxData >= &_dmaram_end__))) &&
               (((uint32_t) checkSegment->u.buffers.pRxData & (CACHE_LINE_SIZE - 1)) ||
                (checkSegment->len & (CACHE_LINE_SIZE - 1))))))
         {
@@ -630,8 +606,10 @@ void SPI_SequenceStart(const device_t *dev)
         }
             // Check if TX data can be DMAed
         else if ((checkSegment->u.buffers.pTxData) && (IS_DTCM(checkSegment->u.buffers.pTxData) ||
-                (bus->dmaTx->dma == BDMA ? ((checkSegment->u.buffers.pTxData < &_dmaramd3_start__) ||
-                                            (checkSegment->u.buffers.pTxData >= &_dmaramd3_end__)) : 0)))
+                                                       (bus->dmaTx->dma == BDMA ? (
+                                                               (checkSegment->u.buffers.pTxData < &_dmaramd3_start__) ||
+                                                               (checkSegment->u.buffers.pTxData >= &_dmaramd3_end__))
+                                                                                : 0)))
         {
             dmaSafe = false;
             break;
@@ -815,7 +793,8 @@ void SPI_WriteReg(const device_t *dev, uint8_t reg, uint8_t data)
 bool SPI_WriteRegRB(const device_t *dev, uint8_t reg, uint8_t data)
 {
     // Ensure any prior DMA has completed before continuing
-    if (SPI_IsBusy(dev)) {
+    if (SPI_IsBusy(dev))
+    {
         return false;
     }
 
@@ -854,8 +833,8 @@ void SPI_ReadRegBuf(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t len
     // This routine blocks so no need to use static data
     segment_t segments[] = {
             {.u.buffers = {&reg, NULL}, sizeof(reg), false, NULL},
-            {.u.buffers = {NULL, data}, length, true, NULL},
-            {.u.link = {NULL, NULL}, 0, true, NULL},
+            {.u.buffers = {NULL, data}, length,      true,  NULL},
+            {.u.link = {NULL, NULL},    0,           true,  NULL},
     };
 
     SPI_Sequence(dev, &segments[0]);
@@ -873,7 +852,8 @@ void SPI_ReadRegMskBuf(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t 
 bool SPI_ReadRegBufRB(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
 {
     // Ensure any prior DMA has completed before continuing
-    if (SPI_IsBusy(dev)) {
+    if (SPI_IsBusy(dev))
+    {
         return false;
     }
 
@@ -919,7 +899,7 @@ static void SPI_EnableClock(bus_e busE)
             break;
 #endif
 #ifdef USE_SPI2
-            case BUS_SPI2:
+        case BUS_SPI2:
             LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_SPI2);
             break;
 #endif
@@ -939,7 +919,7 @@ static void SPI_EnableClock(bus_e busE)
             break;
 #endif
 #ifdef USE_SPI6
-            case BUS_SPI6:
+        case BUS_SPI6:
             LL_APB4_GRP1_EnableClock(LL_APB4_GRP1_PERIPH_SPI6);
             break;
 #endif
@@ -986,7 +966,7 @@ static void SPI_InitBus(bus_e busE)
         PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_SPI6;
         PeriphClkInitStruct.Spi6ClockSelection = RCC_SPI6CLKSOURCE_D3PCLK1;
     }
-    else    assert(0);
+    else ASSERT(0);
     if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
     {
         return;
@@ -1036,7 +1016,8 @@ void SPI_InternalResetDescriptors(bus_t *bus)
     initTx->PeriphRequest = bus->dmaTx->channel;
 
     initTx->Mode = LL_DMA_MODE_NORMAL;
-    initTx->Direction = bus->dmaTx->dma == BDMA ? LL_BDMA_DIRECTION_MEMORY_TO_PERIPH : LL_DMA_DIRECTION_MEMORY_TO_PERIPH;
+    initTx->Direction =
+            bus->dmaTx->dma == BDMA ? LL_BDMA_DIRECTION_MEMORY_TO_PERIPH : LL_DMA_DIRECTION_MEMORY_TO_PERIPH;
 
     initTx->PeriphOrM2MSrcAddress = (uint32_t) &bus->busType_u.spi.instance->TXDR;
     initTx->Priority = LL_DMA_PRIORITY_LOW;

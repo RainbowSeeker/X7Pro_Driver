@@ -49,8 +49,8 @@ MEMORY
     DTCM_RAM (rwx)    : ORIGIN = 0x20000000, LENGTH = 128K
     RAM (rwx)         : ORIGIN = 0x24000000, LENGTH = 512K
 
-    D2_RAM (rwx)      : ORIGIN = 0x30000000, LENGTH = 256K /* SRAM1 + SRAM2 */
-    RAM_D3 (rwx)      : ORIGIN = 0x38000000, LENGTH = 64K
+    D2_RAM (rwx)      : ORIGIN = 0x30000000, LENGTH = 256K  /* SRAM1 + SRAM2 */
+    RAM_D3 (rwx)      : ORIGIN = 0x38000000, LENGTH = 64K   /* D3 domain */
     MEMORY_B1 (rx)    : ORIGIN = 0x60000000, LENGTH = 0K
 }
 
@@ -99,6 +99,21 @@ SECTIONS
     KEEP (*(.fini))
 
     . = ALIGN(4);
+
+    /* section information for parameters. */
+    . = ALIGN(4);
+    __param_start = .;
+    KEEP(*(ParamTab))
+    __param_end = .;
+    . = ALIGN(4);
+
+    /* section information for mlog. */
+    . = ALIGN(4);
+    __mlog_start = .;
+    KEEP(*(MlogTab))
+    __mlog_end = .;
+    . = ALIGN(4);
+
     _etext = .;        /* define a global symbols at end of code */
   } >FLASH1
 
@@ -281,7 +296,7 @@ SECTIONS
     _dmaram_end__ = _edmaram;
   } >RAM
 
-  .DMA_RW_D2 (NOLOAD) :
+  .DMA_RW_D2 :
   {
     . = ALIGN(32);
     PROVIDE(dmarw_start = .);

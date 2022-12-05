@@ -6,10 +6,7 @@
 #include "usart.h"
 
 
-void soft_delay(uint32_t time)
-{
-    for (int timeout = 0; timeout < time; ++timeout);
-}
+
 
 
 //标准库需要的支持函数
@@ -27,19 +24,7 @@ void _sys_exit(int x)
 
 
 
-/**
- * 断言错误处理
- * @param string
- */
-void assert_failed(void *string)
-{
-    __disable_irq();
-    while (1)
-    {
-        print("%s", string);
-        soft_delay(ALARM_FREQ); //soft delay
-    }
-}
+
 
 
 /**

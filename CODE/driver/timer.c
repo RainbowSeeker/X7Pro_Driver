@@ -7,7 +7,7 @@
 #include "timer.h"
 #include "stm32h7xx_ll_tim.h"
 #include "stm32h7xx_ll_bus.h"
-#include "system/common.h"
+#include <common.h>
 
 static uint32_t GetTimerClock(TIM_TypeDef *tim)
 {
