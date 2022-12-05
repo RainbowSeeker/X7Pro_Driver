@@ -25,7 +25,7 @@ add_link_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
 #Uncomment for software floating point
 #add_compile_options(-mfloat-abi=soft)
 
-add_compile_options(-mcpu=${mcpu} -mthumb -mthumb-interwork)
+add_compile_options(-mcpu=${mcpu} -mthumb -mthumb-interwork -D__FPU_PRESENT=1)
 add_compile_options(-ffunction-sections -fdata-sections -fno-common -fmessage-length=0)
 
 # uncomment to mitigate c++17 absolute addresses warnings
@@ -48,7 +48,7 @@ else ()
     add_compile_options(-Og -g)
 endif ()
 
-include_directories(${includes} CODE CODE/algo CODE/application CODE/device CODE/sensor)
+include_directories(${includes} CODE CODE/application CODE/device CODE/module CODE/dfs/include CODE/dfs/filesystems/elmfat CODE/module/log)
 
 add_definitions(${defines})
 

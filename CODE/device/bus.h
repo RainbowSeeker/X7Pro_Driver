@@ -7,13 +7,13 @@
 #ifndef BUS_H
 #define BUS_H
 
-#include <stdbool.h>
+#include <common.h>
 #include <stdio.h>
 #include "stm32h7xx_ll_dma.h"
 #include "board_config.h"
 #include "driver/io.h"
 #include "algo/ring.h"
-#include "system/common.h"
+#include <common.h>
 #include "driver/dma.h"
 #include "board_config.h"
 #include "driver/exti.h"
@@ -207,9 +207,6 @@ typedef struct device_s
 
 #define SPI_NUM         (BUS_SPICOUNT - 1)
 #define DEV_NUM         (DEV_ALLCOUNT - 1)
-
-#define CACHE_LINE_SIZE 32
-#define CACHE_LINE_MASK (CACHE_LINE_SIZE - 1)
 
 #define IDX_BY_BUS(__X__)        ((__X__) - 1)
 

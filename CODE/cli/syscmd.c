@@ -4,10 +4,9 @@
 // Created by 19114 on 2022/11/24.
 //
 
-#include <string.h>
-#include <stdarg.h>
+#include <common.h>
 #include "syscmd.h"
-#include "cli.h"
+#include "console/console.h"
 
 extern struct finsh_shell *shell;
 
@@ -91,10 +90,10 @@ char syscmd_getc(void)
 //    char ch[SERIAL_RB_BUFSZ];
 //    // struct finsh_shell* shell = finsh_get_shell();
 //
-//    if (rt_sem_take(&shell->rx_sem, RT_WAITING_FOREVER) != RT_EOK)
+//    if (rt_sem_take(&shell->rx_sem, osWaitForever) != E_OK)
 //        return -1;
 //
-//    rt_device_read(shell->device, 0, &ch, SERIAL_RB_BUFSZ);
+//    light_device_read(shell->device, 0, &ch, SERIAL_RB_BUFSZ);
 
 //    return ch[0];
 }
@@ -103,8 +102,7 @@ bool syscmd_has_input(void)
 {
     // struct finsh_shell* shell = finsh_get_shell();
 
-//    return rt_sem_trytake(&shell->rx_sem) == RT_EOK;
-    return Cli_IsReceived();
+//    return rt_sem_trytake(&shell->rx_sem) == E_OK;
 }
 
 void syscmd_flush(void)
@@ -112,7 +110,7 @@ void syscmd_flush(void)
     // struct finsh_shell* shell = finsh_get_shell();
 
 //    char ch[SERIAL_RB_BUFSZ];
-//    rt_device_read(shell->device, 0, &ch, SERIAL_RB_BUFSZ);
+//    light_device_read(shell->device, 0, &ch, SERIAL_RB_BUFSZ);
 }
 
 
@@ -178,18 +176,18 @@ int syscmd_process(int argc, char **argv, shell_handle_func func)
         }
     }
 
-    arg_v = (char **) MALLOC(arg_c * sizeof(char *));
+    arg_v = (char **) malloc(arg_c * sizeof(char *));
 
     if (arg_v == NULL)
         return -1;
 
     if (opt_c)
     {
-        opt_v = (optv_t *) MALLOC(opt_c * sizeof(optv_t));
+        opt_v = (optv_t *) malloc(opt_c * sizeof(optv_t));
 
         if (opt_v == NULL)
         {
-            FREE(arg_v);
+            free(arg_v);
             return -1;
         }
     }
@@ -248,7 +246,7 @@ int syscmd_process(int argc, char **argv, shell_handle_func func)
             }
 
             // set opt
-            opt_v[opt_cnt].opt = (char *) MALLOC(opt_len + 1); // 1byte for '\0'
+            opt_v[opt_cnt].opt = (char *) malloc(opt_len + 1); // 1byte for '\0'
 
             if (opt_v[opt_cnt].opt == NULL)
             {
@@ -262,7 +260,7 @@ int syscmd_process(int argc, char **argv, shell_handle_func func)
             // set opt val
             if (val_len)
             {
-                opt_v[opt_cnt].val = (char *) MALLOC(val_len + 1);
+                opt_v[opt_cnt].val = (char *) malloc(val_len + 1);
 
                 if (opt_v[opt_cnt].val == NULL)
                 {
@@ -287,7 +285,7 @@ int syscmd_process(int argc, char **argv, shell_handle_func func)
             /* handle argument */
             int arg_len = strlen(argv[i]);
 
-            arg_v[arg_cnt] = (char *) MALLOC(arg_len + 1);
+            arg_v[arg_cnt] = (char *) malloc(arg_len + 1);
 
             if (arg_v[arg_cnt] == NULL)
             {
@@ -319,11 +317,11 @@ int syscmd_process(int argc, char **argv, shell_handle_func func)
         {
             if (arg_v[i] != NULL)
             {
-                FREE(arg_v[i]);
+                free(arg_v[i]);
             }
         }
 
-        FREE(arg_v);
+        free(arg_v);
     }
 
     if (opt_v != NULL)
@@ -332,16 +330,16 @@ int syscmd_process(int argc, char **argv, shell_handle_func func)
         {
             if (opt_v[i].opt != NULL)
             {
-                FREE(opt_v[i].opt);
+                free(opt_v[i].opt);
             }
 
             if (opt_v[i].val != NULL)
             {
-                FREE(opt_v[i].val);
+                free(opt_v[i].val);
             }
         }
 
-        FREE(opt_v);
+        free(opt_v);
     }
 
     return res;

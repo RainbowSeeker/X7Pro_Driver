@@ -44,7 +44,7 @@ void PWM_Init(pwm_t *pwm, const timer_hw_t *timerHardware, uint32_t hz, uint16_t
     {
         alternate = 0x03;
     }
-    else assert(0);
+    else ASSERT(0);
 
     IO_Init(timerHardware->io, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_MEDIUM, alternate);
 

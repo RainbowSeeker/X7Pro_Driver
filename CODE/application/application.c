@@ -6,41 +6,38 @@
 
 #include "application.h"
 #include "FreeRTOS.h"
-#include "cmsis_os.h"
+#include "common.h"
+#include "init.h"
 
 
-osThreadId app_cliHandle;
-osThreadId app_spiHandle;
-osThreadId app_sdHandle;
-osThreadId app_pwmHandle;
-osThreadId app_mcnHandle;
+os_thread_t app_cliHandle;
+os_thread_t app_spiHandle;
+os_thread_t app_sdHandle;
+os_thread_t app_pwmHandle;
+os_thread_t app_mcnHandle;
+os_thread_t app_logHandle;
 
-extern void App_Cli_Main(void const * argument);
-extern void App_SPI_Main(void const * argument);
-extern void App_SD_Main(void const * argument);
-extern void App_PWM_Main(void const * argument);
-extern void App_Mcn_Main(void const * argument);
+extern void App_Cli_Main(void  *argument);
+extern void App_SPI_Main(void *argument);
+extern void App_SD_Main(void *argument);
+extern void App_PWM_Main(void *argument);
+extern void App_Mcn_Main(void *argument);
+extern void App_Log_Main(void *argument);
 
-extern osThreadId defaultTaskHandle;
+extern os_thread_t defaultTaskHandle;
 void Application_Create(void)
 {
-    taskENTER_CRITICAL();
+    Initialize();
 
-    osThreadDef(app_cli, App_Cli_Main, osPriorityIdle, 0, 512);
-    app_cliHandle = osThreadCreate(osThread(app_cli), NULL);
+    OS_ENTER_CRITICAL();
+//    app_cliHandle = os_thread_init("app_cli", App_Cli_Main, COMM_THREAD_PRIORITY, 512);
 
-    osThreadDef(app_spi, App_SPI_Main, osPriorityNormal, 0, 512);
-    app_spiHandle = osThreadCreate(osThread(app_spi), NULL);
+    app_spiHandle = os_thread_init("app_spi", App_SPI_Main, VEHICLE_THREAD_PRIORITY, 1024);
 
-    osThreadDef(app_sd, App_SD_Main, osPriorityHigh, 0, 1024);
-//    app_sdHandle = osThreadCreate(osThread(app_sd), NULL);
+//    app_sdHandle = os_thread_init("app_sd", App_SD_Main, FMTIO_THREAD_PRIORITY, 1024);
 
-    osThreadDef(app_pwm, App_PWM_Main, osPriorityNormal, 0, 512);
-    app_pwmHandle = osThreadCreate(osThread(app_pwm), NULL);
-
-    osThreadDef(app_mcn, App_Mcn_Main, osPriorityNormal, 0, 512);
-    app_mcnHandle = osThreadCreate(osThread(app_mcn), NULL);
+    app_logHandle = os_thread_init("app_log", App_Log_Main, LOGGER_THREAD_PRIORITY, 4 * 1024);
 
     osThreadTerminate(defaultTaskHandle);
-    taskEXIT_CRITICAL();
+    OS_EXIT_CRITICAL();
 }

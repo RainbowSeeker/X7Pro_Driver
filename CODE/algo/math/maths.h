@@ -29,15 +29,7 @@ static inline int16_t swap_i16(int16_t num)
 {
     return __builtin_bswap16(num);
 }
-static inline int constrain(int amt, int low, int high)
-{
-    if (amt < low)
-        return low;
-    else if (amt > high)
-        return high;
-    else
-        return amt;
-}
+
 
 static inline float constrainf(float amt, float low, float high)
 {
@@ -48,17 +40,6 @@ static inline float constrainf(float amt, float low, float high)
     else
         return amt;
 }
-
-/**
- * container_of - cast a member of a structure out to the containing structure
- * @ptr:        the pointer to the member.
- * @type:       the type of the container struct this is embedded in.
- * @member:     the name of the member within the struct.
- *
- */
-#define container_of(ptr, type, member)  ( __extension__ ({     \
-        const typeof( ((type *)0)->member ) *__mptr = (ptr);    \
-        (type *)( (char *)__mptr - offsetof(type,member) );}))
 
 static inline int16_t cmp16(uint16_t a, uint16_t b) { return (int16_t)(a-b); }
 static inline int32_t cmp32(uint32_t a, uint32_t b) { return (int32_t)(a-b); }

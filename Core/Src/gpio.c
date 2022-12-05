@@ -66,7 +66,7 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(SENSORS_SW_GPIO_Port, SENSORS_SW_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(SDEN_GPIO_Port, SDEN_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(SDEN_GPIO_Port, SDEN_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOF, RM3100_Pin|ADI_CS_Pin, GPIO_PIN_SET);

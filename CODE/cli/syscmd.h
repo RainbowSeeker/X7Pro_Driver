@@ -33,8 +33,6 @@ typedef int (*shell_handle_func)(int, char**, int, optv_t*);
 #define SHELL_COMMAND(cmd, desc)  printf(" %-10s  %s\n", cmd, desc)
 #define SHELL_OPTION(opt, desc)   printf(" %-15s  %s\n", opt, desc)
 
-#define console_write(_ch, _len)    Cli_Print((uint8_t *)_ch, _len)
-#define console_printf              printf
 
 bool syscmd_is_num(const char* str);
 bool syscmd_is_hex(const char* str);
