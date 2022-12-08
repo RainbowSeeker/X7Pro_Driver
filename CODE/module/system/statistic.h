@@ -13,7 +13,7 @@ typedef struct {
     float cpu_usage;
 } cpu_usage_stats;
 
-err_status_e sys_stat_init(void);
+err_t sys_stat_init(void);
 float get_cpu_usage(void);
 
 #ifdef __cplusplus

@@ -10,7 +10,7 @@ extern "C" {
 
 #define MAT_TYPE   float
 #define MAT_MALLOC malloc
-#define MAT_FREE   FREE
+#define MAT_FREE   free
 #define MAT_PRINTF console_printf
 
 typedef struct {

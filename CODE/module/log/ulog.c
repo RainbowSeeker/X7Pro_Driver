@@ -221,7 +221,7 @@ static char *get_log_buf(void)
     }
 }
 
-__WEAK__ size_t ulog_formater(char *log_buf, uint32_t level, const char *tag, bool_t newline,
+__WEAK size_t ulog_formater(char *log_buf, uint32_t level, const char *tag, bool_t newline,
                               const char *format, va_list args)
 {
     /* the caller has locker, so it can use static variable for reduce stack usage */
@@ -305,9 +305,9 @@ __WEAK__ size_t ulog_formater(char *log_buf, uint32_t level, const char *tag, bo
 
         /* is not in interrupt context */
         if (os_interrupt_get_nest() == 0) {
-            size_t name_len = strnlen(rt_thread_self()->name, NAME_MAX);
+            size_t name_len = strnlen(os_thread_self()->name, NAME_MAX_LEN);
 
-            strncpy(log_buf + log_len, rt_thread_self()->name, name_len);
+            strncpy(log_buf + log_len, os_thread_self()->name, name_len);
             log_len += name_len;
         } else {
             log_len += ulog_strcpy(log_len, log_buf + log_len, "ISR");
@@ -1107,7 +1107,7 @@ err_t ulog_backend_register(ulog_backend_t backend, const char *name, bool_t sup
     }
 
     backend->support_color = support_color;
-    memcpy(backend->name, name, NAME_MAX);
+    memcpy(backend->name, name, NAME_MAX_LEN);
 
     level = os_hw_interrupt_disable();
     slist_append(&ulog.backend_list, &backend->list);
@@ -1262,7 +1262,7 @@ void ulog_deinit(void)
 
 #ifdef ULOG_USING_ASYNC_OUTPUT
     rbb_destroy(ulog.async_rbb);
-    // rt_thread_delete(ulog.async_th);
+    // os_thread_delete(ulog.async_th);
 #endif
 
     ulog.init_ok = FALSE;

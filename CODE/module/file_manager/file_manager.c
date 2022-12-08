@@ -62,7 +62,7 @@ static int read_log_session_id(void)
  *
  * @return Errors Status.
  */
-static err_status_e update_log_session(void)
+static err_t update_log_session(void)
 {
     int fd;
 
@@ -92,7 +92,7 @@ static err_status_e update_log_session(void)
  *
  * @return Errors Status.
  */
-static err_status_e create_log_session(void)
+static err_t create_log_session(void)
 {
     char path[50];
     struct stat sta;
@@ -120,7 +120,7 @@ static err_status_e create_log_session(void)
  *
  * @return Errors Status.
  */
-static err_status_e create_rootfs(void)
+static err_t create_rootfs(void)
 {
     struct stat buf;
     int i = 0;
@@ -161,7 +161,7 @@ static err_status_e create_rootfs(void)
  * @param path store the full path of current log session
  * @return Errors Status.
  */
-err_status_e current_log_session(char* path)
+err_t current_log_session(char* path)
 {
     if (cws_id > 0) {
         /* get log session full path */
@@ -177,7 +177,7 @@ err_status_e current_log_session(char* path)
  *
  * @return Errors Status.
  */
-err_status_e file_manager_init(const struct dfs_mount_tbl* mnt_table)
+err_t file_manager_init(const struct dfs_mount_tbl* mnt_table)
 {
     struct stat sta;
 

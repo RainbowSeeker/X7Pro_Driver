@@ -28,14 +28,13 @@ static size_t device_num = 0;       /* calculate the number of device */
  */
 err_t light_device_register(light_device_t device, const char *name, uint16_t flags)
 {
-    struct list_node *node = NULL;
     if (device == NULL)
         return E_RROR;
 
     if (light_device_find(name) != NULL)
         return E_RROR;
 
-    strncpy(device->name, name, NAME_MAX);
+    strncpy(device->name, name, NAME_MAX_LEN);
 
     OS_ENTER_CRITICAL();
     list_insert_after(&device_list, &device->list);
@@ -88,7 +87,7 @@ light_device_t light_device_find(const char *name)
     list_for_each(node, &device_list)
     {
         device = list_entry(node, struct light_device, list);
-        if (strncmp(device->name, name, NAME_MAX) == 0)
+        if (strncmp(device->name, name, NAME_MAX_LEN) == 0)
         {
             /* leave critical */
             OS_EXIT_CRITICAL();

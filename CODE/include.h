@@ -18,12 +18,8 @@
 
 ////-------user 自定义头文件 -------
 #include "sys.h"
-#include "status.h"
 #include "com.h"
 #include "task.h"
-#include "ledbeep.h"
-#include "sdop.h"
-
 #include "board_config.h"
 
 //-------uCosIII 头文件 ---------

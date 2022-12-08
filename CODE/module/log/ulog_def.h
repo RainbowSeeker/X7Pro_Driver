@@ -11,6 +11,9 @@
 #ifndef ULOG_DEF_H__
 #define ULOG_DEF_H__
 
+#include "common_def.h"
+#include "utils/list.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -172,7 +175,7 @@ struct ulog_frame {
 typedef struct ulog_frame* ulog_frame_t;
 
 struct ulog_backend {
-    char name[NAME_MAX];
+    char name[NAME_MAX_LEN];
     bool_t support_color;
     void (*init)(struct ulog_backend* backend);
     void (*output)(struct ulog_backend* backend, uint32_t level, const char* tag, bool_t is_raw, const char* log, size_t len);

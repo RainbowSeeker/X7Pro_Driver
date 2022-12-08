@@ -5,24 +5,37 @@
 //
 
 #include "os_def.h"
-#include "stdio.h"
+
+
 /* global errno */
 static volatile int os_errno;
 
-struct
+slist_t save_thread_info;
+uint8_t save_thread_num = 0;
+/**
+ * os_thread_create
+ * @param name
+ * @param task_func_t
+ * @param parameter
+ * @param priority
+ * @param stack_size
+ * @return
+ */
+os_thread_t os_thread_create(const char *name,
+                             void (*task_func_t)(void *),
+                             void *parameter,
+                             size_t priority,
+                             uint16_t stack_size)
 {
-    struct {
-        os_thread_t tid;
-        int error;
-    }thread_info[MAX_THREAD_NUM];
-    size_t thread_count;
-}save_thread_info;
+    os_thread_t thread = malloc(sizeof(struct os_thread));
 
-os_thread_t os_thread_init(const char *name, void (*task_func_t)(void *), size_t priority, uint16_t stack_size)
-{
-    TaskHandle_t handle;
+    if (thread == NULL)
+    {
+        printf("\r\nno mem");
+        return NULL;
+    }
 
-    if (save_thread_info.thread_count >= MAX_THREAD_NUM)
+    if (save_thread_num >= MAX_THREAD_NUM)
     {
         printf("\r\nnum of thread reach the limit! \r\n Please modify MAX_THREAD_NUM to repair this.");
         return NULL;
@@ -34,17 +47,55 @@ os_thread_t os_thread_init(const char *name, void (*task_func_t)(void *), size_t
         return NULL;
     }
 
+    strcpy(thread->name, name);
+    slist_append(&save_thread_info, &thread->list);
+
     if (xTaskCreate((TaskFunction_t)task_func_t,(const portCHAR *)name,
-                    stack_size, NULL, priority,
-                    &handle) != pdPASS)
+                    stack_size, parameter, priority,
+                    &thread->tid) != pdPASS)
     {
+        slist_remove(&save_thread_info, &thread->list);
+        free(thread);
         return NULL;
     }
-    save_thread_info.thread_info[save_thread_info.thread_count].tid = handle;
-    save_thread_info.thread_count++;
-    return handle;
+
+    save_thread_num++;
+    return thread;
 }
 
+err_t os_thread_delete(os_thread_t thread)
+{
+    if (thread == NULL) return E_EMPTY;
+    vTaskDelete(thread->tid);
+    return E_OK;
+}
+
+os_thread_t os_thread_self(void)
+{
+    osThreadId tid = osThreadGetId();
+    slist_t *node;
+    os_thread_t thread;
+    slist_for_each(node, &save_thread_info)
+    {
+        thread = slist_entry(node, struct os_thread, list);
+        if (tid == thread->tid)
+        {
+            return thread;
+        }
+    }
+
+    return NULL;
+}
+
+err_t os_thread_startup(os_thread_t thread)
+{
+    os_thread_resume(thread);
+    if (os_thread_self() != NULL)
+    {
+        os_schedule();
+    }
+    return E_OK;
+}
 /*
  * This function will get errno
  *
@@ -52,7 +103,7 @@ os_thread_t os_thread_init(const char *name, void (*task_func_t)(void *), size_t
  */
 err_t os_get_errno(void)
 {
-    os_thread_t tid;
+    os_thread_t thread;
 
     if (os_interrupt_get_nest() != 0)
     {
@@ -60,23 +111,11 @@ err_t os_get_errno(void)
         return os_errno;
     }
 
-    tid = os_thread_self();
-
-    if (tid == NULL)
+    thread = os_thread_self();
+    if (thread == NULL)
         return os_errno;
 
-    base_t level = os_hw_interrupt_disable();
-    for (size_t i = 0; i < save_thread_info.thread_count; ++i)
-    {
-        if (tid == save_thread_info.thread_info[i].tid)
-        {
-            os_hw_interrupt_enable(level);
-            return save_thread_info.thread_info[i].error;
-        }
-    }
-    os_hw_interrupt_enable(level);
-
-    return os_errno;
+    return thread->error;
 }
 
 /*
@@ -86,7 +125,7 @@ err_t os_get_errno(void)
  */
 void os_set_errno(err_t error)
 {
-    os_thread_t tid;
+    os_thread_t thread;
 
     if (os_interrupt_get_nest() != 0)
     {
@@ -95,23 +134,13 @@ void os_set_errno(err_t error)
         return;
     }
 
-    tid = os_thread_self();
-    if (tid == NULL)
+    thread = os_thread_self();
+    if (thread == NULL)
     {
         os_errno = error;
         return;
     }
 
-    base_t level = os_hw_interrupt_disable();
-    for (size_t i = 0; i < save_thread_info.thread_count; ++i)
-    {
-        if (tid == save_thread_info.thread_info[i].tid)
-        {
-            save_thread_info.thread_info[i].error = error;
-            os_hw_interrupt_enable(level);
-            return;
-        }
-    }
-    os_hw_interrupt_enable(level);
+    thread->error = error;
 }
 

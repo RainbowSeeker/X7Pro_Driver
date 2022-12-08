@@ -109,7 +109,7 @@ static void ADI_CalChecknum(uint8_t *pRxData)
     }
     if (checknum == (uint16_t)(pRxData[20] << 8 | pRxData[21]))
     {
-        print("\r\n\r\ncheck ok\r\n\r\n");
+        printf("\r\n\r\ncheck ok\r\n\r\n");
     }
 
 }

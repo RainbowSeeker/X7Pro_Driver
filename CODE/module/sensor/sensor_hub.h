@@ -7,8 +7,7 @@
 #ifndef X7PRO_DRIVER_SENSOR_HUB_H
 #define X7PRO_DRIVER_SENSOR_HUB_H
 
-#include "stdio.h"
-#include "bus.h"
+#include "common.h"
 
 #define RAW_TEMPERATURE_POS 0
 #define RAW_PRESSURE_POS    1
@@ -35,8 +34,8 @@
 
 typedef struct sensor_imu
 {
-    device_t *gyr_dev;
-    device_t *acc_dev;
+    light_device_t gyr_dev;
+    light_device_t acc_dev;
     float gyr_rotation[3][3];
     float gyr_offset[3];
     float acc_rotation[3][3];
@@ -45,24 +44,24 @@ typedef struct sensor_imu
 
 typedef struct sensor_mag
 {
-    device_t *dev;
+    light_device_t dev;
     float rotation[3][3];
     float offset[3];
 }sensor_mag_t;
 
 typedef struct sensor_baro
 {
-    device_t *dev;
+    light_device_t dev;
 }sensor_baro_t;
 
 typedef struct sensor_gps
 {
-    device_t *dev;
+    light_device_t dev;
 }sensor_gps_t;
 
 typedef struct sensor_airspeed
 {
-    device_t *dev;
+    light_device_t dev;
 }sensor_airspeed_t;
 
 
@@ -128,16 +127,16 @@ typedef struct
 } airspeed_data_t;
 
 void sensor_collect(void);
-err_status_e advertise_sensor_imu(uint8_t id);
-err_status_e advertise_sensor_mag(uint8_t id);
-err_status_e advertise_sensor_baro(uint8_t id);
-err_status_e advertise_sensor_airspeed(uint8_t id);
-err_status_e advertise_sensor_gps(uint8_t id);
-err_status_e advertise_sensor_optflow(uint8_t id);
-err_status_e advertise_sensor_rangefinder(uint8_t id);
-err_status_e register_sensor_imu(const char* gyr_dev_name, const char* acc_dev_name, uint8_t id);
-err_status_e register_sensor_mag(const char* dev_name, uint8_t id);
-err_status_e register_sensor_barometer(const char* dev_name);
-err_status_e register_sensor_airspeed(const char* dev_name);
-err_status_e register_sensor_gps(const char* dev_name);
+err_t advertise_sensor_imu(uint8_t id);
+err_t advertise_sensor_mag(uint8_t id);
+err_t advertise_sensor_baro(uint8_t id);
+err_t advertise_sensor_airspeed(uint8_t id);
+err_t advertise_sensor_gps(uint8_t id);
+err_t advertise_sensor_optflow(uint8_t id);
+err_t advertise_sensor_rangefinder(uint8_t id);
+err_t register_sensor_imu(const char* gyr_dev_name, const char* acc_dev_name, uint8_t id);
+err_t register_sensor_mag(const char* dev_name, uint8_t id);
+err_t register_sensor_barometer(const char* dev_name);
+err_t register_sensor_airspeed(const char* dev_name);
+err_t register_sensor_gps(const char* dev_name);
 #endif //X7PRO_DRIVER_SENSOR_HUB_H

@@ -37,14 +37,14 @@
 //    if (time_now > prev_usage_cal_time && time_now - prev_usage_cal_time >= CPU_USAGE_CALC_INTERVAL * 1000) {
 //        struct rt_object_information* info;
 //        struct rt_list_node* list;
-//        struct rt_thread* thread;
+//        struct os_thread* thread;
 //        cpu_usage_stats* stats;
 //
 //        info = rt_object_get_information(RT_Object_Class_Thread);
 //        list = &info->object_list;
 //
 //        for (struct rt_list_node* node = list->next; node != list; node = node->next) {
-//            thread = rt_list_entry(node, struct rt_thread, list);
+//            thread = rt_list_entry(node, struct os_thread, list);
 //            stats = (cpu_usage_stats*)thread->user_data;
 //
 //            if (stats != NULL) {
@@ -59,7 +59,7 @@
 //    OS_EXIT_CRITICAL();
 //}
 //
-//static void scheduler_hook(rt_thread_t from, rt_thread_t to)
+//static void scheduler_hook(os_thread_t from, os_thread_t to)
 //{
 //    uint64_t time_now;
 //    cpu_usage_stats* stats = (cpu_usage_stats*)from->user_data;
@@ -81,7 +81,7 @@
 //    prev_schedule_time = time_now;
 //}
 //
-//static void thread_inited_hook(rt_thread_t thread)
+//static void thread_inited_hook(os_thread_t thread)
 //{
 //    cpu_usage_stats* stats = (cpu_usage_stats*)malloc(sizeof(cpu_usage_stats));
 //    ASSERT(stats != NULL);
@@ -93,7 +93,7 @@
 //    thread->user_data = (uint32_t)stats;
 //}
 //
-//static void thread_deleted_hook(rt_thread_t thread)
+//static void thread_deleted_hook(os_thread_t thread)
 //{
 //    FREE((void*)thread->user_data);
 //}
@@ -105,7 +105,7 @@
 // */
 //float get_cpu_usage(void)
 //{
-//    rt_thread_t idle = rt_thread_idle_gethandler();
+//    os_thread_t idle = os_thread_idle_gethandler();
 //    cpu_usage_stats* stats = (cpu_usage_stats*)idle->user_data;
 //    float cpu_usage = -1.0f;
 //
@@ -119,14 +119,14 @@
 ///**
 // * @brief Initialize system statistic module
 // *
-// * @return err_status_e E_OK if successful
+// * @return err_t E_OK if successful
 // */
-//err_status_e sys_stat_init(void)
+//err_t sys_stat_init(void)
 //{
-//    rt_thread_inited_sethook(thread_inited_hook);
-//    rt_thread_deleted_sethook(thread_deleted_hook);
+//    os_thread_inited_sethook(thread_inited_hook);
+//    os_thread_deleted_sethook(thread_deleted_hook);
 //    rt_scheduler_sethook(scheduler_hook);
-//    rt_thread_idle_sethook(thread_idle_hook);
+//    os_thread_idle_sethook(thread_idle_hook);
 //
 //    return E_OK;
 //}

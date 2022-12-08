@@ -6,7 +6,7 @@
 
 #include "board_config.h"
 #include "common_def.h"
-
+#include "os_def.h"
 /** note
 *   Redefine system service function
 *   ( Contains memory operation functions & Print function etc.)
@@ -1019,14 +1019,9 @@ size_t strnlen(const char *, size_t) __attribute__((weak, alias("_strnlen")));
 size_t strlen(const char *) __attribute__((weak, alias("_strlen")));
 char *strdup(const char *) __attribute__((weak, alias("_strdup")));
 
-int sprintf(char *, const char *, ...) __attribute__((weak, alias("_sprintf")));
-int snprintf(char *, size_t, const char *, ...) __attribute__((weak, alias("_snprintf")));
-int vsprintf(char *, const char *, va_list) __attribute__((weak, alias("_vsprintf")));
-int vsnprintf(char *, size_t, const char *, va_list) __attribute__((weak, alias("_vsnprintf")));
 
 #ifdef USE_CONSOLE
 #include "console/console.h"
-extern light_device_t console_dev;
 
 int	_printf(const char *fmt, ...)
 {
@@ -1062,6 +1057,7 @@ int	_println(const char *fmt, ...)
     va_end(args);
     return length;
 }
+int println(const void *,...) __attribute__((weak, alias("_println")));
 
 /**
  * 重定义 printf (GNU中)
@@ -1084,8 +1080,5 @@ int fputc(int ch, FILE *f)
     console_write((char *)&ch, 1);
     return ch;
 }
-
-int	printf(const char *, ...) __attribute__((weak, alias("_printf")));
-int println(const void *,...) __attribute__((weak, alias("_println")));
 
 #endif

@@ -68,8 +68,8 @@ Mat* MatCreate(Mat* mat, int row, int col)
 {
     int i;
 
-    mat->element = (MAT_TYPE**)MAT_malloc(row * sizeof(MAT_TYPE*));
-    mat->buffer = (MAT_TYPE*)MAT_malloc(row * col * sizeof(MAT_TYPE));
+    mat->element = (MAT_TYPE**)MAT_MALLOC(row * sizeof(MAT_TYPE*));
+    mat->buffer = (MAT_TYPE*)MAT_MALLOC(row * col * sizeof(MAT_TYPE));
 
     if (mat->element == NULL || mat->buffer == NULL) {
         MatDelete(mat);

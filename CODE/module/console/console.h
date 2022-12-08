@@ -24,9 +24,9 @@
 //#define printf console_printf
 
 /* console API */
-err_status_e console_init(void);
-err_status_e console_enable_input(void);
-err_status_e console_set_device(const char* device_name);
+err_t console_init(void);
+err_t console_enable_input(void);
+err_t console_set_device(const char* device_name);
 light_device_t console_get_device(void);
 int console_printf(const char* fmt, ...);
 int console_println(const char* fmt, ...);

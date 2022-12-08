@@ -11,13 +11,13 @@ io_state_e IO_Read(io_t io)
     return (io_state_e)HAL_GPIO_ReadPin(io.port, io.pin);
 }
 
-void IO_Set(io_t io, io_state_e ioState)
+void io_set(io_t io, io_state_e ioState)
 {
     HAL_GPIO_WritePin(io.port, io.pin, (GPIO_PinState)ioState);
 }
 
 
-int IO_Init(io_t io, uint32_t mode, uint32_t pull, uint32_t speed, uint32_t alternate)
+int io_init(io_t io, uint32_t mode, uint32_t pull, uint32_t speed, uint32_t alternate)
 {
     GPIO_InitTypeDef GPIO_InitStruct = {0};
 
@@ -67,13 +67,13 @@ int IO_Init(io_t io, uint32_t mode, uint32_t pull, uint32_t speed, uint32_t alte
     return 0;
 }
 
-void IO_DeInit(io_t io)
+void io_deinit(io_t io)
 {
     HAL_GPIO_DeInit(io.port, io.pin);
 }
 
 // zero based pin index
-int IO_GPIOPinIdx(io_t io)
+int io_pin_idx(io_t io)
 {
     if (!io.port) {
         return -1;
@@ -81,11 +81,10 @@ int IO_GPIOPinIdx(io_t io)
     return 31 - __builtin_clz(io.pin);  // CLZ is a bit faster than FFS
 }
 
-// mask on stm32f103, bit index on stm32f303
 uint32_t IO_EXTI_Line(io_t io)
 {
     if (!io.port) {
         return 0;
     }
-    return 1 << IO_GPIOPinIdx(io);
+    return 1 << io_pin_idx(io);
 }

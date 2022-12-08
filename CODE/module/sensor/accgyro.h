@@ -125,39 +125,39 @@
 // RF = Register Flag
 #define MPU_RF_DATA_RDY_EN (1 << 0)
 
-enum gyro_fsr_e {
-    INV_FSR_250DPS = 0,
-    INV_FSR_500DPS,
-    INV_FSR_1000DPS,
-    INV_FSR_2000DPS,
-    NUM_GYRO_FSR
-};
-
-enum accel_fsr_e {
-    INV_FSR_2G = 0,
-    INV_FSR_4G,
-    INV_FSR_8G,
-    INV_FSR_16G,
-    NUM_ACCEL_FSR
-};
-
-enum clock_sel_e {
-    INV_CLK_INTERNAL = 0,
-    INV_CLK_PLL,
-    NUM_CLK
-};
-
-typedef enum {
-    GYRO_RATE_1_kHz,
-    GYRO_RATE_1100_Hz,
-    GYRO_RATE_2000_Hz,
-    GYRO_RATE_3200_Hz,
-    GYRO_RATE_6400_Hz,
-    GYRO_RATE_6664_Hz,
-    GYRO_RATE_8_kHz,
-    GYRO_RATE_9_kHz,
-    GYRO_RATE_32_kHz,
-}gyro_rate_e;
+//enum gyro_fsr_e {
+//    INV_FSR_250DPS = 0,
+//    INV_FSR_500DPS,
+//    INV_FSR_1000DPS,
+//    INV_FSR_2000DPS,
+//    NUM_GYRO_FSR
+//};
+//
+//enum accel_fsr_e {
+//    INV_FSR_2G = 0,
+//    INV_FSR_4G,
+//    INV_FSR_8G,
+//    INV_FSR_16G,
+//    NUM_ACCEL_FSR
+//};
+//
+//enum clock_sel_e {
+//    INV_CLK_INTERNAL = 0,
+//    INV_CLK_PLL,
+//    NUM_CLK
+//};
+//
+//typedef enum {
+//    GYRO_RATE_1_kHz,
+//    GYRO_RATE_1100_Hz,
+//    GYRO_RATE_2000_Hz,
+//    GYRO_RATE_3200_Hz,
+//    GYRO_RATE_6400_Hz,
+//    GYRO_RATE_6664_Hz,
+//    GYRO_RATE_8_kHz,
+//    GYRO_RATE_9_kHz,
+//    GYRO_RATE_32_kHz,
+//}gyro_rate_e;
 
 typedef enum
 {

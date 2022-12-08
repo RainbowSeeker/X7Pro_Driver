@@ -130,7 +130,7 @@ typedef struct {
         .val.lf = _default            \
     }
 
-#define PARAM_GROUP_EXPORT                     __USED__ static const param_group_t SECTION("ParamTab")
+#define PARAM_GROUP_EXPORT                     __USED static const param_group_t SECTION("ParamTab")
 #define PARAM_GROUP_DEFINE(_name, _param_list) PARAM_GROUP_EXPORT __param_group_##_name = { \
     .name = #_name,                                                                         \
     .param_num = sizeof(_param_list) / sizeof(param_t),                                     \
@@ -167,16 +167,16 @@ typedef struct {
 #define PARAM_SET_DOUBLE(_group, _name, _val) param_set_val(PARAM_GET(_group, _name), &((double) { _val }))
 
 /********************** API **********************/
-err_status_e param_init(void);
-err_status_e param_save(char* path);
-err_status_e param_load(char* path);
+err_t param_init(void);
+err_t param_save(char* path);
+err_t param_load(char* path);
 
-err_status_e param_set_val(param_t* param, void* val);
-err_status_e param_set_val_by_name(char* param_name, void* val);
-err_status_e param_set_val_by_full_name(char* group_name, char* param_name, void* val);
-err_status_e param_set_str_val(param_t* param, char* val);
-err_status_e param_set_str_val_by_name(char* param_name, char* val);
-err_status_e param_set_str_val_by_full_name(char* group_name, char* param_name, char* val);
+err_t param_set_val(param_t* param, void* val);
+err_t param_set_val_by_name(char* param_name, void* val);
+err_t param_set_val_by_full_name(char* group_name, char* param_name, void* val);
+err_t param_set_str_val(param_t* param, char* val);
+err_t param_set_str_val_by_name(char* param_name, char* val);
+err_t param_set_str_val_by_full_name(char* group_name, char* param_name, char* val);
 
 int32_t param_get_count(void);
 int32_t param_get_index(const param_t* param);
@@ -189,9 +189,9 @@ param_group_t* param_find_group(const char* group_name);
 param_group_t* param_get_table(void);
 int16_t param_get_group_count(void);
 
-err_status_e register_param_modify_callback(void (*on_modify)(param_t* param));
-err_status_e deregister_param_modify_callback(void (*on_modify)(param_t* param));
-err_status_e param_link_variable(param_t* param, void* var);
+err_t register_param_modify_callback(void (*on_modify)(param_t* param));
+err_t deregister_param_modify_callback(void (*on_modify)(param_t* param));
+err_t param_link_variable(param_t* param, void* var);
 
 #ifdef __cplusplus
 }

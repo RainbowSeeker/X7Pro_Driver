@@ -156,9 +156,9 @@ bool mcn_wait(McnNode_t node_t, int32_t timeout)
  * @param hub uMCN hub
  * @param node_t uMCN node
  * @param buffer buffer to received the data
- * @return err_status_e E_OK indicates success
+ * @return err_t E_OK indicates success
  */
-err_status_e mcn_copy(McnHub_t hub, McnNode_t node_t, void* buffer)
+err_t mcn_copy(McnHub_t hub, McnNode_t node_t, void* buffer)
 {
     MCN_ASSERT(hub != NULL);
     MCN_ASSERT(node_t != NULL);
@@ -189,9 +189,9 @@ err_status_e mcn_copy(McnHub_t hub, McnNode_t node_t, void* buffer)
  * 
  * @param hub 
  * @param buffer 
- * @return err_status_e
+ * @return err_t
  */
-err_status_e mcn_copy_from_hub(McnHub_t hub, void* buffer)
+err_t mcn_copy_from_hub(McnHub_t hub, void* buffer)
 {
     MCN_ASSERT(hub != NULL);
     MCN_ASSERT(buffer != NULL);
@@ -218,9 +218,9 @@ err_status_e mcn_copy_from_hub(McnHub_t hub, void* buffer)
  * 
  * @param hub uMCN hub
  * @param echo Echo function to print topic contents
- * @return err_status_e E_OK indicates success
+ * @return err_t E_OK indicates success
  */
-err_status_e mcn_advertise(McnHub_t hub, int (*echo)(void* parameter))
+err_t mcn_advertise(McnHub_t hub, int (*echo)(void* parameter))
 {
     void* pdata;
     void* next;
@@ -333,9 +333,9 @@ McnNode_t mcn_subscribe(McnHub_t hub, MCN_EVENT_HANDLE event, void (*pub_cb)(voi
  * 
  * @param hub uMCN hub
  * @param node Subscribe node
- * @return err_status_e E_OK indicates success
+ * @return err_t E_OK indicates success
  */
-err_status_e mcn_unsubscribe(McnHub_t hub, McnNode_t node)
+err_t mcn_unsubscribe(McnHub_t hub, McnNode_t node)
 {
     MCN_ASSERT(hub != NULL);
     MCN_ASSERT(node != NULL);
@@ -392,9 +392,9 @@ err_status_e mcn_unsubscribe(McnHub_t hub, McnNode_t node)
  * 
  * @param hub uMCN hub, which can be obtained by MCN_HUB() macro
  * @param data Data of topic to publish
- * @return err_status_e E_OK indicates success
+ * @return err_t E_OK indicates success
  */
-err_status_e mcn_publish(McnHub_t hub, const void* data)
+err_t mcn_publish(McnHub_t hub, const void* data)
 {
     MCN_ASSERT(hub != NULL);
     MCN_ASSERT(data != NULL);
@@ -424,8 +424,7 @@ err_status_e mcn_publish(McnHub_t hub, const void* data)
         /* send out event to wakeup waiting task */
         if (node->event) {
             /* stimulate as mutex */
-//            if (node->event->value == 0)
-                MCN_SEND_EVENT(node->event);
+            MCN_SEND_EVENT(node->event);
         }
 
         node = node->next;
@@ -451,9 +450,9 @@ err_status_e mcn_publish(McnHub_t hub, const void* data)
 /**
  * @brief Initialize uMCN module
  * 
- * @return err_status_e E_OK indicates success
+ * @return err_t E_OK indicates success
  */
-err_status_e mcn_init(void)
+err_t mcn_init(void)
 {
     osTimerDef(mcn, mcn_freq_est_entry);
     timer_mcn_freq_est = osTimerCreate(osTimer(mcn), osTimerPeriodic, NULL);

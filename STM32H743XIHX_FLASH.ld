@@ -100,6 +100,17 @@ SECTIONS
 
     . = ALIGN(4);
 
+    /* section information for finsh shell */
+    . = ALIGN(4);
+    __fsymtab_start = .;
+    KEEP(*(FSymTab))
+    __fsymtab_end = .;
+    . = ALIGN(4);
+    __vsymtab_start = .;
+    KEEP(*(VSymTab))
+    __vsymtab_end = .;
+    . = ALIGN(4);
+
     /* section information for parameters. */
     . = ALIGN(4);
     __param_start = .;

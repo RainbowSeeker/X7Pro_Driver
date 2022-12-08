@@ -87,18 +87,6 @@ typedef enum {
                                                                     handler(&dmaDescriptors[index]); \
                                                             }
 
-#define DMA_CLEAR_FLAG(d, flag)   if (d->flagsShift > 31) ((DMA_TypeDef *)d->dma)->HIFCR = (flag << (d->flagsShift - 32)); else ((DMA_TypeDef *)d->dma)->LIFCR = (flag << d->flagsShift)
-#define BDMA_CLEAR_FLAG(d, flag)   (BDMA->IFCR = (flag << d->flagsShift))
-
-#define DMA_IT_TCIF         ((uint32_t)0x00000020)
-#define DMA_IT_HTIF         ((uint32_t)0x00000010)
-#define DMA_IT_TEIF         ((uint32_t)0x00000008)
-#define DMA_IT_DMEIF        ((uint32_t)0x00000004)
-#define DMA_IT_FEIF         ((uint32_t)0x00000001)
-
-#define BDMA_IT_TCIF         ((uint32_t)0x00000002)
-#define BDMA_IT_HTIF         ((uint32_t)0x00000004)
-#define BDMA_IT_TEIF         ((uint32_t)0x00000008)
 
 #define MAX_PERIPHERAL_DMA_OPTIONS      (16 + 8)        // dma + bdma
 #define MAX_TIMER_DMA_OPTIONS           16
@@ -125,15 +113,6 @@ typedef struct dma_s
     uint32_t                    userParam;
 }dma_t;
 
-__STATIC_INLINE void LL_EX_DMA_EnableIT_TC(DMA_Stream_TypeDef *DMAx_Stream)
-{
-    SET_BIT(DMAx_Stream->CR, DMA_SxCR_TCIE);
-}
-
-__STATIC_INLINE void LL_EX_BDMA_EnableIT_TC(BDMA_Channel_TypeDef *BDMAx_Channel)
-{
-    SET_BIT(BDMAx_Channel->CCR, BDMA_CCR_TCIE);
-}
 
 typedef struct
 {

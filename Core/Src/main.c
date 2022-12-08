@@ -25,6 +25,7 @@
 /* USER CODE BEGIN Includes */
 #include "dma.h"
 #include "init.h"
+#include "application.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -57,7 +58,21 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void main1(void *param)
+{
+    while (1)
+    {
+        os_delay(10);
+    }
 
+}
+void main2(void *param)
+{
+    while (1)
+    {
+        os_delay(10);
+    }
+}
 /* USER CODE END 0 */
 
 /**

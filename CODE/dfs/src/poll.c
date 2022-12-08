@@ -12,7 +12,7 @@
 
 //#include <rthw.h>
 //#include <rtdevice.h>
-//#include <rtthread.h>
+//#include <common.h>
 
 #include <dfs.h>
 #include <dfs_file.h>
@@ -26,8 +26,8 @@ struct rt_poll_node;
 struct rt_poll_table
 {
     rt_pollreq_t req;
-    rt_uint32_t triggered; /* the waited thread whether triggered */
-    rt_thread_t polling_thread;
+    uint32_t triggered; /* the waited thread whether triggered */
+    os_thread_t polling_thread;
     struct rt_poll_node *nodes;
 };
 
@@ -42,7 +42,7 @@ static int __wqueue_pollwake(struct rt_wqueue_node *wait, void *key)
 {
     struct rt_poll_node *pn;
 
-    if (key && !((rt_ubase_t)key & wait->key))
+    if (key && !((ubase_t)key & wait->key))
         return -1;
 
     pn = rt_container_of(wait, struct rt_poll_node, wqn);
@@ -77,14 +77,14 @@ static void poll_table_init(struct rt_poll_table *pt)
     pt->req._proc = _poll_add;
     pt->triggered = 0;
     pt->nodes = NULL;
-    pt->polling_thread = rt_thread_self();
+    pt->polling_thread = os_thread_self();
 }
 
 static int poll_wait_timeout(struct rt_poll_table *pt, int msec)
 {
-    rt_int32_t timeout;
+    int32_t timeout;
     int ret = 0;
-    struct rt_thread *thread;
+    struct os_thread *thread;
     rt_base_t level;
 
     thread = pt->polling_thread;
@@ -95,7 +95,7 @@ static int poll_wait_timeout(struct rt_poll_table *pt, int msec)
 
     if (timeout != 0 && !pt->triggered)
     {
-        rt_thread_suspend(thread);
+        os_thread_suspend(thread);
         if (timeout > 0)
         {
             rt_timer_control(&(thread->thread_timer),

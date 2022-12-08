@@ -20,7 +20,7 @@ struct on_modify_cb
     struct list_node link;
 };
 
-static err_status_e parse_xml(yxml_t *x, yxml_ret_t r, PARAM_PARSE_STATE *status)
+static err_t parse_xml(yxml_t *x, yxml_ret_t r, PARAM_PARSE_STATE *status)
 {
     static int attr_cnt = 0;
     static char group_name[30];
@@ -368,7 +368,7 @@ param_t *param_get_by_index(int32_t index)
  *
  * @return Errors Status.
  */
-err_status_e param_set_str_val(param_t *param, char *val)
+err_t param_set_str_val(param_t *param, char *val)
 {
     param_value_t pval;
 
@@ -428,7 +428,7 @@ err_status_e param_set_str_val(param_t *param, char *val)
  *
  * @return Errors Status.
  */
-err_status_e param_set_str_val_by_name(char *param_name, char *val)
+err_t param_set_str_val_by_name(char *param_name, char *val)
 {
     param_t *p = param_get_by_name(param_name);
 
@@ -449,7 +449,7 @@ err_status_e param_set_str_val_by_name(char *param_name, char *val)
  *
  * @return Errors Status.
  */
-err_status_e param_set_str_val_by_full_name(char *group_name, char *param_name, char *val)
+err_t param_set_str_val_by_full_name(char *group_name, char *param_name, char *val)
 {
     param_t *p = param_get_by_full_name(group_name, param_name);
 
@@ -469,7 +469,7 @@ err_status_e param_set_str_val_by_full_name(char *group_name, char *param_name, 
  *
  * @return Errors Status.
  */
-err_status_e param_set_val(param_t *param, void *val)
+err_t param_set_val(param_t *param, void *val)
 {
     size_t val_size;
 
@@ -544,7 +544,7 @@ err_status_e param_set_val(param_t *param, void *val)
  *
  * @return Errors Status.
  */
-err_status_e param_set_val_by_name(char *param_name, void *val)
+err_t param_set_val_by_name(char *param_name, void *val)
 {
     param_t *p = param_get_by_name(param_name);
 
@@ -565,7 +565,7 @@ err_status_e param_set_val_by_name(char *param_name, void *val)
  *
  * @return Errors Status.
  */
-err_status_e param_set_val_by_full_name(char *group_name, char *param_name, void *val)
+err_t param_set_val_by_full_name(char *group_name, char *param_name, void *val)
 {
     param_t *p = param_get_by_full_name(group_name, param_name);
 
@@ -631,10 +631,10 @@ param_group_t *param_find_group(const char *group_name)
  *
  * @return Errors Status.
  */
-err_status_e param_save(char *path)
+err_t param_save(char *path)
 {
     int fd;
-    err_status_e res = E_OK;
+    err_t res = E_OK;
 
     fd = open(path ? path : PARAM_FILE_NAME, O_CREAT | O_WRONLY);
 
@@ -715,12 +715,12 @@ err_status_e param_save(char *path)
  *
  * @return Errors Status.
  */
-err_status_e param_load(char *path)
+err_t param_load(char *path)
 {
     int fd;
     yxml_ret_t yxml_r;
     char c;
-    err_status_e res = E_OK;
+    err_t res = E_OK;
 
     fd = open(path ? path : PARAM_FILE_NAME, O_RDONLY);
 
@@ -788,9 +788,9 @@ int16_t param_get_group_count(void)
  *
  * @param param parameter object
  * @param obj
- * @return err_status_e
+ * @return err_t
  */
-err_status_e param_link_variable(param_t *param, void *var)
+err_t param_link_variable(param_t *param, void *var)
 {
     size_t val_size;
 
@@ -850,9 +850,9 @@ err_status_e param_link_variable(param_t *param, void *var)
  * @brief Register parameter modify callback
  *
  * @param on_modify callback function pointer
- * @return err_status_e
+ * @return err_t
  */
-err_status_e register_param_modify_callback(void (*on_modify)(param_t *param))
+err_t register_param_modify_callback(void (*on_modify)(param_t *param))
 {
     struct on_modify_cb *node = (struct on_modify_cb *) malloc(sizeof(struct on_modify_cb));
 
@@ -873,9 +873,9 @@ err_status_e register_param_modify_callback(void (*on_modify)(param_t *param))
  * @brief Deregister parameter modify callback
  *
  * @param on_modify callback function pointer
- * @return err_status_e
+ * @return err_t
  */
-err_status_e deregister_param_modify_callback(void (*on_modify)(param_t *param))
+err_t deregister_param_modify_callback(void (*on_modify)(param_t *param))
 {
     struct on_modify_cb *pos;
 
@@ -898,7 +898,7 @@ err_status_e deregister_param_modify_callback(void (*on_modify)(param_t *param))
  *
  * @return Errors Status.
  */
-err_status_e param_init(void)
+err_t param_init(void)
 {
     extern const uint32_t __param_start;
     extern const uint32_t __param_end;

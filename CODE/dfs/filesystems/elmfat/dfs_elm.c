@@ -42,7 +42,7 @@ static int elm_result_to_dfs(FRESULT result)
     case FR_DISK_ERR:
     case FR_NOT_READY:
     case FR_INT_ERR:
-        status = -EIO;
+        status = -E_IO;
         break;
 
     case FR_WRITE_PROTECTED:

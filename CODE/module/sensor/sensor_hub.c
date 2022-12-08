@@ -13,6 +13,7 @@
 #include "sensor_baro.h"
 #include "sensor_gps.h"
 #include "module/math/light_matrix.h"
+#include "filter/butter.h"
 
 #define MAX_IMU_DEV_NUM 3
 #define MAX_MAG_DEV_NUM 2
@@ -22,6 +23,9 @@ MCN_DEFINE(sensor_imu0, sizeof(imu_data_t));
 
 MCN_DEFINE(sensor_imu1_0, sizeof(imu_data_t));
 MCN_DEFINE(sensor_imu1, sizeof(imu_data_t));
+
+MCN_DEFINE(sensor_imu2_0, sizeof(imu_data_t));
+MCN_DEFINE(sensor_imu2, sizeof(imu_data_t));
 
 MCN_DEFINE(sensor_mag0_0, sizeof(mag_data_t));
 MCN_DEFINE(sensor_mag0, sizeof(mag_data_t));
@@ -45,8 +49,8 @@ static sensor_baro_t *baro_dev = NULL;
 static sensor_gps_t *gps_dev = NULL;
 static sensor_airspeed_t *airspeed_dev = NULL;
 
-//static Butter3 *butter3_gyr[MAX_IMU_DEV_NUM][3];
-//static Butter3 *butter3_acc[MAX_IMU_DEV_NUM][3];
+static Butter3 *butter3_gyr[MAX_IMU_DEV_NUM][3];
+static Butter3 *butter3_acc[MAX_IMU_DEV_NUM][3];
 
 static void dcm_from_euler(const float rpy[3], float dcm[9])
 {
@@ -73,7 +77,7 @@ static void dcm_from_euler(const float rpy[3], float dcm[9])
 
 static int echo_sensor_imu(void *param)
 {
-    err_status_e err;
+    err_t err;
     imu_data_t imu_report;
 
     err = mcn_copy_from_hub((McnHub_t) param, &imu_report);
@@ -96,7 +100,7 @@ static int echo_sensor_imu(void *param)
 
 static int echo_sensor_mag(void *param)
 {
-    err_status_e err;
+    err_t err;
     mag_data_t mag_report;
 
     err = mcn_copy_from_hub((McnHub_t) param, &mag_report);
@@ -116,7 +120,7 @@ static int echo_sensor_mag(void *param)
 
 static int echo_sensor_baro(void *param)
 {
-    err_status_e err;
+    err_t err;
     baro_data_t baro_report;
 
     err = mcn_copy_from_hub((McnHub_t) param, &baro_report);
@@ -137,7 +141,7 @@ static int echo_sensor_baro(void *param)
 
 static int echo_sensor_airspeed(void *param)
 {
-    err_status_e err;
+    err_t err;
     airspeed_data_t airspeed_report;
 
     err = mcn_copy_from_hub((McnHub_t) param, &airspeed_report);
@@ -157,7 +161,7 @@ static int echo_sensor_airspeed(void *param)
 
 static int echo_sensor_gps(void *param)
 {
-    err_status_e err;
+    err_t err;
     gps_data_t gps_report;
 
     err = mcn_copy_from_hub((McnHub_t) param, &gps_report);
@@ -197,7 +201,7 @@ static int echo_sensor_rangefinder(void *param)
         return -1;
     }
 
-    printf("timestamp:%u distance:%.2f\n", rf_report.timestamp_ms, rf_report.distance_m);
+    printf("timestamp:%lu distance:%.2f\n", rf_report.timestamp_ms, rf_report.distance_m);
 
     return 0;
 }
@@ -257,10 +261,23 @@ static void imu_rotation_init(uint8_t id)
         sensor_gyr_set_rotation(imu_dev[id], gyr_rot.buffer);
         sensor_acc_set_rotation(imu_dev[id], acc_rot.buffer);
     }
-    else
+    else if (id == 2)
     {
-        ASSERT(0);
+        float val_acc2_scale[] = {
+                PARAM_GET_FLOAT(CALIB, ACC2_XXSCALE), PARAM_GET_FLOAT(CALIB, ACC2_XYSCALE),
+                PARAM_GET_FLOAT(CALIB, ACC2_XZSCALE), PARAM_GET_FLOAT(CALIB, ACC2_XYSCALE),
+                PARAM_GET_FLOAT(CALIB, ACC2_YYSCALE), PARAM_GET_FLOAT(CALIB, ACC2_YZSCALE),
+                PARAM_GET_FLOAT(CALIB, ACC2_XZSCALE), PARAM_GET_FLOAT(CALIB, ACC2_YZSCALE),
+                PARAM_GET_FLOAT(CALIB, ACC2_ZZSCALE)
+        };
+        /* calculate rotation matrix */
+        MatSetVal(&acc_scale, val_acc2_scale);
+        MatMul(&level_rot, &acc_scale, &acc_rot);
+        /* set rotation */
+        sensor_gyr_set_rotation(imu_dev[id], gyr_rot.buffer);
+        sensor_acc_set_rotation(imu_dev[id], acc_rot.buffer);
     }
+    else ASSERT(0);
 
     /* Delete matrix */
     MatDelete(&gyr_rot);
@@ -358,6 +375,19 @@ static void imu_offset_init(uint8_t id)
         sensor_gyr_set_offset(imu_dev[id], gyr1_offset);
         sensor_acc_set_offset(imu_dev[id], acc1_offset);
     }
+    else if (id == 2)
+    {
+        float gyr2_offset[] = {
+                PARAM_GET_FLOAT(CALIB, GYRO2_XOFF), PARAM_GET_FLOAT(CALIB, GYRO2_YOFF),
+                PARAM_GET_FLOAT(CALIB, GYRO2_ZOFF)
+        };
+        float acc2_offset[] = {
+                PARAM_GET_FLOAT(CALIB, ACC2_XOFF), PARAM_GET_FLOAT(CALIB, ACC2_YOFF), PARAM_GET_FLOAT(CALIB, ACC2_ZOFF)
+        };
+        /* Set offset */
+        sensor_gyr_set_offset(imu_dev[id], gyr2_offset);
+        sensor_acc_set_offset(imu_dev[id], acc2_offset);
+    }
     else
     {
         ASSERT(0);
@@ -420,9 +450,9 @@ static void mag_filter_init(uint8_t id)
  * @brief Advertise sensor imu topic
  *
  * @param id sensor id
- * @return err_status_e E_OK for success
+ * @return err_t E_OK for success
  */
-err_status_e advertise_sensor_imu(uint8_t id)
+err_t advertise_sensor_imu(uint8_t id)
 {
     switch (id)
     {
@@ -433,6 +463,10 @@ err_status_e advertise_sensor_imu(uint8_t id)
         case 1:
             ERROR_TRY(mcn_advertise(MCN_HUB(sensor_imu1_0), echo_sensor_imu));
             ERROR_TRY(mcn_advertise(MCN_HUB(sensor_imu1), echo_sensor_imu));
+            break;
+        case 2:
+            ERROR_TRY(mcn_advertise(MCN_HUB(sensor_imu2_0), echo_sensor_imu));
+            ERROR_TRY(mcn_advertise(MCN_HUB(sensor_imu2), echo_sensor_imu));
             break;
         default:
             return E_INVAL;
@@ -445,9 +479,9 @@ err_status_e advertise_sensor_imu(uint8_t id)
  * @brief Advertise sensor mag topic
  *
  * @param id sensor id
- * @return err_status_e E_OK for success
+ * @return err_t E_OK for success
  */
-err_status_e advertise_sensor_mag(uint8_t id)
+err_t advertise_sensor_mag(uint8_t id)
 {
     switch (id)
     {
@@ -470,9 +504,9 @@ err_status_e advertise_sensor_mag(uint8_t id)
  * @brief Advertise sensor barometer topic
  *
  * @param id sensor topic
- * @return err_status_e E_OK for success
+ * @return err_t E_OK for success
  */
-err_status_e advertise_sensor_baro(uint8_t id)
+err_t advertise_sensor_baro(uint8_t id)
 {
     switch (id)
     {
@@ -490,9 +524,9 @@ err_status_e advertise_sensor_baro(uint8_t id)
  * @brief Advertise sensor airspeed topic
  *
  * @param id sensor topic
- * @return err_status_e E_OK for success
+ * @return err_t E_OK for success
  */
-err_status_e advertise_sensor_airspeed(uint8_t id)
+err_t advertise_sensor_airspeed(uint8_t id)
 {
     switch (id)
     {
@@ -510,9 +544,9 @@ err_status_e advertise_sensor_airspeed(uint8_t id)
  * @brief Advertise sensor gps topic
  *
  * @param id sensor topic
- * @return err_status_e E_OK for success
+ * @return err_t E_OK for success
  */
-err_status_e advertise_sensor_gps(uint8_t id)
+err_t advertise_sensor_gps(uint8_t id)
 {
     switch (id)
     {
@@ -530,9 +564,9 @@ err_status_e advertise_sensor_gps(uint8_t id)
  * @brief Advertise sensor optical flow topic
  *
  * @param id sensor topic
- * @return err_status_e E_OK for success
+ * @return err_t E_OK for success
  */
-err_status_e advertise_sensor_optflow(uint8_t id)
+err_t advertise_sensor_optflow(uint8_t id)
 {
     switch (id)
     {
@@ -550,9 +584,9 @@ err_status_e advertise_sensor_optflow(uint8_t id)
  * @brief Advertise sensor range finder topic
  *
  * @param id sensor topic
- * @return err_status_e E_OK for success
+ * @return err_t E_OK for success
  */
-err_status_e advertise_sensor_rangefinder(uint8_t id)
+err_t advertise_sensor_rangefinder(uint8_t id)
 {
     switch (id)
     {
@@ -572,9 +606,9 @@ err_status_e advertise_sensor_rangefinder(uint8_t id)
  * @param gyr_dev_name Gyroscope device name
  * @param acc_dev_name Accelerometer device name
  * @param id Sensor id to be registered, start from 0
- * @return err_status_e E_OK for success
+ * @return err_t E_OK for success
  */
-err_status_e register_sensor_imu(const char *gyr_dev_name, const char *acc_dev_name, uint8_t id)
+err_t register_sensor_imu(const char *gyr_dev_name, const char *acc_dev_name, uint8_t id)
 {
     ASSERT(id < MAX_IMU_DEV_NUM);
 
@@ -585,11 +619,11 @@ err_status_e register_sensor_imu(const char *gyr_dev_name, const char *acc_dev_n
     }
 
     /* Initialize imu rotation matrix */
-//    imu_rotation_init(id);
-//    /* Initialize imu offset */
-//    imu_offset_init(id);
-//    /* Initialize imu filter */
-//    imu_filter_init(id);
+    imu_rotation_init(id);
+    /* Initialize imu offset */
+    imu_offset_init(id);
+    /* Initialize imu filter */
+    imu_filter_init(id);
 
     return advertise_sensor_imu(id);
 }
@@ -599,9 +633,9 @@ err_status_e register_sensor_imu(const char *gyr_dev_name, const char *acc_dev_n
  *
  * @param dev_name Magnetometer device name
  * @param id Sensor id to be registered, start from 0
- * @return err_status_e E_OK for success
+ * @return err_t E_OK for success
  */
-err_status_e register_sensor_mag(const char *dev_name, uint8_t id)
+err_t register_sensor_mag(const char *dev_name, uint8_t id)
 {
     ASSERT(id < MAX_MAG_DEV_NUM);
 
@@ -612,11 +646,11 @@ err_status_e register_sensor_mag(const char *dev_name, uint8_t id)
     }
 
     /* Initialize mag rotation matrix */
-//    mag_rotation_init(id);
-//    /* Initialize mag offset */
-//    mag_offset_init(id);
-//    /* Initialize mag filter */
-//    mag_filter_init(id);
+    mag_rotation_init(id);
+    /* Initialize mag offset */
+    mag_offset_init(id);
+    /* Initialize mag filter */
+    mag_filter_init(id);
 
     return advertise_sensor_mag(id);
 }
@@ -625,9 +659,9 @@ err_status_e register_sensor_mag(const char *dev_name, uint8_t id)
  * @brief Register barometer sensor
  *
  * @param dev_name Barometer device name
- * @return err_status_e E_OK for success
+ * @return err_t E_OK for success
  */
-err_status_e register_sensor_barometer(const char *dev_name)
+err_t register_sensor_barometer(const char *dev_name)
 {
     baro_dev = sensor_baro_init(dev_name);
     if (baro_dev == NULL)
@@ -642,9 +676,9 @@ err_status_e register_sensor_barometer(const char *dev_name)
  * @brief Register gps sensor
  *
  * @param dev_name GPS device name
- * @return err_status_e E_OK for success
+ * @return err_t E_OK for success
  */
-err_status_e register_sensor_gps(const char *dev_name)
+err_t register_sensor_gps(const char *dev_name)
 {
     gps_dev = sensor_gps_init(dev_name);
     if (gps_dev == NULL)
@@ -655,14 +689,14 @@ err_status_e register_sensor_gps(const char *dev_name)
     return advertise_sensor_gps(0);
 }
 
-err_status_e register_sensor_optflow(const char *dev_name)
+err_t register_sensor_optflow(const char *dev_name)
 {
     //TODO
     ERROR_TRY(mcn_advertise(MCN_HUB(sensor_optflow), NULL));
     return E_OK;
 }
 
-err_status_e register_sensor_rangefinder(const char *dev_name)
+err_t register_sensor_rangefinder(const char *dev_name)
 {
     //TODO
     ERROR_TRY(mcn_advertise(MCN_HUB(sensor_rangefinder), NULL));
@@ -673,9 +707,9 @@ err_status_e register_sensor_rangefinder(const char *dev_name)
  * @brief Register airspeed sensor
  *
  * @param dev_name Airspeed device name
- * @return err_status_e E_OK for success
+ * @return err_t E_OK for success
  */
-err_status_e register_sensor_airspeed(const char *dev_name)
+err_t register_sensor_airspeed(const char *dev_name)
 {
 //    airspeed_dev = sensor_airspeed_init(dev_name);
     if (airspeed_dev == NULL)
@@ -701,43 +735,40 @@ void sensor_collect(void)
     imu_data_t imu_data;
     DEFINE_TIMETAG(imu_interval, 1);
 
-    if (check_timetag(TIMETAG(imu_interval)))
-    {
+    if (check_timetag(TIMETAG(imu_interval))) {
         imu_data.timestamp_ms = systime_now_ms();
 
-#ifdef USE_SENSOR_SPI_ADIS16470
         /* Collect imu0 data */
-        if (Gyro_Update(&adis16470))
-        {
-            /* publish scaled imu data without calibration and filtering */
-            mcn_publish(MCN_HUB(sensor_imu0_0), &imu_data);
-            /* do calibration */
-            sensor_gyr_correct(imu_dev[0], imu_data.gyr_B_radDs, temp);
-            imu_data.gyr_B_radDs[0] = temp[0];
-            imu_data.gyr_B_radDs[1] = temp[1];
-            imu_data.gyr_B_radDs[2] = temp[2];
-            sensor_acc_correct(imu_dev[0], imu_data.acc_B_mDs2, temp);
-            imu_data.acc_B_mDs2[0] = temp[0];
-            imu_data.acc_B_mDs2[1] = temp[1];
-            imu_data.acc_B_mDs2[2] = temp[2];
-            /* do filtering */
-//            imu_data.gyr_B_radDs[0] = butter3_filter_process(imu_data.gyr_B_radDs[0], butter3_gyr[0][0]);
-//            imu_data.gyr_B_radDs[1] = butter3_filter_process(imu_data.gyr_B_radDs[1], butter3_gyr[0][1]);
-//            imu_data.gyr_B_radDs[2] = butter3_filter_process(imu_data.gyr_B_radDs[2], butter3_gyr[0][2]);
-//            imu_data.acc_B_mDs2[0] = butter3_filter_process(imu_data.acc_B_mDs2[0], butter3_acc[0][0]);
-//            imu_data.acc_B_mDs2[1] = butter3_filter_process(imu_data.acc_B_mDs2[1], butter3_acc[0][1]);
-//            imu_data.acc_B_mDs2[2] = butter3_filter_process(imu_data.acc_B_mDs2[2], butter3_acc[0][2]);
-            /* publish calibrated & filtered imu data */
-            mcn_publish(MCN_HUB(sensor_imu0), &imu_data);
+        if (imu_dev[0] != NULL) {
+            if (sensor_gyr_measure(imu_dev[0], imu_data.gyr_B_radDs) == E_OK
+                && sensor_acc_measure(imu_dev[0], imu_data.acc_B_mDs2) == E_OK) {
+                /* publish scaled imu data without calibration and filtering */
+                mcn_publish(MCN_HUB(sensor_imu0_0), &imu_data);
+                /* do calibration */
+                sensor_gyr_correct(imu_dev[0], imu_data.gyr_B_radDs, temp);
+                imu_data.gyr_B_radDs[0] = temp[0];
+                imu_data.gyr_B_radDs[1] = temp[1];
+                imu_data.gyr_B_radDs[2] = temp[2];
+                sensor_acc_correct(imu_dev[0], imu_data.acc_B_mDs2, temp);
+                imu_data.acc_B_mDs2[0] = temp[0];
+                imu_data.acc_B_mDs2[1] = temp[1];
+                imu_data.acc_B_mDs2[2] = temp[2];
+                /* do filtering */
+                imu_data.gyr_B_radDs[0] = butter3_filter_process(imu_data.gyr_B_radDs[0], butter3_gyr[0][0]);
+                imu_data.gyr_B_radDs[1] = butter3_filter_process(imu_data.gyr_B_radDs[1], butter3_gyr[0][1]);
+                imu_data.gyr_B_radDs[2] = butter3_filter_process(imu_data.gyr_B_radDs[2], butter3_gyr[0][2]);
+                imu_data.acc_B_mDs2[0] = butter3_filter_process(imu_data.acc_B_mDs2[0], butter3_acc[0][0]);
+                imu_data.acc_B_mDs2[1] = butter3_filter_process(imu_data.acc_B_mDs2[1], butter3_acc[0][1]);
+                imu_data.acc_B_mDs2[2] = butter3_filter_process(imu_data.acc_B_mDs2[2], butter3_acc[0][2]);
+                /* publish calibrated & filtered imu data */
+                mcn_publish(MCN_HUB(sensor_imu0), &imu_data);
+            }
         }
-#endif
 
         /* Collect imu1 data */
-        if (imu_dev[1] != NULL)
-        {
+        if (imu_dev[1] != NULL) {
             if (sensor_gyr_measure(imu_dev[1], imu_data.gyr_B_radDs) == E_OK
-                && sensor_acc_measure(imu_dev[1], imu_data.acc_B_mDs2) == E_OK)
-            {
+                && sensor_acc_measure(imu_dev[1], imu_data.acc_B_mDs2) == E_OK) {
                 /* publish scaled imu data without calibration and filtering */
                 mcn_publish(MCN_HUB(sensor_imu1_0), &imu_data);
                 /* do calibration */
@@ -750,14 +781,41 @@ void sensor_collect(void)
                 imu_data.acc_B_mDs2[1] = temp[1];
                 imu_data.acc_B_mDs2[2] = temp[2];
                 /* do filtering */
-//                imu_data.gyr_B_radDs[0] = butter3_filter_process(imu_data.gyr_B_radDs[0], butter3_gyr[1][0]);
-//                imu_data.gyr_B_radDs[1] = butter3_filter_process(imu_data.gyr_B_radDs[1], butter3_gyr[1][1]);
-//                imu_data.gyr_B_radDs[2] = butter3_filter_process(imu_data.gyr_B_radDs[2], butter3_gyr[1][2]);
-//                imu_data.acc_B_mDs2[0] = butter3_filter_process(imu_data.acc_B_mDs2[0], butter3_acc[1][0]);
-//                imu_data.acc_B_mDs2[1] = butter3_filter_process(imu_data.acc_B_mDs2[1], butter3_acc[1][1]);
-//                imu_data.acc_B_mDs2[2] = butter3_filter_process(imu_data.acc_B_mDs2[2], butter3_acc[1][2]);
+                imu_data.gyr_B_radDs[0] = butter3_filter_process(imu_data.gyr_B_radDs[0], butter3_gyr[1][0]);
+                imu_data.gyr_B_radDs[1] = butter3_filter_process(imu_data.gyr_B_radDs[1], butter3_gyr[1][1]);
+                imu_data.gyr_B_radDs[2] = butter3_filter_process(imu_data.gyr_B_radDs[2], butter3_gyr[1][2]);
+                imu_data.acc_B_mDs2[0] = butter3_filter_process(imu_data.acc_B_mDs2[0], butter3_acc[1][0]);
+                imu_data.acc_B_mDs2[1] = butter3_filter_process(imu_data.acc_B_mDs2[1], butter3_acc[1][1]);
+                imu_data.acc_B_mDs2[2] = butter3_filter_process(imu_data.acc_B_mDs2[2], butter3_acc[1][2]);
                 /* publish calibrated & filtered imu data */
                 mcn_publish(MCN_HUB(sensor_imu1), &imu_data);
+            }
+        }
+
+        /* Collect imu2 data */
+        if (imu_dev[2] != NULL) {
+            if (sensor_gyr_measure(imu_dev[2], imu_data.gyr_B_radDs) == E_OK
+                && sensor_acc_measure(imu_dev[2], imu_data.acc_B_mDs2) == E_OK) {
+                /* publish scaled imu data without calibration and filtering */
+                mcn_publish(MCN_HUB(sensor_imu2_0), &imu_data);
+                /* do calibration */
+                sensor_gyr_correct(imu_dev[2], imu_data.gyr_B_radDs, temp);
+                imu_data.gyr_B_radDs[0] = temp[0];
+                imu_data.gyr_B_radDs[1] = temp[1];
+                imu_data.gyr_B_radDs[2] = temp[2];
+                sensor_acc_correct(imu_dev[2], imu_data.acc_B_mDs2, temp);
+                imu_data.acc_B_mDs2[0] = temp[0];
+                imu_data.acc_B_mDs2[1] = temp[1];
+                imu_data.acc_B_mDs2[2] = temp[2];
+                /* do filtering */
+                imu_data.gyr_B_radDs[0] = butter3_filter_process(imu_data.gyr_B_radDs[0], butter3_gyr[1][0]);
+                imu_data.gyr_B_radDs[1] = butter3_filter_process(imu_data.gyr_B_radDs[1], butter3_gyr[1][1]);
+                imu_data.gyr_B_radDs[2] = butter3_filter_process(imu_data.gyr_B_radDs[2], butter3_gyr[1][2]);
+                imu_data.acc_B_mDs2[0] = butter3_filter_process(imu_data.acc_B_mDs2[0], butter3_acc[1][0]);
+                imu_data.acc_B_mDs2[1] = butter3_filter_process(imu_data.acc_B_mDs2[1], butter3_acc[1][1]);
+                imu_data.acc_B_mDs2[2] = butter3_filter_process(imu_data.acc_B_mDs2[2], butter3_acc[1][2]);
+                /* publish calibrated & filtered imu data */
+                mcn_publish(MCN_HUB(sensor_imu2), &imu_data);
             }
         }
     }
@@ -768,15 +826,12 @@ void sensor_collect(void)
     mag_data_t mag_data;
     DEFINE_TIMETAG(mag_interval, 10);
 
-    if (check_timetag(TIMETAG(mag_interval)))
-    {
+    if (check_timetag(TIMETAG(mag_interval))) {
         mag_data.timestamp_ms = systime_now_ms();
 
         /* Collect mag0 data */
-        if (mag_dev[0] != NULL)
-        {
-            if (sensor_mag_measure(mag_dev[0], mag_data.mag_B_gauss) == E_OK)
-            {
+        if (mag_dev[0] != NULL) {
+            if (sensor_mag_measure(mag_dev[0], mag_data.mag_B_gauss) == E_OK) {
                 mcn_publish(MCN_HUB(sensor_mag0_0), &mag_data);
                 /* do calibration */
                 sensor_mag_correct(mag_dev[0], mag_data.mag_B_gauss, temp);
@@ -789,10 +844,8 @@ void sensor_collect(void)
         }
 
         /* Collect mag1 data */
-        if (mag_dev[1] != NULL)
-        {
-            if (sensor_mag_measure(mag_dev[1], mag_data.mag_B_gauss) == E_OK)
-            {
+        if (mag_dev[1] != NULL) {
+            if (sensor_mag_measure(mag_dev[1], mag_data.mag_B_gauss) == E_OK) {
                 mcn_publish(MCN_HUB(sensor_mag1_0), &mag_data);
                 /* do calibration */
                 sensor_mag_correct(mag_dev[1], mag_data.mag_B_gauss, temp);
@@ -809,21 +862,11 @@ void sensor_collect(void)
      * Collect barometer data
      */
     baro_data_t baro_data;
-    DEFINE_TIMETAG(baro_interval, 5);
-
-    if (check_timetag(TIMETAG(baro_interval)))
-    {
-        if (baro_dev != NULL)
-        {
-            /* Update barometer state */
-            sensor_baro_update(baro_dev);
-            if (sensor_baro_check_ready(baro_dev))
-            {
-                if (sensor_baro_read(baro_dev, &baro_data) == E_OK)
-                {
-                    /* publish barometer data */
-                    mcn_publish(MCN_HUB(sensor_baro), &baro_data);
-                }
+    if (baro_dev != NULL) {
+        if (sensor_baro_check_ready(baro_dev)) {
+            if (sensor_baro_read(baro_dev, &baro_data) == E_OK) {
+                /* publish barometer data */
+                mcn_publish(MCN_HUB(sensor_baro), &baro_data);
             }
         }
     }
@@ -832,11 +875,8 @@ void sensor_collect(void)
      * Collect gps data
      */
     gps_data_t gps_data;
-
-    if (gps_dev != NULL)
-    {
-        if (sensor_gps_check_ready(gps_dev))
-        {
+    if (gps_dev != NULL) {
+        if (sensor_gps_check_ready(gps_dev)) {
             /* read gps data */
             sensor_gps_read(gps_dev, &gps_data);
             /* publish gps data */
@@ -847,15 +887,12 @@ void sensor_collect(void)
     /*
      * Collect airspeed data
      */
-    airspeed_data_t airspeed_data;
-    DEFINE_TIMETAG(airspeed_interval, 5);
-
-//    if (check_timetag(TIMETAG(airspeed_interval)))
-//    {
-//        if (airspeed_dev != NULL)
-//        {
-//            if (sensor_airspeed_measure(airspeed_dev, &airspeed_data) == E_OK)
-//            {
+//    airspeed_data_t airspeed_data;
+//    DEFINE_TIMETAG(airspeed_interval, 5);
+//
+//    if (check_timetag(TIMETAG(airspeed_interval))) {
+//        if (airspeed_dev != NULL) {
+//            if (sensor_airspeed_measure(airspeed_dev, &airspeed_data) == E_OK) {
 //                /* publish barometer data */
 //                mcn_publish(MCN_HUB(sensor_airspeed), &airspeed_data);
 //            }
