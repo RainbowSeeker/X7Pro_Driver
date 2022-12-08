@@ -527,9 +527,9 @@ void ls(const char *pathname)
     {
 #ifdef DFS_USING_WORKDIR
         /* open current working directory */
-        path = rt_strdup(working_directory);
+        path = strdup(working_directory);
 #else
-        path = rt_strdup("/");
+        path = strdup("/");
 #endif
         if (path == NULL)
             return ; /* out of memory */
@@ -629,10 +629,10 @@ FINSH_FUNCTION_EXPORT(cat, print file);
 static void copyfile(const char *src, const char *dst)
 {
     struct dfs_fd src_fd;
-    rt_uint8_t *block_ptr;
-    rt_int32_t read_bytes;
+    uint8_t *block_ptr;
+    int32_t read_bytes;
 
-    block_ptr = (rt_uint8_t *)malloc(BUF_SZ);
+    block_ptr = (uint8_t *)malloc(BUF_SZ);
     if (block_ptr == NULL)
     {
         printf("out of memory\n");

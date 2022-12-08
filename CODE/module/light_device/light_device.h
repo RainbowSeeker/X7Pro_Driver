@@ -103,7 +103,7 @@ typedef enum
 typedef struct light_device *light_device_t;
 struct light_device
 {
-    char                   name[NAME_MAX];                 /* device name */
+    char                   name[NAME_MAX_LEN];                 /* device name */
     list_t                 list;                     /* associate the next and prev device*/
 
     device_class_e         type;                     /* device type */

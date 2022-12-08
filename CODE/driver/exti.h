@@ -7,6 +7,7 @@
 #ifndef X7PRO_DRIVER_EXTI_H
 #define X7PRO_DRIVER_EXTI_H
 #include "io.h"
+#include "nvic.h"
 
 typedef enum {
     EXTI_RISING = 0,

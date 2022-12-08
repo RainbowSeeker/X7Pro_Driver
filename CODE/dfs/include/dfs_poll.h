@@ -3,7 +3,7 @@
 #ifndef DFS_POLL_H__
 #define DFS_POLL_H__
 
-//#include <rtthread.h>
+//#include <common.h>
 
 #ifdef RT_USING_POSIX
 #include <sys/time.h> /* for struct timeval */

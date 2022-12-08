@@ -170,12 +170,12 @@ int dfs_filesystem_get_partition(struct dfs_partition *part,
 
     /* check if it is a valid partition table */
     if ((*dpt != 0x80) && (*dpt != 0x00))
-        return -EIO;
+        return -E_IO;
 
     /* get partition type */
     type = *(dpt + 4);
     if (type == 0)
-        return -EIO;
+        return -E_IO;
 
     /* set partition information
      *    size is the number of 512-Byte */

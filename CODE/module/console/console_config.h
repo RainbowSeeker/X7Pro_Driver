@@ -26,7 +26,7 @@ extern "C" {
 #endif
 
 /* toml configuration */
-err_status_e console_toml_config(toml_table_t* table);
+err_t console_toml_config(toml_table_t* table);
 
 #ifdef __cplusplus
 }

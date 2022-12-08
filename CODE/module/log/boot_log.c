@@ -59,11 +59,11 @@
 // *
 // * @return Errors Status.
 // */
-//err_status_e boot_log_dump(void)
+//err_t boot_log_dump(void)
 //{
 //    char file[100];
 //    int fd;
-//    err_status_e res = E_OK;
+//    err_t res = E_OK;
 //
 //    ASSERT(log_buffer != NULL);
 //
@@ -101,7 +101,7 @@
 // *
 // * @return Errors Status.
 // */
-//err_status_e boot_log_init(void)
+//err_t boot_log_init(void)
 //{
 //    ASSERT(log_buffer == NULL);
 //

@@ -50,7 +50,7 @@
 //static uint8_t console_dev_num = 0;
 //static console_device_info console_dev_list[CONSOLE_MAX_DEVICE_NUM] = { 0 };
 //
-//static err_status_e switch_device_to(int idx);
+//static err_t switch_device_to(int idx);
 //
 //static void __handle_device_msg(light_device_t dev, void* msg)
 //{
@@ -111,7 +111,7 @@
 //    return rt_err;
 //}
 //
-//static err_status_e set_rx_indicator(void)
+//static err_t set_rx_indicator(void)
 //{
 //    err_t rt_err;
 //    int idx;
@@ -159,7 +159,7 @@
 // *
 // * @return Errors Status
 // */
-//static err_status_e switch_device_to(int idx)
+//static err_t switch_device_to(int idx)
 //{
 //    if (idx >= DEVICE_NUM || idx < 0) {
 //        return E_RROR;
@@ -185,9 +185,9 @@
 // *
 // * @return Errors Status
 // */
-//static err_status_e console_parse_device(const toml_table_t* curtab, int idx)
+//static err_t console_parse_device(const toml_table_t* curtab, int idx)
 //{
-//    err_status_e err = E_OK;
+//    err_t err = E_OK;
 //    int i;
 //    const char* key;
 //
@@ -315,11 +315,11 @@
 // *
 // * @return Errors Status
 // */
-//static err_status_e console_parse_devices(const toml_array_t* array)
+//static err_t console_parse_devices(const toml_array_t* array)
 //{
 //    int i;
 //    toml_table_t* curtab;
-//    err_status_e err = E_OK;
+//    err_t err = E_OK;
 //    uint32_t idx = 0;
 //
 //    for (i = 0; 0 != (curtab = toml_table_at(array, i)); i++) {
@@ -347,13 +347,13 @@
 // *
 // * @return Errors Status
 // */
-//err_status_e console_toml_config(toml_table_t* table)
+//err_t console_toml_config(toml_table_t* table)
 //{
 //    int i;
 //    const char* key;
 //    toml_array_t* arr;
 //    toml_table_t* tab;
-//    err_status_e err;
+//    err_t err;
 //
 //    /* traverse keys in table */
 //    for (i = 0; 0 != (key = toml_key_in(table, i)); i++) {

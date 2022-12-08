@@ -10,9 +10,9 @@
 #include "sensor_hub.h"
 
 sensor_baro_t *sensor_baro_init(const char* baro_dev_name);
-err_status_e sensor_baro_update(sensor_baro_t *baro_dev);
+err_t sensor_baro_update(sensor_baro_t *baro_dev);
 uint8_t sensor_baro_check_ready(sensor_baro_t *baro_dev);
-err_status_e sensor_baro_read(sensor_baro_t *baro_dev, baro_data_t* baro_data);
+err_t sensor_baro_read(sensor_baro_t *baro_dev, baro_data_t* baro_data);
 
 
 #endif //X7PRO_DRIVER_SENSOR_BARO_H

@@ -72,7 +72,7 @@ static void ulog_update_cb(void)
     os_event_send(_log_event, EVENT_ULOG_UPDATE);
 }
 
-err_status_e logger_start_mlog(char *path)
+err_t logger_start_mlog(char *path)
 {
     char log_name[100];
     char file_name[50];

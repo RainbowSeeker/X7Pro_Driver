@@ -4,16 +4,9 @@
 
 #ifndef STM32H743IIT6_SYS_H
 #define STM32H743IIT6_SYS_H
-#include "stdio.h"
+
 #include "stdint.h"
 #include "board_config.h"
-
-
-//-------------sys config---------------------
-#define delay_ms        HAL_Delay
-#define delay_us        Sys_DelayUs
-//#define printf          print
-#define DEBUG_UART_THRESHOLD    10
 
 
 

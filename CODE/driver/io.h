@@ -20,14 +20,14 @@ typedef struct
     uint16_t pin;
 }io_t;
 
-#define CS_CONFIG       GPIO_MODE_OUTPUT_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_MEDIUM, 0
+#define CS_CONFIG       GPIO_MODE_OUTPUT_PP, GPIO_PULLUP, GPIO_SPEED_FREQ_MEDIUM, 0
 
 
 
 io_state_e IO_Read(io_t io);
-void IO_Set(io_t gpio, io_state_e ioState);
-int IO_Init(io_t gpio, uint32_t mode, uint32_t pull, uint32_t speed, uint32_t alternate);
-void IO_DeInit(io_t io);
-int IO_GPIOPinIdx(io_t io);
+void io_set(io_t gpio, io_state_e ioState);
+int io_init(io_t gpio, uint32_t mode, uint32_t pull, uint32_t speed, uint32_t alternate);
+void io_deinit(io_t io);
+int io_pin_idx(io_t io);
 uint32_t IO_EXTI_Line(io_t io);
 #endif //IOCONFIG_H

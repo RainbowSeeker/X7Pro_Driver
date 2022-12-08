@@ -11,7 +11,7 @@ typedef struct {
     exti_callback_rec_t *handler;
 } extiChannelRec_t;
 
-extiChannelRec_t extiChannelRecs[16];
+extiChannelRec_t extiChannelRecs[16] = {0};
 
 #define EXTI_REG_IMR (EXTI_D1->IMR1)
 #define EXTI_REG_PR  (EXTI_D1->PR1)
@@ -19,7 +19,7 @@ extiChannelRec_t extiChannelRecs[16];
 #define EXTI_IRQ_GROUPS 7
 //                                      0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
 static const uint8_t extiGroups[16] = { 0, 1, 2, 3, 4, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6 };
-static uint8_t extiGroupPriority[EXTI_IRQ_GROUPS];
+//static uint8_t extiGroupPriority[EXTI_IRQ_GROUPS];
 
 static uint32_t triggerLookupTable[] = {
         [EXTI_RISING] = GPIO_MODE_IT_RISING,
@@ -39,8 +39,8 @@ static const uint8_t extiGroupIRQn[EXTI_IRQ_GROUPS] = {
 
 void EXTI_Init(void)
 {
-    memset(extiChannelRecs, 0, sizeof(extiChannelRecs));
-    memset(extiGroupPriority, 0xff, sizeof(extiGroupPriority));
+//    memset(extiChannelRecs, 0, sizeof(extiChannelRecs));
+//    memset(extiGroupPriority, 0xff, sizeof(extiGroupPriority));
 }
 
 void EXTI_Disable(io_t io)
@@ -69,7 +69,7 @@ void EXTI_Enable(io_t io)
 
 void EXTI_Config(io_t io, exti_callback_rec_t *cb, int irqPriority, exti_trigger_t trigger)
 {
-    int chIdx = IO_GPIOPinIdx(io);
+    int chIdx = io_pin_idx(io);
 
     if (chIdx < 0) {
         return;
@@ -82,13 +82,10 @@ void EXTI_Config(io_t io, exti_callback_rec_t *cb, int irqPriority, exti_trigger
 
     EXTI_Disable(io);
 
-    IO_Init(io, (MODE_INPUT | EXTI_IT | triggerLookupTable[trigger]), GPIO_NOPULL, GPIO_SPEED_FREQ_LOW,  0);
+    io_init(io, (MODE_INPUT | EXTI_IT | triggerLookupTable[trigger]), GPIO_NOPULL, GPIO_SPEED_FREQ_LOW,  0);
 
-    if (extiGroupPriority[group] > irqPriority) {
-        extiGroupPriority[group] = irqPriority;
-        HAL_NVIC_SetPriority(extiGroupIRQn[group], irqPriority, 0);
-        HAL_NVIC_EnableIRQ(extiGroupIRQn[group]);
-    }
+    HAL_NVIC_SetPriority(extiGroupIRQn[group], irqPriority, 0);
+    HAL_NVIC_EnableIRQ(extiGroupIRQn[group]);
 }
 
 #define EXTI_EVENT_MASK 0xFFFF // first 16 bits only, see also definition of extiChannelRecs.
@@ -101,9 +98,12 @@ void EXTI_IRQHandler(uint32_t mask)
 
     while (exti_active) {
         unsigned idx = 31 - __builtin_clz(exti_active);
-        uint32_t mask = 1 << idx;
-        extiChannelRecs[idx].handler->fn(extiChannelRecs[idx].handler);
-        exti_active &= ~mask;
+//        uint32_t mask = 1 << idx;
+        if (extiChannelRecs[idx].handler)
+        {
+            extiChannelRecs[idx].handler->fn(extiChannelRecs[idx].handler);
+        }
+        exti_active &= ~(1 << idx);
     }
 }
 
@@ -114,11 +114,11 @@ void EXTI_IRQHandler(uint32_t mask)
     struct dummy                                 \
     /**/
 
-_EXTI_IRQ_HANDLER(EXTI0_IRQHandler, 0x0001);
-_EXTI_IRQ_HANDLER(EXTI1_IRQHandler, 0x0002);
-_EXTI_IRQ_HANDLER(EXTI2_IRQHandler, 0x0004);
-
-_EXTI_IRQ_HANDLER(EXTI3_IRQHandler, 0x0008);
-_EXTI_IRQ_HANDLER(EXTI4_IRQHandler, 0x0010);
-_EXTI_IRQ_HANDLER(EXTI9_5_IRQHandler, 0x03e0);
-_EXTI_IRQ_HANDLER(EXTI15_10_IRQHandler, 0xfc00);
+//_EXTI_IRQ_HANDLER(EXTI0_IRQHandler, 0x0001);
+//_EXTI_IRQ_HANDLER(EXTI1_IRQHandler, 0x0002);
+//_EXTI_IRQ_HANDLER(EXTI2_IRQHandler, 0x0004);
+//
+//_EXTI_IRQ_HANDLER(EXTI3_IRQHandler, 0x0008);
+//_EXTI_IRQ_HANDLER(EXTI4_IRQHandler, 0x0010);
+//_EXTI_IRQ_HANDLER(EXTI9_5_IRQHandler, 0x03e0);
+//_EXTI_IRQ_HANDLER(EXTI15_10_IRQHandler, 0xfc00);

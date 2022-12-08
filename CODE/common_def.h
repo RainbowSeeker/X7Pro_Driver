@@ -6,9 +6,9 @@
 
 #ifndef X7PRO_DRIVER_COMMON_DEF_H
 #define X7PRO_DRIVER_COMMON_DEF_H
-
-#include <stdlib.h>
+#include "lib/printf/printf.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
@@ -23,7 +23,7 @@ typedef _Bool                   bool_t;      /**< boolean type */
 typedef long                    base_t;      /**< Nbit CPU related date type */
 typedef unsigned long           ubase_t;     /**< Nbit unsigned CPU related data type */
 
-typedef base_t                  err_t;       /**< Type for error number */
+typedef int                     err_t;       /**< Type for error number */
 typedef uint32_t                tick_t;      /**< Type for tick count */
 typedef base_t                  flag_t;      /**< Type for flags */
 
@@ -45,7 +45,7 @@ typedef base_t                  off_t;       /**< Type for offset */
 #define UINT32_MAX                   0xffffffff      /**< Maxium number of UINT32 */
 #endif
 
-#define NAME_MAX              20
+#define NAME_MAX_LEN              20
 
 #define TICK_MAX                     UINT32_MAX   /**< Maxium number of tick */
 
@@ -64,18 +64,18 @@ typedef base_t                  off_t;       /**< Type for offset */
 #if defined(__CC_ARM) || defined(__CLANG_ARM)           /* ARM Compiler */
 #include <stdarg.h>
     #define SECTION(x)                  __attribute__((section(x)))
-    #define __UNUSED__                  __attribute__((unused))
-    #define __USED__                    __attribute__((used))
-    #define __ALIGN__(n)                __attribute__((aligned(n)))
-    #define __WEAK__                    __attribute__((weak))
+    #define __UNUSED                  __attribute__((unused))
+    #define __USED                    __attribute__((used))
+    #define __ALIGN(n)                __attribute__((aligned(n)))
+    #define __WEAK                    __attribute__((weak))
     #define static_inline               static inline
 #elif defined (__GNUC__)                /* GNU GCC Compiler */
 #include <stdarg.h>
 #define SECTION(x)                      __attribute__((section(x)))
-#define __UNUSED__                      __attribute__((unused))
-#define __USED__                        __attribute__((used))
-#define __ALIGN__(n)                    __attribute__((aligned(n)))
-#define __WEAK__                        __attribute__((weak))
+#define __UNUSED                        __attribute__((unused))
+#define __USED                          __attribute__((used))
+#define __ALIGN(n)                      __attribute__((aligned(n)))
+#define __WEAK                          __attribute__((weak))
 #define static_inline                   static inline
 #else
 #error not supported tool chain
@@ -101,6 +101,17 @@ typedef base_t                  off_t;       /**< Type for offset */
  */
 #define ALIGN_DOWN(size, align)      ((size) & ~((align) - 1))
 
+/**
+ *  match string1 and string2
+ */
+#define MATCH(_str1, _str2)         (strcmp(_str1, _str2) == 0)
+
+/**
+ * get length of array
+ */
+#define ARRAY_LEN(_arr)             (sizeof(_arr) / sizeof(_arr[0]))
+
+
 // Macro to define packed structures
 #ifdef __GNUC__
 #define __PACKED__(__Declaration__) __Declaration__ __attribute__((packed))
@@ -116,7 +127,7 @@ typedef base_t                  off_t;       /**< Type for offset */
 #define STRING(...) #__VA_ARGS__
 #endif
 
-typedef enum
+enum err_status
 {
     E_OK = 0,         /**< There is no error */
     E_RROR = 1,       /**< A generic error happens */
@@ -130,7 +141,7 @@ typedef enum
     E_INTR = 9,       /**< Interrupted system call */
     E_INVAL = 10,     /**< Invalid argument */
     E_NOTHANDLE = 11, /**< Not handled */
-}err_status_e;
+};
 
 typedef struct {
     uint32_t period;
@@ -140,7 +151,7 @@ typedef struct {
 
 #define ERROR_TRY(__exp)                                                                                \
     do {                                                                                              \
-        err_status_e err = (__exp);                                                                      \
+        err_t err = (__exp);                                                                      \
         if (err != E_OK) {                                                                         \
             printf("\r\nError occur at function: %s, in file: \n%s, line:%d, err:%d\r\n", __FUNCTION__, __FILE__, __LINE__, err); \
             return err;                                                                               \
@@ -163,11 +174,8 @@ if(!(expr))             \
  */
 static inline void assert_failed(const char *ex_string, const char *func, const char *file, size_t line)
 {
-    while (1)
-    {
-        printf("\r\n(%s) assertion failed at function:%s, in file:%s, line:%d\r\n", ex_string, func, file, line);
-        SOFT_DELAY(0x00afffffu); //soft delay
-    }
+    printf("\r\n(%s) assertion failed at function:%s, in file:%s, line:%d\r\n", ex_string, func, file, line);
+    while(1);
 }
 
 #endif //X7PRO_DRIVER_COMMON_DEF_H

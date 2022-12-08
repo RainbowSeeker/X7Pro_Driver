@@ -18,6 +18,7 @@
 
 #define IS_DTCM(p)      (((uint32_t)p & 0xfffe0000) == 0x20000000)
 #define IS_AXI_SRAM(p)  (((uint32_t)p & 0xfff80000) == 0x24000000)
+#define IS_SRAM4(p)     (((uint32_t)p & 0xffff0000) == 0x38000000)
 
 
 #define DMA_RAM __attribute__((section(".DMA_RAM"), aligned(32)))

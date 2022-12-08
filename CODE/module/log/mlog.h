@@ -23,7 +23,7 @@ extern "C" {
 #define MLOG_BEGIN_MSG2 0x05
 #define MLOG_END_MSG    0x26
 
-#define MLOG_MAX_NAME_LEN     20
+#define MLOG_NAME_MAX_LEN     20
 #define MLOG_DESCRIPTION_SIZE 128
 #define MLOG_MODEL_INFO_SIZE  256
 
@@ -53,13 +53,13 @@ enum {
 };
 
 typedef struct {
-    char name[MLOG_MAX_NAME_LEN];
+    char name[MLOG_NAME_MAX_LEN];
     uint16_t type;
     uint16_t number;
 } mlog_elem_t;
 
 typedef struct {
-    char name[MLOG_MAX_NAME_LEN];
+    char name[MLOG_NAME_MAX_LEN];
     uint8_t num_elem;
     mlog_elem_t* elem_list;
 } mlog_bus_t;
@@ -103,7 +103,7 @@ typedef struct {
         .number = _num                       \
     }
 
-#define MLOG_BUS_EXPORT                    __USED__ static const mlog_bus_t SECTION("MlogTab")
+#define MLOG_BUS_EXPORT                    __USED static const mlog_bus_t SECTION("MlogTab")
 #define MLOG_BUS_DEFINE(_name, _elem_list) MLOG_BUS_EXPORT __mlog_bus_##_name = { \
     .name = #_name,                                                               \
     .num_elem = sizeof(_elem_list) / sizeof(mlog_elem_t),                         \
@@ -111,18 +111,18 @@ typedef struct {
 }
 
 int mlog_get_bus_id(const char* bus_name);
-err_status_e mlog_add_desc(char* desc);
-err_status_e mlog_start(char* file_name);
+err_t mlog_add_desc(char* desc);
+err_t mlog_start(char* file_name);
 void mlog_stop(void);
-err_status_e mlog_push_msg(const uint8_t* payload, uint8_t msg_id, uint16_t len);
+err_t mlog_push_msg(const uint8_t* payload, uint8_t msg_id, uint16_t len);
 uint8_t mlog_get_status(void);
 char* mlog_get_file_name(void);
 void mlog_show_statistic_all(void);
 void mlog_show_statistic(uint8_t msg_id);
 void mlog_print_volume(uint8_t msg_id);
-err_status_e mlog_register_callback(mlog_cb_type type, void (*cb_func)(void));
-err_status_e mlog_deregister_callback(mlog_cb_type type, void (*cb_func)(void));
-err_status_e mlog_init(void);
+err_t mlog_register_callback(mlog_cb_type type, void (*cb_func)(void));
+err_t mlog_deregister_callback(mlog_cb_type type, void (*cb_func)(void));
+err_t mlog_init(void);
 void mlog_async_output(void);
 
 #ifdef __cplusplus

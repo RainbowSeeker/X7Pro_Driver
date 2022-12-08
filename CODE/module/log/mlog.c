@@ -242,7 +242,7 @@ void mlog_print_volume(uint8_t msg_id)
  *
  * @return FMT Error
  */
-err_status_e mlog_register_callback(mlog_cb_type type, void (*cb_func)(void))
+err_t mlog_register_callback(mlog_cb_type type, void (*cb_func)(void))
 {
     struct mlog_cb *node;
 
@@ -281,9 +281,9 @@ err_status_e mlog_register_callback(mlog_cb_type type, void (*cb_func)(void))
  *
  * @param type MLOG_CB_START | MLOG_CB_STOP | MLOG_CB_UPDATE
  * @param cb_func callback function
- * @return err_status_e
+ * @return err_t
  */
-err_status_e mlog_deregister_callback(mlog_cb_type type, void (*cb_func)(void))
+err_t mlog_deregister_callback(mlog_cb_type type, void (*cb_func)(void))
 {
     struct mlog_cb *pos;
 
@@ -362,7 +362,7 @@ int mlog_get_bus_id(const char *bus_name)
  * @param desc description text, should not longer than MLOG_DESCRIPTION_SIZE
  * @return FMT Error
  */
-err_status_e mlog_add_desc(char *desc)
+err_t mlog_add_desc(char *desc)
 {
     if (strlen(desc) > MLOG_DESCRIPTION_SIZE - 1)
     {
@@ -384,7 +384,7 @@ err_status_e mlog_add_desc(char *desc)
  *
  * @return FMT Error
  */
-err_status_e mlog_push_msg(const uint8_t *payload, uint8_t msg_id, uint16_t len)
+err_t mlog_push_msg(const uint8_t *payload, uint8_t msg_id, uint16_t len)
 {
     /*                           MLOG MSG Format                                 */
     /*   ======================================================================= */
@@ -439,7 +439,7 @@ err_status_e mlog_push_msg(const uint8_t *payload, uint8_t msg_id, uint16_t len)
  * @param file_name mlog_handle file name with full path
  * @return FMT Error
  */
-err_status_e mlog_start(char *file_name)
+err_t mlog_start(char *file_name)
 {
     if (mlog_handle.log_status != MLOG_STATUS_IDLE)
     {
@@ -493,13 +493,13 @@ err_status_e mlog_start(char *file_name)
         uint8_t msg_id = n;
 
         /* write bus list */
-        WRITE_PAYLOAD(mlog_handle.header.bus_list[n].name, MLOG_MAX_NAME_LEN);
+        WRITE_PAYLOAD(mlog_handle.header.bus_list[n].name, MLOG_NAME_MAX_LEN);
         WRITE_PAYLOAD(&msg_id, sizeof(msg_id));
         WRITE_PAYLOAD(&mlog_handle.header.bus_list[n].num_elem, sizeof(mlog_handle.header.bus_list[n].num_elem));
         /* write bus element */
         for (int k = 0; k < mlog_handle.header.bus_list[n].num_elem; k++)
         {
-            WRITE_PAYLOAD(mlog_handle.header.bus_list[n].elem_list[k].name, MLOG_MAX_NAME_LEN);
+            WRITE_PAYLOAD(mlog_handle.header.bus_list[n].elem_list[k].name, MLOG_NAME_MAX_LEN);
             WRITE_PAYLOAD(&mlog_handle.header.bus_list[n].elem_list[k].type,
                           sizeof(mlog_handle.header.bus_list[n].elem_list[k].type));
             WRITE_PAYLOAD(&mlog_handle.header.bus_list[n].elem_list[k].number,
@@ -508,24 +508,24 @@ err_status_e mlog_start(char *file_name)
     }
 
     /* write parameter information */
-    char name_buffer[MLOG_MAX_NAME_LEN + 1];
+    char name_buffer[MLOG_NAME_MAX_LEN + 1];
 
     WRITE_PAYLOAD(&mlog_handle.header.num_param_group, sizeof(mlog_handle.header.num_param_group));
     for (int n = 0; n < mlog_handle.header.num_param_group; n++)
     {
-        memset(name_buffer, 0, MLOG_MAX_NAME_LEN);
-        strncpy(name_buffer, mlog_handle.header.param_group_list[n].name, MLOG_MAX_NAME_LEN);
+        memset(name_buffer, 0, MLOG_NAME_MAX_LEN);
+        strncpy(name_buffer, mlog_handle.header.param_group_list[n].name, MLOG_NAME_MAX_LEN);
 
-        WRITE_PAYLOAD(name_buffer, MLOG_MAX_NAME_LEN);
+        WRITE_PAYLOAD(name_buffer, MLOG_NAME_MAX_LEN);
         WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_num,
                       sizeof(mlog_handle.header.param_group_list[n].param_num));
 
         for (int k = 0; k < mlog_handle.header.param_group_list[n].param_num; k++)
         {
-            memset(name_buffer, 0, MLOG_MAX_NAME_LEN);
-            strncpy(name_buffer, mlog_handle.header.param_group_list[n].param_list[k].name, MLOG_MAX_NAME_LEN);
+            memset(name_buffer, 0, MLOG_NAME_MAX_LEN);
+            strncpy(name_buffer, mlog_handle.header.param_group_list[n].param_list[k].name, MLOG_NAME_MAX_LEN);
 
-            WRITE_PAYLOAD(name_buffer, MLOG_MAX_NAME_LEN);
+            WRITE_PAYLOAD(name_buffer, MLOG_NAME_MAX_LEN);
             WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].type,
                           sizeof(mlog_handle.header.param_group_list[n].param_list[k].type));
 
@@ -684,7 +684,7 @@ void mlog_async_output(void)
  *
  * @return Errors Status.
  */
-err_status_e mlog_init(void)
+err_t mlog_init(void)
 {
     __mlog_table = (mlog_bus_t *) &__mlog_start;
     __mlog_bus_num = (mlog_bus_t *) &__mlog_end - __mlog_table;
@@ -695,7 +695,7 @@ err_status_e mlog_init(void)
     /* initialize log header */
     mlog_handle.header.version = MLOG_VERSION;
     mlog_handle.header.timestamp = 0;
-    mlog_handle.header.max_name_len = MLOG_MAX_NAME_LEN;
+    mlog_handle.header.max_name_len = MLOG_NAME_MAX_LEN;
     mlog_handle.header.max_desc_len = MLOG_DESCRIPTION_SIZE;
     mlog_handle.header.max_model_info_len = MLOG_MODEL_INFO_SIZE;
     mlog_handle.header.num_bus = __mlog_bus_num;

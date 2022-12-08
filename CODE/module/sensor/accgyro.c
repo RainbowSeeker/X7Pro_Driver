@@ -22,6 +22,7 @@ static bus_status_e Gyro_IntCallback(uint32_t arg)
     gyro_t *gyro = (gyro_t *)arg;
 
     memcpy(gyro->accRaw, gyro->dev.segments[0].u.buffers.pRxData + gyro->dev.aligenment, gyro->dev.transferSize);
+    SPI_Sequence(&gyro->dev, gyro->dev.segments);
     return BUS_READY;
 }
 
@@ -41,6 +42,8 @@ bool Gyro_MspInit(gyro_t *gyro, detect_func_t detectFunc, const hw_config_t *hwC
         gyro->sampleMode = !SPI_UseDMA(dev);
     }
     else    gyro->sampleMode = SAMPLE_NO_INT;
+
+    Gyro_StartSample(gyro);
 
     return true;
 }
@@ -67,7 +70,7 @@ bool Gyro_Init(gyro_t *gyro)
     }
 
     Gyro_StartSample(gyro);
-    register_sensor_imu(NULL, NULL, imu_num++);
+//    register_sensor_imu(NULL, NULL, imu_num++);
     return true;
 }
 

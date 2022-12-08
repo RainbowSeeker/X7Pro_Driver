@@ -8,8 +8,8 @@
 extern "C" {
 #endif
 
-err_status_e file_manager_init(const struct dfs_mount_tbl* mnt_table);
-err_status_e current_log_session(char* path);
+err_t file_manager_init(const struct dfs_mount_tbl* mnt_table);
+err_t current_log_session(char* path);
 
 /* file extended operation */
 int fm_fprintf(int fd, const char* fmt, ...);

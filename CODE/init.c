@@ -8,52 +8,73 @@
 #include "ledbeep.h"
 #include "dma.h"
 #include "bus_spi.h"
-#include "drivers/serial/uart.h"
+#include "drivers/drv_uart.h"
 #include "cli/cli.h"
 #include "module/ipc/uMCN.h"
-#include "driver/sd/drv_sdio.h"
 
 #include "file_manager/file_manager.h"
+#include "drivers/imu/icm20689.h"
+#include "workqueue/workqueue_manager.h"
+#include "drivers/drv_spi.h"
+#include "drivers/drv_sdio.h"
+#include "drivers/imu/icm42688.h"
+#include "drivers/imu/adis16470.h"
+#include "drivers/barometer/ms5611.h"
+#include "drivers/mag/rm3100.h"
+#include "drivers/gps/gps_m8n.h"
+#include "sensor/sensor_hub.h"
 
 static const struct dfs_mount_tbl mnt_table[] = {
         { "sd0", "/", "elm", 0, NULL },
         { NULL } /* NULL indicate the end */
 };
 
-void Initialize(void)
+void bsp_early_init(void)
 {
     MX_GPIO_Init();
 
-    drv_uart_init();
-
-    console_init();
-
-    console_enable_input();
-
     EXTI_Init();
 
-    LED_BEEP_Init();
+    /* usart driver init */
+    SELF_CHECK(drv_uart_init());
 
-    SPI_BspInit();
+    SELF_CHECK(console_init());
 
-    mcn_init();
+    SELF_CHECK(console_enable_input());
 
-    drv_sdio_init();
+    /* spi driver init */
+    SELF_CHECK(drv_spi_init());
 
-    file_manager_init(mnt_table);
+    /* init uMCN */
+    SELF_CHECK(mcn_init());
 
-//    MX_SDMMC1_SD_Init();
-//    MX_FATFS_Init();
-//
-//    while (BSP_SD_Init())
-//    {
-//        delay_ms(1000);
-//        printf("Please inplug your sdcard!\r\n");
-//    }
-//    retSD = f_mount(&SDFatFS, SDPath, 1);
-//    ASSERT(!retSD);
-//    printf(">> Filesystem mount Succeed.\r\n");
-//
-//    ASSERT(!f_open(&SDFile, "00001.xls", FA_OPEN_ALWAYS | FA_WRITE ));
-    param_init();
+    /* create workqueue */
+    SELF_CHECK(workqueue_manager_init());
+
+    SELF_CHECK(drv_sdio_init());
+
+    SELF_CHECK(file_manager_init(mnt_table));
+
+    SELF_CHECK(param_init());
+
+    SELF_CHECK(drv_adis16470_init("gyro0", "accel0"));
+
+    SELF_CHECK(drv_icm42688_init("gyro1", "accel1"));
+
+    SELF_CHECK(drv_icm20689_init("gyro2", "accel2"));
+
+    SELF_CHECK(drv_ms5611_init("baro0"));
+
+    SELF_CHECK(drv_rm3100_init("mag0"));
+
+//    SELF_CHECK(gps_m8n_init("serial1", "gps"));
+
+    /* register sensor to sensor hub */
+    SELF_CHECK(register_sensor_imu("gyro0", "accel0", 0));
+    SELF_CHECK(register_sensor_imu("gyro1", "accel1", 1));
+    SELF_CHECK(register_sensor_imu("gyro2", "accel2", 2));
+
+    SELF_CHECK(register_sensor_mag("mag0", 0));
+
+    SELF_CHECK(register_sensor_barometer("baro0"));
 }

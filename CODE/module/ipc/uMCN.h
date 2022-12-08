@@ -89,15 +89,15 @@ struct mcn_list {
     }
 
 /******************* API *******************/
-err_status_e mcn_init(void);
-err_status_e mcn_advertise(McnHub_t hub, int (*echo)(void* parameter));
+err_t mcn_init(void);
+err_t mcn_advertise(McnHub_t hub, int (*echo)(void* parameter));
 McnNode_t mcn_subscribe(McnHub_t hub, MCN_EVENT_HANDLE event, void (*pub_cb)(void* parameter));
-err_status_e mcn_unsubscribe(McnHub_t hub, McnNode_t node);
-err_status_e mcn_publish(McnHub_t hub, const void* data);
+err_t mcn_unsubscribe(McnHub_t hub, McnNode_t node);
+err_t mcn_publish(McnHub_t hub, const void* data);
 bool mcn_poll(McnNode_t node_t);
 bool mcn_wait(McnNode_t node_t, int32_t timeout);
-err_status_e mcn_copy(McnHub_t hub, McnNode_t node_t, void* buffer);
-err_status_e mcn_copy_from_hub(McnHub_t hub, void* buffer);
+err_t mcn_copy(McnHub_t hub, McnNode_t node_t, void* buffer);
+err_t mcn_copy_from_hub(McnHub_t hub, void* buffer);
 void mcn_suspend(McnHub_t hub);
 void mcn_resume(McnHub_t hub);
 McnList_t mcn_get_list(void);

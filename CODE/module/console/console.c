@@ -11,7 +11,7 @@
 #define CONSOLE_BUFF_SIZE 1024
 
 /* console write hook function, can be reimplemented by other modules. */
-__WEAK__ void console_write_hook(const char *content, uint32_t len);
+__WEAK void console_write_hook(const char *content, uint32_t len);
 
 light_device_t console_dev;
 static char console_buffer[CONSOLE_BUFF_SIZE];
@@ -125,10 +125,10 @@ light_device_t console_get_device(void)
  *
  * @return Errors Status.
  */
-err_status_e console_set_device(const char *device_name)
+err_t console_set_device(const char *device_name)
 {
     light_device_t new;
-    err_status_e err;
+    err_t err;
 
     new = light_device_find(device_name);
     if (new == NULL)
@@ -151,7 +151,7 @@ err_status_e console_set_device(const char *device_name)
  *
  * @return Errors Status.
  */
-err_status_e console_enable_input(void)
+err_t console_enable_input(void)
 {
     uint16_t oflag = DEVICE_OFLAG_RDWR | DEVICE_FLAG_INT_RX | DEVICE_FLAG_STREAM;
 
@@ -185,7 +185,7 @@ err_status_e console_enable_input(void)
  *
  * @return Errors Status.
  */
-err_status_e console_init(void)
+err_t console_init(void)
 {
     /* console use serial0 by default */
     console_dev = light_device_find("serial0");

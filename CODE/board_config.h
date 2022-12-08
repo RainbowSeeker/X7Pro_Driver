@@ -39,6 +39,7 @@
 #define USE_SPI
 #endif
 
+#define SPI_USE_DMA
 
 
 

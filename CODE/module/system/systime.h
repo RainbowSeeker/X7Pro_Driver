@@ -22,7 +22,8 @@
 extern "C" {
 #endif
 
-
+#define delay_ms        systime_mdelay
+#define delay_us        systime_udelay
 #define sys_msleep(_ms)    systime_msleep(_ms)
 
 typedef struct {
@@ -95,7 +96,7 @@ typedef struct {
         }                                                    \
     } while (0)
 
-err_status_e systime_init(void);
+err_t systime_init(void);
 uint64_t systime_now_us(void);
 uint32_t systime_now_ms(void);
 void systime_udelay(uint32_t delay);

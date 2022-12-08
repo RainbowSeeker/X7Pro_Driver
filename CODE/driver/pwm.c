@@ -46,7 +46,7 @@ void PWM_Init(pwm_t *pwm, const timer_hw_t *timerHardware, uint32_t hz, uint16_t
     }
     else ASSERT(0);
 
-    IO_Init(timerHardware->io, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_MEDIUM, alternate);
+    io_init(timerHardware->io, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_MEDIUM, alternate);
 
     LL_TIM_CC_EnableChannel(timerHardware->tim, timerHardware->channel);
     LL_TIM_EnableCounter(timerHardware->tim);

@@ -1,0 +1,62 @@
+// Copyright (c) 2022 By RainbowSeeker.
+
+//
+// Created by 19114 on 2022/12/6.
+//
+
+#ifndef X7PRO_DRIVER_DRV_DMA_H
+#define X7PRO_DRIVER_DRV_DMA_H
+
+#include "hal/dma/dma.h"
+#include "stm32h7xx.h"
+#include "stm32h7xx_ll_dma.h"
+#include "stm32h7xx_ll_bdma.h"
+
+#define DMA_IT_TCIF         ((uint32_t)0x00000020)
+#define DMA_IT_HTIF         ((uint32_t)0x00000010)
+#define DMA_IT_TEIF         ((uint32_t)0x00000008)
+#define DMA_IT_DMEIF        ((uint32_t)0x00000004)
+#define DMA_IT_FEIF         ((uint32_t)0x00000001)
+
+#define BDMA_IT_TCIF         ((uint32_t)0x00000002)
+#define BDMA_IT_HTIF         ((uint32_t)0x00000004)
+#define BDMA_IT_TEIF         ((uint32_t)0x00000008)
+
+
+#define DMA_CLEAR_FLAG(d, flag)   if (d->flagsShift > 31) ((DMA_TypeDef *)d->dma)->HIFCR = (flag << (d->flagsShift - 32)); else ((DMA_TypeDef *)d->dma)->LIFCR = (flag << d->flagsShift)
+#define BDMA_CLEAR_FLAG(d, flag)   (BDMA->IFCR = (flag << d->flagsShift))
+
+struct dma_elm
+{
+    void *base;
+    uint8_t stream;
+};
+
+void dma_configure_irq(void *dma_stream, void (*cb)(uint32_t), uint32_t priority, uint32_t user_data);
+void dma_get_elm(void *dma_stream, struct dma_elm *elm);
+void LL_EX_DMA_ClearFlag(void *dma_stream, uint32_t flag);
+struct dma_device * LL_DMA_DeviceGetByName(const char *name);
+
+
+static inline void LL_EX_DMA_ResetStream(void *dma_stream)
+{
+    struct dma_elm elm;
+    dma_get_elm(dma_stream, &elm);
+    if (elm.base == BDMA)
+    {
+        LL_BDMA_DisableChannel(elm.base, elm.stream);
+        while (LL_BDMA_IsEnabledChannel(elm.base, elm.stream));
+        LL_EX_DMA_ClearFlag(dma_stream, BDMA_IT_HTIF | BDMA_IT_TEIF | BDMA_IT_TCIF);
+    }
+    else
+    {
+        // Disable the stream
+        LL_DMA_DisableStream(elm.base, elm.stream);
+        while (LL_DMA_IsEnabledStream(elm.base, elm.stream));
+        LL_EX_DMA_ClearFlag(dma_stream, DMA_IT_HTIF | DMA_IT_TEIF | DMA_IT_TCIF);
+    }
+
+}
+
+
+#endif //X7PRO_DRIVER_DRV_DMA_H
