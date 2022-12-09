@@ -337,10 +337,8 @@ err_t drv_ms5611_init(const char* baro_device_name)
     };
     ERROR_TRY(spi_configure_device(&spi_device, &cfg));
 
-
     spi_dev = light_device_find("ms5611");
     ASSERT(spi_dev != NULL);
-
 
     /* driver internal init */
     ERROR_TRY(lowlevel_init());

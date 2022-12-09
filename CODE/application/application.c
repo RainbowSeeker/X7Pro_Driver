@@ -28,7 +28,7 @@ extern void App_Log_Main(void *argument);
 extern osThreadId defaultTaskHandle;
 void Application_Create(void)
 {
-    bsp_early_init();
+    bsp_init();
 
     OS_ENTER_CRITICAL();
 
@@ -36,7 +36,7 @@ void Application_Create(void)
 
     app_logHandle = os_thread_create("app_log", App_Log_Main, NULL, LOGGER_THREAD_PRIORITY, 4 * 1024);
 
-    app_mcnHandle = os_thread_create("app_mcn", App_Mcn_Main, NULL, COMM_THREAD_PRIORITY, 2 * 1024);
+    app_mcnHandle = os_thread_create("app_mcn", App_Mcn_Main, NULL, COMM_THREAD_PRIORITY, 4 * 1024);
 
     vTaskDelete(defaultTaskHandle);
     OS_EXIT_CRITICAL();

@@ -125,7 +125,7 @@ void App_Log_Main(void *argument)
     fs.init = ulog_fs_backend_init;
     fs.output = ulog_fs_backend_output;
     fs.deinit = ulog_fs_backend_deinit;
-    ulog_backend_register(&fs, "filesystem", RT_FALSE);
+    ulog_backend_register(&fs, "filesystem", FALSE);
 #endif
 
 //    if (PARAM_GET_INT32(SYSTEM, MLOG_MODE) == 2 || PARAM_GET_INT32(SYSTEM, MLOG_MODE) == 3)

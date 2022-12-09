@@ -278,7 +278,7 @@ static err_t transfer(struct spi_device *device, struct spi_message *message)
         {
             io_set(cs_io, IO_LOW);
         }
-
+        base_t level = os_hw_interrupt_disable();
         LL_SPI_SetTransferSize(instance, message->len);
         LL_SPI_Enable(instance);
         LL_SPI_StartMasterTransfer(instance);
@@ -324,6 +324,7 @@ static err_t transfer(struct spi_device *device, struct spi_message *message)
         while (!LL_SPI_IsActiveFlag_EOT(instance));
         LL_SPI_ClearFlag_TXTF(instance);
         LL_SPI_Disable(instance);
+        os_hw_interrupt_enable(level);
 
         /* release CS */
         if (message->cs_release)

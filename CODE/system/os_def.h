@@ -12,12 +12,12 @@
 #include "utils/list.h"
 
 /* Thread Prority */
-#define VEHICLE_THREAD_PRIORITY     0
-#define FMTIO_THREAD_PRIORITY       1
-#define LOGGER_THREAD_PRIORITY      2
-#define MAVLINK_RX_THREAD_PRIORITY  3
-#define COMM_THREAD_PRIORITY        4
-#define STATUS_THREAD_PRIORITY      5
+#define VEHICLE_THREAD_PRIORITY     5
+#define FMTIO_THREAD_PRIORITY       4
+#define LOGGER_THREAD_PRIORITY      3
+#define MAVLINK_RX_THREAD_PRIORITY  2
+#define COMM_THREAD_PRIORITY        1
+#define STATUS_THREAD_PRIORITY      0
 
 #define OS_MAX_PRIORITY             7
 
@@ -42,7 +42,7 @@ struct os_thread
     osThreadId tid;     //freertos thread ptr
     char name[NAME_MAX_LEN];
     int error;
-    slist_t list;
+    slist_t list;       //single list --> point to next thread
 };
 typedef struct os_thread *os_thread_t;
 typedef osMutexId os_mutex_t;

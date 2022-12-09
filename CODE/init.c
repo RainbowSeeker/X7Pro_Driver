@@ -5,7 +5,6 @@
 //
 #include <common.h>
 #include "gpio.h"
-#include "ledbeep.h"
 #include "dma.h"
 #include "bus_spi.h"
 #include "drivers/drv_uart.h"
@@ -50,12 +49,14 @@ void bsp_early_init(void)
 
     /* create workqueue */
     SELF_CHECK(workqueue_manager_init());
-
+}
+void bsp_init(void)
+{
     SELF_CHECK(drv_sdio_init());
 
-    SELF_CHECK(file_manager_init(mnt_table));
-
-    SELF_CHECK(param_init());
+//    SELF_CHECK(file_manager_init(mnt_table));
+//
+//    SELF_CHECK(param_init());
 
     SELF_CHECK(drv_adis16470_init("gyro0", "accel0"));
 

@@ -63,7 +63,7 @@ int msh_exec_script(const char *cmd_line, int size)
     char *pg_name;
     int length, cmd_length = 0;
 
-    if (size == 0) return -RT_ERROR;
+    if (size == 0) return -E_RROR;
 
     /* get the length of command0 */
     while ((cmd_line[cmd_length] != ' ' && cmd_line[cmd_length] != '\t') && cmd_length < size)

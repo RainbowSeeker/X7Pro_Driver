@@ -154,9 +154,9 @@
 //        /* dma irq channel */
 //        uint8_t rx_irq_ch;
 //        /* setting receive len */
-//        rt_size_t setting_recv_len;
+//        size_t setting_recv_len;
 //        /* last receive index */
-//        rt_size_t last_recv_index;
+//        size_t last_recv_index;
 //        /* tx dma stream */
 //        DMA_Stream_TypeDef* tx_stream;
 //        /* dma channel */
@@ -168,7 +168,7 @@
 //    } dma;
 //};
 //
-//static rt_size_t usart_dma_transmit(struct serial_device* serial, uint8_t* buf, rt_size_t size, int direction);
+//static size_t usart_dma_transmit(struct serial_device* serial, uint8_t* buf, size_t size, int direction);
 //static int usart_getc(struct serial_device* serial);
 //static int usart_putc(struct serial_device* serial, char c);
 //static rt_err_t usart_control(struct serial_device* serial, int cmd, void* arg);
@@ -190,7 +190,7 @@
 //static void dma_uart_rx_idle_isr(struct serial_device* serial)
 //{
 //    struct stm32_uart* uart = (struct stm32_uart*)serial->parent.user_data;
-//    rt_size_t recv_total_index, recv_len;
+//    size_t recv_total_index, recv_len;
 //    rt_base_t level;
 //
 //    /* disable interrupt */
@@ -214,7 +214,7 @@
 //static void dma_rx_done_isr(struct serial_device* serial)
 //{
 //    struct stm32_uart* uart = (struct stm32_uart*)serial->parent.user_data;
-//    rt_size_t recv_len;
+//    size_t recv_len;
 //    rt_base_t level;
 //
 //    if (DMA_GetFlagStatus(uart->dma.rx_stream, uart->dma.rx_flag) != RESET) {
@@ -805,7 +805,7 @@
 //    NVIC_Init(&NVIC_InitStructure);
 //}
 //
-//static void _dma_rx_config(struct serial_device* serial, uint8_t* buf, rt_size_t size)
+//static void _dma_rx_config(struct serial_device* serial, uint8_t* buf, size_t size)
 //{
 //    struct stm32_uart* uart = (struct stm32_uart*)serial->parent.user_data;
 //    DMA_InitTypeDef DMA_InitStructure;
@@ -869,7 +869,7 @@
 //    NVIC_Init(&NVIC_InitStructure);
 //}
 //
-//static void _dma_transmit(struct serial_device* serial, uint8_t* buf, rt_size_t size)
+//static void _dma_transmit(struct serial_device* serial, uint8_t* buf, size_t size)
 //{
 //    struct stm32_uart* uart = (struct stm32_uart*)serial->parent.user_data;
 //    DMA_InitTypeDef DMA_InitStructure;
@@ -941,8 +941,8 @@
 //    struct stm32_uart* uart;
 //    USART_InitTypeDef USART_InitStructure;
 //
-//    RT_ASSERT(serial != NULL);
-//    RT_ASSERT(cfg != NULL);
+//    ASSERT(serial != NULL);
+//    ASSERT(cfg != NULL);
 //
 //    uart = (struct stm32_uart*)serial->parent.user_data;
 //
@@ -985,7 +985,7 @@
 //    struct stm32_uart* uart;
 //    uint32_t ctrl_arg = (uint32_t)(arg);
 //
-//    RT_ASSERT(serial != NULL);
+//    ASSERT(serial != NULL);
 //    uart = (struct stm32_uart*)serial->parent.user_data;
 //
 //    switch (cmd) {
@@ -1035,7 +1035,7 @@
 //{
 //    struct stm32_uart* uart;
 //
-//    RT_ASSERT(serial != NULL);
+//    ASSERT(serial != NULL);
 //    uart = (struct stm32_uart*)serial->parent.user_data;
 //
 //    /* wait transmit register become empty */
@@ -1052,7 +1052,7 @@
 //    int ch = -1;
 //    struct stm32_uart* uart;
 //
-//    RT_ASSERT(serial != NULL);
+//    ASSERT(serial != NULL);
 //    uart = (struct stm32_uart*)serial->parent.user_data;
 //
 //    /* check if read data register is not empty */
@@ -1064,7 +1064,7 @@
 //    return ch;
 //}
 //
-//static rt_size_t usart_dma_transmit(struct serial_device* serial, uint8_t* buf, rt_size_t size, int direction)
+//static size_t usart_dma_transmit(struct serial_device* serial, uint8_t* buf, size_t size, int direction)
 //{
 //    if (direction == SERIAL_DMA_TX) {
 //

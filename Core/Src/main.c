@@ -58,21 +58,6 @@ void MX_FREERTOS_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void main1(void *param)
-{
-    while (1)
-    {
-        os_delay(10);
-    }
-
-}
-void main2(void *param)
-{
-    while (1)
-    {
-        os_delay(10);
-    }
-}
 /* USER CODE END 0 */
 
 /**
@@ -111,6 +96,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   /* USER CODE BEGIN 2 */
+    bsp_early_init();
   /* USER CODE END 2 */
 
   /* Call init function for freertos objects (in freertos.c) */
