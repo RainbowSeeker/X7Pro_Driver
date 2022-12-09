@@ -231,16 +231,6 @@ WorkQueue_t workqueue_create(const char* name, uint8_t size, uint16_t stack_size
         return NULL;
     }
 
-    work_queue->thread = os_thread_create(name,
-                                          workqueue_executor,
-                                          work_queue,
-                                          priority,
-                                          stack_size);
-
-    if (work_queue->thread == NULL) {
-        goto _exit;
-    }
-
     work_queue->queue = (WorkItem_t*)malloc(size * sizeof(WorkItem_t));
     if (work_queue->queue == NULL) {
         goto _exit;
@@ -250,6 +240,16 @@ WorkQueue_t workqueue_create(const char* name, uint8_t size, uint16_t stack_size
 
     work_queue->lock = os_sem_create(1);
     if (work_queue->lock == NULL) {
+        goto _exit;
+    }
+
+    work_queue->thread = os_thread_create(name,
+                                          workqueue_executor,
+                                          work_queue,
+                                          priority,
+                                          stack_size);
+
+    if (work_queue->thread == NULL) {
         goto _exit;
     }
 

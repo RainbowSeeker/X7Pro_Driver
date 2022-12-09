@@ -124,7 +124,7 @@ light_device_t light_device_create(int type, int attach_size)
     if (device)
     {
         memset(device, 0x0, sizeof(struct light_device));
-        device->type = (device_class_e) type;
+        device->type = (enum device_class) type;
     }
 
     return device;

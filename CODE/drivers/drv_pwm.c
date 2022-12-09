@@ -217,7 +217,7 @@
 //    return ret;
 //}
 //
-//rt_size_t pwm_read(actuator_dev_t dev, uint16_t chan_sel, uint16_t* chan_val, rt_size_t size)
+//size_t pwm_read(actuator_dev_t dev, uint16_t chan_sel, uint16_t* chan_val, size_t size)
 //{
 //    uint16_t* index = chan_val;
 //    float dc;
@@ -233,7 +233,7 @@
 //    return size;
 //}
 //
-//rt_size_t pwm_write(actuator_dev_t dev, uint16_t chan_sel, const uint16_t* chan_val, rt_size_t size)
+//size_t pwm_write(actuator_dev_t dev, uint16_t chan_sel, const uint16_t* chan_val, size_t size)
 //{
 //    const uint16_t* index = chan_val;
 //    uint16_t val;

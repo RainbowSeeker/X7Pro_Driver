@@ -89,7 +89,7 @@ os_thread_t os_thread_self(void)
 
 err_t os_thread_startup(os_thread_t thread)
 {
-    os_thread_resume(thread);
+    ERROR_TRY(os_thread_resume(thread));
     if (os_thread_self() != NULL)
     {
         os_schedule();

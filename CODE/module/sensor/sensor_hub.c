@@ -15,6 +15,9 @@
 #include "module/math/light_matrix.h"
 #include "filter/butter.h"
 
+#define LOG_TAG     "hub"
+#include <ulog.h>
+
 #define MAX_IMU_DEV_NUM 3
 #define MAX_MAG_DEV_NUM 2
 
@@ -87,7 +90,7 @@ static int echo_sensor_imu(void *param)
         return -1;
     }
 
-    printf("gyr:%f %f %f acc:%f %f %f\n",
+    LOG_I("gyr:%f %f %f acc:%f %f %f",
            imu_report.gyr_B_radDs[0],
            imu_report.gyr_B_radDs[1],
            imu_report.gyr_B_radDs[2],
@@ -110,7 +113,7 @@ static int echo_sensor_mag(void *param)
         return -1;
     }
 
-    printf("mag:%f %f %f\n",
+    LOG_I("mag:%f %f %f",
            mag_report.mag_B_gauss[0],
            mag_report.mag_B_gauss[1],
            mag_report.mag_B_gauss[2]);
@@ -130,7 +133,7 @@ static int echo_sensor_baro(void *param)
         return -1;
     }
 
-    printf("timestamp:%u pressure:%d temperature:%f altitude:%f\n",
+    LOG_I("timestamp:%u pressure:%d temperature:%f altitude:%f",
            baro_report.timestamp_ms,
            baro_report.pressure_pa,
            baro_report.temperature_deg,
@@ -151,7 +154,7 @@ static int echo_sensor_airspeed(void *param)
         return -1;
     }
 
-    printf("timestamp:%u diff_pressure:%f temperature:%f\n",
+    LOG_I("timestamp:%u diff_pressure:%f temperature:%f",
            airspeed_report.timestamp_ms,
            airspeed_report.diff_pressure_pa,
            airspeed_report.temperature_deg);
@@ -171,7 +174,7 @@ static int echo_sensor_gps(void *param)
         return -1;
     }
 
-    printf("lon:%d lat:%d alt:%d fixType:%d numSV:%d hAcc:%.2f vAcc:%.2f sAcc:%.2f\n", gps_report.lon, gps_report.lat,
+    LOG_I("lon:%d lat:%d alt:%d fixType:%d numSV:%d hAcc:%.2f vAcc:%.2f sAcc:%.2f", gps_report.lon, gps_report.lat,
            gps_report.height, gps_report.fixType, gps_report.numSV, gps_report.hAcc, gps_report.vAcc, gps_report.sAcc);
 
     return 0;
@@ -186,7 +189,7 @@ static int echo_sensor_optflow(void *param)
         return -1;
     }
 
-    printf("timestsamp:%u vx:%.2f vy:%.2f quality:%d\n", optflow_report.timestamp_ms, optflow_report.vx_mPs,
+    LOG_I("timestsamp:%u vx:%.2f vy:%.2f quality:%d", optflow_report.timestamp_ms, optflow_report.vx_mPs,
            optflow_report.vy_mPs, optflow_report.quality);
 
     return 0;
@@ -201,7 +204,7 @@ static int echo_sensor_rangefinder(void *param)
         return -1;
     }
 
-    printf("timestamp:%lu distance:%.2f\n", rf_report.timestamp_ms, rf_report.distance_m);
+    LOG_I("timestamp:%lu distance:%.2f", rf_report.timestamp_ms, rf_report.distance_m);
 
     return 0;
 }

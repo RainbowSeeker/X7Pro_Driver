@@ -179,6 +179,7 @@ static err_t imu_init(void)
     for (int i = 0; i < 20; ++i)
     {
         delay_ms(20);
+
         spi_transfer((struct spi_device *)spi_dev, tx_data, rx_data, 2);
         dev_id = rx_data[0] << 8 | rx_data[1];
         if (dev_id == ADI_ID)

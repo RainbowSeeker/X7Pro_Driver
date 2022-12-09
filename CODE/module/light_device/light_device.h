@@ -68,7 +68,7 @@
 /**
  * device (I/O) class type
  */
-typedef enum
+enum device_class
 {
     Device_Class_Char = 0,                           /**< character device */
     Device_Class_Block,                              /**< block device */
@@ -94,7 +94,7 @@ typedef enum
     Device_Class_Touch,                              /**< Touch device */
     Device_Class_PHY,                                /**< PHY device */
     Device_Class_Unknown                             /**< unknown device */
-}device_class_e;
+};
 
 
 /**
@@ -103,10 +103,10 @@ typedef enum
 typedef struct light_device *light_device_t;
 struct light_device
 {
-    char                   name[NAME_MAX_LEN];                 /* device name */
+    char                   name[NAME_MAX_LEN];       /* device name */
     list_t                 list;                     /* associate the next and prev device*/
 
-    device_class_e         type;                     /* device type */
+    enum device_class      type;                     /* device type */
     uint16_t               flag;                     /* device flag */
     uint16_t               open_flag;                /* device open flag */
 
@@ -125,7 +125,7 @@ struct light_device
     size_t (*write)  (light_device_t dev, off_t pos, const void *buffer, size_t size);
     err_t  (*control)(light_device_t dev, int cmd, void *args);
 
-    void                     *user_data;                /**< device private data */
+    void                     *user_data;            /* device private data */
 };
 
 
