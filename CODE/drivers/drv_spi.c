@@ -13,6 +13,8 @@
 #include "drv_dma.h"
 #include "nvic.h"
 
+#define SPI_TIMEOUT     5
+
 struct stm32_spi_bus
 {
     struct spi_bus parent;
@@ -279,6 +281,8 @@ static err_t transfer(struct spi_device *device, struct spi_message *message)
             io_set(cs_io, IO_LOW);
         }
         base_t level = os_hw_interrupt_disable();
+        uint32_t init_tick = os_tick_get();
+
         LL_SPI_SetTransferSize(instance, message->len);
         LL_SPI_Enable(instance);
         LL_SPI_StartMasterTransfer(instance);
@@ -289,11 +293,23 @@ static err_t transfer(struct spi_device *device, struct spi_message *message)
 
             while (message->len--)
             {
-                while (!LL_SPI_IsActiveFlag_TXP(instance));
+                while (!LL_SPI_IsActiveFlag_TXP(instance))
+                {
+                    if (os_tick_get() > init_tick + SPI_TIMEOUT)
+                    {
+                        return E_TIMEOUT;
+                    }
+                }
                 uint8_t b = send_ptr ? *(send_ptr++) : 0xFF;
                 LL_SPI_TransmitData8(instance, b);
 
-                while (!LL_SPI_IsActiveFlag_RXP(instance));
+                while (!LL_SPI_IsActiveFlag_RXP(instance))
+                {
+                    if (os_tick_get() > init_tick + SPI_TIMEOUT)
+                    {
+                        return E_TIMEOUT;
+                    }
+                }
                 b = LL_SPI_ReceiveData8(instance);
                 if (recv_ptr)
                 {
@@ -308,11 +324,23 @@ static err_t transfer(struct spi_device *device, struct spi_message *message)
 
             while (message->len--)
             {
-                while (!LL_SPI_IsActiveFlag_TXP(instance));
+                while (!LL_SPI_IsActiveFlag_TXP(instance))
+                {
+                    if (os_tick_get() > init_tick + SPI_TIMEOUT)
+                    {
+                        return E_TIMEOUT;
+                    }
+                }
                 uint16_t b = send_ptr ? *(send_ptr++) : 0xFF;
                 LL_SPI_TransmitData16(instance, b);
 
-                while (!LL_SPI_IsActiveFlag_RXP(instance));
+                while (!LL_SPI_IsActiveFlag_RXP(instance))
+                {
+                    if (os_tick_get() > init_tick + SPI_TIMEOUT)
+                    {
+                        return E_TIMEOUT;
+                    }
+                }
                 b = LL_SPI_ReceiveData16(instance);
                 if (recv_ptr)
                 {

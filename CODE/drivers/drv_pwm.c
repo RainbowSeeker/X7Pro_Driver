@@ -141,7 +141,7 @@
 //}
 //
 //static inline void _pwm_write(uint8_t chan_id, float duty_cyc);
-//rt_err_t _pwm_set_frequency(uint16_t freq_to_set)
+//err_t _pwm_set_frequency(uint16_t freq_to_set)
 //{
 //    if (freq_to_set < PWM_FREQ_50HZ || freq_to_set > PWM_FREQ_400HZ) {
 //        /* invalid frequency */
@@ -172,7 +172,7 @@
 //    *duty_cyc = _pwm_fmu_duty_cyc[chan_id];
 //}
 //
-//rt_err_t pwm_config(actuator_dev_t dev, const struct actuator_configure* cfg)
+//err_t pwm_config(actuator_dev_t dev, const struct actuator_configure* cfg)
 //{
 //    DRV_DBG("aux out configured: pwm frequency:%d\n", cfg->pwm_config.pwm_freq);
 //
@@ -185,9 +185,9 @@
 //    return E_OK;
 //}
 //
-//rt_err_t pwm_control(actuator_dev_t dev, int cmd, void* arg)
+//err_t pwm_control(actuator_dev_t dev, int cmd, void* arg)
 //{
-//    rt_err_t ret = E_OK;
+//    err_t ret = E_OK;
 //
 //    switch (cmd) {
 //    case ACT_CMD_CHANNEL_ENABLE:
@@ -272,9 +272,9 @@
 //    .ops = &_act_ops
 //};
 //
-//rt_err_t drv_pwm_init(void)
+//err_t drv_pwm_init(void)
 //{
-//    rt_err_t ret;
+//    err_t ret;
 //
 //    _pwm_gpio_init();
 //    _pwm_timer_init();

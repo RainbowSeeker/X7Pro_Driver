@@ -188,6 +188,7 @@ err_t spi_send_then_recv(struct spi_device *device,
 
         if (result != E_OK)
         {
+            os_set_errno(-E_IO);
             goto __exit;
         }
 
@@ -197,6 +198,7 @@ err_t spi_send_then_recv(struct spi_device *device,
         {
             return E_BUSY;
         }
+        else if (result != E_OK) os_set_errno(-E_IO);
     }
     else
     {

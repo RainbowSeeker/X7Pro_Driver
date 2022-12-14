@@ -231,7 +231,6 @@ static inline err_t spi_write_reg8(light_device_t spi_device, uint8_t reg, uint8
 
 static inline err_t spi_read_reg8(light_device_t spi_device, uint8_t reg, uint8_t *buffer)
 {
-
     return spi_send_then_recv((struct spi_device *) spi_device, (void *) &reg, 1, (void *) buffer, 1);
 }
 
@@ -246,7 +245,6 @@ static inline err_t spi_read_reg8_msk(light_device_t spi_device, uint8_t reg, ui
 
 static inline err_t spi_read_multi_reg8(light_device_t spi_device, uint8_t reg, uint8_t *buffer, uint8_t len)
 {
-
     return spi_send_then_recv((struct spi_device *) spi_device, (void *) &reg, 1, (void *) buffer, len);
 }
 

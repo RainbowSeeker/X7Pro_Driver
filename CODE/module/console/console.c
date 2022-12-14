@@ -2,6 +2,7 @@
 //#include <finsh.h>
 
 #include "console.h"
+#include "finsh.h"
 
 #include <string.h>
 
@@ -13,7 +14,7 @@
 /* console write hook function, can be reimplemented by other modules. */
 __WEAK void console_write_hook(const char *content, uint32_t len);
 
-light_device_t console_dev;
+static light_device_t console_dev;
 static char console_buffer[CONSOLE_BUFF_SIZE];
 
 /**
@@ -174,7 +175,7 @@ err_t console_enable_input(void)
     }
 
     /* mount finsh to current console device */
-//    finsh_set_device_without_open(console_dev->name);
+    finsh_set_device_without_open(console_dev->name);
 
     return E_OK;
 }

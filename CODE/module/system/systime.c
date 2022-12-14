@@ -140,7 +140,7 @@ inline void systime_mdelay(uint32_t time_ms)
  */
 void systime_msleep(uint32_t time_ms)
 {
-    if (os_thread_self())
+    if (os_interrupt_get_nest() == 0)
     {
         os_delay(time_ms);
     }

@@ -10,6 +10,7 @@
 #include "cmsis_gcc.h"
 #include "cmsis_os.h"
 #include "utils/list.h"
+#include "object.h"
 
 /* Thread Prority */
 #define VEHICLE_THREAD_PRIORITY     5
@@ -37,14 +38,19 @@
 #define MALLOC                  pvPortMalloc
 #define FREE                    vPortFree
 
-struct os_thread
+struct thread
 {
+    struct object parent;
     osThreadId tid;     //freertos thread ptr
-    char name[NAME_MAX_LEN];
-    int error;
-    slist_t list;       //single list --> point to next thread
+    uint32_t    stack_size;                             /**< stack size */
+    uint32_t    max_used;
+    uint32_t    occupy;
+
+    err_t       error;
+    uint8_t     stat;
+    uint8_t     priority;
 };
-typedef struct os_thread *os_thread_t;
+typedef struct thread *os_thread_t;
 typedef osMutexId os_mutex_t;
 typedef osMessageQId os_event_t;
 typedef osSemaphoreId os_sem_t;
@@ -107,6 +113,47 @@ static inline uint8_t os_interrupt_get_nest(void)
 
 /* ---------------------os thread function---------------------------*/
 
+/*
+ * Thread
+ */
+
+/*
+ * thread state definitions
+ */
+#define THREAD_INIT                  0x00                /**< Initialized status */
+#define THREAD_READY                 0x01                /**< Ready status */
+#define THREAD_SUSPEND               0x02                /**< Suspend status */
+#define THREAD_RUNNING               0x03                /**< Running status */
+#define THREAD_BLOCK                 THREAD_SUSPEND      /**< Blocked status */
+#define THREAD_CLOSE                 0x04                /**< Closed status */
+#define THREAD_STAT_MASK             0x07
+
+#define THREAD_STAT_YIELD            0x08                /**< indicate whether remaining_tick has been reloaded since last schedule */
+#define THREAD_STAT_YIELD_MASK       THREAD_STAT_YIELD
+
+#define THREAD_STAT_SIGNAL           0x10                /**< task hold signals */
+#define THREAD_STAT_SIGNAL_READY     (THREAD_STAT_SIGNAL | THREAD_READY)
+#define THREAD_STAT_SIGNAL_WAIT      0x20                /**< task is waiting for signals */
+#define THREAD_STAT_SIGNAL_PENDING   0x40                /**< signals is held and it has not been procressed */
+#define THREAD_STAT_SIGNAL_MASK      0xf0
+
+/**
+ * thread control command definitions
+ */
+#define THREAD_CTRL_STARTUP          0x00                /**< Startup thread. */
+#define THREAD_CTRL_CLOSE            0x01                /**< Close thread. */
+#define THREAD_CTRL_CHANGE_PRIORITY  0x02                /**< Change thread priority. */
+#define THREAD_CTRL_INFO             0x03                /**< Get thread information. */
+#define THREAD_CTRL_BIND_CPU         0x04                /**< Set thread bind cpu. */
+
+/**
+ * os_thread_get_num
+ * @return 
+ */
+static inline size_t  os_thread_get_num(void)
+{
+    return uxTaskGetNumberOfTasks();
+}
 /**
  * os_thread_create
  * @param name
@@ -118,6 +165,13 @@ static inline uint8_t os_interrupt_get_nest(void)
  */
 os_thread_t os_thread_create(const char *name, void (*task_func_t)(void *), void *parameter, size_t priority, uint16_t stack_size);
 
+
+/**
+ * os_thread_find
+ * @param name
+ * @return
+ */
+os_thread_t os_thread_find(char *name);
 /**
  * os_thread_delete
  * @param thread_id
@@ -138,6 +192,10 @@ err_t os_thread_startup(os_thread_t thread);
  */
 os_thread_t os_thread_self(void);
 
+/**
+ * os_thread_update_info_all
+ */
+void os_thread_update_info_all(void);
 /**
  * os_thread_suspend
  * @param thread_id
@@ -162,7 +220,10 @@ static inline err_t os_thread_resume(os_thread_t thread)
 
 static inline err_t os_schedule(void)
 {
-    return osThreadYield();
+    //Freertos could yield when thread create, suspend or resume.
+    //So it's no need to yield after that.
+    return E_OK;
+//    return osThreadYield();
 }
 
 /* ---------------------os semaphore function---------------------------*/
@@ -249,10 +310,10 @@ static inline void os_mutex_detach(os_mutex_t mutex)
  * os_mutex_delete
  * @param mutex
  */
-static inline void os_mutex_delete(os_mutex_t mutex)
+static inline err_t os_mutex_delete(os_mutex_t mutex)
 {
     //mutex del must be done in thread.
-    ASSERT(osMutexDelete(mutex) == 0);
+    return osMutexDelete(mutex);
 }
 
 /**

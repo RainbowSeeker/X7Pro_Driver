@@ -20,8 +20,6 @@
 #include <common_def.h>
 #include "module/light_device/light_device.h"
 
-/* the buffer size of console */
-#define CONSOLEBUF_SIZE	256
 //#define printf console_printf
 
 /* console API */

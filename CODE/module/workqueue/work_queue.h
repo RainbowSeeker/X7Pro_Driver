@@ -23,7 +23,7 @@ struct WorkQueue {
     uint8_t qsize;
     uint8_t size;
     WorkItem_t* queue;
-    os_sem_t lock;
+    os_mutex_t lock;
 };
 typedef struct WorkQueue* WorkQueue_t;
 

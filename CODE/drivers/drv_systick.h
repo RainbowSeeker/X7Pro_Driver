@@ -38,7 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 extern "C" {
 #endif
 
-rt_err_t drv_systick_init(void);
+err_t drv_systick_init(void);
 
 #ifdef __cplusplus
 }

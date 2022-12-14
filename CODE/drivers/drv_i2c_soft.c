@@ -113,12 +113,12 @@
 //    systime_udelay(us);
 //}
 //
-//rt_err_t stm32_i2c_pin_init(struct rt_i2c_bus* i2c_bus)
+//err_t stm32_i2c_pin_init(struct rt_i2c_bus* i2c_bus)
 //{
-//    rt_device_t pin_dev;
+//    light_device_t pin_dev;
 //    struct device_pin_mode mode;
 //
-//    pin_dev = rt_device_find("pin");
+//    pin_dev = light_device_find("pin");
 //    if (pin_dev == NULL) {
 //        return E_EMPTY;
 //    }
@@ -172,7 +172,7 @@
 //    I2C_TIMEOUT_TICKS
 //};
 //
-//rt_err_t drv_i2c_soft_init(void)
+//err_t drv_i2c_soft_init(void)
 //{
 //    stm32_i2c1_bit_ops.data = &i2c1_dev;
 //    i2c1_dev.priv = (void*)&stm32_i2c1_bit_ops;

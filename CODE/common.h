@@ -14,7 +14,7 @@
 #include "utils/list.h"
 #include "module_common.h"
 #include "finsh_api.h"
-
+#include <rtconfig.h>
 /* HIL simulation */
 // #define FMT_USING_HIL
 /* SIH simulation */

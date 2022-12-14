@@ -6,6 +6,7 @@
 #include <dfs_fs.h>
 
 #define LOG_TAG    "DFS"
+#define LOG_LVL    LOG_LVL_INFO
 
 #define NO_WORKING_DIR  "system does not support working directory\n"
 

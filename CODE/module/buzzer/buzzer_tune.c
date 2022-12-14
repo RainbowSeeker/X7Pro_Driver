@@ -156,4 +156,4 @@ int cmd_test_buzzer_play(void)
     return 0;
 }
 
-//FINSH_FUNCTION_EXPORT_ALIAS(cmd_test_buzzer_play, __cmd_test_buzzer_play, user test buzzer play command);
+FINSH_FUNCTION_EXPORT_ALIAS(cmd_test_buzzer_play, __cmd_test_buzzer_play, user test buzzer play command);

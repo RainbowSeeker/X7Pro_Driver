@@ -58,7 +58,7 @@ void finsh_syscall_append(const char* name, syscall_func func)
     /* create the syscall */
     struct finsh_syscall_item* item;
 
-    item = (struct finsh_syscall_item*)rt_malloc(sizeof(struct finsh_syscall_item));
+    item = (struct finsh_syscall_item*)malloc(sizeof(struct finsh_syscall_item));
     if (item != NULL)
     {
         item->next = NULL;

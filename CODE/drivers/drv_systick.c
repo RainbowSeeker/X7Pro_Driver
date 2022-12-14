@@ -43,7 +43,7 @@
 //    SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK);
 //}
 //
-//static rt_err_t systick_configure(systick_dev_t systick, struct systick_configure* cfg)
+//static err_t systick_configure(systick_dev_t systick, struct systick_configure* cfg)
 //{
 //    _set_systick_freq(cfg->tick_freq);
 //
@@ -62,7 +62,7 @@
 //    systick_read
 //};
 //
-//rt_err_t drv_systick_init(void)
+//err_t drv_systick_init(void)
 //{
 //    RCC_ClocksTypeDef rcc_clocks;
 //    static struct systick_device systick_dev = {

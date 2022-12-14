@@ -587,7 +587,6 @@ void ls(const char *pathname)
     if (pathname == NULL)
         free(path);
 }
-FINSH_FUNCTION_EXPORT(ls, list directory contents);
 
 void rm(const char *filename)
 {
@@ -596,7 +595,6 @@ void rm(const char *filename)
         printf("Delete %s failed\n", filename);
     }
 }
-FINSH_FUNCTION_EXPORT(rm, remove files or directories);
 
 void cat(const char *filename)
 {
@@ -623,7 +621,6 @@ void cat(const char *filename)
 
     dfs_file_close(&fd);
 }
-FINSH_FUNCTION_EXPORT(cat, print file);
 
 #define BUF_SZ  4096
 static void copyfile(const char *src, const char *dst)
@@ -844,7 +841,7 @@ void copy(const char *src, const char *dst)
         }
     }
 }
-FINSH_FUNCTION_EXPORT(copy, copy file or dir)
+
 
 #endif
 /* @} */

@@ -1,5 +1,3 @@
-//
-//
 //#include <common.h>
 //
 //#include "module/file_manager/file_manager.h"
@@ -60,4 +58,4 @@
 //{
 //    return syscmd_process(argc, argv, handle_cmd);
 //}
-//FINSH_FUNCTION_EXPORT_ALIAS(cmd_mlog, __cmd_mlog, start / stop mlog);
+//MSH_CMD_EXPORT(cmd_mlog, start / stop mlog);

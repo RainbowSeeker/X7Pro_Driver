@@ -10,21 +10,7 @@
 #ifndef FINSH_API_H__
 #define FINSH_API_H__
 
-/* SECTION: finsh, a C-Express shell */
-#define RT_USING_FINSH
-/* Using symbol table */
-#define FINSH_USING_SYMTAB
-#define FINSH_USING_DESCRIPTION
-/* Using msh style shell */
-#define FINSH_USING_MSH
-#define FINSH_USING_MSH_ONLY
-#define DFS_USING_WORKDIR
-#define FINSH_THREAD_STACK_SIZE 4096
-/* Enable finsh history */
-#define FINSH_USING_HISTORY
-/* Finsh maximal arguments number */
-#define FINSH_ARG_MAX   20
-
+#include <rtconfig.h>
 
 #if defined(_MSC_VER)
 #pragma section("FSymTab$f",read)
@@ -106,8 +92,8 @@ struct finsh_syscall* finsh_syscall_lookup(const char* name);
 
         #else
             #define FINSH_FUNCTION_EXPORT_CMD(name, cmd, desc)                      \
-                const char __fsym_##cmd##_name[] = #cmd;    \
-                const char __fsym_##cmd##_desc[] = #desc;   \
+                const char __fsym_##cmd##_name[] SECTION(".rodata.name") = #cmd;    \
+                const char __fsym_##cmd##_desc[] SECTION(".rodata.name") = #desc;   \
                 __USED const struct finsh_syscall __fsym_##cmd SECTION("FSymTab")= \
                 {                           \
                     __fsym_##cmd##_name,    \
@@ -116,8 +102,8 @@ struct finsh_syscall* finsh_syscall_lookup(const char* name);
                 };
 
             #define FINSH_VAR_EXPORT(name, type, desc)                              \
-                const char __vsym_##name##_name[] = #name;  \
-                const char __vsym_##name##_desc[] = #desc;  \
+                const char __vsym_##name##_name[] SECTION(".rodata.name") = #name;  \
+                const char __vsym_##name##_desc[] SECTION(".rodata.name") = #desc;  \
                 __USED const struct finsh_sysvar __vsym_##name SECTION("VSymTab")= \
                 {                           \
                     __vsym_##name##_name,   \

@@ -10,8 +10,6 @@
 /* global errno */
 static volatile int os_errno;
 
-slist_t save_thread_info;
-uint8_t save_thread_num = 0;
 /**
  * os_thread_create
  * @param name
@@ -27,17 +25,11 @@ os_thread_t os_thread_create(const char *name,
                              size_t priority,
                              uint16_t stack_size)
 {
-    os_thread_t thread = malloc(sizeof(struct os_thread));
+    os_thread_t thread = malloc(sizeof(struct thread));
 
     if (thread == NULL)
     {
         printf("\r\nno mem");
-        return NULL;
-    }
-
-    if (save_thread_num >= MAX_THREAD_NUM)
-    {
-        printf("\r\nnum of thread reach the limit! \r\n Please modify MAX_THREAD_NUM to repair this.");
         return NULL;
     }
 
@@ -47,19 +39,20 @@ os_thread_t os_thread_create(const char *name,
         return NULL;
     }
 
-    strcpy(thread->name, name);
-    slist_append(&save_thread_info, &thread->list);
+    object_init(&thread->parent, Object_Class_Thread, name);
+
+    thread->error = E_OK;
+    thread->stat = THREAD_INIT;
+    thread->priority = priority;
+    thread->stack_size = stack_size;
 
     if (xTaskCreate((TaskFunction_t)task_func_t,(const portCHAR *)name,
                     stack_size, parameter, priority,
                     &thread->tid) != pdPASS)
     {
-        slist_remove(&save_thread_info, &thread->list);
         free(thread);
         return NULL;
     }
-
-    save_thread_num++;
     return thread;
 }
 
@@ -70,20 +63,109 @@ err_t os_thread_delete(os_thread_t thread)
     return E_OK;
 }
 
+void os_thread_update_info(const char *name)
+{
+    uint32_t total_runtime = 0;
+    size_t task_num = os_thread_get_num();
+    TaskStatus_t task_status;
+
+//    vTaskGetInfo();
+//    for(size_t i = 0; i < task_num; i++ )
+//    {
+//        os_thread_t thread = os_thread_find(task_status[i].pcTaskName);
+//
+//        thread->max_used = thread->stack_size - task_status[i].usStackHighWaterMark;
+//        if (total_runtime)  thread->occupy = task_status[i].ulRunTimeCounter * 100 / total_runtime;
+//        else thread->occupy = 0;
+//        if (task_status[i].eCurrentState == eReady) thread->stat = THREAD_READY;
+//        else if (task_status[i].eCurrentState == eSuspended) thread->stat = THREAD_SUSPEND;
+//        else if (task_status[i].eCurrentState == eRunning) thread->stat = THREAD_RUNNING;
+//        else if (task_status[i].eCurrentState == eBlocked) thread->stat = THREAD_BLOCK;
+//        else thread->stat = THREAD_CLOSE;
+//    }
+}
+
+
+void os_thread_update_info_all(void)
+{
+    uint32_t total_runtime = 0;
+    size_t task_num = os_thread_get_num();
+    TaskStatus_t *task_status = malloc(task_num * sizeof(TaskStatus_t));
+
+    if (task_status)
+    {
+        task_num = uxTaskGetSystemState(task_status, task_num, &total_runtime);
+
+        /* update all thread info */
+        for(size_t i = 0; i < task_num; i++ )
+        {
+            os_thread_t thread = os_thread_find(task_status[i].pcTaskName);
+
+            thread->max_used = thread->stack_size - task_status[i].usStackHighWaterMark;
+            if (total_runtime)  thread->occupy = task_status[i].ulRunTimeCounter * 100 / total_runtime;
+            else thread->occupy = 0;
+            if (task_status[i].eCurrentState == eReady) thread->stat = THREAD_READY;
+            else if (task_status[i].eCurrentState == eSuspended) thread->stat = THREAD_SUSPEND;
+            else if (task_status[i].eCurrentState == eRunning) thread->stat = THREAD_RUNNING;
+            else if (task_status[i].eCurrentState == eBlocked) thread->stat = THREAD_BLOCK;
+            else thread->stat = THREAD_CLOSE;
+        }
+
+        free(task_status);
+    }
+}
+
+os_thread_t os_thread_find(char *name)
+{
+    list_t *node;
+
+    struct object_information *information;
+    information = object_get_information(Object_Class_Thread);
+    ASSERT(information != NULL);
+
+    /* enter critical */
+    OS_ENTER_CRITICAL();
+    /* try to find object */
+    list_for_each(node, &information->object_list)
+    {
+        struct object *obj;
+        obj = list_entry(node, struct object, list);
+        if (strncmp(obj->name, name, NAME_MAX_LEN) == 0)
+        {
+            OS_EXIT_CRITICAL();
+            return (os_thread_t)obj;
+        }
+    }
+    /* leave critical */
+    OS_EXIT_CRITICAL();
+    return NULL;
+}
+
+
 os_thread_t os_thread_self(void)
 {
     osThreadId tid = osThreadGetId();
-    slist_t *node;
-    os_thread_t thread;
-    slist_for_each(node, &save_thread_info)
+    list_t *node;
+
+    struct object_information *information;
+    information = object_get_information(Object_Class_Thread);
+    ASSERT(information != NULL);
+
+    /* enter critical */
+    OS_ENTER_CRITICAL();
+    /* try to find object */
+    list_for_each(node, &information->object_list)
     {
-        thread = slist_entry(node, struct os_thread, list);
-        if (tid == thread->tid)
+        struct object *obj;
+        obj = list_entry(node, struct object, list);
+        if (((os_thread_t)obj)->tid == tid)
         {
-            return thread;
+            OS_EXIT_CRITICAL();
+            return (os_thread_t)obj;
         }
     }
-
+    /* leave critical */
+    OS_EXIT_CRITICAL();
     return NULL;
 }
 

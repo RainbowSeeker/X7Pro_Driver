@@ -125,6 +125,11 @@ SECTIONS
     __mlog_end = .;
     . = ALIGN(4);
 
+    /* section information for initial. */
+    . = ALIGN(4);
+    KEEP(*(.rodata.name))
+
+
     _etext = .;        /* define a global symbols at end of code */
   } >FLASH1
 

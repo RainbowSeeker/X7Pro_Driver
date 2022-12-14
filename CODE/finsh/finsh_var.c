@@ -90,7 +90,7 @@ void finsh_sysvar_append(const char* name, uint8_t type, void* var_addr)
     /* create a sysvar */
     struct finsh_sysvar_item* item;
 
-    item = (struct finsh_sysvar_item*) rt_malloc (sizeof(struct finsh_sysvar_item));
+    item = (struct finsh_sysvar_item*) malloc (sizeof(struct finsh_sysvar_item));
     if (item != NULL)
     {
         item->next = NULL;
