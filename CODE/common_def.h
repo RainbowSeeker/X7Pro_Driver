@@ -68,7 +68,7 @@ typedef base_t                  off_t;       /**< Type for offset */
     #define __USED                    __attribute__((used))
     #define __ALIGN(n)                __attribute__((aligned(n)))
     #define __WEAK                    __attribute__((weak))
-    #define static_inline               static inline
+    #define static inline               static inline
 #elif defined (__GNUC__)                /* GNU GCC Compiler */
 #include <stdarg.h>
 #define SECTION(x)                      __attribute__((section(x)))

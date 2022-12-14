@@ -317,7 +317,14 @@ static struct baro_device baro_device = {
         .ops = &_baro_ops
 };
 
-
+static void ms5611_thread(void *param)
+{
+    while (1)
+    {
+        ms5611_work.run(param);
+        os_delay(ms5611_work.period);
+    }
+}
 err_t drv_ms5611_init(const char* baro_device_name)
 {
     /* Initialize baro */
@@ -348,7 +355,12 @@ err_t drv_ms5611_init(const char* baro_device_name)
     /* set period based on osr */
     ms5611_work.period = CONV_TIME_INTERVAL[DEFAULT_OSR];
     /* schedule the work */
-    SELF_CHECK(workqueue_schedule_work(hp_wq, &ms5611_work));
+//    SELF_CHECK(workqueue_schedule_work(hp_wq, &ms5611_work));
+    os_thread_create("ms5611",
+                     ms5611_thread,
+                     NULL,
+                     6,
+                     256);
 
     ERROR_TRY(hal_baro_register(&baro_device, baro_device_name, DEVICE_FLAG_RDWR, NULL));
 

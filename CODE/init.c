@@ -22,6 +22,7 @@
 #include "drivers/mag/rm3100.h"
 #include "drivers/gps/gps_m8n.h"
 #include "sensor/sensor_hub.h"
+#include "shell.h"
 
 static const struct dfs_mount_tbl mnt_table[] = {
         { "sd0", "/", "elm", 0, NULL },
@@ -39,8 +40,6 @@ void bsp_early_init(void)
 
     SELF_CHECK(console_init());
 
-    SELF_CHECK(console_enable_input());
-
     /* spi driver init */
     SELF_CHECK(drv_spi_init());
 
@@ -54,9 +53,9 @@ void bsp_init(void)
 {
     SELF_CHECK(drv_sdio_init());
 
-//    SELF_CHECK(file_manager_init(mnt_table));
-//
-//    SELF_CHECK(param_init());
+    SELF_CHECK(file_manager_init(mnt_table));
+
+    SELF_CHECK(param_init());
 
     SELF_CHECK(drv_adis16470_init("gyro0", "accel0"));
 
@@ -78,4 +77,7 @@ void bsp_init(void)
     SELF_CHECK(register_sensor_mag("mag0", 0));
 
     SELF_CHECK(register_sensor_barometer("baro0"));
+
+    /* init finsh */
+    finsh_system_init();
 }

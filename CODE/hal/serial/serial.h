@@ -70,7 +70,7 @@
 
 /* Default config for serial_configure structure */
 #define SERIAL_DEFAULT_CONFIG                     \
-            BAUD_RATE_460800,/* 460800 bits/s */  \
+            BAUD_RATE_115200,/* 460800 bits/s */  \
             DATA_BITS_8,     /* 8 databits */     \
             STOP_BITS_1,     /* 1 stopbit */      \
             PARITY_NONE,     /* No parity  */     \

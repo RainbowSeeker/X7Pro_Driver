@@ -70,10 +70,12 @@ static void uart_enable_irq(USART_TypeDef *instance)
 {
     if (instance == UART7)
     {
+        HAL_NVIC_SetPriority(UART7_IRQn, NVIC_PRIO_UART, 0);
         HAL_NVIC_EnableIRQ(UART7_IRQn);
     }
     else if (instance == USART1)
     {
+        HAL_NVIC_SetPriority(USART1_IRQn, NVIC_PRIO_UART, 0);
         HAL_NVIC_EnableIRQ(USART1_IRQn);
     }
     else ASSERT(0); // not support yet.
@@ -387,13 +389,8 @@ static int uart_putc(struct serial_device *serial, char c)
 {
     ASSERT(serial != NULL);
 
-    // /* clear tc flag before write */
-    // LL_USART_ClearFlag_TC(uart->uart_device);
-    /* TC flag is cleared by a write to TDR */
-    serial->config.instance->TDR = c;
-    /* wait write finish */
-    while (LL_USART_IsActiveFlag_TC(serial->config.instance) == RESET);
-
+    while (LL_USART_IsActiveFlag_TXE_TXFNF(serial->config.instance) == 0);
+    LL_USART_TransmitData8(serial->config.instance, c);
     return 1;
 }
 
@@ -407,7 +404,7 @@ static int uart_getc(struct serial_device *serial)
     if (LL_USART_IsActiveFlag_RXNE(serial->config.instance))
     {
         /* read DR will clear RXNE */
-        ch = serial->config.instance->RDR & 0xff;
+        ch = LL_USART_ReceiveData8(serial->config.instance);
     }
 
     return ch;

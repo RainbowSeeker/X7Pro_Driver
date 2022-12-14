@@ -10,8 +10,6 @@
 #define USE_UCOS        0
 #define SUPPORT_OS      (USE_FREERTOS | USE_UCOS)
 
-#define USE_CONSOLE
-
 //-----------hardware config------------------
 
 //--------uart----------

@@ -10,7 +10,7 @@
 //extern "C" {
 //#endif
 //
-//rt_err_t drv_usart_init(void);
+//err_t drv_usart_init(void);
 //
 //#ifdef __cplusplus
 //}

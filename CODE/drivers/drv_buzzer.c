@@ -270,4 +270,4 @@
 //    cmd_test_buzzer(NULL, NULL);
 //}
 //
-//FINSH_FUNCTION_EXPORT_ALIAS(cmd_test_buzzer, __cmd_test_buzzer, user test buzzer command);
+//MSH_CMD_EXPORT(cmd_test_buzzer, user test buzzer command);

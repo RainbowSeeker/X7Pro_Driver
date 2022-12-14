@@ -4,8 +4,8 @@
 
 #include "module/workqueue/work_queue.h"
 
-#define work_lock(_wq)   os_sem_take(_wq->lock, osWaitForever)
-#define work_unlock(_wq) os_sem_release(_wq->lock)
+#define work_lock(_wq)   os_mutex_take(_wq->lock, osWaitForever)
+#define work_unlock(_wq) os_mutex_release(_wq->lock)
 
 static void __swap_item(WorkItem_t* a, WorkItem_t* b)
 {
@@ -82,12 +82,13 @@ static void workqueue_executor(void* parameter)
             /* no work scheduled, suspend itself */
             os_thread_suspend(os_thread_self());
             os_schedule();
+            continue;
         }
 
         time_now = systime_now_ms();
         schedule_time = work_queue->queue[0]->schedule_time;
         if (schedule_time > time_now) {
-            sys_msleep(schedule_time - time_now);
+            os_delay(schedule_time - time_now);
             continue;
         }
 
@@ -129,15 +130,9 @@ err_t workqueue_schedule_work(WorkQueue_t work_queue, WorkItem_t item)
         return E_FULL;
     }
 
-    if (work_queue->size == 0) {
-        work_queue->queue[0] = item;
-        work_queue->size += 1;
-    } else {
-        work_queue->queue[work_queue->size] = item;
-        work_queue->size += 1;
-        for (int i = work_queue->size / 2 - 1; i >= 0; i--) {
-            __heapify(work_queue->queue, work_queue->size, i);
-        }
+    work_queue->queue[work_queue->size++] = item;
+    for (int i = work_queue->size / 2 - 1; i >= 0; i--) {
+        __heapify(work_queue->queue, work_queue->size, i);
     }
 
     work_unlock(work_queue);
@@ -178,7 +173,7 @@ err_t workqueue_cancel_work(WorkQueue_t work_queue, WorkItem_t item)
         return E_EMPTY;
     }
 
-    __swap_item(&work_queue->queue[idx], &work_queue->queue[work_queue->size - 1]);
+    if (work_queue->size > 1)   __swap_item(&work_queue->queue[idx], &work_queue->queue[work_queue->size - 1]);
 
     work_queue->size -= 1;
     for (int i = work_queue->size / 2 - 1; i >= 0; i--) {
@@ -203,7 +198,7 @@ err_t workqueue_delete(WorkQueue_t work_queue)
     if (os_thread_delete(work_queue->thread) != E_OK) {
         return E_RROR;
     }
-    if (os_sem_delete(work_queue->lock) != E_OK) {
+    if (os_mutex_delete(work_queue->lock) != E_OK) {
         return E_RROR;
     }
     free(work_queue->queue);
@@ -238,7 +233,7 @@ WorkQueue_t workqueue_create(const char* name, uint8_t size, uint16_t stack_size
     work_queue->qsize = size;
     work_queue->size = 0;
 
-    work_queue->lock = os_sem_create(1);
+    os_mutex_init(&work_queue->lock);
     if (work_queue->lock == NULL) {
         goto _exit;
     }

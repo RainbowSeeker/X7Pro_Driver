@@ -16,6 +16,10 @@
 #include "msh.h"
 #include <dfs_posix.h>
 
+#define DT_UNKNOWN           0x00
+#define DT_REG               0x01
+#define DT_DIR               0x02
+
 static int msh_readline(int fd, char *line_buf, int size)
 {
     char ch;
@@ -73,8 +77,8 @@ int msh_exec_script(const char *cmd_line, int size)
     length = cmd_length + 32;
 
     /* allocate program name memory */
-    pg_name = (char *) rt_malloc(length);
-    if (pg_name == NULL) return -RT_ENOMEM;
+    pg_name = (char *) malloc(length);
+    if (pg_name == NULL) return -E_NOMEM;
 
     /* copy command0 */
     memcpy(pg_name, cmd_line, cmd_length);
@@ -88,23 +92,23 @@ int msh_exec_script(const char *cmd_line, int size)
         /* search in /bin path */
         if (fd < 0)
         {
-            rt_snprintf(pg_name, length - 1, "/bin/%.*s", cmd_length, cmd_line);
+            snprintf(pg_name, length - 1, "/bin/%.*s", cmd_length, cmd_line);
             fd = open(pg_name, O_RDONLY, 0);
         }
     }
 
-    rt_free(pg_name);
+    free(pg_name);
     if (fd >= 0)
     {
         /* found script */
         char *line_buf;
         int length;
 
-        line_buf = (char *) rt_malloc(RT_CONSOLEBUF_SIZE);
+        line_buf = (char *) malloc(RT_CONSOLEBUF_SIZE);
         if (line_buf == NULL)
         {
             close(fd);
-            return -RT_ENOMEM;
+            return -E_NOMEM;
         }
 
         /* read line by line and then exec it */
@@ -130,7 +134,7 @@ int msh_exec_script(const char *cmd_line, int size)
         while (length > 0);
 
         close(fd);
-        rt_free(line_buf);
+        free(line_buf);
 
         ret = 0;
     }
@@ -207,21 +211,21 @@ int cmd_mv(int argc, char **argv)
             close(fd);
 
             /* it's a directory */
-            dest = (char *)rt_malloc(DFS_PATH_MAX);
+            dest = (char *)malloc(DFS_PATH_MAX);
             if (dest == NULL)
             {
                 printf("out of memory\n");
-                return -RT_ENOMEM;
+                return -E_NOMEM;
             }
 
-            src = argv[1] + rt_strlen(argv[1]);
+            src = argv[1] + strlen(argv[1]);
             while (src != argv[1])
             {
                 if (*src == '/') break;
                 src --;
             }
 
-            rt_snprintf(dest, DFS_PATH_MAX - 1, "%s/%s", argv[2], src);
+            snprintf(dest, DFS_PATH_MAX - 1, "%s/%s", argv[2], src);
         }
         else
         {
@@ -237,7 +241,7 @@ int cmd_mv(int argc, char **argv)
         }
 
         rename(argv[1], dest);
-        if (dest != NULL && dest != argv[2]) rt_free(dest);
+        if (dest != NULL && dest != argv[2]) free(dest);
     }
 
     return 0;
@@ -274,7 +278,7 @@ static void directory_delete_for_msh(const char *pathname, char f, char v)
     if (pathname == NULL)
         return;
 
-    full_path = (char *)rt_malloc(DFS_PATH_MAX);
+    full_path = (char *)malloc(DFS_PATH_MAX);
     if (full_path == NULL)
         return;
 
@@ -285,7 +289,7 @@ static void directory_delete_for_msh(const char *pathname, char f, char v)
         {
             printf("cannot remove '%s'\n", pathname);
         }
-        rt_free(full_path);
+        free(full_path);
         return;
     }
 
@@ -294,10 +298,10 @@ static void directory_delete_for_msh(const char *pathname, char f, char v)
         dirent = readdir(dir);
         if (dirent == NULL)
             break;
-        if (rt_strcmp(".", dirent->d_name) != 0 &&
-            rt_strcmp("..", dirent->d_name) != 0)
+        if (strcmp(".", dirent->d_name) != 0 &&
+            strcmp("..", dirent->d_name) != 0)
         {
-            rt_sprintf(full_path, "%s/%s", pathname, dirent->d_name);
+            sprintf(full_path, "%s/%s", pathname, dirent->d_name);
             if (dirent->d_type == DT_REG)
             {
                 if (unlink(full_path) != 0)
@@ -317,7 +321,7 @@ static void directory_delete_for_msh(const char *pathname, char f, char v)
         }
     }
     closedir(dir);
-    rt_free(full_path);
+    free(full_path);
     if (unlink(pathname) != 0)
     {
         if (f == 0)
@@ -435,7 +439,6 @@ int cmd_mkdir(int argc, char **argv)
 
     return 0;
 }
-FINSH_FUNCTION_EXPORT_ALIAS(cmd_mkdir, __cmd_mkdir, Create the DIRECTORY.);
 
 int cmd_mkfs(int argc, char **argv)
 {
@@ -460,7 +463,7 @@ int cmd_mkfs(int argc, char **argv)
         return 0;
     }
 
-    if (result != RT_EOK)
+    if (result != E_OK)
     {
         printf("mkfs failed, result=%d\n", result);
     }

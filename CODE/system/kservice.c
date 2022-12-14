@@ -5,7 +5,7 @@
 //
 
 #include "board_config.h"
-#include "common_def.h"
+#include "common.h"
 #include "os_def.h"
 /** note
 *   Redefine system service function
@@ -482,36 +482,28 @@ size_t strlen(const char *) __attribute__((weak, alias("_strlen")));
 char *strdup(const char *) __attribute__((weak, alias("_strdup")));
 
 
-#ifdef USE_CONSOLE
-#include "console/console.h"
-
-int	_printf(const char *fmt, ...)
+/**
+ * This function will show the version of rt-thread rtos
+ */
+void show_version(void)
 {
-    va_list args;
-    size_t length;
-    static char log_buf[CONSOLEBUF_SIZE];
-
-    va_start(args, fmt);
-    length = vsnprintf(log_buf, sizeof(log_buf) - 1, fmt, args);
-    if (length > CONSOLEBUF_SIZE - 1)
-        length = CONSOLEBUF_SIZE - 1;
-
-    console_write(log_buf, length);
-
-    va_end(args);
-    return length;
+    printf("\n >> Rain << \n\t\t  --- build %s\n", __DATE__);
 }
+
+
+#ifdef RT_USING_CONSOLE
+#include "console/console.h"
 
 int	_println(const char *fmt, ...)
 {
     va_list args;
     size_t length;
-    static char log_buf[CONSOLEBUF_SIZE];
+    static char log_buf[RT_CONSOLEBUF_SIZE];
 
     va_start(args, fmt);
     length = vsnprintf(log_buf, sizeof(log_buf) - 1, fmt, args);
-    if (length > CONSOLEBUF_SIZE - 1)
-        length = CONSOLEBUF_SIZE - 1;
+    if (length > RT_CONSOLEBUF_SIZE - 1)
+        length = RT_CONSOLEBUF_SIZE - 1;
 
     console_write(log_buf, length);
     console_write("\n", 1);
@@ -543,4 +535,15 @@ int fputc(int ch, FILE *f)
     return ch;
 }
 
+#endif
+
+
+#ifndef _gettimeofday
+/* Dummy function when hardware do not have RTC */
+int _gettimeofday( struct timeval *tv, void *ignore)
+{
+    tv->tv_sec = 0;  // convert to seconds
+    tv->tv_usec = 0;  // get remaining microseconds
+    return 0;  // return non-zero for error
+}
 #endif

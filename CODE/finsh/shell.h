@@ -15,7 +15,7 @@
 #include "finsh.h"
 
 #ifndef FINSH_THREAD_PRIORITY
-#define FINSH_THREAD_PRIORITY 20
+#define FINSH_THREAD_PRIORITY 0
 #endif
 #ifndef FINSH_THREAD_STACK_SIZE
 #define FINSH_THREAD_STACK_SIZE 2048
@@ -101,7 +101,7 @@ uint32_t finsh_get_prompt_mode(void);
 void finsh_set_prompt_mode(uint32_t prompt_mode);
 
 #ifdef FINSH_USING_AUTH
-rt_err_t finsh_set_password(const char *password);
+err_t finsh_set_password(const char *password);
 const char *finsh_get_password(void);
 #endif
 

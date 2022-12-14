@@ -43,7 +43,7 @@ void App_SPI_Main(void *argument)
 
         imu.timestamp = os_tick_get();
         memcpy(log_data, &imu, sizeof(IMU_Bus));
-        mlog_push_msg((uint8_t*)log_data, IMU_ID, 200);
+//        mlog_push_msg((uint8_t*)log_data, IMU_ID, 200);
 
         os_delay_until(&tick, 5);
 //        osDelay(Baro_Update(&ms5611, Sys_GetTickUs()) / 1000);

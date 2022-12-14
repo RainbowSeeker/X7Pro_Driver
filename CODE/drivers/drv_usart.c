@@ -171,8 +171,8 @@
 //static size_t usart_dma_transmit(struct serial_device* serial, uint8_t* buf, size_t size, int direction);
 //static int usart_getc(struct serial_device* serial);
 //static int usart_putc(struct serial_device* serial, char c);
-//static rt_err_t usart_control(struct serial_device* serial, int cmd, void* arg);
-//static rt_err_t usart_configure(struct serial_device* serial, struct serial_configure* cfg);
+//static err_t usart_control(struct serial_device* serial, int cmd, void* arg);
+//static err_t usart_configure(struct serial_device* serial, struct serial_configure* cfg);
 //
 //static struct serial_device serial0; // CONSOLE
 //static struct serial_device serial1; // MAVPROXY
@@ -936,7 +936,7 @@
 //    uart->dma.last_recv_index = 0;
 //}
 //
-//static rt_err_t usart_configure(struct serial_device* serial, struct serial_configure* cfg)
+//static err_t usart_configure(struct serial_device* serial, struct serial_configure* cfg)
 //{
 //    struct stm32_uart* uart;
 //    USART_InitTypeDef USART_InitStructure;
@@ -980,7 +980,7 @@
 //    return E_OK;
 //}
 //
-//static rt_err_t usart_control(struct serial_device* serial, int cmd, void* arg)
+//static err_t usart_control(struct serial_device* serial, int cmd, void* arg)
 //{
 //    struct stm32_uart* uart;
 //    uint32_t ctrl_arg = (uint32_t)(arg);
@@ -1085,9 +1085,9 @@
 //    usart_dma_transmit
 //};
 //
-//rt_err_t drv_usart_init(void)
+//err_t drv_usart_init(void)
 //{
-//    rt_err_t rt_err = E_OK;
+//    err_t rt_err = E_OK;
 //    struct serial_configure config = SERIAL_DEFAULT_CONFIG;
 //    uint32_t flag = RT_DEVICE_FLAG_RDWR | RT_DEVICE_FLAG_STANDALONE | RT_DEVICE_FLAG_INT_RX | RT_DEVICE_FLAG_DMA_RX | RT_DEVICE_FLAG_DMA_TX;
 //
