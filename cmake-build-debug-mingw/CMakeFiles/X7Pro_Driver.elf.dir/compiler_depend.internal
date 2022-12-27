@@ -21528,6 +21528,10 @@ CMakeFiles/X7Pro_Driver.elf.dir/CODE/protocol/ublox/ublox.c.obj
  D:/Desktop/X7Pro_Driver/CODE/rtconfig.h
  D:/Desktop/X7Pro_Driver/CODE/protocol/ublox/ublox.h
 
+CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.obj
+ D:/Desktop/X7Pro_Driver/CODE/rotate.c
+ D:/Desktop/X7Pro_Driver/CODE/module/math/rotation.h
+
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/sys.c.obj
  D:/Desktop/X7Pro_Driver/CODE/sys.c
  D:/Desktop/X7Pro_Driver/CODE/sys.h

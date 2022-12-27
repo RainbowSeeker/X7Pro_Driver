@@ -16,7 +16,7 @@
 
 #define DIR_READ       0x80
 #define DIR_WRITE      0x00
-#define ICM20689_ONE_G 9.80665f
+
 
 #define BIT(_idx) (1 << _idx)
 #define REG_VAL(_setbits, _clearbits) \
@@ -259,7 +259,7 @@ static err_t accel_set_range(uint32_t max_g)
 
     ERROR_TRY(__modify_reg(imu_spi_dev, MPU_RA_ACCEL_CONFIG, reg_val));
 
-    accel_range_scale = (ICM20689_ONE_G / lsb_per_g);
+    accel_range_scale = (ONE_G / lsb_per_g);
 
     return E_OK;
 }
@@ -291,17 +291,12 @@ static err_t imu_init(void)
                                                                    BIT(6)))); /* CLKSEL[2:0] set to 001 to achieve full gyroscope performance. */
     systime_udelay(1000);
 
-    ERROR_TRY(__write_checked_reg(imu_spi_dev, MPU_RA_CONFIG,
-                                  0x06));                                           // Gyro 1K rate,
-    ERROR_TRY(__modify_reg(imu_spi_dev, MPU_RA_GYRO_CONFIG,
-                           REG_VAL(BIT(3) | BIT(4), BIT(0) | BIT(1))));    // 2000dps, FCHOICE_B[0,0]
+    ERROR_TRY(__write_checked_reg(imu_spi_dev, MPU_RA_CONFIG,0x06));                                           // Gyro 1K rate,
+    ERROR_TRY(__modify_reg(imu_spi_dev, MPU_RA_GYRO_CONFIG,REG_VAL(BIT(3) | BIT(4), BIT(0) | BIT(1))));    // 2000dps, FCHOICE_B[0,0]
     ERROR_TRY(__modify_reg(imu_spi_dev, MPU_RA_ACCEL_CONFIG, REG_VAL(BIT(3) | BIT(4), 0)));                 // 16g
-    ERROR_TRY(__modify_reg(imu_spi_dev, MPU_RA_ACCEL_CONFIG2,
-                           REG_VAL(0, 0x0F)));                           // Accel 1K rate, 218Hz BW
-    ERROR_TRY(__write_checked_reg(imu_spi_dev, MPU_RA_INT_ENABLE,
-                                  MPU_RF_DATA_RDY_EN));                            // enable interrupts
-    ERROR_TRY(__write_checked_reg(imu_spi_dev, MPU_RA_USER_CTRL,
-                                  ICM20689_I2C_IF_DIS));                         // Disable Primary I2C Interface
+    ERROR_TRY(__modify_reg(imu_spi_dev, MPU_RA_ACCEL_CONFIG2,REG_VAL(0, 0x0F)));                           // Accel 1K rate, 218Hz BW
+    ERROR_TRY(__write_checked_reg(imu_spi_dev, MPU_RA_INT_ENABLE,MPU_RF_DATA_RDY_EN));                            // enable interrupts
+    ERROR_TRY(__write_checked_reg(imu_spi_dev, MPU_RA_USER_CTRL,ICM20689_I2C_IF_DIS));                         // Disable Primary I2C Interface
 
     return E_OK;
 }
@@ -312,7 +307,6 @@ static err_t gyro_read_raw(int16_t gyr[3])
 
     // Invalidate the D cache covering the area into which data has been read
     int16_t *raw = (int16_t *)(&icm20689_dma_data.buf[!icm20689_dma_data.idx * ICM20689_BUF_SIZE]);
-    scb_invalidate_dcache(raw, 32);
 
     // big-endian to little-endian
     gyr[0] = int16_t_from_bytes((uint8_t *) &raw[4]);
@@ -381,10 +375,7 @@ const static struct gyro_ops _gyro_ops = {
 static err_t accel_read_raw(int16_t acc[3])
 {
     OS_ENTER_CRITICAL();
-
-    // Invalidate the D cache covering the area into which data has been read
     int16_t *raw = (int16_t *)(&icm20689_dma_data.buf[!icm20689_dma_data.idx * ICM20689_BUF_SIZE]);
-    scb_invalidate_dcache(raw, 32);
 
     // big-endian to little-endian
     acc[0] = int16_t_from_bytes((uint8_t *) &raw[0]);

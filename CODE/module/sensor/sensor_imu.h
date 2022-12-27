@@ -11,6 +11,8 @@
 #define GYRO_SCALE_2000DPS              (2000.0f / (1 << 15))   // 16.384 dps/lsb scalefactor for 2000dps sensors
 #define GYRO_SCALE_4000DPS              (4000.0f / (1 << 15))   //  8.192 dps/lsb scalefactor for 4000dps sensors
 
+
+
 // MPU6050
 #define MPU_RA_WHO_AM_I         0x75
 #define MPU_RA_WHO_AM_I_LEGACY  0x00

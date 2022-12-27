@@ -343,6 +343,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/X7Pro_Driver.elf.dir/CODE/module/workqueue/workqueue_manager.c.obj.d"
   "CMakeFiles/X7Pro_Driver.elf.dir/CODE/protocol/ublox/ublox.c.obj"
   "CMakeFiles/X7Pro_Driver.elf.dir/CODE/protocol/ublox/ublox.c.obj.d"
+  "CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.obj"
+  "CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.obj.d"
   "CMakeFiles/X7Pro_Driver.elf.dir/CODE/sys.c.obj"
   "CMakeFiles/X7Pro_Driver.elf.dir/CODE/sys.c.obj.d"
   "CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/kservice.c.obj"

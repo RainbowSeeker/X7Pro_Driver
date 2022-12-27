@@ -4256,6 +4256,30 @@ CODE/protocol/ublox/ublox.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\X7Pro_Driver.elf.dir\build.make CMakeFiles/X7Pro_Driver.elf.dir/CODE/protocol/ublox/ublox.c.s
 .PHONY : CODE/protocol/ublox/ublox.c.s
 
+CODE/rotate.obj: CODE/rotate.c.obj
+.PHONY : CODE/rotate.obj
+
+# target to build an object file
+CODE/rotate.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\X7Pro_Driver.elf.dir\build.make CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.obj
+.PHONY : CODE/rotate.c.obj
+
+CODE/rotate.i: CODE/rotate.c.i
+.PHONY : CODE/rotate.i
+
+# target to preprocess a source file
+CODE/rotate.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\X7Pro_Driver.elf.dir\build.make CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.i
+.PHONY : CODE/rotate.c.i
+
+CODE/rotate.s: CODE/rotate.c.s
+.PHONY : CODE/rotate.s
+
+# target to generate assembly for a file
+CODE/rotate.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\X7Pro_Driver.elf.dir\build.make CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.s
+.PHONY : CODE/rotate.c.s
+
 CODE/sys.obj: CODE/sys.c.obj
 .PHONY : CODE/sys.obj
 
@@ -8437,6 +8461,9 @@ help:
 	@echo ... CODE/protocol/ublox/ublox.obj
 	@echo ... CODE/protocol/ublox/ublox.i
 	@echo ... CODE/protocol/ublox/ublox.s
+	@echo ... CODE/rotate.obj
+	@echo ... CODE/rotate.i
+	@echo ... CODE/rotate.s
 	@echo ... CODE/sys.obj
 	@echo ... CODE/sys.i
 	@echo ... CODE/sys.s

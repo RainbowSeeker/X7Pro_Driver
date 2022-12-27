@@ -2476,10 +2476,24 @@ CMakeFiles/X7Pro_Driver.elf.dir/CODE/protocol/ublox/ublox.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/X7Pro_Driver.elf.dir/CODE/protocol/ublox/ublox.c.s"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Desktop\X7Pro_Driver\CODE\protocol\ublox\ublox.c -o CMakeFiles\X7Pro_Driver.elf.dir\CODE\protocol\ublox\ublox.c.s
 
+CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
+CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.obj: D:/Desktop/X7Pro_Driver/CODE/rotate.c
+CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_173) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.obj"
+	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\CODE\rotate.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\CODE\rotate.c.obj -c D:\Desktop\X7Pro_Driver\CODE\rotate.c
+
+CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.i"
+	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Desktop\X7Pro_Driver\CODE\rotate.c > CMakeFiles\X7Pro_Driver.elf.dir\CODE\rotate.c.i
+
+CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.s"
+	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Desktop\X7Pro_Driver\CODE\rotate.c -o CMakeFiles\X7Pro_Driver.elf.dir\CODE\rotate.c.s
+
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/sys.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/sys.c.obj: D:/Desktop/X7Pro_Driver/CODE/sys.c
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/sys.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_173) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/CODE/sys.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_174) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/CODE/sys.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/CODE/sys.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\CODE\sys.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\CODE\sys.c.obj -c D:\Desktop\X7Pro_Driver\CODE\sys.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/sys.c.i: cmake_force
@@ -2493,7 +2507,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/CODE/sys.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/kservice.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/kservice.c.obj: D:/Desktop/X7Pro_Driver/CODE/system/kservice.c
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/kservice.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_174) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/kservice.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_175) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/kservice.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/kservice.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\CODE\system\kservice.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\CODE\system\kservice.c.obj -c D:\Desktop\X7Pro_Driver\CODE\system\kservice.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/kservice.c.i: cmake_force
@@ -2507,7 +2521,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/kservice.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/object.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/object.c.obj: D:/Desktop/X7Pro_Driver/CODE/system/object.c
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/object.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_175) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/object.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_176) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/object.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/object.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\CODE\system\object.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\CODE\system\object.c.obj -c D:\Desktop\X7Pro_Driver\CODE\system\object.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/object.c.i: cmake_force
@@ -2521,7 +2535,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/object.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/os_def.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/os_def.c.obj: D:/Desktop/X7Pro_Driver/CODE/system/os_def.c
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/os_def.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_176) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/os_def.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_177) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/os_def.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/os_def.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\CODE\system\os_def.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\CODE\system\os_def.c.obj -c D:\Desktop\X7Pro_Driver\CODE\system\os_def.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/os_def.c.i: cmake_force
@@ -2535,7 +2549,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/os_def.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/os_mem.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/os_mem.c.obj: D:/Desktop/X7Pro_Driver/CODE/system/os_mem.c
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/os_mem.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_177) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/os_mem.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_178) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/os_mem.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/os_mem.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\CODE\system\os_mem.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\CODE\system\os_mem.c.obj -c D:\Desktop\X7Pro_Driver\CODE\system\os_mem.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/os_mem.c.i: cmake_force
@@ -2549,7 +2563,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/os_mem.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/task.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/task.c.obj: D:/Desktop/X7Pro_Driver/CODE/task.c
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/task.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_178) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/CODE/task.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_179) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/CODE/task.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/CODE/task.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\CODE\task.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\CODE\task.c.obj -c D:\Desktop\X7Pro_Driver\CODE\task.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/task.c.i: cmake_force
@@ -2563,7 +2577,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/CODE/task.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/bdma.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/bdma.c.obj: D:/Desktop/X7Pro_Driver/Core/Src/bdma.c
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/bdma.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_179) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/bdma.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_180) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/bdma.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/bdma.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\bdma.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\bdma.c.obj -c D:\Desktop\X7Pro_Driver\Core\Src\bdma.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/bdma.c.i: cmake_force
@@ -2577,7 +2591,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/bdma.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/dma.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/dma.c.obj: D:/Desktop/X7Pro_Driver/Core/Src/dma.c
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/dma.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_180) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/dma.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_181) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/dma.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/dma.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\dma.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\dma.c.obj -c D:\Desktop\X7Pro_Driver\Core\Src\dma.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/dma.c.i: cmake_force
@@ -2591,7 +2605,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/dma.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/freertos.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/freertos.c.obj: D:/Desktop/X7Pro_Driver/Core/Src/freertos.c
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/freertos.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_181) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/freertos.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_182) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/freertos.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/freertos.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\freertos.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\freertos.c.obj -c D:\Desktop\X7Pro_Driver\Core\Src\freertos.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/freertos.c.i: cmake_force
@@ -2605,7 +2619,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/freertos.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/gpio.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/gpio.c.obj: D:/Desktop/X7Pro_Driver/Core/Src/gpio.c
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/gpio.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_182) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/gpio.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_183) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/gpio.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/gpio.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\gpio.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\gpio.c.obj -c D:\Desktop\X7Pro_Driver\Core\Src\gpio.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/gpio.c.i: cmake_force
@@ -2619,7 +2633,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/gpio.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/main.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/main.c.obj: D:/Desktop/X7Pro_Driver/Core/Src/main.c
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/main.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_183) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/main.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_184) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/main.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/main.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\main.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\main.c.obj -c D:\Desktop\X7Pro_Driver\Core\Src\main.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/main.c.i: cmake_force
@@ -2633,7 +2647,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/main.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/spi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/spi.c.obj: D:/Desktop/X7Pro_Driver/Core/Src/spi.c
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/spi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_184) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/spi.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_185) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/spi.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/spi.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\spi.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\spi.c.obj -c D:\Desktop\X7Pro_Driver\Core\Src\spi.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/spi.c.i: cmake_force
@@ -2647,7 +2661,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/spi.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_hal_msp.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_hal_msp.c.obj: D:/Desktop/X7Pro_Driver/Core/Src/stm32h7xx_hal_msp.c
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_hal_msp.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_185) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_hal_msp.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_186) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_hal_msp.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_hal_msp.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\stm32h7xx_hal_msp.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\stm32h7xx_hal_msp.c.obj -c D:\Desktop\X7Pro_Driver\Core\Src\stm32h7xx_hal_msp.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_hal_msp.c.i: cmake_force
@@ -2661,7 +2675,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_hal_msp.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj: D:/Desktop/X7Pro_Driver/Core/Src/stm32h7xx_hal_timebase_tim.c
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_186) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_187) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\stm32h7xx_hal_timebase_tim.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\stm32h7xx_hal_timebase_tim.c.obj -c D:\Desktop\X7Pro_Driver\Core\Src\stm32h7xx_hal_timebase_tim.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.i: cmake_force
@@ -2675,7 +2689,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_hal_timebase_tim.c.s: cmake_f
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_it.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_it.c.obj: D:/Desktop/X7Pro_Driver/Core/Src/stm32h7xx_it.c
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_it.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_187) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_it.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_188) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_it.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_it.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\stm32h7xx_it.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\stm32h7xx_it.c.obj -c D:\Desktop\X7Pro_Driver\Core\Src\stm32h7xx_it.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_it.c.i: cmake_force
@@ -2689,7 +2703,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/stm32h7xx_it.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/syscalls.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/syscalls.c.obj: D:/Desktop/X7Pro_Driver/Core/Src/syscalls.c
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/syscalls.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_188) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/syscalls.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_189) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/syscalls.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/syscalls.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\syscalls.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\syscalls.c.obj -c D:\Desktop\X7Pro_Driver\Core\Src\syscalls.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/syscalls.c.i: cmake_force
@@ -2703,7 +2717,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/syscalls.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/sysmem.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/sysmem.c.obj: D:/Desktop/X7Pro_Driver/Core/Src/sysmem.c
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/sysmem.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_189) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/sysmem.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_190) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/sysmem.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/sysmem.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\sysmem.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\sysmem.c.obj -c D:\Desktop\X7Pro_Driver\Core\Src\sysmem.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/sysmem.c.i: cmake_force
@@ -2717,7 +2731,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/sysmem.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/system_stm32h7xx.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/system_stm32h7xx.c.obj: D:/Desktop/X7Pro_Driver/Core/Src/system_stm32h7xx.c
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/system_stm32h7xx.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_190) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/system_stm32h7xx.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_191) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/system_stm32h7xx.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/system_stm32h7xx.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\system_stm32h7xx.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\system_stm32h7xx.c.obj -c D:\Desktop\X7Pro_Driver\Core\Src\system_stm32h7xx.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/system_stm32h7xx.c.i: cmake_force
@@ -2731,7 +2745,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/system_stm32h7xx.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/tim.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/tim.c.obj: D:/Desktop/X7Pro_Driver/Core/Src/tim.c
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/tim.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_191) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/tim.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_192) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/tim.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/tim.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\tim.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\tim.c.obj -c D:\Desktop\X7Pro_Driver\Core\Src\tim.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/tim.c.i: cmake_force
@@ -2745,7 +2759,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/tim.c.s: cmake_force
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/usart.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/usart.c.obj: D:/Desktop/X7Pro_Driver/Core/Src/usart.c
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/usart.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_192) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/usart.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_193) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/usart.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/usart.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\usart.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Core\Src\usart.c.obj -c D:\Desktop\X7Pro_Driver\Core\Src\usart.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/usart.c.i: cmake_force
@@ -2758,7 +2772,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Core/Src/usart.c.s: cmake_force
 
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Startup/startup_stm32h743xihx.s.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Startup/startup_stm32h743xihx.s.obj: D:/Desktop/X7Pro_Driver/Core/Startup/startup_stm32h743xihx.s
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_193) "Building ASM object CMakeFiles/X7Pro_Driver.elf.dir/Core/Startup/startup_stm32h743xihx.s.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_194) "Building ASM object CMakeFiles/X7Pro_Driver.elf.dir/Core/Startup/startup_stm32h743xihx.s.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(ASM_DEFINES) $(ASM_INCLUDES) $(ASM_FLAGS) -o CMakeFiles\X7Pro_Driver.elf.dir\Core\Startup\startup_stm32h743xihx.s.obj -c D:\Desktop\X7Pro_Driver\Core\Startup\startup_stm32h743xihx.s
 
 CMakeFiles/X7Pro_Driver.elf.dir/Core/Startup/startup_stm32h743xihx.s.i: cmake_force
@@ -2772,7 +2786,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Core/Startup/startup_stm32h743xihx.s.s: cmake_fo
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_194) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_195) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\Legacy\stm32h7xx_hal_eth.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\Legacy\stm32h7xx_hal_eth.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\Legacy\stm32h7xx_hal_eth.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth.c.i: cmake_force
@@ -2786,7 +2800,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7x
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_195) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_196) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\Legacy\stm32h7xx_hal_eth_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\Legacy\stm32h7xx_hal_eth_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\Legacy\stm32h7xx_hal_eth_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth_ex.c.i: cmake_force
@@ -2800,7 +2814,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7x
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_196) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_197) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c.i: cmake_force
@@ -2814,7 +2828,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_197) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_198) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_adc.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_adc.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_adc.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc.c.i: cmake_force
@@ -2828,7 +2842,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_a
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_198) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_199) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_adc_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_adc_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_adc_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc_ex.c.i: cmake_force
@@ -2842,7 +2856,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_a
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cec.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cec.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cec.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cec.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_199) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cec.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_200) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cec.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cec.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cec.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cec.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cec.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cec.c.i: cmake_force
@@ -2856,7 +2870,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_comp.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_comp.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_comp.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_comp.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_200) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_comp.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_201) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_comp.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_comp.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_comp.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_comp.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_comp.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_comp.c.i: cmake_force
@@ -2870,7 +2884,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cordic.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cordic.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cordic.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cordic.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_201) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cordic.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_202) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cordic.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cordic.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cordic.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cordic.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cordic.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cordic.c.i: cmake_force
@@ -2884,7 +2898,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_202) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_203) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cortex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cortex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cortex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c.i: cmake_force
@@ -2898,7 +2912,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_203) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_204) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_crc.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_crc.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_crc.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc.c.i: cmake_force
@@ -2912,7 +2926,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_204) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_205) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_crc_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_crc_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_crc_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc_ex.c.i: cmake_force
@@ -2926,7 +2940,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_205) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_206) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cryp.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cryp.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cryp.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp.c.i: cmake_force
@@ -2940,7 +2954,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_206) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_207) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cryp_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cryp_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_cryp_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp_ex.c.i: cmake_force
@@ -2954,7 +2968,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_207) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_208) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dac.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dac.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dac.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac.c.i: cmake_force
@@ -2968,7 +2982,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_d
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_208) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_209) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dac_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dac_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dac_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac_ex.c.i: cmake_force
@@ -2982,7 +2996,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_d
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dcmi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dcmi.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dcmi.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dcmi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_209) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dcmi.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_210) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dcmi.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dcmi.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dcmi.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dcmi.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dcmi.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dcmi.c.i: cmake_force
@@ -2996,7 +3010,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_d
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_210) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_211) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dfsdm.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dfsdm.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dfsdm.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm.c.i: cmake_force
@@ -3010,7 +3024,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_d
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_211) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_212) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dfsdm_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dfsdm_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dfsdm_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm_ex.c.i: cmake_force
@@ -3024,7 +3038,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_d
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_212) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_213) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c.i: cmake_force
@@ -3038,7 +3052,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_d
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma2d.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma2d.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma2d.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma2d.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_213) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma2d.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_214) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma2d.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma2d.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma2d.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma2d.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma2d.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma2d.c.i: cmake_force
@@ -3052,7 +3066,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_d
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_214) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_215) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dma_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c.i: cmake_force
@@ -3066,7 +3080,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_d
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dsi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dsi.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dsi.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dsi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_215) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dsi.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_216) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dsi.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dsi.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dsi.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dsi.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dsi.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dsi.c.i: cmake_force
@@ -3080,7 +3094,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_d
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dts.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dts.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dts.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dts.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_216) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dts.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_217) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dts.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dts.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dts.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dts.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_dts.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dts.c.i: cmake_force
@@ -3094,7 +3108,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_d
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_217) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_218) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_eth.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_eth.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_eth.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c.i: cmake_force
@@ -3108,7 +3122,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_e
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_218) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_219) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_eth_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_eth_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_eth_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth_ex.c.i: cmake_force
@@ -3122,7 +3136,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_e
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_219) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_220) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_exti.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_exti.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_exti.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c.i: cmake_force
@@ -3136,7 +3150,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_e
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_220) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_221) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_fdcan.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_fdcan.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_fdcan.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c.i: cmake_force
@@ -3150,7 +3164,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_f
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_221) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_222) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_flash.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_flash.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_flash.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c.i: cmake_force
@@ -3164,7 +3178,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_f
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_222) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_223) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_flash_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_flash_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_flash_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c.i: cmake_force
@@ -3178,7 +3192,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_f
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fmac.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fmac.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fmac.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fmac.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_223) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fmac.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_224) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fmac.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fmac.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_fmac.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_fmac.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_fmac.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fmac.c.i: cmake_force
@@ -3192,7 +3206,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_f
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gfxmmu.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gfxmmu.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gfxmmu.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gfxmmu.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_224) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gfxmmu.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_225) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gfxmmu.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gfxmmu.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_gfxmmu.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_gfxmmu.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_gfxmmu.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gfxmmu.c.i: cmake_force
@@ -3206,7 +3220,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_g
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_225) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_226) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_gpio.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_gpio.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_gpio.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c.i: cmake_force
@@ -3220,7 +3234,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_g
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_226) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_227) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hash.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hash.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hash.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash.c.i: cmake_force
@@ -3234,7 +3248,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_h
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_227) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_228) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hash_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hash_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hash_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash_ex.c.i: cmake_force
@@ -3248,7 +3262,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_h
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hcd.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hcd.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hcd.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hcd.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_228) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hcd.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_229) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hcd.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hcd.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hcd.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hcd.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hcd.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hcd.c.i: cmake_force
@@ -3262,7 +3276,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_h
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hrtim.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hrtim.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hrtim.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hrtim.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_229) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hrtim.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_230) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hrtim.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hrtim.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hrtim.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hrtim.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hrtim.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hrtim.c.i: cmake_force
@@ -3276,7 +3290,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_h
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_230) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_231) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hsem.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hsem.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_hsem.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c.i: cmake_force
@@ -3290,7 +3304,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_h
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_231) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_232) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2c.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2c.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2c.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c.i: cmake_force
@@ -3304,7 +3318,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_232) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_233) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2c_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2c_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2c_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c.i: cmake_force
@@ -3318,7 +3332,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_233) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_234) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2s.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2s.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2s.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s.c.i: cmake_force
@@ -3332,7 +3346,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_234) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_235) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2s_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2s_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_i2s_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s_ex.c.i: cmake_force
@@ -3346,7 +3360,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_irda.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_irda.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_irda.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_irda.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_235) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_irda.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_236) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_irda.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_irda.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_irda.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_irda.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_irda.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_irda.c.i: cmake_force
@@ -3360,7 +3374,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_iwdg.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_iwdg.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_iwdg.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_iwdg.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_236) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_iwdg.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_237) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_iwdg.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_iwdg.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_iwdg.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_iwdg.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_iwdg.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_iwdg.c.i: cmake_force
@@ -3374,7 +3388,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_jpeg.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_jpeg.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_jpeg.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_jpeg.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_237) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_jpeg.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_238) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_jpeg.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_jpeg.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_jpeg.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_jpeg.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_jpeg.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_jpeg.c.i: cmake_force
@@ -3388,7 +3402,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_j
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_lptim.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_lptim.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_lptim.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_lptim.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_238) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_lptim.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_239) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_lptim.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_lptim.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_lptim.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_lptim.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_lptim.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_lptim.c.i: cmake_force
@@ -3402,7 +3416,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_l
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_239) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_240) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_ltdc.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_ltdc.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_ltdc.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc.c.i: cmake_force
@@ -3416,7 +3430,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_l
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_240) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_241) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_ltdc_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_ltdc_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_ltdc_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc_ex.c.i: cmake_force
@@ -3430,7 +3444,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_l
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdios.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdios.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdios.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdios.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_241) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdios.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_242) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdios.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdios.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mdios.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mdios.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mdios.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdios.c.i: cmake_force
@@ -3444,7 +3458,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_m
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_242) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_243) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mdma.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mdma.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mdma.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c.i: cmake_force
@@ -3458,7 +3472,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_m
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_243) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_244) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mmc.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mmc.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mmc.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc.c.i: cmake_force
@@ -3472,7 +3486,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_m
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_244) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_245) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mmc_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mmc_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_mmc_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc_ex.c.i: cmake_force
@@ -3486,7 +3500,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_m
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nand.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nand.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nand.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nand.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_245) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nand.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_246) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nand.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nand.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_nand.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_nand.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_nand.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nand.c.i: cmake_force
@@ -3500,7 +3514,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_n
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nor.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nor.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nor.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nor.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_246) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nor.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_247) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nor.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nor.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_nor.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_nor.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_nor.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nor.c.i: cmake_force
@@ -3514,7 +3528,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_n
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_247) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_248) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_opamp.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_opamp.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_opamp.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp.c.i: cmake_force
@@ -3528,7 +3542,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_o
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_248) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_249) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_opamp_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_opamp_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_opamp_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp_ex.c.i: cmake_force
@@ -3542,7 +3556,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_o
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ospi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ospi.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ospi.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ospi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_249) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ospi.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_250) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ospi.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ospi.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_ospi.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_ospi.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_ospi.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ospi.c.i: cmake_force
@@ -3556,7 +3570,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_o
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_otfdec.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_otfdec.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_otfdec.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_otfdec.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_250) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_otfdec.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_251) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_otfdec.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_otfdec.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_otfdec.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_otfdec.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_otfdec.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_otfdec.c.i: cmake_force
@@ -3570,7 +3584,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_o
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_251) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_252) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pcd.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pcd.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pcd.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c.i: cmake_force
@@ -3584,7 +3598,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_p
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_252) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_253) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pcd_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pcd_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pcd_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd_ex.c.i: cmake_force
@@ -3598,7 +3612,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_p
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pssi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pssi.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pssi.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pssi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_253) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pssi.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_254) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pssi.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pssi.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pssi.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pssi.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pssi.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pssi.c.i: cmake_force
@@ -3612,7 +3626,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_p
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_254) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_255) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c.i: cmake_force
@@ -3626,7 +3640,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_p
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_255) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_256) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_pwr_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c.i: cmake_force
@@ -3640,7 +3654,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_p
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_qspi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_qspi.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_qspi.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_qspi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_256) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_qspi.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_257) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_qspi.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_qspi.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_qspi.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_qspi.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_qspi.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_qspi.c.i: cmake_force
@@ -3654,7 +3668,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_q
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ramecc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ramecc.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ramecc.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ramecc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_257) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ramecc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_258) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ramecc.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ramecc.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_ramecc.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_ramecc.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_ramecc.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ramecc.c.i: cmake_force
@@ -3668,7 +3682,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_r
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_258) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_259) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c.i: cmake_force
@@ -3682,7 +3696,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_r
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_259) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_260) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rcc_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c.i: cmake_force
@@ -3696,7 +3710,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_r
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_260) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_261) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rng.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rng.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rng.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng.c.i: cmake_force
@@ -3710,7 +3724,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_r
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_261) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_262) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rng_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rng_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rng_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng_ex.c.i: cmake_force
@@ -3724,7 +3738,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_r
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_262) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_263) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rtc.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rtc.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rtc.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc.c.i: cmake_force
@@ -3738,7 +3752,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_r
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_263) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_264) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rtc_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rtc_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_rtc_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc_ex.c.i: cmake_force
@@ -3752,7 +3766,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_r
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_264) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_265) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sai.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sai.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sai.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai.c.i: cmake_force
@@ -3766,7 +3780,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_s
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_265) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_266) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sai_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sai_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sai_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai_ex.c.i: cmake_force
@@ -3780,7 +3794,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_s
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_266) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_267) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sd.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sd.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sd.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd.c.i: cmake_force
@@ -3794,7 +3808,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_s
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_267) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_268) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sd_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sd_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sd_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c.i: cmake_force
@@ -3808,7 +3822,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_s
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sdram.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sdram.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sdram.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sdram.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_268) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sdram.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_269) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sdram.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sdram.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sdram.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sdram.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sdram.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sdram.c.i: cmake_force
@@ -3822,7 +3836,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_s
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_269) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_270) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_smartcard.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_smartcard.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_smartcard.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard.c.i: cmake_force
@@ -3836,7 +3850,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_s
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_270) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_271) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_smartcard_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_smartcard_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_smartcard_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard_ex.c.i: cmake_force
@@ -3850,7 +3864,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_s
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_271) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_272) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_smbus.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_smbus.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_smbus.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus.c.i: cmake_force
@@ -3864,7 +3878,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_s
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_272) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_273) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_smbus_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_smbus_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_smbus_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus_ex.c.i: cmake_force
@@ -3878,7 +3892,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_s
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spdifrx.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spdifrx.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spdifrx.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spdifrx.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_273) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spdifrx.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_274) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spdifrx.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spdifrx.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_spdifrx.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_spdifrx.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_spdifrx.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spdifrx.c.i: cmake_force
@@ -3892,7 +3906,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_s
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_274) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_275) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_spi.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_spi.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_spi.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi.c.i: cmake_force
@@ -3906,7 +3920,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_s
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_275) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_276) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_spi_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_spi_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_spi_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi_ex.c.i: cmake_force
@@ -3920,7 +3934,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_s
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sram.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sram.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sram.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sram.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_276) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sram.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_277) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sram.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sram.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sram.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sram.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_sram.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sram.c.i: cmake_force
@@ -3934,7 +3948,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_s
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_swpmi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_swpmi.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_swpmi.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_swpmi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_277) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_swpmi.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_278) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_swpmi.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_swpmi.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_swpmi.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_swpmi.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_swpmi.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_swpmi.c.i: cmake_force
@@ -3948,7 +3962,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_s
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_278) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_279) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_tim.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_tim.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_tim.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c.i: cmake_force
@@ -3962,7 +3976,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_t
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_279) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_280) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_tim_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_tim_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_tim_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c.i: cmake_force
@@ -3976,7 +3990,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_t
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_280) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_281) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_uart.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_uart.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_uart.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c.i: cmake_force
@@ -3990,7 +4004,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_u
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_281) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_282) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_uart_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_uart_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_uart_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c.i: cmake_force
@@ -4004,7 +4018,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_u
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_282) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_283) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_usart.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_usart.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_usart.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart.c.i: cmake_force
@@ -4018,7 +4032,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_u
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_283) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_284) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_usart_ex.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_usart_ex.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_usart_ex.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c.i: cmake_force
@@ -4032,7 +4046,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_u
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_wwdg.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_wwdg.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_wwdg.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_wwdg.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_284) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_wwdg.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_285) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_wwdg.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_wwdg.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_wwdg.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_wwdg.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_hal_wwdg.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_wwdg.c.i: cmake_force
@@ -4046,7 +4060,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_w
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_adc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_adc.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_adc.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_adc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_285) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_adc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_286) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_adc.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_adc.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_adc.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_adc.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_adc.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_adc.c.i: cmake_force
@@ -4060,7 +4074,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_ad
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_bdma.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_bdma.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_bdma.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_bdma.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_286) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_bdma.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_287) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_bdma.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_bdma.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_bdma.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_bdma.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_bdma.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_bdma.c.i: cmake_force
@@ -4074,7 +4088,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_bd
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_comp.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_comp.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_comp.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_comp.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_287) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_comp.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_288) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_comp.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_comp.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_comp.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_comp.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_comp.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_comp.c.i: cmake_force
@@ -4088,7 +4102,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_co
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_cordic.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_cordic.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_cordic.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_cordic.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_288) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_cordic.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_289) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_cordic.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_cordic.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_cordic.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_cordic.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_cordic.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_cordic.c.i: cmake_force
@@ -4102,7 +4116,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_co
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crc.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crc.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_289) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_290) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crc.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crc.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_crc.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_crc.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_crc.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crc.c.i: cmake_force
@@ -4116,7 +4130,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_cr
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crs.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crs.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crs.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crs.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_290) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crs.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_291) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crs.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crs.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_crs.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_crs.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_crs.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crs.c.i: cmake_force
@@ -4130,7 +4144,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_cr
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dac.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dac.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dac.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dac.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_291) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dac.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_292) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dac.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dac.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_dac.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_dac.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_dac.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dac.c.i: cmake_force
@@ -4144,7 +4158,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_da
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_292) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_293) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_delayblock.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_delayblock.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_delayblock.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c.i: cmake_force
@@ -4158,7 +4172,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_de
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_293) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_294) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_dma.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_dma.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_dma.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma.c.i: cmake_force
@@ -4172,7 +4186,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dm
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma2d.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma2d.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma2d.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma2d.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_294) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma2d.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_295) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma2d.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma2d.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_dma2d.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_dma2d.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_dma2d.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma2d.c.i: cmake_force
@@ -4186,7 +4200,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dm
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_exti.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_exti.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_exti.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_exti.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_295) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_exti.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_296) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_exti.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_exti.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_exti.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_exti.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_exti.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_exti.c.i: cmake_force
@@ -4200,7 +4214,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_ex
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmac.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmac.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmac.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmac.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_296) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmac.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_297) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmac.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmac.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_fmac.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_fmac.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_fmac.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmac.c.i: cmake_force
@@ -4214,7 +4228,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fm
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmc.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmc.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_297) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_298) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmc.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmc.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_fmc.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_fmc.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_fmc.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmc.c.i: cmake_force
@@ -4228,7 +4242,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fm
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_gpio.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_gpio.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_gpio.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_gpio.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_298) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_gpio.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_299) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_gpio.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_gpio.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_gpio.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_gpio.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_gpio.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_gpio.c.i: cmake_force
@@ -4242,7 +4256,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_gp
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_hrtim.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_hrtim.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_hrtim.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_hrtim.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_299) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_hrtim.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_300) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_hrtim.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_hrtim.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_hrtim.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_hrtim.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_hrtim.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_hrtim.c.i: cmake_force
@@ -4256,7 +4270,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_hr
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_i2c.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_i2c.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_i2c.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_i2c.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_300) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_i2c.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_301) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_i2c.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_i2c.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_i2c.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_i2c.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_i2c.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_i2c.c.i: cmake_force
@@ -4270,7 +4284,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_i2
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lptim.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lptim.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lptim.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lptim.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_301) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lptim.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_302) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lptim.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lptim.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_lptim.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_lptim.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_lptim.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lptim.c.i: cmake_force
@@ -4284,7 +4298,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lp
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lpuart.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lpuart.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lpuart.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lpuart.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_302) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lpuart.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_303) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lpuart.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lpuart.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_lpuart.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_lpuart.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_lpuart.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lpuart.c.i: cmake_force
@@ -4298,7 +4312,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lp
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_mdma.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_mdma.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_mdma.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_mdma.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_303) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_mdma.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_304) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_mdma.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_mdma.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_mdma.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_mdma.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_mdma.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_mdma.c.i: cmake_force
@@ -4312,7 +4326,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_md
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_opamp.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_opamp.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_opamp.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_opamp.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_304) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_opamp.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_305) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_opamp.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_opamp.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_opamp.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_opamp.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_opamp.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_opamp.c.i: cmake_force
@@ -4326,7 +4340,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_op
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_pwr.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_pwr.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_pwr.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_pwr.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_305) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_pwr.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_306) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_pwr.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_pwr.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_pwr.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_pwr.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_pwr.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_pwr.c.i: cmake_force
@@ -4340,7 +4354,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_pw
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rcc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rcc.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rcc.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rcc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_306) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rcc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_307) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rcc.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rcc.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_rcc.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_rcc.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_rcc.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rcc.c.i: cmake_force
@@ -4354,7 +4368,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rc
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rng.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rng.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rng.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rng.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_307) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rng.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_308) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rng.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rng.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_rng.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_rng.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_rng.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rng.c.i: cmake_force
@@ -4368,7 +4382,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rn
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rtc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rtc.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rtc.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rtc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_308) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rtc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_309) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rtc.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rtc.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_rtc.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_rtc.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_rtc.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rtc.c.i: cmake_force
@@ -4382,7 +4396,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rt
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_sdmmc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_sdmmc.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_sdmmc.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_sdmmc.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_309) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_sdmmc.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_310) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_sdmmc.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_sdmmc.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_sdmmc.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_sdmmc.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_sdmmc.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_sdmmc.c.i: cmake_force
@@ -4396,7 +4410,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_sd
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_spi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_spi.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_spi.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_spi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_310) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_spi.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_311) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_spi.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_spi.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_spi.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_spi.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_spi.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_spi.c.i: cmake_force
@@ -4410,7 +4424,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_sp
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_swpmi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_swpmi.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_swpmi.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_swpmi.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_311) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_swpmi.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_312) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_swpmi.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_swpmi.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_swpmi.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_swpmi.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_swpmi.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_swpmi.c.i: cmake_force
@@ -4424,7 +4438,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_sw
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_tim.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_tim.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_tim.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_tim.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_312) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_tim.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_313) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_tim.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_tim.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_tim.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_tim.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_tim.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_tim.c.i: cmake_force
@@ -4438,7 +4452,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_ti
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usart.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usart.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usart.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usart.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_313) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usart.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_314) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usart.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usart.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_usart.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_usart.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_usart.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usart.c.i: cmake_force
@@ -4452,7 +4466,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_us
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usb.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usb.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usb.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usb.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_314) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usb.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_315) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usb.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usb.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_usb.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_usb.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_usb.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usb.c.i: cmake_force
@@ -4466,7 +4480,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_us
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_utils.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_utils.c.obj: D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_utils.c
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_utils.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_315) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_utils.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_316) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_utils.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_utils.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_utils.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_utils.c.obj -c D:\Desktop\X7Pro_Driver\Drivers\STM32H7xx_HAL_Driver\Src\stm32h7xx_ll_utils.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_utils.c.i: cmake_force
@@ -4480,7 +4494,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_ut
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c.obj: D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_316) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_317) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.c.obj -c D:\Desktop\X7Pro_Driver\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c.i: cmake_force
@@ -4494,7 +4508,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RT
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/croutine.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/croutine.c.obj: D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/croutine.c
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/croutine.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_317) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/croutine.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_318) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/croutine.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/croutine.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\croutine.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\croutine.c.obj -c D:\Desktop\X7Pro_Driver\Middlewares\Third_Party\FreeRTOS\Source\croutine.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/croutine.c.i: cmake_force
@@ -4508,7 +4522,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/croutine
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c.obj: D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_318) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_319) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c.obj -c D:\Desktop\X7Pro_Driver\Middlewares\Third_Party\FreeRTOS\Source\event_groups.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c.i: cmake_force
@@ -4522,7 +4536,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/event_gr
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/list.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/list.c.obj: D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/list.c
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/list.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_319) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/list.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_320) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/list.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/list.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\list.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\list.c.obj -c D:\Desktop\X7Pro_Driver\Middlewares\Third_Party\FreeRTOS\Source\list.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/list.c.i: cmake_force
@@ -4536,7 +4550,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/list.c.s
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c.obj: D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_320) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_321) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM4F\port.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM4F\port.c.obj -c D:\Desktop\X7Pro_Driver\Middlewares\Third_Party\FreeRTOS\Source\portable\GCC\ARM_CM4F\port.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c.i: cmake_force
@@ -4550,7 +4564,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/portable
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c.obj: D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_321) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_322) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c.obj -c D:\Desktop\X7Pro_Driver\Middlewares\Third_Party\FreeRTOS\Source\portable\MemMang\heap_4.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c.i: cmake_force
@@ -4564,7 +4578,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/portable
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/queue.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/queue.c.obj: D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/queue.c
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/queue.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_322) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/queue.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_323) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/queue.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/queue.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\queue.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\queue.c.obj -c D:\Desktop\X7Pro_Driver\Middlewares\Third_Party\FreeRTOS\Source\queue.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/queue.c.i: cmake_force
@@ -4578,7 +4592,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/queue.c.
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c.obj: D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_323) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_324) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\stream_buffer.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\stream_buffer.c.obj -c D:\Desktop\X7Pro_Driver\Middlewares\Third_Party\FreeRTOS\Source\stream_buffer.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c.i: cmake_force
@@ -4592,7 +4606,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/stream_b
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/tasks.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/tasks.c.obj: D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/tasks.c
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/tasks.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_324) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/tasks.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_325) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/tasks.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/tasks.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\tasks.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\tasks.c.obj -c D:\Desktop\X7Pro_Driver\Middlewares\Third_Party\FreeRTOS\Source\tasks.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/tasks.c.i: cmake_force
@@ -4606,7 +4620,7 @@ CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/tasks.c.
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/timers.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/flags.make
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/timers.c.obj: D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/timers.c
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/timers.c.obj: CMakeFiles/X7Pro_Driver.elf.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_325) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/timers.c.obj"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_326) "Building C object CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/timers.c.obj"
 	C:\PROGRA~2\GNUARM~1\102021~1.10\bin\AR19DD~1.EXE $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/timers.c.obj -MF CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\timers.c.obj.d -o CMakeFiles\X7Pro_Driver.elf.dir\Middlewares\Third_Party\FreeRTOS\Source\timers.c.obj -c D:\Desktop\X7Pro_Driver\Middlewares\Third_Party\FreeRTOS\Source\timers.c
 
 CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRTOS/Source/timers.c.i: cmake_force
@@ -4791,6 +4805,7 @@ X7Pro_Driver_elf_OBJECTS = \
 "CMakeFiles/X7Pro_Driver.elf.dir/CODE/module/workqueue/work_queue.c.obj" \
 "CMakeFiles/X7Pro_Driver.elf.dir/CODE/module/workqueue/workqueue_manager.c.obj" \
 "CMakeFiles/X7Pro_Driver.elf.dir/CODE/protocol/ublox/ublox.c.obj" \
+"CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.obj" \
 "CMakeFiles/X7Pro_Driver.elf.dir/CODE/sys.c.obj" \
 "CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/kservice.c.obj" \
 "CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/object.c.obj" \
@@ -5120,6 +5135,7 @@ X7Pro_Driver.elf: CMakeFiles/X7Pro_Driver.elf.dir/CODE/module/utils/ringbuffer.c
 X7Pro_Driver.elf: CMakeFiles/X7Pro_Driver.elf.dir/CODE/module/workqueue/work_queue.c.obj
 X7Pro_Driver.elf: CMakeFiles/X7Pro_Driver.elf.dir/CODE/module/workqueue/workqueue_manager.c.obj
 X7Pro_Driver.elf: CMakeFiles/X7Pro_Driver.elf.dir/CODE/protocol/ublox/ublox.c.obj
+X7Pro_Driver.elf: CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.obj
 X7Pro_Driver.elf: CMakeFiles/X7Pro_Driver.elf.dir/CODE/sys.c.obj
 X7Pro_Driver.elf: CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/kservice.c.obj
 X7Pro_Driver.elf: CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/object.c.obj
@@ -5276,7 +5292,7 @@ X7Pro_Driver.elf: CMakeFiles/X7Pro_Driver.elf.dir/Middlewares/Third_Party/FreeRT
 X7Pro_Driver.elf: CMakeFiles/X7Pro_Driver.elf.dir/build.make
 X7Pro_Driver.elf: CMakeFiles/X7Pro_Driver.elf.dir/objects1.rsp
 X7Pro_Driver.elf: CMakeFiles/X7Pro_Driver.elf.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_326) "Linking C executable X7Pro_Driver.elf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw\CMakeFiles --progress-num=$(CMAKE_PROGRESS_327) "Linking C executable X7Pro_Driver.elf"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\X7Pro_Driver.elf.dir\link.txt --verbose=$(VERBOSE)
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Building D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/X7Pro_Driver.hex"
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold "Building D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/X7Pro_Driver.bin"
