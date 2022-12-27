@@ -1900,6 +1900,9 @@
 		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/protocol/ublox/ublox.h">
 			<Option target="X7Pro_Driver.elf"/>
 		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/rotate.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
 		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/rtconfig.h">
 			<Option target="X7Pro_Driver.elf"/>
 		</Unit>

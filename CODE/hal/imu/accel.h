@@ -14,6 +14,11 @@
 #define ACCEL_RANGE_8G  8
 #define ACCEL_RANGE_16G 16
 
+#define ACCEL_SCALE_8G                  (4096)
+#define ACCEL_SCALE_16G                 (2048)
+
+#define ONE_G                           (9.80665f)
+
 /* accel device bus type */
 #define ACCEL_SPI_BUS_TYPE 1
 #define ACCEL_I2C_BUS_TYPE 2

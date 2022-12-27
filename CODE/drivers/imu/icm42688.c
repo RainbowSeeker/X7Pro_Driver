@@ -14,8 +14,8 @@
 #include "nvic.h"
 
 static light_device_t spi_dev;
-static float gyro_range_scale = GYRO_SCALE_2000DPS;
-static float accel_range_scale = GYRO_SCALE_2000DPS;
+static float gyro_range_scale;
+static float accel_range_scale;
 
 #define ICM42688_BUF_SIZE   (12)
 struct double_buf
@@ -25,6 +25,12 @@ struct double_buf
 };
 
 static DMA_DATA struct double_buf icm42688_dma_data = {0};
+
+/* Re-implement this function to define customized rotation */
+__WEAK void icm42688_rotate_to_ned(float *val)
+{
+    /* do nothing */
+}
 
 static err_t gyro_read_raw(int16_t gyr[3])
 {
@@ -51,7 +57,7 @@ static err_t gyro_read_rad(float gyr[3])
     gyr[1] = gyro_range_scale * gyr_raw[1];
     gyr[2] = gyro_range_scale * gyr_raw[2];
     // change to NED coordinate
-
+    icm42688_rotate_to_ned(gyr);
 
     return E_OK;
 }
@@ -60,9 +66,7 @@ static err_t gyro_config(gyro_dev_t gyro, const struct gyro_configure *cfg)
 {
     ASSERT(cfg != NULL);
 
-//    ERROR_TRY(gyro_set_range(cfg->gyro_range_dps));
-//    ERROR_TRY(gyro_set_dlpf_filter(cfg->dlpf_freq_hz));
-
+    gyro_range_scale = (GYRO_SCALE_2000DPS * PI / 180.0f);
     gyro->config = *cfg;
 
     return E_OK;
@@ -102,7 +106,6 @@ static err_t accel_read_raw(int16_t acc[3])
 {
     OS_ENTER_CRITICAL();
 
-    // Invalidate the D cache covering the area into which data has been read
     int16_t *raw = (int16_t *)(&icm42688_dma_data.buf[!icm42688_dma_data.idx * ICM42688_BUF_SIZE]);
 
     // big-endian to little-endian
@@ -124,7 +127,7 @@ static err_t accel_read_m_s2(float acc[3])
     acc[1] = accel_range_scale * acc_raw[1];
     acc[2] = accel_range_scale * acc_raw[2];
     // change to NED coordinate
-
+    icm42688_rotate_to_ned(acc);
 
     return E_OK;
 }
@@ -133,9 +136,7 @@ static err_t accel_config(accel_dev_t accel, const struct accel_configure *cfg)
 {
     ASSERT(cfg != NULL);
 
-//    ERROR_TRY(accel_set_range(cfg->acc_range_g));
-//    ERROR_TRY(accel_set_dlpf_filter(cfg->dlpf_freq_hz));
-
+    accel_range_scale = (ONE_G / ACCEL_SCALE_16G);
     accel->config = *cfg;
 
     return E_OK;

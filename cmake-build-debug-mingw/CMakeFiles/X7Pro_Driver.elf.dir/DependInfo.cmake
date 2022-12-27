@@ -225,6 +225,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "D:/Desktop/X7Pro_Driver/CODE/module/workqueue/work_queue.c" "CMakeFiles/X7Pro_Driver.elf.dir/CODE/module/workqueue/work_queue.c.obj" "gcc" "CMakeFiles/X7Pro_Driver.elf.dir/CODE/module/workqueue/work_queue.c.obj.d"
   "D:/Desktop/X7Pro_Driver/CODE/module/workqueue/workqueue_manager.c" "CMakeFiles/X7Pro_Driver.elf.dir/CODE/module/workqueue/workqueue_manager.c.obj" "gcc" "CMakeFiles/X7Pro_Driver.elf.dir/CODE/module/workqueue/workqueue_manager.c.obj.d"
   "D:/Desktop/X7Pro_Driver/CODE/protocol/ublox/ublox.c" "CMakeFiles/X7Pro_Driver.elf.dir/CODE/protocol/ublox/ublox.c.obj" "gcc" "CMakeFiles/X7Pro_Driver.elf.dir/CODE/protocol/ublox/ublox.c.obj.d"
+  "D:/Desktop/X7Pro_Driver/CODE/rotate.c" "CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.obj" "gcc" "CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.obj.d"
   "D:/Desktop/X7Pro_Driver/CODE/sys.c" "CMakeFiles/X7Pro_Driver.elf.dir/CODE/sys.c.obj" "gcc" "CMakeFiles/X7Pro_Driver.elf.dir/CODE/sys.c.obj.d"
   "D:/Desktop/X7Pro_Driver/CODE/system/kservice.c" "CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/kservice.c.obj" "gcc" "CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/kservice.c.obj.d"
   "D:/Desktop/X7Pro_Driver/CODE/system/object.c" "CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/object.c.obj" "gcc" "CMakeFiles/X7Pro_Driver.elf.dir/CODE/system/object.c.obj.d"

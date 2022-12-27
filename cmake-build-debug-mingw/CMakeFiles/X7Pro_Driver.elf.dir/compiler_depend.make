@@ -21356,6 +21356,9 @@ CMakeFiles/X7Pro_Driver.elf.dir/CODE/protocol/ublox/ublox.c.obj: D:/Desktop/X7Pr
   D:/Desktop/X7Pro_Driver/CODE/rtconfig.h \
   D:/Desktop/X7Pro_Driver/CODE/protocol/ublox/ublox.h
 
+CMakeFiles/X7Pro_Driver.elf.dir/CODE/rotate.c.obj: D:/Desktop/X7Pro_Driver/CODE/rotate.c \
+  D:/Desktop/X7Pro_Driver/CODE/module/math/rotation.h
+
 CMakeFiles/X7Pro_Driver.elf.dir/CODE/sys.c.obj: D:/Desktop/X7Pro_Driver/CODE/sys.c \
   D:/Desktop/X7Pro_Driver/CODE/sys.h \
   C:/Program\ Files\ (x86)/GNU\ Arm\ Embedded\ Toolchain/10\ 2021.10/lib/gcc/arm-none-eabi/10.3.1/include/stdint.h \
@@ -31887,6 +31890,8 @@ D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavproxy_dev.h:
 D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_log_data.h:
 
 D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_log_entry.h:
+
+D:/Desktop/X7Pro_Driver/CODE/rotate.c:
 
 D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_log_erase.h:
 
