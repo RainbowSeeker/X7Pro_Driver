@@ -5,6 +5,12 @@
 #include "module/console/console.h"
 #include "module/utils/ringbuffer.h"
 
+#undef OS_ENTER_CRITICAL()
+#undef OS_EXIT_CRITICAL()
+
+#define OS_ENTER_CRITICAL() base_t level = os_hw_interrupt_disable()
+#define OS_EXIT_CRITICAL() os_hw_interrupt_enable(level)
+
 ringbuffer* ringbuffer_create(uint32_t size)
 {
     ringbuffer* rb = (ringbuffer*)malloc(sizeof(ringbuffer));
@@ -55,6 +61,8 @@ uint32_t ringbuffer_getlen(ringbuffer* rb)
     uint32_t len;
 
     OS_ENTER_CRITICAL();
+
+
     if (rb->head >= rb->tail)
         len = rb->head - rb->tail;
     else

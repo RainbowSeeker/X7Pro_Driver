@@ -308,7 +308,7 @@ static err_t imu_init(void)
 
 static err_t gyro_read_raw(int16_t gyr[3])
 {
-    OS_ENTER_CRITICAL;
+    OS_ENTER_CRITICAL();
 
     // Invalidate the D cache covering the area into which data has been read
     int16_t *raw = (int16_t *)(&icm20689_dma_data.buf[!icm20689_dma_data.idx * ICM20689_BUF_SIZE]);
@@ -319,7 +319,7 @@ static err_t gyro_read_raw(int16_t gyr[3])
     gyr[1] = int16_t_from_bytes((uint8_t *) &raw[5]);
     gyr[2] = int16_t_from_bytes((uint8_t *) &raw[6]);
 
-    OS_EXIT_CRITICAL;
+    OS_EXIT_CRITICAL();
     return E_OK;
 }
 
@@ -380,7 +380,7 @@ const static struct gyro_ops _gyro_ops = {
 
 static err_t accel_read_raw(int16_t acc[3])
 {
-    OS_ENTER_CRITICAL;
+    OS_ENTER_CRITICAL();
 
     // Invalidate the D cache covering the area into which data has been read
     int16_t *raw = (int16_t *)(&icm20689_dma_data.buf[!icm20689_dma_data.idx * ICM20689_BUF_SIZE]);
@@ -391,7 +391,7 @@ static err_t accel_read_raw(int16_t acc[3])
     acc[1] = int16_t_from_bytes((uint8_t *) &raw[1]);
     acc[2] = int16_t_from_bytes((uint8_t *) &raw[2]);
 
-    OS_EXIT_CRITICAL;
+    OS_EXIT_CRITICAL();
     return E_OK;
 }
 
@@ -478,8 +478,8 @@ static struct accel_device accel_dev = {
 err_t drv_icm20689_init(const char *gyro_device_name, const char *accel_device_name)
 {
     static struct spi_device spi_device;
-    static io_t cs = {GPIOE, GPIO_PIN_15};
-    static io_t exti = {.port = GPIOH, .pin = GPIO_PIN_5};
+    static io_tag cs = PE15;
+    static io_tag exti = PH5;
     io_init(cs, CS_CONFIG);
     ERROR_TRY(spi_bus_attach_device(&spi_device,
                                     "icm20689",

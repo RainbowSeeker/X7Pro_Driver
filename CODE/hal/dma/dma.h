@@ -43,18 +43,24 @@ enum dma_handler_e
 };
 
 #define DEFINE_DMA_STREAM(d, s, f) { \
-    .stream = DMA ## d ## _Stream ## s, \
+    .instance = DMA ## d,            \
+    .stream = LL_DMA_STREAM_ ## s,     \
+    .ref = DMA ## d ## _Stream ## s, \
     .channel = 0,               \
     .cb = NULL, \
-    .flag_shift = f, \
+    .flag_shift = f,                 \
+    .irqn = DMA ## d ## _Stream ## s ## _IRQn,                              \
     .user_data = 0 \
     }
 
 #define DEFINE_BDMA_STREAM(ch, f) { \
-    .stream = BDMA_Channel ## ch, \
+    .instance = BDMA,               \
+    .stream = LL_BDMA_CHANNEL_ ## ch,     \
+    .ref = BDMA_Channel ## ch, \
     .channel = 0, \
     .cb = NULL, \
-    .flag_shift = f, \
+    .flag_shift = f,                \
+    .irqn = BDMA_Channel ## ch ## _IRQn,               \
     .user_data = 0, \
     }
 
@@ -72,10 +78,13 @@ enum dma_handler_e
 
 struct dma_device
 {
-    struct light_device parent;
-    void *stream;
+    struct device parent;
+    void *const instance;
+    const uint32_t stream;
+    void *const ref;
     uint32_t channel;
-    uint8_t flag_shift;
+    const uint8_t flag_shift;
+    const IRQn_Type irqn;
 
     void (*cb)(uint32_t user_data);
     uint32_t user_data;

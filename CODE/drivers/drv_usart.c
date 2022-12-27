@@ -910,14 +910,14 @@
 //{
 //    struct stm32_uart* uart = (struct stm32_uart*)serial->parent.user_data;
 //
-//    if (serial->parent.open_flag & RT_DEVICE_FLAG_INT_RX) {
+//    if (serial->parent.open_flag & DEVICE_FLAG_INT_RX) {
 //        /* disable rx irq */
 //        //UART_DISABLE_IRQ(uart->irq);	/* we don't disable rx irq, since dma rx need it */
 //        /* disable interrupt */
 //        USART_ITConfig(uart->uart_device, USART_IT_RXNE, DISABLE);
 //    }
 //
-//    if (serial->parent.open_flag & RT_DEVICE_FLAG_DMA_RX) {
+//    if (serial->parent.open_flag & DEVICE_FLAG_DMA_RX) {
 //        DMA_ClearFlag(uart->dma.rx_stream, uart->dma.rx_flag);
 //        DMA_ITConfig(uart->dma.rx_stream, DMA_IT_TC, DISABLE);
 //        USART_ITConfig(uart->uart_device, USART_IT_IDLE, DISABLE);
@@ -925,7 +925,7 @@
 //        DMA_Cmd(uart->dma.rx_stream, DISABLE);
 //    }
 //
-//    if (serial->parent.open_flag & RT_DEVICE_FLAG_DMA_TX) {
+//    if (serial->parent.open_flag & DEVICE_FLAG_DMA_TX) {
 //        DMA_ClearFlag(uart->dma.tx_stream, uart->dma.tx_flag);
 //        DMA_ITConfig(uart->dma.tx_stream, DMA_IT_TC, DISABLE);
 //        USART_DMACmd(uart->uart_device, USART_DMAReq_Tx, DISABLE);
@@ -989,8 +989,8 @@
 //    uart = (struct stm32_uart*)serial->parent.user_data;
 //
 //    switch (cmd) {
-//    case RT_DEVICE_CTRL_CLR_INT:
-//        if (ctrl_arg == RT_DEVICE_FLAG_INT_RX) {
+//    case DEVICE_CTRL_CLR_INT:
+//        if (ctrl_arg == DEVICE_FLAG_INT_RX) {
 //            /* disable rx irq */
 //            UART_DISABLE_IRQ(uart->irq);
 //            /* disable interrupt */
@@ -999,8 +999,8 @@
 //
 //        break;
 //
-//    case RT_DEVICE_CTRL_SET_INT:
-//        if (ctrl_arg == RT_DEVICE_FLAG_INT_RX) {
+//    case DEVICE_CTRL_SET_INT:
+//        if (ctrl_arg == DEVICE_FLAG_INT_RX) {
 //            /* enable rx irq */
 //            UART_ENABLE_IRQ(uart->irq);
 //            /* enable interrupt */
@@ -1010,20 +1010,20 @@
 //        break;
 //
 //    /* USART DMA config */
-//    case RT_DEVICE_CTRL_CONFIG: {
-//        if (ctrl_arg == RT_DEVICE_FLAG_DMA_RX) {
+//    case DEVICE_CTRL_CONFIG: {
+//        if (ctrl_arg == DEVICE_FLAG_DMA_RX) {
 //            struct serial_rx_fifo* rx_fifo = (struct serial_rx_fifo*)serial->serial_rx;
 //
 //            _dma_rx_config(serial, rx_fifo->buffer, serial->config.bufsz);
 //        }
 //
-//        if (ctrl_arg == RT_DEVICE_FLAG_DMA_TX) {
+//        if (ctrl_arg == DEVICE_FLAG_DMA_TX) {
 //            _dma_tx_config(serial);
 //        }
 //    } break;
 //
 //    /* close device */
-//    case RT_DEVICE_CTRL_SUSPEND: {
+//    case DEVICE_CTRL_SUSPEND: {
 //        _close_usart(serial);
 //    }
 //    }
@@ -1087,9 +1087,9 @@
 //
 //err_t drv_usart_init(void)
 //{
-//    err_t rt_err = E_OK;
+//    err_t err = E_OK;
 //    struct serial_configure config = SERIAL_DEFAULT_CONFIG;
-//    uint32_t flag = RT_DEVICE_FLAG_RDWR | RT_DEVICE_FLAG_STANDALONE | RT_DEVICE_FLAG_INT_RX | RT_DEVICE_FLAG_DMA_RX | RT_DEVICE_FLAG_DMA_TX;
+//    uint32_t flag = DEVICE_FLAG_RDWR | DEVICE_FLAG_STANDALONE | DEVICE_FLAG_INT_RX | DEVICE_FLAG_DMA_RX | DEVICE_FLAG_DMA_TX;
 //
 //    RCC_Configuration();
 //    GPIO_Configuration();
@@ -1106,7 +1106,7 @@
 //    NVIC_Configuration(&uart1);
 //
 //    /* register UART1 device */
-//    rt_err |= hal_serial_register(&serial6,
+//    err |= hal_serial_register(&serial6,
 //                                  "serial6",
 //                                  flag,
 //                                  &uart1);
@@ -1124,7 +1124,7 @@
 //    NVIC_Configuration(&uart2);
 //
 //    /* register UART1 device */
-//    rt_err |= hal_serial_register(&serial1,
+//    err |= hal_serial_register(&serial1,
 //                                  "serial1",
 //                                  flag,
 //                                  &uart2);
@@ -1142,9 +1142,9 @@
 //    NVIC_Configuration(&uart3);
 //
 //    /* register UART3 device */
-//    rt_err |= hal_serial_register(&serial0,
+//    err |= hal_serial_register(&serial0,
 //                                  "serial0",
-//                                  RT_DEVICE_FLAG_RDWR | RT_DEVICE_FLAG_STANDALONE | RT_DEVICE_FLAG_INT_RX,
+//                                  DEVICE_FLAG_RDWR | DEVICE_FLAG_STANDALONE | DEVICE_FLAG_INT_RX,
 //                                  &uart3);
 //#endif /* USING_UART3 */
 //
@@ -1160,7 +1160,7 @@
 //    NVIC_Configuration(&uart4);
 //
 //    /* register UART4 device */
-//    rt_err |= hal_serial_register(&serial2,
+//    err |= hal_serial_register(&serial2,
 //                                  "serial2",
 //                                  flag,
 //                                  &uart4);
@@ -1178,7 +1178,7 @@
 //    NVIC_Configuration(&uart6);
 //
 //    /* register UART6 device */
-//    rt_err |= hal_serial_register(&serial5,
+//    err |= hal_serial_register(&serial5,
 //                                  "serial5",
 //                                  flag,
 //                                  &uart6);
@@ -1196,7 +1196,7 @@
 //    NVIC_Configuration(&uart7);
 //
 //    /* register UART6 device */
-//    rt_err |= hal_serial_register(&serial4,
+//    err |= hal_serial_register(&serial4,
 //                                  "serial4",
 //                                  flag,
 //                                  &uart7);
@@ -1214,12 +1214,12 @@
 //    NVIC_Configuration(&uart8);
 //
 //    /* register UART6 device */
-//    rt_err |= hal_serial_register(&serial3,
+//    err |= hal_serial_register(&serial3,
 //                                  "serial3",
-//                                  RT_DEVICE_FLAG_RDWR | RT_DEVICE_FLAG_STANDALONE | RT_DEVICE_FLAG_INT_RX,
+//                                  DEVICE_FLAG_RDWR | DEVICE_FLAG_STANDALONE | DEVICE_FLAG_INT_RX,
 //                                  &uart8);
 //#endif /* USING_UART8 */
 //
-//    return rt_err;
+//    return err;
 //}
 //// INIT_BOARD_EXPORT(usart_drv_init);

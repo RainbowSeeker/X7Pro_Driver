@@ -12,14 +12,14 @@
 pwm_t pwm[8];
 
 const timer_hw_t pwmHw[8] = {
-        {.tim = TIM5, .channel = LL_TIM_CHANNEL_CH1, .io = {.port = GPIOH, .pin = GPIO_PIN_10}, .output = TIMER_OUTPUT_NONE},
-        {.tim = TIM5, .channel = LL_TIM_CHANNEL_CH2, .io = {.port = GPIOH, .pin = GPIO_PIN_11}, .output = TIMER_OUTPUT_NONE},
-        {.tim = TIM5, .channel = LL_TIM_CHANNEL_CH3, .io = {.port = GPIOH, .pin = GPIO_PIN_12}, .output = TIMER_OUTPUT_NONE},
-        {.tim = TIM5, .channel = LL_TIM_CHANNEL_CH4, .io = {.port = GPIOI, .pin = GPIO_PIN_0 }, .output = TIMER_OUTPUT_NONE},
-        {.tim = TIM4, .channel = LL_TIM_CHANNEL_CH1, .io = {.port = GPIOD, .pin = GPIO_PIN_12}, .output = TIMER_OUTPUT_NONE},
-        {.tim = TIM4, .channel = LL_TIM_CHANNEL_CH2, .io = {.port = GPIOD, .pin = GPIO_PIN_13}, .output = TIMER_OUTPUT_NONE},
-        {.tim = TIM4, .channel = LL_TIM_CHANNEL_CH3, .io = {.port = GPIOD, .pin = GPIO_PIN_14}, .output = TIMER_OUTPUT_NONE},
-        {.tim = TIM4, .channel = LL_TIM_CHANNEL_CH4, .io = {.port = GPIOD, .pin = GPIO_PIN_15}, .output = TIMER_OUTPUT_NONE},
+        {.tim = TIM5, .channel = LL_TIM_CHANNEL_CH1, .io = PH10, .output = TIMER_OUTPUT_NONE},
+        {.tim = TIM5, .channel = LL_TIM_CHANNEL_CH2, .io = PH11, .output = TIMER_OUTPUT_NONE},
+        {.tim = TIM5, .channel = LL_TIM_CHANNEL_CH3, .io = PH12, .output = TIMER_OUTPUT_NONE},
+        {.tim = TIM5, .channel = LL_TIM_CHANNEL_CH4, .io = PI0, .output = TIMER_OUTPUT_NONE},
+        {.tim = TIM4, .channel = LL_TIM_CHANNEL_CH1, .io = PD12, .output = TIMER_OUTPUT_NONE},
+        {.tim = TIM4, .channel = LL_TIM_CHANNEL_CH2, .io = PD13, .output = TIMER_OUTPUT_NONE},
+        {.tim = TIM4, .channel = LL_TIM_CHANNEL_CH3, .io = PD14, .output = TIMER_OUTPUT_NONE},
+        {.tim = TIM4, .channel = LL_TIM_CHANNEL_CH4, .io = PD15, .output = TIMER_OUTPUT_NONE},
 };
 
 

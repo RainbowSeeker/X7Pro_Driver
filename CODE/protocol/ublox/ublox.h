@@ -74,14 +74,14 @@ extern "C" {
 /* TX CFG-PRT message contents */
 #define UBX_TX_CFG_PRT_PORTID       0x01       /**< UART1 */
 #define UBX_TX_CFG_PRT_MODE         0x000008D0 /**< 0b0000100011010000: 8N1 */
-#define UBX_TX_CFG_PRT_BAUDRATE     57600      /**< choose 38400 as GPS baudrate */
+#define UBX_TX_CFG_PRT_BAUDRATE     38400      /**< choose 38400 as GPS baudrate */
 #define UBX_TX_CFG_PRT_INPROTOMASK  0x01       /**< UBX in */
 #define UBX_TX_CFG_PRT_OUTPROTOMASK 0x01       /**< UBX out */
 
 /* TX CFG-RATE message contents */
-#define UBX_TX_CFG_RATE_MEASINTERVAL 100 /**< 100ms for 10Hz */
-#define UBX_TX_CFG_RATE_NAVRATE      1   /**< cannot be changed */
-#define UBX_TX_CFG_RATE_TIMEREF      0   /**< 0: UTC, 1: GPS time */
+#define UBX_TX_CFG_RATE_MEASINTERVAL 40      /**< 40ms for 25Hz */
+#define UBX_TX_CFG_RATE_NAVRATE      1       /**< cannot be changed */
+#define UBX_TX_CFG_RATE_TIMEREF      0       /**< 0: UTC, 1: GPS time */
 
 /* TX CFG-NAV5 message contents */
 #define UBX_TX_CFG_NAV5_MASK     0x0005 /**< Only update dynamic model and fix mode */

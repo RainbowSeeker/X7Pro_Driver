@@ -39,7 +39,7 @@ struct mag_configure {
 };
 
 struct mag_device {
-    struct light_device parent;
+    struct device parent;
     const struct mag_ops* ops;
     struct mag_configure config;
     uint8_t bus_type;

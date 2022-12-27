@@ -7,7 +7,7 @@
 #include "barometer.h"
 
 
-static size_t hal_baro_read(struct light_device* dev,
+static size_t hal_baro_read(struct device* dev,
                                off_t pos,
                                void* buffer,
                                size_t size)
@@ -27,7 +27,7 @@ static size_t hal_baro_read(struct light_device* dev,
     return rb;
 }
 
-static err_t hal_baro_control(struct light_device* dev,
+static err_t hal_baro_control(struct device* dev,
                                  int cmd,
                                  void* args)
 {
@@ -48,7 +48,7 @@ static err_t hal_baro_control(struct light_device* dev,
 err_t hal_baro_register(baro_dev_t baro, const char* name, uint32_t flag, void* data)
 {
     err_t ret;
-    struct light_device* device;
+    struct device* device;
 
     ASSERT(baro != NULL);
 

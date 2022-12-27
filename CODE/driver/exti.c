@@ -43,7 +43,7 @@ void EXTI_Init(void)
 //    memset(extiGroupPriority, 0xff, sizeof(extiGroupPriority));
 }
 
-void EXTI_Disable(io_t io)
+void EXTI_Disable(io_tag io)
 {
     uint32_t extiLine = IO_EXTI_Line(io);
 
@@ -55,7 +55,7 @@ void EXTI_Disable(io_t io)
     EXTI_REG_PR = extiLine;
 }
 
-void EXTI_Enable(io_t io)
+void EXTI_Enable(io_tag io)
 {
     uint32_t extiLine = IO_EXTI_Line(io);
 
@@ -67,7 +67,7 @@ void EXTI_Enable(io_t io)
 
 }
 
-void EXTI_Config(io_t io, exti_callback_rec_t *cb, int irqPriority, exti_trigger_t trigger)
+void EXTI_Config(io_tag io, exti_callback_rec_t *cb, int irqPriority, exti_trigger_t trigger)
 {
     int chIdx = io_pin_idx(io);
 

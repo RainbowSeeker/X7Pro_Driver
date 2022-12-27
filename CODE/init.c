@@ -8,7 +8,6 @@
 #include "dma.h"
 #include "bus_spi.h"
 #include "drivers/drv_uart.h"
-#include "cli/cli.h"
 #include "module/ipc/uMCN.h"
 
 #include "file_manager/file_manager.h"
@@ -20,9 +19,12 @@
 #include "drivers/imu/adis16470.h"
 #include "drivers/barometer/ms5611.h"
 #include "drivers/mag/rm3100.h"
-#include "drivers/gps/gps_m8n.h"
+#include "drivers/gps/gps_ubx.h"
 #include "sensor/sensor_hub.h"
 #include "shell.h"
+#include "mavproxy/mavproxy.h"
+#include "drv_usbd_cdc.h"
+
 
 static const struct dfs_mount_tbl mnt_table[] = {
         { "sd0", "/", "elm", 0, NULL },
@@ -32,8 +34,14 @@ static const struct dfs_mount_tbl mnt_table[] = {
 void bsp_early_init(void)
 {
     MX_GPIO_Init();
+    io_set(PD11, IO_HIGH);
+    io_init(PD11, CS_CONFIG);
 
-    EXTI_Init();
+    io_set(PH15, IO_HIGH);
+    io_init(PH15, CS_CONFIG);
+
+    io_set(PG0, IO_HIGH);
+    io_init(PG0, CS_CONFIG);
 
     /* usart driver init */
     SELF_CHECK(drv_uart_init());
@@ -57,17 +65,20 @@ void bsp_init(void)
 
     SELF_CHECK(param_init());
 
-    SELF_CHECK(drv_adis16470_init("gyro0", "accel0"));
+    /* init usbd_cdc */
+    SELF_CHECK(drv_usb_cdc_init());
 
-    SELF_CHECK(drv_icm42688_init("gyro1", "accel1"));
+    SELF_CHECK(drv_icm20689_init("gyro0", "accel0"));
 
-    SELF_CHECK(drv_icm20689_init("gyro2", "accel2"));
+    SELF_CHECK(drv_adis16470_init("gyro1", "accel1"));
+
+    SELF_CHECK(drv_icm42688_init("gyro2", "accel2"));
 
     SELF_CHECK(drv_ms5611_init("baro0"));
 
     SELF_CHECK(drv_rm3100_init("mag0"));
 
-//    SELF_CHECK(gps_m8n_init("serial1", "gps"));
+    SELF_CHECK(gps_ubx_init("serial2", "gps"));
 
     /* register sensor to sensor hub */
     SELF_CHECK(register_sensor_imu("gyro0", "accel0", 0));
@@ -80,4 +91,9 @@ void bsp_init(void)
 
     /* init finsh */
     finsh_system_init();
+
+    SELF_CHECK(mavproxy_init());
+
+    void bsp_post_init();
+    bsp_post_init();
 }

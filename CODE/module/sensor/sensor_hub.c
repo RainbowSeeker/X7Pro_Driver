@@ -133,8 +133,7 @@ static int echo_sensor_baro(void *param)
         return -1;
     }
 
-    LOG_I("timestamp:%u pressure:%d temperature:%f altitude:%f",
-           baro_report.timestamp_ms,
+    LOG_I("pressure:%d temperature:%f altitude:%f",
            baro_report.pressure_pa,
            baro_report.temperature_deg,
            baro_report.altitude_m);
@@ -154,8 +153,7 @@ static int echo_sensor_airspeed(void *param)
         return -1;
     }
 
-    LOG_I("timestamp:%u diff_pressure:%f temperature:%f",
-           airspeed_report.timestamp_ms,
+    LOG_I("diff_pressure:%f temperature:%f",
            airspeed_report.diff_pressure_pa,
            airspeed_report.temperature_deg);
 
@@ -429,19 +427,19 @@ static void imu_filter_init(uint8_t id)
     float B[4] = {0.0007, 0.0021, 0.0021, 0.0007};
     float A[4] = {1.0, -2.6236, 2.3147, -0.6855};
 
-//    butter3_gyr[id][0] = butter3_filter_create(B, A);
-//    butter3_gyr[id][1] = butter3_filter_create(B, A);
-//    butter3_gyr[id][2] = butter3_filter_create(B, A);
-//    ASSERT(butter3_gyr[id][0] != NULL);
-//    ASSERT(butter3_gyr[id][1] != NULL);
-//    ASSERT(butter3_gyr[id][2] != NULL);
-//
-//    butter3_acc[id][0] = butter3_filter_create(B, A);
-//    butter3_acc[id][1] = butter3_filter_create(B, A);
-//    butter3_acc[id][2] = butter3_filter_create(B, A);
-//    ASSERT(butter3_acc[id][0] != NULL);
-//    ASSERT(butter3_acc[id][1] != NULL);
-//    ASSERT(butter3_acc[id][2] != NULL);
+    butter3_gyr[id][0] = butter3_filter_create(B, A);
+    butter3_gyr[id][1] = butter3_filter_create(B, A);
+    butter3_gyr[id][2] = butter3_filter_create(B, A);
+    ASSERT(butter3_gyr[id][0] != NULL);
+    ASSERT(butter3_gyr[id][1] != NULL);
+    ASSERT(butter3_gyr[id][2] != NULL);
+
+    butter3_acc[id][0] = butter3_filter_create(B, A);
+    butter3_acc[id][1] = butter3_filter_create(B, A);
+    butter3_acc[id][2] = butter3_filter_create(B, A);
+    ASSERT(butter3_acc[id][0] != NULL);
+    ASSERT(butter3_acc[id][1] != NULL);
+    ASSERT(butter3_acc[id][2] != NULL);
 }
 
 static void mag_filter_init(uint8_t id)

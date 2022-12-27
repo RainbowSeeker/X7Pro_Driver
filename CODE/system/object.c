@@ -24,9 +24,7 @@ enum Object_info_type
 #ifdef USING_MAILBOX
     Object_Info_MailBox,                            /**< The object is a mail box. */
 #endif
-#ifdef USING_MESSAGEQUEUE
     Object_Info_MessageQueue,                       /**< The object is a message queue. */
-#endif
 #ifdef USING_MEMHEAP
     Object_Info_MemHeap,                            /**< The object is a memory heap */
 #endif
@@ -36,9 +34,7 @@ enum Object_info_type
 #ifdef USING_DEVICE
     Object_Info_Device,                             /**< The object is a device */
 #endif
-#ifdef USING_TIMER
     Object_Info_Timer,                              /**< The object is a timer. */
-#endif
 #ifdef USING_MODULE
     Object_Info_Module,                             /**< The object is a module. */
 #endif
@@ -67,10 +63,8 @@ static struct object_information object_container[Object_Info_Unknown] =
                 /* initialize object container - mailbox */
     {Object_Class_MailBox, _OBJ_CONTAINER_LIST_INIT(Object_Info_MailBox), sizeof(struct mailbox)},
 #endif
-#ifdef USING_MESSAGEQUEUE
                 /* initialize object container - message queue */
     {Object_Class_MessageQueue, _OBJ_CONTAINER_LIST_INIT(Object_Info_MessageQueue), sizeof(struct messagequeue)},
-#endif
 #ifdef USING_MEMHEAP
                 /* initialize object container - memory heap */
     {Object_Class_MemHeap, _OBJ_CONTAINER_LIST_INIT(Object_Info_MemHeap), sizeof(struct memheap)},
@@ -81,12 +75,10 @@ static struct object_information object_container[Object_Info_Unknown] =
 #endif
 #ifdef USING_DEVICE
                 /* initialize object container - device */
-    {Object_Class_Device, _OBJ_CONTAINER_LIST_INIT(Object_Info_Device), sizeof(struct light_device)},
+    {Object_Class_Device, _OBJ_CONTAINER_LIST_INIT(Object_Info_Device), sizeof(struct device)},
 #endif
-#ifdef USING_TIMER
                 /* initialize object container - timer */
                 {Object_Class_Timer, _OBJ_CONTAINER_LIST_INIT(Object_Info_Timer), sizeof(struct timer)},
-#endif
 #ifdef USING_MODULE
                 /* initialize object container - module */
     {Object_Class_Module, _OBJ_CONTAINER_LIST_INIT(Object_Info_Module), sizeof(struct dlmodule)},

@@ -68,9 +68,10 @@ static err_t write_cmd(uint8_t cmd)
 {
     size_t w_byte;
 
-    w_byte = light_device_write(spi_dev, 0, &cmd, sizeof(cmd));
-
-    return w_byte == sizeof(cmd) ? E_OK : E_RROR;
+//    w_byte = light_device_write(spi_dev, 0, &cmd, sizeof(cmd));
+//
+//    return w_byte == sizeof(cmd) ? E_OK : E_RROR;
+    return spi_write_reg8(spi_dev, cmd, 1);
 }
 
 static err_t read_adc(uint32_t* buff)
@@ -256,16 +257,22 @@ static void ms5611_measure(void* parameter)
 
 static err_t lowlevel_init(void)
 {
+    uint8_t retry = 0;
     ERROR_TRY(light_device_open(spi_dev, DEVICE_OFLAG_RDWR));
 
-    /* reset first */
-    ERROR_TRY(write_cmd(ADDR_RESET_CMD));
 
-    /* device need 2.8ms reload time */
-    systime_mdelay(10);
+    do {
+        /* reset first */
+        ERROR_TRY(write_cmd(ADDR_RESET_CMD));
 
-    /* load prom */
-    ERROR_TRY(load_prom());
+        /* device need 2.8ms reload time */
+        systime_mdelay(10);
+    } while (load_prom() != E_OK && ++retry < 20);  /* load prom */
+
+    if(retry >= 20)
+    {
+        DRV_DBG("\nms5611 load_prom error!\n");
+    }
 
     _raw_temperature = _raw_pressure = 0;
     _updated = 0;
@@ -329,11 +336,11 @@ err_t drv_ms5611_init(const char* baro_device_name)
 {
     /* Initialize baro */
     static struct spi_device spi_device;
-    static io_t cs = {GPIOG, GPIO_PIN_10};
+    static io_tag cs = PI8;
     io_init(cs, CS_CONFIG);
     ERROR_TRY(spi_bus_attach_device(&spi_device,
                                     "ms5611",
-                                    "spi4",
+                                    "spi6",
                                     (void *) &cs));
 
     /* config spi */

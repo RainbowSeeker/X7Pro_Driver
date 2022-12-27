@@ -855,20 +855,20 @@ int chdir(const char *path)
         return -1; /* build path failed */
     }
 
-    dfs_lock();
+//    dfs_lock();
     d = opendir(fullpath);
     if (d == NULL)
     {
         free(fullpath);
         /* this is a not exist directory */
-        dfs_unlock();
+//        dfs_unlock();
 
         return -1;
     }
 
     /* close directory stream */
     closedir(d);
-
+    dfs_lock();
     /* copy full path to working directory */
     strncpy(working_directory, fullpath, DFS_PATH_MAX);
     /* release normalize directory path name */

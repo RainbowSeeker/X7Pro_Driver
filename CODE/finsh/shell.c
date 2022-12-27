@@ -572,7 +572,7 @@ void finsh_thread_entry(void *parameter)
 #endif
     extern void show_version();
     show_version();
-     printf(FINSH_PROMPT);
+    printf(FINSH_PROMPT);
 
     while (1)
     {
@@ -919,7 +919,6 @@ int finsh_system_init(void)
         os_thread_startup(tid);
     return 0;
 }
-//INIT_APP_EXPORT(finsh_system_init);
 
 #endif /* RT_USING_FINSH */
 

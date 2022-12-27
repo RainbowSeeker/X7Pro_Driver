@@ -101,7 +101,7 @@ static int poll_wait_timeout(struct rt_poll_table *pt, int msec)
             rt_timer_control(&(thread->thread_timer),
                              RT_TIMER_CTRL_SET_TIME,
                              &timeout);
-            rt_timer_start(&(thread->thread_timer));
+            os_timer_start(&(thread->thread_timer));
         }
 
         rt_os_hw_interrupt_enable(level);

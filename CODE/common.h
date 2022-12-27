@@ -13,15 +13,21 @@
 #include "system/cache.h"
 #include "utils/list.h"
 #include "module_common.h"
+#include "components/components.h"
 #include "finsh_api.h"
 #include <rtconfig.h>
+#include "stm32h7xx_hal.h"
+
 /* HIL simulation */
 // #define FMT_USING_HIL
 /* SIH simulation */
 //#define FMT_USING_SIH
 
+/* Mavlink */
+#define FMT_USING_MAVLINK_V2
+
 /* MLog */
-#define MLOG_BUFFER_SIZE         (220 * 1024)
+#define MLOG_BUFFER_SIZE         (22 * 1024)
 #define MLOG_SECTOR_SIZE         (4096)
 #define MLOG_MAX_SECTOR_TO_WRITE 5
 

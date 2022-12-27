@@ -1,0 +1,73 @@
+
+#ifndef RC_H__
+#define RC_H__
+
+#include <common.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define MAX_SBUS_RC_CHANNEL_NUM 16
+#define MAX_PPM_RC_CHANNEL_NUM  8
+
+#define RC_PROTOCOL_SBUS 1
+#define RC_PROTOCOL_PPM  2
+
+#define RC_MASK_1  0x0001
+#define RC_MASK_2  0x0002
+#define RC_MASK_3  0x0004
+#define RC_MASK_4  0x0008
+#define RC_MASK_5  0x0010
+#define RC_MASK_6  0x0020
+#define RC_MASK_7  0x0040
+#define RC_MASK_8  0x0080
+#define RC_MASK_9  0x0100
+#define RC_MASK_10 0x0200
+#define RC_MASK_11 0x0400
+#define RC_MASK_12 0x0800
+#define RC_MASK_13 0x1000
+#define RC_MASK_14 0x2000
+#define RC_MASK_15 0x4000
+#define RC_MASK_16 0x8000
+
+#define RC_MASK_1_2  0x0003
+#define RC_MASK_1_4  0x000F
+#define RC_MASK_1_6  0x003F
+#define RC_MASK_1_8  0x00FF
+#define RC_MASK_1_10 0x03FF
+#define RC_MASK_1_12 0x0FFF
+#define RC_MASK_1_14 0x3FFF
+#define RC_MASK_ALL  0xFFFF
+
+#define RC_CMD_CHECK_UPDATE 0x20
+
+struct rc_configure {
+    uint16_t protocol;
+    uint16_t channel_num;
+    float sample_time;
+    int16_t rc_min_value;
+    int16_t rc_max_value;
+};
+
+struct rc_device {
+    struct device parent;
+    const struct rc_ops* ops;
+    struct rc_configure config;
+};
+typedef struct rc_device* rc_dev_t;
+
+struct rc_ops {
+    err_t (*rc_configure)(rc_dev_t rc, struct rc_configure* cfg);
+    err_t (*rc_control)(rc_dev_t rc, int cmd, void* arg);
+    uint16_t (*rc_read)(rc_dev_t rc, uint16_t chan_mask, uint16_t* chan_val);
+};
+
+err_t hal_rc_register(rc_dev_t rc, const char* name, uint32_t flag, void* data);
+err_t hal_rc_rx_ind(rc_dev_t rc, size_t size);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

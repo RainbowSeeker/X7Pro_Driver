@@ -30,11 +30,11 @@ void _uartx ## _IRQHandler(void)                  \
     }
 
 
-#define SERIAL_DEFINE(_devid, _uartx)         \
+#define SERIAL_DEFINE(_devid, _uartx, _rate)         \
 static struct serial_device serial ## _devid =                                  \
         {.ops = &_usart_ops,                                                    \
         .config.instance = _uartx,                                      \
-        .config.baud_rate =             \
+        .config.baud_rate =  BAUD_RATE_ ## _rate,          \
         SERIAL_DEFAULT_CONFIG                                                              \
         };                                                                      \
 void _uartx ## _IRQHandler(void)                  \

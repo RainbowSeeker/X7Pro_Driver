@@ -72,7 +72,7 @@ struct spi_configuration
 struct spi_ops;
 struct spi_bus
 {
-    struct light_device parent;
+    struct device parent;
     const struct spi_ops *ops;
     os_mutex_t lock;
     struct spi_device *owner;
@@ -91,7 +91,7 @@ struct spi_ops
  */
 struct spi_device
 {
-    struct light_device parent;
+    struct device parent;
     struct spi_bus *bus;
     struct spi_configuration config;
 };

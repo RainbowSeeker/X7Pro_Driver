@@ -861,7 +861,7 @@ err_t register_param_modify_callback(void (*on_modify)(param_t *param))
         return E_NOMEM;
     }
 
-    INIT_LIST_HEAD(&node->link);
+    list_init(&node->link);
     node->on_modify = on_modify;
 
     list_add_tail(&node->link, &__cb_list_head);

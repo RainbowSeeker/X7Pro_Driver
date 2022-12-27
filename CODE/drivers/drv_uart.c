@@ -32,8 +32,10 @@ static void uart_enable_clock(USART_TypeDef *instance)
     }
     HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
 
+
     if (instance == UART7) __HAL_RCC_UART7_CLK_ENABLE();
     else if(instance == USART1) __HAL_RCC_USART1_CLK_ENABLE();
+    else if(instance == USART2) __HAL_RCC_USART2_CLK_ENABLE();
     else ASSERT(0); // not support yet.
 }
 
@@ -41,17 +43,17 @@ static void uart_gpio_init(USART_TypeDef *instance)
 {
     if (instance == UART7)
     {
-        io_t tx = {GPIOE, GPIO_PIN_8};
-        io_t rx = {GPIOF, GPIO_PIN_6};
-        io_init(rx, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_LOW, GPIO_AF7_UART7);
-        io_init(tx, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_LOW, GPIO_AF7_UART7);
+        io_init(PF6, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_LOW, GPIO_AF7_UART7);
+        io_init(PE8, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_LOW, GPIO_AF7_UART7);
     }
     else if (instance == USART1)
     {
-        io_t tx = {GPIOB, GPIO_PIN_6};
-        io_t rx = {GPIOB, GPIO_PIN_7};
-        io_init(rx, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_LOW, GPIO_AF4_USART1);
-        io_init(tx, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_LOW, GPIO_AF4_USART1);
+        /**USART1 GPIO Configuration
+        PB6     ------> USART1_TX
+        PB7     ------> USART1_RX
+        */
+        io_init(PB7, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_LOW, GPIO_AF7_USART1);
+        io_init(PB6, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_LOW, GPIO_AF7_USART1);
     }
     else ASSERT(0); // not support yet.
 }
@@ -591,10 +593,10 @@ static const struct uart_ops _usart_ops = {
 };
 
 
-SERIAL_DEFINE(0, UART7 );   //debug uart
-SERIAL_DEFINE(1, USART1);   //gps1
-SERIAL_DEFINE(2, USART2);   //telem1
-SERIAL_DEFINE(3, UART8 );   //sbus ppm
+SERIAL_DEFINE(0, UART7 , 115200);   //debug uart
+SERIAL_DEFINE(1, USART2, 115200);   //telem1
+SERIAL_DEFINE(2, USART1, 38400 );   //gps1
+SERIAL_DEFINE(3, UART8 , 115200);   //sbus ppm
 
 err_t drv_uart_init()
 {
@@ -605,11 +607,18 @@ err_t drv_uart_init()
                                NULL));
 #endif
 
-#ifdef USE_UART1
+#ifdef USE_UART2
     ERROR_TRY(hal_serial_register(&serial1,
                                "serial1",
                                DEVICE_FLAG_RDWR | DEVICE_FLAG_STANDALONE | DEVICE_FLAG_INT_RX,
                                NULL));
+#endif
+
+#ifdef USE_UART1
+    ERROR_TRY(hal_serial_register(&serial2,
+                                  "serial2",
+                                  DEVICE_FLAG_RDWR | DEVICE_FLAG_STANDALONE | DEVICE_FLAG_INT_RX,
+                                  NULL));
 #endif
     return E_OK;
 }

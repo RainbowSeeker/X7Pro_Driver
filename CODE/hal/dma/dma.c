@@ -11,7 +11,7 @@
 err_t hal_dma_register(struct dma_device * dma, const char *name, uint32_t flag)
 {
     err_t ret;
-    struct light_device *device;
+    struct device *device;
 
     ASSERT(dma != NULL);
     ASSERT((flag & DEVICE_FLAG_RDWR) != DEVICE_FLAG_RDWR);

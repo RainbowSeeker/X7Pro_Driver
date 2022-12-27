@@ -38,10 +38,20 @@
 #define MALLOC                  pvPortMalloc
 #define FREE                    vPortFree
 
+struct timer
+{
+    struct object parent;
+    osTimerId tid;     //freertos timer ptr
+    tick_t period;
+};
+typedef struct timer *os_timer_t;
+
 struct thread
 {
     struct object parent;
     osThreadId tid;     //freertos thread ptr
+    list_t      tlist;                                  /**< the thread list */
+
     uint32_t    stack_size;                             /**< stack size */
     uint32_t    max_used;
     uint32_t    occupy;
@@ -49,11 +59,23 @@ struct thread
     err_t       error;
     uint8_t     stat;
     uint8_t     priority;
+    os_timer_t  thread_timer;
 };
 typedef struct thread *os_thread_t;
+
+struct messagequeue
+{
+    struct object parent;
+    osMessageQId qid;
+    size_t msg_size;
+    size_t max_msgs;
+};
+typedef struct messagequeue *os_mq_t;
+
 typedef osMutexId os_mutex_t;
 typedef osMessageQId os_event_t;
 typedef osSemaphoreId os_sem_t;
+
 
 /* ---------------------os common function---------------------------*/
 /**
@@ -109,6 +131,16 @@ static inline void os_hw_interrupt_enable(base_t x)
 static inline uint8_t os_interrupt_get_nest(void)
 {
     return __get_IPSR();
+}
+
+static inline void os_interrupt_enter(void)
+{
+
+}
+
+static inline void os_interrupt_leave(void)
+{
+
 }
 
 /* ---------------------os thread function---------------------------*/
@@ -187,6 +219,27 @@ err_t os_thread_delete(os_thread_t thread);
 err_t os_thread_startup(os_thread_t thread);
 
 /**
+ * os_thread_resume
+ * @param thread
+ * @return
+ */
+err_t os_thread_resume(os_thread_t thread);
+
+/**
+ * os_thread_suspend
+ * @param thread_id
+ * @return
+ */
+err_t os_thread_suspend(os_thread_t thread);
+
+/**
+ * os_schedule
+ * @return
+ */
+err_t os_schedule(void);
+
+void os_thread_timeout(void *parameter);
+/**
  * os_thread_self
  * @return
  */
@@ -196,34 +249,50 @@ os_thread_t os_thread_self(void);
  * os_thread_update_info_all
  */
 void os_thread_update_info_all(void);
+
+/* ---------------------os timer function---------------------------*/
+#define TIMER_TYPE_ONE_SHOT         0
+#define TIMER_TYPE_PERIODIC         1
+
 /**
- * os_thread_suspend
- * @param thread_id
+ * This function will initialize a timer, normally this function is used to
+ * initialize a static timer object.
+ *
+ * @param timer the static timer object
+ * @param name the name of timer
+ * @param timeout the timeout function
+ * @param parameter the parameter of timeout function
+ * @param period the tick of timer
+ * @param type the type of timer
+ */
+os_timer_t os_timer_create(const char *name,
+                                 void (*timeout)(void *),
+                                 void *parameter,
+                                 tick_t period,
+                                 uint8_t type);
+
+static inline void *os_timer_get_parameter(void *parameter)
+{
+    return pvTimerGetTimerID((TimerHandle_t)parameter);
+}
+/**
+ * os_timer_start
+ * @param timer
  * @return
  */
-static inline err_t os_thread_suspend(os_thread_t thread)
+static inline err_t os_timer_start(os_timer_t timer)
 {
-    if (thread == NULL) return E_EMPTY;
-    return osThreadSuspend(thread->tid);
+    return osTimerStart(timer->tid, timer->period);
 }
 
 /**
- * os_thread_resume
- * @param thread_id
+ * os_timer_stop
+ * @param timer
  * @return
  */
-static inline err_t os_thread_resume(os_thread_t thread)
+static inline err_t os_timer_stop(os_timer_t timer)
 {
-    if (thread == NULL) return E_EMPTY;
-    return osThreadResume(thread->tid);
-}
-
-static inline err_t os_schedule(void)
-{
-    //Freertos could yield when thread create, suspend or resume.
-    //So it's no need to yield after that.
-    return E_OK;
-//    return osThreadYield();
+    return osTimerStop(timer->tid);
 }
 
 /* ---------------------os semaphore function---------------------------*/
@@ -383,11 +452,86 @@ static inline err_t os_event_recv(os_event_t event, uint32_t timeout, uint32_t *
     }
 }
 
+/* ---------------------os mq function---------------------------*/
+/**
+ * This function will create a message queue object from system resource
+ *
+ * @param name the name of message queue
+ * @param msg_size the size of message
+ * @param max_msgs the maximum number of message in queue
+ * @return the created message queue, NULL on error happen
+ */
+static inline os_mq_t os_mq_create(const char *name,
+                     size_t   msg_size,
+                     size_t   max_msgs)
+{
+    os_mq_t mq = (os_mq_t ) malloc(sizeof(struct messagequeue));
+
+    object_init(&mq->parent, Object_Class_MessageQueue, name);
+    mq->msg_size = msg_size;
+    mq->max_msgs = max_msgs;
+    mq->qid =  xQueueCreate(max_msgs, msg_size);
+    return mq;
+}
+
+/**
+ * os_mq_send
+ * @param mq
+ * @param buffer
+ * @param size
+ * @return
+ */
+static inline err_t os_mq_send(os_mq_t mq, const void *buffer, size_t size)
+{
+    err_t err = E_OK;
+    ASSERT(mq);
+    ASSERT(size <= mq->msg_size);
+
+    void *buf_to;
+    if (size != mq->msg_size)
+    {
+        buf_to = malloc(size);
+        memcpy(buf_to, buffer, size);
+    }
+    else
+    {
+        buf_to = (void *)buffer;
+    }
+
+    long taskWoken = pdFALSE;
+    if (os_interrupt_get_nest()) {
+        if (xQueueSendFromISR(mq->qid, buf_to, &taskWoken) != pdTRUE) {
+            err = E_RROR;
+        } else{
+            portEND_SWITCHING_ISR(taskWoken);
+        }
+    }
+    else {
+        if (xQueueSend(mq->qid, buf_to, 0) != pdTRUE) {
+            err = E_RROR;
+        }
+    }
+    if (size != mq->msg_size) free(buf_to);
+    return err;
+}
 
 
+static inline err_t os_mq_recv(os_mq_t mq, void *buffer, size_t size, uint32_t timeout)
+{
+    osEvent recv = osMessageGet(mq->qid, timeout);
+    switch (recv.status)
+    {
+        case osEventMessage:
+            memcpy(buffer, &recv.value.v, size);
+            return E_OK;
+        case osEventTimeout:
+            return E_TIMEOUT;
+        default:
+            return E_RROR;
+    }
+}
 
 
 err_t os_get_errno(void);
 void os_set_errno(err_t error);
-char *os_strdup(const char *s);
 #endif //X7PRO_DRIVER_OS_DEF_H

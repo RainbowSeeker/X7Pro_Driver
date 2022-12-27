@@ -157,7 +157,7 @@ err_t hal_sd_control(light_device_t dev, int cmd, void *args)
 err_t hal_sd_register(sd_dev_t sd, const char *name, uint32_t flag, void *data)
 {
     err_t ret;
-    struct light_device *device;
+    struct device *device;
 
     ASSERT(sd != NULL);
 

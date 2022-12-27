@@ -71,7 +71,7 @@ DEFINE_EXTI_IRQ_HANDLER(EXTI9_5_IRQHandler, 0x03e0);
 DEFINE_EXTI_IRQ_HANDLER(EXTI15_10_IRQHandler, 0xfc00);
 
 
-void exti_init(io_t io, exti_cb_t cb, uint32_t user_data, int priority, exti_trigger trigger)
+void exti_init(io_tag io, exti_cb_t cb, uint32_t user_data, int priority, exti_trigger trigger)
 {
     int io_idx = io_pin_idx(io);
 
@@ -82,11 +82,11 @@ void exti_init(io_t io, exti_cb_t cb, uint32_t user_data, int priority, exti_tri
     exti_cb_table[io_idx].user_data = user_data;
 
     exti_disable(io);
-    io_init(io, (MODE_INPUT | EXTI_IT | trigger_lookup_table[trigger]), GPIO_NOPULL, GPIO_SPEED_FREQ_LOW, 0);
+    io_init(io, trigger_lookup_table[trigger], GPIO_NOPULL, GPIO_SPEED_FREQ_LOW, 0);
     HAL_NVIC_SetPriority(exti_irqn_table[exti_groups[io_idx]], priority, 0);
 }
 
-void exti_enable(io_t io)
+void exti_enable(io_tag io)
 {
     int io_idx = io_pin_idx(io);
     uint32_t extiLine = 1 << io_idx;
@@ -94,12 +94,12 @@ void exti_enable(io_t io)
     if (io_idx < 0 || !extiLine)
         return;
 
-    HAL_NVIC_EnableIRQ(exti_irqn_table[exti_groups[io_idx]]);
 
+    HAL_NVIC_EnableIRQ(exti_irqn_table[exti_groups[io_idx]]);
     EXTI_REG_IMR |= extiLine;
 }
 
-void exti_disable(io_t io)
+void exti_disable(io_tag io)
 {
     int io_idx = io_pin_idx(io);
     uint32_t extiLine = 1 << io_idx;

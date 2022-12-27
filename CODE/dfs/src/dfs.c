@@ -96,9 +96,9 @@ int dfs_init(void)
  */
 void dfs_lock(void)
 {
-    err_t result = E_BUSY;
+    err_t result = -EBUSY;
 
-    while (result == E_BUSY)
+    while (result == -EBUSY)
     {
         result = os_mutex_take(fslock, osWaitForever);
     }

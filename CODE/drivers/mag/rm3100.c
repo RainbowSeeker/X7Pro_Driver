@@ -54,14 +54,14 @@ static void exti_handler()
 
 static err_t mag_measure(float mag[3])
 {
-    OS_ENTER_CRITICAL;
+    OS_ENTER_CRITICAL();
 
     uint8_t *raw = &rm3100_dma_data.buf[!rm3100_dma_data.idx * RM3100_BUF_SIZE];
     for (uint8_t i = 0; i < 3; ++i)
     {
         mag[i] = (float )(((raw[3 * i]<<24)|(raw[3 * i + 1]<<16)|raw[3 * i + 2]<<8)>>8) * RM3100_SCALE;
     }
-    OS_EXIT_CRITICAL;
+    OS_EXIT_CRITICAL();
 
     return E_OK;
 }
@@ -126,7 +126,7 @@ static err_t _modify_TMRC(light_device_t device, uint8_t rate)
  */
 static err_t _modify_CCM(light_device_t device)
 {
-    while (_modify_reg(spi_dev, RM3100_CMM, 0x71));
+    while (_modify_reg(device, RM3100_CMM, 0x79) != E_OK);
     return E_OK;
 }
 
@@ -163,8 +163,9 @@ err_t drv_rm3100_init(const char* mag_device_name)
 {
     /* Initialize mag */
     static struct spi_device spi_device;
-    static io_t cs = {GPIOF, GPIO_PIN_2};
-    static io_t exti = {.port = GPIOE, .pin = GPIO_PIN_4};
+    static io_tag cs = PF2;
+    static io_tag exti = PE4;
+    io_set(cs, IO_HIGH);
     io_init(cs, CS_CONFIG);
     ERROR_TRY(spi_bus_attach_device(&spi_device,
                                     "rm3100",

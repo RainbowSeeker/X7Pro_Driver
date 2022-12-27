@@ -56,7 +56,7 @@ typedef struct {
 } gps_report_t;
 
 struct gps_device {
-    struct light_device parent;
+    struct device parent;
     const struct gps_ops* ops;
 };
 typedef struct gps_device* gps_dev_t;

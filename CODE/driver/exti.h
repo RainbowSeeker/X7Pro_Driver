@@ -23,7 +23,7 @@ struct exti_callback_rec_s {
 };
 
 void EXTI_Init(void);
-void EXTI_Disable(io_t io);
-void EXTI_Enable(io_t io);
-void EXTI_Config(io_t io, exti_callback_rec_t *cb, int irqPriority, exti_trigger_t trigger);
+void EXTI_Disable(io_tag io);
+void EXTI_Enable(io_tag io);
+void EXTI_Config(io_tag io, exti_callback_rec_t *cb, int irqPriority, exti_trigger_t trigger);
 #endif //X7PRO_DRIVER_EXTI_H

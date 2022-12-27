@@ -72,16 +72,10 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define ICM42688P_CS_Pin GPIO_PIN_15
-#define ICM42688P_CS_GPIO_Port GPIOA
 #define SENSORS_SW_Pin GPIO_PIN_3
 #define SENSORS_SW_GPIO_Port GPIOE
 #define SDEN_Pin GPIO_PIN_7
 #define SDEN_GPIO_Port GPIOG
-#define RM3100_Pin GPIO_PIN_2
-#define RM3100_GPIO_Port GPIOF
-#define ADI_CS_Pin GPIO_PIN_10
-#define ADI_CS_GPIO_Port GPIOF
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

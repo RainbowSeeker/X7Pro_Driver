@@ -70,7 +70,6 @@
 
 /* Default config for serial_configure structure */
 #define SERIAL_DEFAULT_CONFIG                     \
-            BAUD_RATE_115200,/* 460800 bits/s */  \
             DATA_BITS_8,     /* 8 databits */     \
             STOP_BITS_1,     /* 1 stopbit */      \
             PARITY_NONE,     /* No parity  */     \
@@ -115,7 +114,7 @@ struct serial_configure {
 };
 
 struct serial_device {
-    struct light_device parent;
+    struct device parent;
 
     const struct uart_ops {
         err_t (*configure)(struct serial_device* serial, struct serial_configure* cfg);
