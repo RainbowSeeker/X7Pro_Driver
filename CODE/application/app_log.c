@@ -7,6 +7,7 @@
 #include "module_common.h"
 #include "module/file_manager/file_manager.h"
 #include "sys.h"
+#include "logger.h"
 
 #define LOG_TAG    "Logger"
 #include <ulog.h>
@@ -72,28 +73,6 @@ static void ulog_update_cb(void)
     os_event_send(_log_event, EVENT_ULOG_UPDATE);
 }
 
-err_t logger_start_mlog(char *path)
-{
-    char log_name[100];
-    char file_name[50];
-    static uint8_t mlog_id = 0;
-
-    if (path)
-    {
-        /* if a valid path is provided, use it for mlog */
-        return mlog_start(path);
-    }
-
-    if (current_log_session(log_name) != E_OK)
-    {
-        printf("no available log session\n");
-        return E_RROR;
-    }
-    sprintf(file_name, "/mlog%d.bin", ++mlog_id);
-    strcat(log_name, file_name);
-
-    return mlog_start(log_name);
-}
 
 void App_Log_Main(void *argument)
 {
@@ -128,7 +107,7 @@ void App_Log_Main(void *argument)
     ulog_backend_register(&fs, "filesystem", FALSE);
 #endif
 
-//    if (PARAM_GET_INT32(SYSTEM, MLOG_MODE) == 2 || PARAM_GET_INT32(SYSTEM, MLOG_MODE) == 3)
+    if (PARAM_GET_INT32(SYSTEM, MLOG_MODE) == 2 || PARAM_GET_INT32(SYSTEM, MLOG_MODE) == 3)
     {
         logger_start_mlog(NULL);
     }

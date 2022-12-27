@@ -11,7 +11,6 @@
 #include "module/param/param.h"
 #include "module/system/statistic.h"
 #include "module/system/systime.h"
-#include "module/light_device/light_device.h"
 
 
 #endif

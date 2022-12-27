@@ -20,7 +20,7 @@ typedef struct
     TIM_TypeDef *tim;
     uint32_t channel;
     uint8_t output;
-    io_t io;
+    io_tag io;
 
 }timer_hw_t;
 

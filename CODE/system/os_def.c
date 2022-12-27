@@ -6,7 +6,6 @@
 
 #include "os_def.h"
 
-
 /* global errno */
 static volatile int os_errno;
 
@@ -39,6 +38,8 @@ os_thread_t os_thread_create(const char *name,
         return NULL;
     }
 
+    /* init thread list */
+    list_init(&thread->tlist);
     object_init(&thread->parent, Object_Class_Thread, name);
 
     thread->error = E_OK;
@@ -61,6 +62,33 @@ err_t os_thread_delete(os_thread_t thread)
     if (thread == NULL) return E_EMPTY;
     vTaskDelete(thread->tid);
     return E_OK;
+}
+
+err_t os_thread_suspend(os_thread_t thread)
+{
+    if (thread == NULL) return E_EMPTY;
+
+    return osThreadSuspend(thread->tid);
+}
+
+err_t os_thread_resume(os_thread_t thread)
+{
+    if (thread == NULL) return E_EMPTY;
+    /* disable interrupt */
+    base_t level = os_hw_interrupt_disable();
+
+    /* remove from suspend list */
+    list_remove(&thread->tlist);
+
+    /* enable interrupt */
+    os_hw_interrupt_enable(level);
+
+    return osThreadResume(thread->tid);
+}
+
+err_t os_schedule(void)
+{
+    return osThreadYield();
 }
 
 void os_thread_update_info(const char *name)
@@ -178,6 +206,72 @@ err_t os_thread_startup(os_thread_t thread)
     }
     return E_OK;
 }
+
+/**
+ * This function is the timeout function for thread, normally which is invoked
+ * when thread is timeout to wait some resource.
+ *
+ * @param parameter the parameter of thread timeout function
+ */
+void os_thread_timeout(void *parameter)
+{
+    struct thread *thread = (struct thread *)os_timer_get_parameter(parameter);
+
+    /* thread check */
+    ASSERT(thread != NULL);
+
+    /* set error number */
+    thread->error = -E_TIMEOUT;
+
+    /* remove from suspend list */
+    list_remove(&(thread->tlist));
+
+    /* insert to schedule ready list */
+    os_thread_resume(thread);
+
+    /* do schedule */
+    os_schedule();
+}
+
+/**
+ * This function will initialize a timer, normally this function is used to
+ * initialize a static timer object.
+ *
+ * @param timer the static timer object
+ * @param name the name of timer
+ * @param timeout the timeout function
+ * @param parameter the parameter of timeout function
+ * @param period the tick of timer
+ * @param type the type of timer
+ */
+os_timer_t os_timer_create(const char *name,
+                           void (*timeout)(void *),
+                           void *parameter,
+                           tick_t period,
+                           uint8_t type)
+{
+    os_timer_t timer = malloc(sizeof(struct timer));
+    if (timer == NULL)
+    {
+        printf("\r\nno mem");
+        return NULL;
+    }
+
+    object_init(&timer->parent, Object_Class_Timer, name);
+    timer->period = TICKS_FROM_MS(period);
+
+    timer->tid = xTimerCreate(name,
+                              timer->period,
+                              type == TIMER_TYPE_PERIODIC,
+                              (void *) parameter,
+                              (TimerCallbackFunction_t)timeout);
+    return timer;
+}
+
+
+
+
+
 /*
  * This function will get errno
  *

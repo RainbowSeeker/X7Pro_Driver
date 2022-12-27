@@ -28,7 +28,7 @@ static DMA_DATA struct double_buf adis_dma_data = {0};
 
 static err_t accel_read_raw(int16_t acc[3])
 {
-    OS_ENTER_CRITICAL;
+    OS_ENTER_CRITICAL();
 
     // Invalidate the D cache covering the area into which data has been read
     int16_t *raw = (int16_t *)(&adis_dma_data.buf[!adis_dma_data.idx * ADIS_BUF_SIZE + 3]);
@@ -38,7 +38,7 @@ static err_t accel_read_raw(int16_t acc[3])
     acc[1] = int16_t_from_bytes((uint8_t *) &raw[4]);
     acc[2] = int16_t_from_bytes((uint8_t *) &raw[5]);
 
-    OS_EXIT_CRITICAL;
+    OS_EXIT_CRITICAL();
     return E_OK;
 }
 
@@ -98,7 +98,7 @@ const static struct accel_ops _accel_ops = {
 
 static err_t gyro_read_raw(int16_t gyr[3])
 {
-    OS_ENTER_CRITICAL;
+    OS_ENTER_CRITICAL();
 
     // Invalidate the D cache covering the area into which data has been read
     int16_t *raw = (int16_t *)(&adis_dma_data.buf[!adis_dma_data.idx * ADIS_BUF_SIZE + 3]);
@@ -108,7 +108,7 @@ static err_t gyro_read_raw(int16_t gyr[3])
     gyr[1] = int16_t_from_bytes((uint8_t *) &raw[1]);
     gyr[2] = int16_t_from_bytes((uint8_t *) &raw[2]);
 
-    OS_EXIT_CRITICAL;
+    OS_EXIT_CRITICAL();
     return E_OK;
 }
 
@@ -224,8 +224,8 @@ err_t drv_adis16470_init(const char* gyro_dev_name, const char* accel_dev_name)
 {
     /* Initialize gyroscope */
     static struct spi_device spi_device;
-    static io_t cs = {GPIOF, GPIO_PIN_10};
-    static io_t exti = {.port = GPIOE, .pin = GPIO_PIN_7};
+    static io_tag cs = PF10;
+    static io_tag exti = PE7;
     io_init(cs, CS_CONFIG);
     ERROR_TRY(spi_bus_attach_device(&spi_device,
                                     "adis16470",

@@ -10,7 +10,7 @@
 #include <common.h>
 
 // 10 MHz max SPI frequency
-#define MS5611_MAX_SPI_CLK_HZ 10000000
+#define MS5611_MAX_SPI_CLK_HZ 7000000
 
 // MS5611, Standard address 0x77
 #define MS5611_I2C_ADDR                 0x77

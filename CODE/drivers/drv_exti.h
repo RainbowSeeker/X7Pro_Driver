@@ -21,7 +21,7 @@ typedef enum
     EXTI_BOTH,
 }exti_trigger;
 
-void exti_init(io_t io, exti_cb_t cb, uint32_t user_data, int priority, exti_trigger trigger);
-void exti_enable(io_t io);
-void exti_disable(io_t io);
+void exti_init(io_tag io, exti_cb_t cb, uint32_t user_data, int priority, exti_trigger trigger);
+void exti_enable(io_tag io);
+void exti_disable(io_tag io);
 #endif //X7PRO_DRIVER_DRV_EXTI_H

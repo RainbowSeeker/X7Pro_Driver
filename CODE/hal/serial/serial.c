@@ -13,7 +13,7 @@
 /*
  * This function initializes serial device.
  */
-static err_t hal_serial_init(struct light_device *dev)
+static err_t hal_serial_init(struct device *dev)
 {
     err_t result = E_OK;
     struct serial_device *serial;
@@ -32,7 +32,7 @@ static err_t hal_serial_init(struct light_device *dev)
     return result;
 }
 
-static err_t hal_serial_open(struct light_device *dev, uint16_t oflag)
+static err_t hal_serial_open(struct device *dev, uint16_t oflag)
 {
     struct serial_device *serial;
 
@@ -99,7 +99,7 @@ static err_t hal_serial_open(struct light_device *dev, uint16_t oflag)
     return E_OK;
 }
 
-static err_t hal_serial_close(struct light_device *dev)
+static err_t hal_serial_close(struct device *dev)
 {
     struct serial_device *serial;
 
@@ -194,7 +194,7 @@ static void serial_fifo_update_get_index(struct serial_device *serial, size_t le
     }
 }
 
-static size_t hal_serial_read(struct light_device *dev,
+static size_t hal_serial_read(struct device *dev,
                               off_t pos,
                               void *buffer,
                               size_t size)
@@ -309,7 +309,7 @@ static size_t hal_serial_read(struct light_device *dev,
     }
 }
 
-static size_t hal_serial_write(struct light_device *dev,
+static size_t hal_serial_write(struct device *dev,
                                off_t pos,
                                const void *buffer,
                                size_t size)
@@ -358,7 +358,7 @@ static size_t hal_serial_write(struct light_device *dev,
     }
 }
 
-static err_t hal_serial_control(struct light_device *dev,
+static err_t hal_serial_control(struct device *dev,
                                 int cmd,
                                 void *args)
 {
@@ -426,7 +426,7 @@ err_t hal_serial_register(serial_dev_t serial,
                           void *data)
 {
     err_t ret;
-    struct light_device *device;
+    struct device *device;
     ASSERT(serial != NULL);
 
     device = &(serial->parent);

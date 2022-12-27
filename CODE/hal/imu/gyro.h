@@ -33,7 +33,7 @@ struct gyro_configure {
 };
 
 struct gyro_device {
-    struct light_device parent;
+    struct device parent;
     const struct gyro_ops* ops;
     struct gyro_configure config;
     uint8_t bus_type;

@@ -9,6 +9,7 @@
 
 
 #define LOG_TAG "mlog"
+#define LOG_LVL LOG_LVL_INFO
 
 #include "ulog.h"
 
@@ -224,11 +225,11 @@ void mlog_show_statistic(uint8_t msg_id)
 void mlog_print_volume(uint8_t msg_id)
 {
     size_t record_size;
-    OS_ENTER_CRITICAL;
+    OS_ENTER_CRITICAL();
     record_size = ((mlog_handle.buffer.head - mlog_handle.buffer.tail +
                 mlog_handle.buffer.num_sector) % mlog_handle.buffer.num_sector) * MLOG_SECTOR_SIZE
                 + mlog_handle.buffer.index;
-    OS_EXIT_CRITICAL;
+    OS_EXIT_CRITICAL();
     printf("\n[%lu]%s current volume:%5d / %5d (%.2f%%).", os_tick_get(), __mlog_table[msg_id].name, record_size, MLOG_BUFFER_SIZE, (float )record_size * 100 / MLOG_BUFFER_SIZE);
 }
 
@@ -256,7 +257,7 @@ err_t mlog_register_callback(mlog_cb_type type, void (*cb_func)(void))
         return E_NOMEM;
     }
 
-    INIT_LIST_HEAD(&node->link);
+    list_init(&node->link);
     node->func = cb_func;
 
     if (type == MLOG_CB_START)

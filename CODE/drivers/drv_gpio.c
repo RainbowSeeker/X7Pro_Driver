@@ -228,5 +228,5 @@
 //    GPIO_Init(GPIOE, &GPIO_InitStructure);
 //    GPIO_SetBits(GPIOE, GPIO_Pin_3);
 //
-//    return hal_pin_register(&pin_device, "pin", RT_DEVICE_FLAG_RDWR, NULL);
+//    return hal_pin_register(&pin_device, "pin", DEVICE_FLAG_RDWR, NULL);
 //}

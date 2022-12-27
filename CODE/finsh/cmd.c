@@ -834,7 +834,7 @@ long list_device(void)
             for (i = 0; i < find_arg.nr_out; i++)
             {
                 struct object *obj;
-                struct light_device *device;
+                struct device *device;
 
                 obj = list_entry(obj_list[i], struct object, list);
                 level = os_hw_interrupt_disable();
@@ -846,7 +846,7 @@ long list_device(void)
 
                 os_hw_interrupt_enable(level);
 
-                device = (struct light_device *)obj;
+                device = (struct device *)obj;
                 printf("%-*.*s %-20s %-8d\n",
                         maxlen, NAME_MAX_LEN,
                         device->name,

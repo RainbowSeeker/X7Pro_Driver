@@ -7,6 +7,7 @@
 #ifndef X7PRO_DRIVER_COMMON_DEF_H
 #define X7PRO_DRIVER_COMMON_DEF_H
 #include "lib/printf/printf.h"
+#include "rtdebug.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -104,7 +105,7 @@ typedef base_t                  off_t;       /**< Type for offset */
 /**
  *  match string1 and string2
  */
-#define MATCH(_str1, _str2)         (strcmp(_str1, _str2) == 0)
+#define MATCH(_str1, _str2)         (strncmp(_str1, _str2, strlen(_str2)) == 0)
 
 /**
  * get length of array
@@ -162,20 +163,6 @@ typedef struct {
 #define SELF_CHECK(func)        ASSERT(func == E_OK)
 
 
-#define ASSERT(expr)    \
-if(!(expr))             \
-{                       \
-    assert_failed(#expr, __FUNCTION__, __FILE__, __LINE__); \
-}
 
-/**
- * 断言错误处理
- * @param string
- */
-static inline void assert_failed(const char *ex_string, const char *func, const char *file, size_t line)
-{
-    printf("\r\n(%s) assertion failed at function:%s, in file:%s, line:%d\r\n", ex_string, func, file, line);
-    while(1);
-}
 
 #endif //X7PRO_DRIVER_COMMON_DEF_H

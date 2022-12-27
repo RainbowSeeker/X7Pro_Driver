@@ -46,13 +46,15 @@ typedef struct list_node list_t;
 #define LIST_DEF(name) \
     struct list_node name = LIST_HEAD_INIT(name)
 
-
-static inline void INIT_LIST_HEAD(struct list_node *list)
+/**
+ * @brief initialize a list
+ *
+ * @param l list to be initialized
+ */
+static inline void list_init(list_t *l)
 {
-    list->next = list;
-    list->prev = list;
+    l->next = l->prev = l;
 }
-
 
 /**
  * @brief insert a node after a list
@@ -94,6 +96,32 @@ static inline void list_remove(struct list_node *n)
     n->prev->next = n->next;
 
     n->next = n->prev = n;
+}
+
+/**
+ * @brief tests whether a list is empty
+ * @param l the list to test.
+ */
+static inline int list_isempty(const list_t *l)
+{
+    return l->next == l;
+}
+
+/**
+ * @brief get the list length
+ * @param l the list to get.
+ */
+static inline unsigned int list_len(const list_t *l)
+{
+    unsigned int len = 0;
+    const list_t *p = l;
+    while (p->next != l)
+    {
+        p = p->next;
+        len ++;
+    }
+
+    return len;
 }
 
 /*

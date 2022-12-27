@@ -26,7 +26,7 @@ struct baro_configure {
 };
 
 struct baro_device {
-    struct light_device parent;
+    struct device parent;
     const struct baro_ops* ops;
 };
 typedef struct baro_device* baro_dev_t;

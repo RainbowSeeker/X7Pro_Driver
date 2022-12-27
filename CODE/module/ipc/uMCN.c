@@ -1,29 +1,15 @@
-/******************************************************************************
- * Copyright 2020-2021 The Firmament Authors. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *****************************************************************************/
+
 #include "uMCN.h"
 
 static McnList __mcn_list = { .hub = NULL, .next = NULL };
-static osTimerId timer_mcn_freq_est;
+static os_timer_t timer_mcn_freq_est;
 
 /**
  * @brief Topic publish frequency estimator entry
  * 
  * @param parameter Unused
  */
-static void mcn_freq_est_entry(const void *parameter)
+static void mcn_freq_est_entry(void *parameter)
 {
     for (McnList_t cp = &__mcn_list; cp != NULL; cp = cp->next) {
         McnHub_t hub = cp->hub;
@@ -35,8 +21,9 @@ static void mcn_freq_est_entry(const void *parameter)
         uint32_t cnt = 0;
         for (int i = 0; i < MCN_FREQ_EST_WINDOW_LEN; i++) {
             cnt += hub->freq_est_window[i];
-            hub->freq = (float)cnt / MCN_FREQ_EST_WINDOW_LEN;
         }
+        hub->freq = (float)cnt / MCN_FREQ_EST_WINDOW_LEN;
+
         /* move window */
         hub->window_index = (hub->window_index + 1) % MCN_FREQ_EST_WINDOW_LEN;
         hub->freq_est_window[hub->window_index] = 0;
@@ -454,13 +441,13 @@ err_t mcn_publish(McnHub_t hub, const void* data)
  */
 err_t mcn_init(void)
 {
-    osTimerDef(mcn, mcn_freq_est_entry);
-    timer_mcn_freq_est = osTimerCreate(osTimer(mcn), osTimerPeriodic, NULL);
+    timer_mcn_freq_est = os_timer_create("mcn_freq_est",
+                                         mcn_freq_est_entry,
+                                         NULL,
+                                         1000,
+                                         TIMER_TYPE_PERIODIC);
 
-    if (osTimerStart(timer_mcn_freq_est, 1000) != osOK)
-    {
-        return E_RROR;
-    }
+    ERROR_TRY(os_timer_start(timer_mcn_freq_est));
 
     return E_OK;
 }

@@ -1,0 +1,2996 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="X7Pro_Driver"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="X7Pro_Driver.elf">
+				<Option output="D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/X7Pro_Driver.elf" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DARM_MATH_CM4"/>
+					<Add option="-DARM_MATH_MATRIX_CHECK"/>
+					<Add option="-DARM_MATH_ROUNDING"/>
+					<Add option="-DDEBUG"/>
+					<Add option="-DUSE_HAL_DRIVER"/>
+					<Add option="-DSTM32H743xx"/>
+					<Add option="-DUSE_FULL_LL_DRIVER"/>
+					<Add option="-D__FPU_PRESENT=1"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Core/Inc"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Middlewares/ST/ARM/DSP/Inc"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/application"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/device"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/module"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/dfs/include"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/dfs/filesystems/elmfat"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/module/log"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/hal"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/finsh"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/fmt_mavlink"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/model/fms/base_fms/lib"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/library/STM32_USB_Device_Library/Class/CDC/Inc"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/library/STM32_USB_Device_Library/Core/Inc"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/drivers/usbd"/>
+					<Add directory="c:\program files (x86)\gnu arm embedded toolchain\10 2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1"/>
+					<Add directory="c:\program files (x86)\gnu arm embedded toolchain\10 2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/arm-none-eabi"/>
+					<Add directory="c:\program files (x86)\gnu arm embedded toolchain\10 2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/backward"/>
+					<Add directory="c:\program files (x86)\gnu arm embedded toolchain\10 2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/include"/>
+					<Add directory="c:\program files (x86)\gnu arm embedded toolchain\10 2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/include-fixed"/>
+					<Add directory="c:\program files (x86)\gnu arm embedded toolchain\10 2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 X7Pro_Driver.elf"/>
+					<CompileFile command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="X7Pro_Driver.elf/fast">
+				<Option output="D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/X7Pro_Driver.elf" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-DARM_MATH_CM4"/>
+					<Add option="-DARM_MATH_MATRIX_CHECK"/>
+					<Add option="-DARM_MATH_ROUNDING"/>
+					<Add option="-DDEBUG"/>
+					<Add option="-DUSE_HAL_DRIVER"/>
+					<Add option="-DSTM32H743xx"/>
+					<Add option="-DUSE_FULL_LL_DRIVER"/>
+					<Add option="-D__FPU_PRESENT=1"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Core/Inc"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Device/ST/STM32H7xx/Include"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/Middlewares/ST/ARM/DSP/Inc"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/application"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/device"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/module"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/dfs/include"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/dfs/filesystems/elmfat"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/module/log"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/hal"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/finsh"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/fmt_mavlink"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/model/fms/base_fms/lib"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/library/STM32_USB_Device_Library/Class/CDC/Inc"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/library/STM32_USB_Device_Library/Core/Inc"/>
+					<Add directory="D:/Desktop/X7Pro_Driver/CODE/drivers/usbd"/>
+					<Add directory="c:\program files (x86)\gnu arm embedded toolchain\10 2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1"/>
+					<Add directory="c:\program files (x86)\gnu arm embedded toolchain\10 2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/arm-none-eabi"/>
+					<Add directory="c:\program files (x86)\gnu arm embedded toolchain\10 2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include/c++/10.3.1/backward"/>
+					<Add directory="c:\program files (x86)\gnu arm embedded toolchain\10 2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/include"/>
+					<Add directory="c:\program files (x86)\gnu arm embedded toolchain\10 2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/include-fixed"/>
+					<Add directory="c:\program files (x86)\gnu arm embedded toolchain\10 2021.10\bin\../lib/gcc/arm-none-eabi/10.3.1/../../../../arm-none-eabi/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 X7Pro_Driver.elf/fast"/>
+					<CompileFile command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="C:/Users/19114/AppData/Local/JetBrains/Toolbox/apps/CLion/ch-0/223.7571.171/bin/mingw/bin/mingw32-make.exe -f &quot;D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/algo/array.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/algo/array.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/algo/math/maths.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/algo/ring.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/algo/ring.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/application/app_log.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/application/app_mcn.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/application/app_pwm.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/application/app_sd.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/application/app_spi.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/application/application.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/application/application.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/board_config.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/com.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/com.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/common.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/common_def.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/components/completion/completion.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/components/completion/completion.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/components/components.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/components/device/device.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/components/device/device.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/filesystems/elmfat/00history.txt">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/filesystems/elmfat/00readme.txt">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/filesystems/elmfat/dfs_elm.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/filesystems/elmfat/dfs_elm.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/filesystems/elmfat/diskio.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/filesystems/elmfat/ff.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/filesystems/elmfat/ff.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/filesystems/elmfat/ffconf.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/filesystems/elmfat/ffunicode.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/include/dfs.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/include/dfs_file.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/include/dfs_fs.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/include/dfs_poll.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/include/dfs_posix.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/include/dfs_private.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/include/dfs_select.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/src/dfs.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/src/dfs_file.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/src/dfs_fs.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/src/dfs_posix.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/src/poll.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/dfs/src/select.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/driver/dma.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/driver/dma.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/driver/exti.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/driver/exti.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/driver/io.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/driver/io.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/driver/pwm.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/driver/pwm.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/driver/timer.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/driver/timer.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/barometer/ms5611.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/barometer/ms5611.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/board.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/board.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_buzzer.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_dma.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_dma.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_exti.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_exti.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_fdcan.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_fdcan.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_gpio.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_gpio.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_i2c_soft.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_i2c_soft.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_pwm.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_pwm.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_sdio.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_sdio.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_spi.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_spi.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_systick.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_systick.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_uart.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_uart.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_usart.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/drv_usart.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/gps/gps_ubx.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/gps/gps_ubx.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/imu/adis16470.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/imu/adis16470.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/imu/icm20689.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/imu/icm20689.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/imu/icm42688.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/imu/icm42688.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/mag/rm3100.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/mag/rm3100.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/usbd/drv_usbd_cdc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/usbd/drv_usbd_cdc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/usbd/usb_device.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/usbd/usb_device.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/usbd/usbd_cdc_if.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/usbd/usbd_cdc_if.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/usbd/usbd_conf.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/usbd/usbd_conf.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/usbd/usbd_desc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/drivers/usbd/usbd_desc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/cmd.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_api.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_compiler.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_error.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_error.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_heap.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_heap.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_init.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_node.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_node.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_ops.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_ops.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_parser.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_parser.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_token.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_token.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_var.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_var.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_vm.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/finsh_vm.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/msh.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/msh.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/msh_file.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/shell.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/shell.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/finsh/symbol.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/fram/fm25vx.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/fram/fm25vx.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/fram/fram.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/fram/fram.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/barometer/barometer.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/barometer/barometer.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/bus.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/bus.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/bus_spi.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/bus_spi.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/can/can.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/can/can.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/can/readme-zh.txt">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/dma/dma.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/dma/dma.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/gps/gps.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/gps/gps.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/imu/accel.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/imu/accel.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/imu/gyro.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/imu/gyro.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/mag/mag.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/mag/mag.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/nvic.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/rc/ppm.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/rc/ppm.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/rc/rc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/rc/rc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/sd/sd.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/sd/sd.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/serial/serial.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/serial/serial.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/spi/spi.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/spi/spi.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/usb/usbd_cdc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/hal/usb/usbd_cdc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/include.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/init.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/init.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/checksum.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/common.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_actuator_control_target.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_actuator_output_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_adsb_vehicle.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_ais_vessel.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_altitude.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_att_pos_mocap.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_attitude.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_attitude_quaternion.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_attitude_quaternion_cov.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_attitude_target.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_auth_key.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_autopilot_state_for_gimbal_device.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_autopilot_version.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_battery_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_button_change.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_camera_capture_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_camera_image_captured.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_camera_information.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_camera_settings.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_camera_trigger.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_cellular_config.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_cellular_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_change_operator_control.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_change_operator_control_ack.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_collision.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_command_ack.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_command_cancel.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_command_int.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_command_long.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_component_information.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_control_system_state.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_data_stream.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_data_transmission_handshake.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_debug.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_debug_float_array.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_debug_vect.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_distance_sensor.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_encapsulated_data.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_esc_info.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_esc_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_estimator_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_extended_sys_state.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_fence_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_file_transfer_protocol.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_flight_information.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_follow_target.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_generator_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_gimbal_device_attitude_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_gimbal_device_information.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_gimbal_device_set_attitude.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_gimbal_manager_information.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_gimbal_manager_set_attitude.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_gimbal_manager_set_tiltpan.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_gimbal_manager_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_global_position_int.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_global_position_int_cov.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_global_vision_position_estimate.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_gps2_raw.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_gps2_rtk.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_gps_global_origin.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_gps_inject_data.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_gps_input.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_gps_raw_int.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_gps_rtcm_data.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_gps_rtk.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_gps_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_heartbeat.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_high_latency.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_high_latency2.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_highres_imu.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_hil_actuator_controls.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_hil_controls.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_hil_gps.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_hil_optical_flow.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_hil_rc_inputs_raw.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_hil_sensor.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_hil_state.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_hil_state_quaternion.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_home_position.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_isbd_link_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_landing_target.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_link_node_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_local_position_ned.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_local_position_ned_cov.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_local_position_ned_system_global_offset.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_log_data.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_log_entry.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_log_erase.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_log_request_data.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_log_request_end.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_log_request_list.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_logging_ack.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_logging_data.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_logging_data_acked.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_manual_control.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_manual_setpoint.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_memory_vect.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_message_interval.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_mission_ack.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_mission_changed.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_mission_clear_all.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_mission_count.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_mission_current.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_mission_item.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_mission_item_int.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_mission_item_reached.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_mission_request.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_mission_request_int.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_mission_request_list.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_mission_request_partial_list.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_mission_set_current.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_mission_write_partial_list.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_mount_orientation.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_named_value_float.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_named_value_int.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_nav_controller_output.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_obstacle_distance.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_odometry.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_onboard_computer_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_open_drone_id_authentication.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_open_drone_id_basic_id.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_open_drone_id_location.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_open_drone_id_message_pack.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_open_drone_id_operator_id.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_open_drone_id_self_id.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_open_drone_id_system.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_optical_flow.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_optical_flow_rad.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_orbit_execution_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_param_ack_transaction.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_param_commit_transaction.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_param_ext_ack.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_param_ext_request_list.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_param_ext_request_read.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_param_ext_set.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_param_ext_value.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_param_map_rc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_param_request_list.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_param_request_read.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_param_set.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_param_start_transaction.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_param_v3_ack.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_param_v3_set.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_param_v3_value.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_param_value.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_ping.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_play_tune.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_play_tune_v2.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_position_target_global_int.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_position_target_local_ned.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_power_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_protocol_version.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_radio_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_raw_imu.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_raw_pressure.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_raw_rpm.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_rc_channels.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_rc_channels_override.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_rc_channels_raw.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_rc_channels_scaled.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_request_data_stream.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_resource_request.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_safety_allowed_area.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_safety_set_allowed_area.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_scaled_imu.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_scaled_imu2.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_scaled_imu3.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_scaled_pressure.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_scaled_pressure2.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_scaled_pressure3.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_serial_control.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_servo_output_raw.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_set_actuator_control_target.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_set_attitude_target.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_set_gps_global_origin.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_set_home_position.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_set_mode.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_set_position_target_global_int.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_set_position_target_local_ned.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_setup_signing.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_sim_state.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_smart_battery_info.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_smart_battery_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_statustext.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_storage_information.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_supported_tunes.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_sys_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_system_time.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_terrain_check.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_terrain_data.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_terrain_report.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_terrain_request.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_time_estimate_to_target.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_timesync.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_trajectory_representation_bezier.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_trajectory_representation_waypoints.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_tunnel.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_uavcan_node_info.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_uavcan_node_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_utm_global_position.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_v2_extension.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_vfr_hud.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_vibration.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_vicon_position_estimate.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_video_stream_information.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_video_stream_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_vision_position_estimate.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_vision_speed_estimate.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_wheel_distance.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_wifi_config_ap.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/mavlink_msg_wind_cov.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/testsuite.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/common/version.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/fmt_mavlink/fmt_mavlink.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/fmt_mavlink/mavlink.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/fmt_mavlink/mavlink_msg_fmt_pilot_cmd.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/fmt_mavlink/testsuite.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/fmt_mavlink/version.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/mavlink_conversions.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/mavlink_get_info.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/mavlink_helpers.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/mavlink_sha256.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/mavlink_types.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/mavlink/v2.0/protocol.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/printf/printf.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/printf/printf.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/lib/printf/printf_if.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/library/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/library/STM32_USB_Device_Library/Class/CDC/Src/usbd_cdc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/library/STM32_USB_Device_Library/Core/Inc/usbd_core.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/library/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/library/STM32_USB_Device_Library/Core/Inc/usbd_def.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/library/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/library/STM32_USB_Device_Library/Core/Src/usbd_core.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/library/STM32_USB_Device_Library/Core/Src/usbd_ctlreq.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/library/STM32_USB_Device_Library/Core/Src/usbd_ioreq.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/library/STM32_USB_Device_Library/LICENSE.txt">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/control/base_controller/control_interface.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/control/base_controller/lib/Controller.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/control/base_controller/lib/Controller.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/control/base_controller/lib/Controller_data.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/control/base_controller/lib/Controller_private.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/control/base_controller/lib/Controller_types.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/control/base_controller/lib/rtmodel.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/control/base_controller/lib/rtwtypes.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/control/control_interface.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/fms/base_fms/fms_interface.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/fms/base_fms/lib/FMS.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/fms/base_fms/lib/FMS.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/fms/base_fms/lib/FMS_data.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/fms/base_fms/lib/FMS_private.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/fms/base_fms/lib/FMS_types.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/fms/base_fms/lib/builtin_typeid_types.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/fms/base_fms/lib/rtmodel.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/fms/base_fms/lib/rtwtypes.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/fms/base_fms/lib/zero_crossing_types.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/fms/fms_interface.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/ins/base_ins/ins_interface.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/ins/base_ins/lib/INS.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/ins/base_ins/lib/INS.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/ins/base_ins/lib/rtmodel.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/ins/base_ins/lib/rtwtypes.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/ins/base_ins/lib/zero_crossing_types.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/ins/ins_interface.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/plant/multicopter/lib/Plant.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/plant/multicopter/lib/Plant.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/plant/multicopter/lib/Plant_data.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/plant/multicopter/lib/Plant_private.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/plant/multicopter/lib/Plant_types.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/plant/multicopter/lib/rtmodel.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/plant/multicopter/lib/rtwtypes.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/plant/multicopter/plant_interface.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/model/plant/plant_interface.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/buzzer/buzzer.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/buzzer/buzzer_tune.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/buzzer/buzzer_tune.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/buzzer/decode.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/buzzer/decode.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/buzzer/player.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/buzzer/player.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/buzzer/song_data.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/calibration/calibration.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/calibration/calibration.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/calibration/calibration_param.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/calibration/calibration_types.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/calibration/rtGetInf.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/calibration/rtGetInf.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/calibration/rtGetNaN.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/calibration/rtGetNaN.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/calibration/rt_nonfinite.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/calibration/rt_nonfinite.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/calibration/rtwtypes.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/console/console.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/console/console.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/console/console_config.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/console/console_config.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/file_manager/file_ex_ops.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/file_manager/file_manager.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/file_manager/file_manager.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/file_manager/yxml.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/file_manager/yxml.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/filter/butter.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/filter/butter.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/ipc/ringblk_buf.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/ipc/ringblk_buf.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/ipc/uMCN.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/ipc/uMCN.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/log/boot_log.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/log/boot_log.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/log/logger.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/log/logger.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/log/mlog.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/log/mlog.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/log/ulog.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/log/ulog.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/log/ulog_def.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/math/ap_math.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/math/ap_math.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/math/conversion.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/math/conversion.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/math/light_matrix.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/math/light_matrix.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/math/quaternion.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/math/quaternion.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/math/rotation.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/math/rotation.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavlink_console.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavlink_console.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavlink_mission.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavlink_mission.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavlink_param.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavlink_param.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavlink_status.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavlink_status.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavproxy.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavproxy.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavproxy_cmd.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavproxy_cmd.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavproxy_config.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavproxy_config.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavproxy_dev.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavproxy_dev.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/mavproxy_monitor.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/mavproxy/px4_custom_mode.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/module_common.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/param/param.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/param/param.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/param/rc_param.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/param/sys_param.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/accgyro.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/accgyro.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/accgyro_adis16470.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/accgyro_adis16470.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/accgyro_icm20689.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/accgyro_icm20689.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/accgyro_icm42688p.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/accgyro_icm42688p.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/barometer.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/barometer.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/barometer_ms5611.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/barometer_ms5611.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/magn.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/magn.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/magn_rm3100.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/magn_rm3100.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/sensor_baro.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/sensor_baro.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/sensor_gps.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/sensor_gps.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/sensor_hub.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/sensor_hub.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/sensor_imu.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/sensor_imu.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/sensor_mag.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sensor/sensor_mag.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/syscmd/bsp_cmd.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/syscmd/cmd_boot_log.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/syscmd/cmd_mcn.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/syscmd/cmd_mlog.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/syscmd/cmd_param.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/syscmd/optparse.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/syscmd/optparse.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/syscmd/syscmd.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/syscmd/syscmd.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sysio/actuator_cmd.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sysio/actuator_cmd.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sysio/actuator_config.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sysio/actuator_config.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sysio/auto_cmd.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sysio/auto_cmd.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sysio/gcs_cmd.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sysio/gcs_cmd.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sysio/mission_data.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sysio/mission_data.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sysio/pilot_cmd.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sysio/pilot_cmd.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sysio/pilot_cmd_config.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/sysio/pilot_cmd_config.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/system/statistic.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/system/statistic.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/system/systime.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/system/systime.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/toml/toml.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/toml/toml.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/toml/toml_util.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/utils/devmq.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/utils/devmq.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/utils/list.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/utils/ringbuffer.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/utils/ringbuffer.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/workqueue/work_queue.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/workqueue/work_queue.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/workqueue/workqueue_manager.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/module/workqueue/workqueue_manager.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/protocol/ublox/ublox.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/protocol/ublox/ublox.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/rtconfig.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/rtdebug.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/sys.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/sys.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/system/cache.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/system/kservice.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/system/object.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/system/object.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/system/os_def.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/system/os_def.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/system/os_map.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/system/os_mem.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/system/os_mem.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/task.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CODE/task.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Inc/FreeRTOSConfig.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Inc/bdma.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Inc/dma.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Inc/gpio.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Inc/main.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Inc/spi.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Inc/stm32_assert.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Inc/stm32h7xx_hal_conf.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Inc/stm32h7xx_it.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Inc/tim.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Inc/usart.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Src/bdma.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Src/dma.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Src/freertos.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Src/gpio.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Src/main.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Src/spi.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Src/stm32h7xx_hal_msp.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Src/stm32h7xx_hal_timebase_tim.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Src/stm32h7xx_it.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Src/syscalls.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Src/sysmem.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Src/system_stm32h7xx.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Src/tim.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Src/usart.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Core/Startup/startup_stm32h743xihx.s">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Device/ST/STM32H7xx/LICENSE.txt">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/cmsis_armcc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/cmsis_armclang.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/cmsis_armclang_ltm.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/cmsis_compiler.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/cmsis_gcc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/cmsis_iccarm.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/cmsis_version.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/core_armv81mml.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/core_armv8mbl.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/core_armv8mml.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/core_cm0.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/core_cm0plus.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/core_cm1.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/core_cm23.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/core_cm3.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/core_cm33.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/core_cm35p.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/core_cm4.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/core_cm7.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/core_sc000.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/core_sc300.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/mpu_armv7.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/mpu_armv8.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/Include/tz_context.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/CMSIS/LICENSE.txt">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32h7xx_hal_eth_ex_legacy.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32h7xx_hal_eth_legacy.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32_assert_template.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_adc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_adc_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cec.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_comp.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_conf_template.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cordic.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cortex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_crc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_crc_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cryp.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cryp_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dac.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dac_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dcmi.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dfsdm.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dfsdm_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma2d.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dsi.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dts.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_eth.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_eth_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_exti.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fdcan.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_fmac.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gfxmmu.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_hash.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_hash_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_hcd.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_hrtim.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_hsem.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2s.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2s_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_irda.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_irda_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_iwdg.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_jpeg.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_lptim.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_ltdc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_ltdc_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_mdios.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_mdma.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_mmc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_mmc_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_nand.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_nor.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_opamp.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_opamp_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_ospi.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_otfdec.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pcd_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pssi.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_qspi.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_ramecc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rng.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rng_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rtc_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_sai.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_sai_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_sd.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_sd_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_sdram.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_smartcard.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_smartcard_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_smbus.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_smbus_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spdifrx.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_sram.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_swpmi.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_tim_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_usart.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_usart_ex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_wwdg.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_adc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bdma.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_bus.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_comp.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_cordic.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_cortex.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_crc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_crs.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dac.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_delayblock.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dma.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dma2d.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_dmamux.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_exti.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_fmac.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_fmc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_gpio.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_hrtim.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_hsem.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_i2c.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_iwdg.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_lptim.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_lpuart.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_mdma.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_opamp.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_pwr.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_rcc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_rng.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_rtc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_sdmmc.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_spi.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_swpmi.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_system.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_tim.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usart.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_usb.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_utils.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_wwdg.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/LICENSE.txt">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/Legacy/stm32h7xx_hal_eth_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_adc_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cec.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_comp.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cordic.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_crc_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cryp_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dac_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dcmi.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dfsdm_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma2d.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dma_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dsi.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_dts.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_eth_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_exti.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fdcan.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_flash_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_fmac.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gfxmmu.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hash_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hcd.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hrtim.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_hsem.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2c_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_i2s_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_irda.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_iwdg.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_jpeg.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_lptim.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ltdc_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdios.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mdma.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_mmc_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nand.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_nor.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_opamp_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ospi.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_otfdec.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pcd_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pssi.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_pwr_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_qspi.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_ramecc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rcc_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rng_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_rtc_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sai_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sd_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sdram.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smartcard_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_smbus_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spdifrx.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_spi_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_sram.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_swpmi.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_tim_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_uart_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_usart_ex.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_wwdg.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_adc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_bdma.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_comp.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_cordic.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_crs.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dac.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_delayblock.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_dma2d.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_exti.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmac.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_gpio.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_hrtim.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_i2c.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lptim.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_lpuart.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_mdma.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_opamp.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_pwr.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rcc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rng.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_rtc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_sdmmc.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_spi.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_swpmi.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_tim.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usart.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_usb.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_utils.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/ST/ARM/DSP/Inc/arm_math.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/ST/ARM/DSP/lib/libarm_cortexM4l_math.a">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/ST/ARM/DSP/lib/libarm_cortexM4lf_math.a">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/ST/ARM/DSP/lib/libarm_cortexM7lfsp_math.a">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/croutine.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/event_groups.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/StackMacros.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/atomic.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/croutine.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/list.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/message_buffer.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/mpu_prototypes.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/portable.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/queue.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/stack_macros.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/stream_buffer.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/task.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/include/timers.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/list.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F/portmacro.h">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/queue.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/stream_buffer.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/tasks.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/Middlewares/Third_Party/FreeRTOS/Source/timers.c">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/STM32H743XIHX_FLASH.ld">
+			<Option target="X7Pro_Driver.elf"/>
+		</Unit>
+		<Unit filename="D:/Desktop/X7Pro_Driver/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

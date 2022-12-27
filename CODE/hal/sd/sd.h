@@ -8,7 +8,7 @@ extern "C" {
 #endif
 
 struct sd_device {
-    struct light_device parent;
+    struct device parent;
     const struct sd_ops* ops;
     os_event_t event;
 };

@@ -4,7 +4,7 @@
 #define __DFS_FS_H__
 
 #include "dfs.h"
-#include "light_device/light_device.h"
+#include "components/components.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -69,7 +69,7 @@ struct dfs_mount_tbl
 
 int dfs_register(const struct dfs_filesystem_ops *ops);
 struct dfs_filesystem *dfs_filesystem_lookup(const char *path);
-const char *dfs_filesystem_get_mounted_path(struct light_device *device);
+const char *dfs_filesystem_get_mounted_path(struct device *device);
 
 int dfs_filesystem_get_partition(struct dfs_partition *part,
                                  uint8_t         *buf,

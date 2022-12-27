@@ -219,7 +219,7 @@
 //{
 //    const hw_config_t hwConfig ={
 //            .name = "MS5611", .busE = BUS_SPI4,
-//            .csPin = {.port = GPIOG, .pin = GPIO_PIN_10},
+//            .csPin = PG10,
 //    };
 //
 //    if(!Baro_MspInit(baro, MS5611_Detect, &hwConfig))

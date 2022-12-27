@@ -285,7 +285,7 @@
 //    TIM_Cmd(TIM4, DISABLE);
 //
 //    /* register actuator hal device */
-//    ret = hal_actuator_register(&act_dev, "aux_out", RT_DEVICE_FLAG_RDWR, NULL);
+//    ret = hal_actuator_register(&act_dev, "aux_out", DEVICE_FLAG_RDWR, NULL);
 //
 //    return ret;
 //}

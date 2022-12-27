@@ -22,8 +22,8 @@ WorkQueue_t workqueue_find(const char* name)
 
 err_t workqueue_manager_init(void)
 {
-//    wq_list[0] = workqueue_create("wq:lp_work", 5, 10 * 1024, 2);
-//    ASSERT(wq_list[0] != NULL);
+    wq_list[0] = workqueue_create("wq:lp_work", 5, 1 * 1024, 2);
+    ASSERT(wq_list[0] != NULL);
 
     wq_list[1] = workqueue_create("wq:hp_work", 5, 1 * 1024, 6);
     ASSERT(wq_list[1] != NULL);

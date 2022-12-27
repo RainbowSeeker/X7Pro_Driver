@@ -26,37 +26,13 @@
 #define DMA_CLEAR_FLAG(d, flag)   if (d->flagsShift > 31) ((DMA_TypeDef *)d->dma)->HIFCR = (flag << (d->flagsShift - 32)); else ((DMA_TypeDef *)d->dma)->LIFCR = (flag << d->flagsShift)
 #define BDMA_CLEAR_FLAG(d, flag)   (BDMA->IFCR = (flag << d->flagsShift))
 
-struct dma_elm
-{
-    void *base;
-    uint8_t stream;
-};
 
-void dma_configure_irq(void *dma_stream, void (*cb)(uint32_t), uint32_t priority, uint32_t user_data);
-void dma_get_elm(void *dma_stream, struct dma_elm *elm);
-void LL_EX_DMA_ClearFlag(void *dma_stream, uint32_t flag);
+err_t dma_get_request_by_instance(void *instance, uint32_t *request);
+void dma_configure_irq(struct dma_device *dma, void (*cb)(uint32_t), uint32_t priority, uint32_t user_data);
+void LL_EX_DMA_ClearFlag(struct dma_device *dma, uint32_t flag);
 struct dma_device * LL_DMA_DeviceGetByName(const char *name);
+void LL_EX_DMA_ResetStream(struct dma_device *dma);
 
-
-static inline void LL_EX_DMA_ResetStream(void *dma_stream)
-{
-    struct dma_elm elm;
-    dma_get_elm(dma_stream, &elm);
-    if (elm.base == BDMA)
-    {
-        LL_BDMA_DisableChannel(elm.base, elm.stream);
-        while (LL_BDMA_IsEnabledChannel(elm.base, elm.stream));
-        LL_EX_DMA_ClearFlag(dma_stream, BDMA_IT_HTIF | BDMA_IT_TEIF | BDMA_IT_TCIF);
-    }
-    else
-    {
-        // Disable the stream
-        LL_DMA_DisableStream(elm.base, elm.stream);
-        while (LL_DMA_IsEnabledStream(elm.base, elm.stream));
-        LL_EX_DMA_ClearFlag(dma_stream, DMA_IT_HTIF | DMA_IT_TEIF | DMA_IT_TCIF);
-    }
-
-}
 
 
 #endif //X7PRO_DRIVER_DRV_DMA_H

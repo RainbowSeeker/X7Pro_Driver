@@ -120,7 +120,7 @@ struct dfs_filesystem *dfs_filesystem_lookup(const char *path)
  *
  * @return the mounted path or NULL if none device mounted.
  */
-const char *dfs_filesystem_get_mounted_path(struct light_device *device)
+const char *dfs_filesystem_get_mounted_path(struct device *device)
 {
     const char *path = NULL;
     struct dfs_filesystem *iter;

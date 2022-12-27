@@ -33,7 +33,7 @@ struct accel_configure {
 };
 
 struct accel_device {
-    struct light_device parent;
+    struct device parent;
     const struct accel_ops* ops;
     struct accel_configure config;
     uint8_t bus_type;

@@ -9,7 +9,7 @@
 #include "drivers/drv_exti.h"
 
 
-static err_t hal_mag_init(struct light_device* dev)
+static err_t hal_mag_init(struct device* dev)
 {
     err_t ret = E_OK;
     mag_dev_t mag;
@@ -25,7 +25,7 @@ static err_t hal_mag_init(struct light_device* dev)
     return ret;
 }
 
-static err_t hal_mag_open(struct light_device* dev,
+static err_t hal_mag_open(struct device* dev,
                            uint16_t oflag)
 {
     mag_dev_t mag;
@@ -36,14 +36,14 @@ static err_t hal_mag_open(struct light_device* dev,
 
     if (mag->parent.user_data)
     {
-        io_t exti = *(io_t *)mag->parent.user_data;
+        io_tag exti = *(io_tag *)mag->parent.user_data;
         exti_init(exti, mag->ops->exti_cb, 0, NVIC_PRIO_EXTI, EXTI_RISING);
         exti_enable(exti);
     }
     return E_OK;
 }
 
-static err_t hal_mag_close(struct light_device* dev)
+static err_t hal_mag_close(struct device* dev)
 {
     mag_dev_t mag;
 
@@ -53,14 +53,14 @@ static err_t hal_mag_close(struct light_device* dev)
 
     if (mag->parent.user_data)
     {
-        io_t exti = *(io_t *)mag->parent.user_data;
+        io_tag exti = *(io_tag *)mag->parent.user_data;
         exti_disable(exti);
     }
     return E_RROR;
 }
 
 
-static size_t hal_mag_read(struct light_device* dev,
+static size_t hal_mag_read(struct device* dev,
                               off_t pos,
                               void* buffer,
                               size_t size)
@@ -79,7 +79,7 @@ static size_t hal_mag_read(struct light_device* dev,
     return rb;
 }
 
-static err_t hal_mag_control(struct light_device* dev,
+static err_t hal_mag_control(struct device* dev,
                                 int cmd,
                                 void* args)
 {
@@ -100,7 +100,7 @@ static err_t hal_mag_control(struct light_device* dev,
 err_t hal_mag_register(mag_dev_t mag, const char* name, uint32_t flag, void* data)
 {
     err_t ret;
-    struct light_device* device;
+    struct device* device;
 
     ASSERT(mag != NULL);
 

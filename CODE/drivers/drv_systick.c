@@ -77,5 +77,5 @@
 //
 //    RCC_GetClocksFreq(&rcc_clocks);
 //
-//    return hal_systick_register(&systick_dev, "systick", RT_DEVICE_FLAG_RDONLY, NULL);
+//    return hal_systick_register(&systick_dev, "systick", DEVICE_FLAG_RDONLY, NULL);
 //}

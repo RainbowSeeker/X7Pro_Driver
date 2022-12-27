@@ -8,7 +8,7 @@
 #include "driver/io.h"
 #include "drivers/drv_exti.h"
 
-static err_t hal_gyro_init(struct light_device* dev)
+static err_t hal_gyro_init(struct device* dev)
 {
     err_t ret = E_OK;
     gyro_dev_t gyro;
@@ -24,7 +24,7 @@ static err_t hal_gyro_init(struct light_device* dev)
     return ret;
 }
 
-static err_t hal_gyro_open(struct light_device* dev,
+static err_t hal_gyro_open(struct device* dev,
                             uint16_t oflag)
 {
     gyro_dev_t gyro;
@@ -34,7 +34,7 @@ static err_t hal_gyro_open(struct light_device* dev,
     gyro = (gyro_dev_t)dev;
     if (gyro->parent.user_data)
     {
-        io_t exti = *(io_t *)gyro->parent.user_data;
+        io_tag exti = *(io_tag *)gyro->parent.user_data;
         exti_init(exti, gyro->ops->exti_cb, 0, NVIC_PRIO_EXTI, EXTI_RISING);
         exti_enable(exti);
     }
@@ -42,7 +42,7 @@ static err_t hal_gyro_open(struct light_device* dev,
     return E_OK;
 }
 
-static err_t hal_gyro_close(struct light_device* dev)
+static err_t hal_gyro_close(struct device* dev)
 {
     gyro_dev_t gyro;
 
@@ -52,13 +52,13 @@ static err_t hal_gyro_close(struct light_device* dev)
 
     if (gyro->parent.user_data)
     {
-        io_t exti = *(io_t *)gyro->parent.user_data;
+        io_tag exti = *(io_tag *)gyro->parent.user_data;
         exti_disable(exti);
     }
     return E_OK;
 }
 
-static size_t hal_gyro_read(struct light_device* dev,
+static size_t hal_gyro_read(struct device* dev,
                                off_t pos,
                                void* buffer,
                                size_t size)
@@ -77,7 +77,7 @@ static size_t hal_gyro_read(struct light_device* dev,
     return rb;
 }
 
-static err_t hal_gyro_control(struct light_device* dev,
+static err_t hal_gyro_control(struct device* dev,
                                  int cmd,
                                  void* args)
 {
@@ -97,7 +97,7 @@ static err_t hal_gyro_control(struct light_device* dev,
 err_t hal_gyro_register(gyro_dev_t gyro, const char* name, uint32_t flag, void* data)
 {
     err_t ret;
-    struct light_device* device;
+    struct device* device;
 
     ASSERT(gyro != NULL);
 
