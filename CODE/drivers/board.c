@@ -91,16 +91,16 @@ void bsp_post_init()
     SELF_CHECK(bsp_parse_toml_sysconfig(__toml_root_tab));
 
     /* init rc */
-//    SELF_CHECK(pilot_cmd_init());
+    SELF_CHECK(pilot_cmd_init());
 
     /* init gcs */
     SELF_CHECK(gcs_cmd_init());
 
     /* init auto command */
-//    SELF_CHECK(auto_cmd_init());
+    SELF_CHECK(auto_cmd_init());
 
     /* init mission data */
-//    SELF_CHECK(mission_data_init());
+    SELF_CHECK(mission_data_init());
 
     /* init actuator */
 //    SELF_CHECK(actuator_init());
@@ -112,6 +112,5 @@ void bsp_post_init()
 //    SELF_CHECK(led_control_init());
 
     /* initialize power management unit */
-    // SELF_CHECK(pmu_init());
-
+//     SELF_CHECK(pmu_init());
 }

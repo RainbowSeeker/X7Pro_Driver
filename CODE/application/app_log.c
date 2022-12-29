@@ -115,28 +115,28 @@ void App_Log_Main(void *argument)
     mlog_register_callback(MLOG_CB_UPDATE, mlog_update_cb);
     ulog_register_callback(ulog_update_cb);
 
-    size_t count = 0;
     while (1)
     {
-        err = os_event_recv(_log_event, osWaitForever, &recv_set);
+        err = os_event_recv(_log_event, 20, &recv_set);
         if (err == E_OK)
         {
             if (recv_set & EVENT_MLOG_UPDATE)
             {
                 mlog_async_output();
-
-                if (count++ % 3 == 0)
-                {
-                    mlog_show_statistic(mlog_get_bus_id("IMU"));
-                }
             }
             if (recv_set & EVENT_ULOG_UPDATE)
             {
                 ulog_async_output();
-#ifdef ENABLE_ULOG_FS_BACKEND
-                fsync(_ulog_fd);
-#endif
             }
+        }
+        else if (err == E_TIMEOUT)
+        {
+            /* if timeout, check if there are log data need to send */
+            mlog_async_output();
+            ulog_async_output();
+#ifdef ENABLE_ULOG_FS_BACKEND
+            fsync(_ulog_fd);
+#endif
         }
         else
         {

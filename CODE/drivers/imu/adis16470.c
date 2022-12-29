@@ -16,14 +16,10 @@ static light_device_t spi_dev;
 static float gyro_range_scale;
 static float accel_range_scale;
 
-#define ADIS_BUF_SIZE   (23)
-struct double_buf
-{
-    uint8_t buf[ADIS_BUF_SIZE * 2];
-    uint8_t idx;
-};
-
-static DMA_DATA struct double_buf adis_dma_data = {0};
+#define ADIS_BUF_SIZE   (24)
+static DMA_DATA uint8_t send_buf[ADIS_BUF_SIZE];
+static DMA_DATA uint8_t recv_buf[ADIS_BUF_SIZE * 2];
+static bool recv_idx = 0;
 
 /* Re-implement this function to define customized rotation */
 __WEAK void adis16470_rotate_to_ned(float *val)
@@ -34,7 +30,7 @@ __WEAK void adis16470_rotate_to_ned(float *val)
 static err_t accel_read_raw(int16_t acc[3])
 {
     OS_ENTER_CRITICAL();
-    int16_t *raw = (int16_t *)(&adis_dma_data.buf[!adis_dma_data.idx * ADIS_BUF_SIZE + 3]);
+    int16_t *raw = (int16_t *)(&recv_buf[!recv_idx * ADIS_BUF_SIZE + 4]);
 
     // big-endian to little-endian
     acc[0] = int16_t_from_bytes((uint8_t *) &raw[3]);
@@ -102,7 +98,7 @@ static err_t gyro_read_raw(int16_t gyr[3])
     OS_ENTER_CRITICAL();
 
     // Invalidate the D cache covering the area into which data has been read
-    int16_t *raw = (int16_t *)(&adis_dma_data.buf[!adis_dma_data.idx * ADIS_BUF_SIZE + 3]);
+    int16_t *raw = (int16_t *)(&recv_buf[!recv_idx * ADIS_BUF_SIZE + 4]);
 
     // big-endian to little-endian
     gyr[0] = int16_t_from_bytes((uint8_t *) &raw[0]);
@@ -132,6 +128,9 @@ static err_t gyro_config(gyro_dev_t gyro, const struct gyro_configure *cfg)
 {
     ASSERT(cfg != NULL);
 
+    memset(send_buf, 0, sizeof(send_buf));
+    memset(recv_buf, 0, sizeof(recv_buf));
+    send_buf[0] = BURST_READ;
     gyro_range_scale = (1e-1 * PI / 180.0f);
     gyro->config = *cfg;
 
@@ -153,10 +152,12 @@ static size_t gyro_read(gyro_dev_t gyro, off_t pos, void *data, size_t size)
 
 static void exti_handler(uint32_t user_data)
 {
-    //rechange the recv buf.
-    adis_dma_data.idx = !adis_dma_data.idx;
     /* transfer message */
-    spi_read_multi_reg8(spi_dev, BURST_READ, &adis_dma_data.buf[adis_dma_data.idx * ADIS_BUF_SIZE], ADIS_BUF_SIZE);
+    if (spi_transfer((struct spi_device *)spi_dev, send_buf, &recv_buf[recv_idx * ADIS_BUF_SIZE], ADIS_BUF_SIZE))
+    {
+        //rechange the recv buf.
+        recv_idx = !recv_idx;
+    }
 }
 
 const static struct gyro_ops _gyro_ops = {

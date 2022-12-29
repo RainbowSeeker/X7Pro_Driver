@@ -1,5 +1,0 @@
-C:\Users\19114\AppData\Local\JetBrains\Toolbox\apps\CLion\ch-0\223.7571.171\bin\cmake\win\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" -S D:\Desktop\X7Pro_Driver -B D:\Desktop\X7Pro_Driver\cmake-build-debug-mingw
--- Minimal optimization, debug info included
--- Configuring done
--- Generating done
--- Build files have been written to: D:/Desktop/X7Pro_Driver/cmake-build-debug-mingw

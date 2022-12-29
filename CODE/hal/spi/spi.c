@@ -9,6 +9,9 @@
 #include "atomic.h"
 #include "dma/dma.h"
 
+#define spi_lock(_bus)          os_sem_take(_bus->lock, osWaitForever)
+#define spi_unlock(_bus)        os_sem_release(_bus->lock)
+
 static err_t spi_bus_init(struct spi_bus *bus, const char *name)
 {
     light_device_t device;
@@ -43,7 +46,7 @@ err_t spi_bus_register(struct spi_bus *bus,
         return result;
 
     /* initialize os_mutex lock */
-    os_mutex_init(&bus->lock);
+    bus->lock = os_sem_create(1);
     /* set ops */
     bus->ops = ops;
     /* initialize owner */
@@ -174,7 +177,7 @@ err_t spi_send_then_recv(struct spi_device *device,
     ASSERT(device->bus != NULL);
     ASSERT(send_length < DMA_THRESHOLD);
 
-    result = os_mutex_take(device->bus->lock, osWaitForever);
+    result = spi_lock(device->bus);
 
     if (result == E_OK)
     {
@@ -206,7 +209,7 @@ err_t spi_send_then_recv(struct spi_device *device,
     }
 
     __exit:
-    os_mutex_release(device->bus->lock);
+    spi_unlock(device->bus);
     return result;
 }
 
@@ -220,7 +223,7 @@ size_t spi_transfer(struct spi_device *device,
     ASSERT(device != NULL);
     ASSERT(device->bus != NULL);
 
-    result = os_mutex_take(device->bus->lock, osWaitForever);
+    result = spi_lock(device->bus);
 
     if (result == E_OK)
     {
@@ -234,22 +237,22 @@ size_t spi_transfer(struct spi_device *device,
 
         if (result == E_OK)
         {
-            os_mutex_release(device->bus->lock);
+            spi_unlock(device->bus);
             return length;
         }
         else if (result == E_BUSY)   //dma transmitting ...
         {
             return length;
         }
-
-        os_set_errno(-E_IO);
     }
     else
     {
-        return -E_IO;
+        os_set_errno(-E_IO);
+        return 0;
     }
 
-    os_mutex_release(device->bus->lock);
+    os_set_errno(-E_IO);
+    spi_unlock(device->bus);
     return 0;
 }
 
@@ -260,7 +263,7 @@ struct spi_message *spi_transfer_message(struct spi_device *device,
 
     ASSERT(device != NULL);
 
-    result = os_mutex_take(device->bus->lock, osWaitForever);
+    result = spi_lock(device->bus);
 
     if (result != E_OK)
     {
@@ -283,7 +286,7 @@ struct spi_message *spi_transfer_message(struct spi_device *device,
     }
 
     /* release bus lock */
-    os_mutex_release(device->bus->lock);
+    spi_unlock(device->bus);
 
     return message;
 }
@@ -295,7 +298,7 @@ err_t spi_take_bus(struct spi_device *device)
     ASSERT(device != NULL);
     ASSERT(device->bus != NULL);
 
-    result = os_mutex_take(device->bus->lock, osWaitForever);
+    result = spi_lock(device->bus);
 
     if (result != E_OK)
     {
@@ -317,7 +320,7 @@ err_t spi_release_bus(struct spi_device *device)
     ASSERT(device->bus->owner == device);
 
     /* release lock */
-    os_mutex_release(device->bus->lock);
+    spi_unlock(device->bus);
 
     return E_OK;
 }

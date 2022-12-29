@@ -32,8 +32,8 @@
 
 
 /* note: modify the following micro according to your os */
-#define OS_ENTER_CRITICAL       vPortEnterCritical
-#define OS_EXIT_CRITICAL        vPortExitCritical
+#define OS_ENTER_CRITICAL()       vPortEnterCritical()
+#define OS_EXIT_CRITICAL()        vPortExitCritical()
 
 #define MALLOC                  pvPortMalloc
 #define FREE                    vPortFree
@@ -332,12 +332,24 @@ static inline err_t os_sem_delete(os_sem_t sem)
  */
 static inline err_t os_sem_take(os_sem_t sem, size_t millisec)
 {
-    return osSemaphoreWait(sem, millisec);
+    if (os_interrupt_get_nest())
+    {
+        long taskWoken = pdFALSE;
+        if (xSemaphoreTakeFromISR(sem, &taskWoken) != pdTRUE)
+        {
+            return E_RROR;
+        }
+        portEND_SWITCHING_ISR(taskWoken);
+    }
+    else
+        return xSemaphoreTake(sem, TICKS_FROM_MS(millisec)) == pdTRUE ? E_OK : E_RROR;
+
+    return E_OK;
 }
 
 static inline err_t os_sem_trytake(os_sem_t sem)
 {
-    return osSemaphoreWait(sem, 0);
+    return os_sem_take(sem, 0);
 }
 
 /**
@@ -347,10 +359,20 @@ static inline err_t os_sem_trytake(os_sem_t sem)
  */
 static inline err_t os_sem_release(os_sem_t sem)
 {
-    return osSemaphoreRelease(sem);
+    if (os_interrupt_get_nest())
+    {
+        long taskWoken = pdFALSE;
+        if (xSemaphoreGiveFromISR(sem, &taskWoken) != pdTRUE)
+        {
+            return E_RROR;
+        }
+        portEND_SWITCHING_ISR(taskWoken);
+    }
+    else
+        return xSemaphoreGive(sem) == pdTRUE ? E_OK : E_RROR;
+
+    return E_OK;
 }
-
-
 
 /* ---------------------os mutex function---------------------------*/
 
@@ -393,16 +415,40 @@ static inline err_t os_mutex_delete(os_mutex_t mutex)
  */
 static inline err_t os_mutex_take(os_mutex_t mutex, size_t millisec)
 {
-    return osMutexWait(mutex, millisec);
+    if (os_interrupt_get_nest())
+    {
+        long taskWoken = pdFALSE;
+        if (xSemaphoreTakeFromISR(mutex, &taskWoken) != pdTRUE)
+        {
+            return E_RROR;
+        }
+        portEND_SWITCHING_ISR(taskWoken);
+    }
+    else
+        return xSemaphoreTake(mutex, TICKS_FROM_MS(millisec)) == pdTRUE ? E_OK : E_RROR;
+
+    return E_OK;
 }
 
 /**
  * os_mutex_release
  * @param mutex
  */
-static inline void os_mutex_release(os_mutex_t mutex)
+static inline err_t os_mutex_release(os_mutex_t mutex)
 {
-    osMutexRelease(mutex);
+    if (os_interrupt_get_nest())
+    {
+        long taskWoken = pdFALSE;
+        if (xSemaphoreGiveFromISR(mutex, &taskWoken) != pdTRUE)
+        {
+            return E_RROR;
+        }
+        portEND_SWITCHING_ISR(taskWoken);
+    }
+    else
+        return xSemaphoreGive(mutex) == pdTRUE ? E_OK : E_RROR;
+
+    return E_OK;
 }
 
 /* ---------------------os event function---------------------------*/
