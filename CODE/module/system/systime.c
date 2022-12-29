@@ -84,7 +84,7 @@ uint64_t systime_now_us(void)
 {
 //    uint32_t systick_us = 0;
 //    uint64_t time_now_ms;
-//    uint32_t level;
+//    base_t level;
 //
 //    light_device_read(systick_dev, SYSTICK_RD_TIME_US, &systick_us, sizeof(uint32_t));
 //
@@ -94,7 +94,14 @@ uint64_t systime_now_us(void)
 //    os_hw_interrupt_enable(level);
 //
 //    return time_now_ms * (uint64_t)1000 + systick_us;
-    return Sys_GetTickUs();
+
+#include "stm32h7xx_hal.h"
+    extern TIM_HandleTypeDef htim1;
+    base_t level = os_hw_interrupt_disable();
+    uint64_t now_us = uwTick * 1000 + htim1.Instance->CNT * 1000 / htim1.Instance->ARR;
+    os_hw_interrupt_enable(level);
+
+    return now_us;
 }
 
 /**

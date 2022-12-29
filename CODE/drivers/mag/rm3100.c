@@ -15,14 +15,10 @@
 
 static light_device_t spi_dev;
 
-#define RM3100_BUF_SIZE   (9)
-struct double_buf
-{
-    uint8_t buf[RM3100_BUF_SIZE * 2];
-    uint8_t idx;
-};
-
-static DMA_DATA struct double_buf rm3100_dma_data = {0};
+#define RM3100_BUF_SIZE   (10)
+static DMA_DATA uint8_t send_buf[RM3100_BUF_SIZE];
+static DMA_DATA uint8_t recv_buf[RM3100_BUF_SIZE * 2];
+static bool recv_idx = 0;
 
 //upate rate enum
 enum
@@ -44,19 +40,32 @@ static err_t _modify_reg(light_device_t spi_device, uint8_t reg, uint8_t val)
     return val == r_val ? E_OK : E_RROR;
 }
 
+static err_t mag_config(mag_dev_t mag, const struct mag_configure* cfg)
+{
+    ASSERT(cfg != NULL);
+
+    memset(send_buf, 0, sizeof(send_buf));
+    memset(recv_buf, 0, sizeof(recv_buf));
+    send_buf[0] = RM3100_MX | 0x80;
+    mag->config = *cfg;
+
+    return E_OK;
+}
 static void exti_handler()
 {
-    // rechange the recv buf.
-    rm3100_dma_data.idx = !rm3100_dma_data.idx;
-    // transfer message
-    spi_read_multi_reg8_msk(spi_dev, RM3100_MX, &rm3100_dma_data.buf[rm3100_dma_data.idx * RM3100_BUF_SIZE], RM3100_BUF_SIZE);
+    /* transfer message */
+    if (spi_transfer((struct spi_device *)spi_dev, send_buf, &recv_buf[recv_idx * RM3100_BUF_SIZE], RM3100_BUF_SIZE))
+    {
+        //rechange the recv buf.
+        recv_idx = !recv_idx;
+    }
 }
 
 static err_t mag_measure(float mag[3])
 {
     OS_ENTER_CRITICAL();
 
-    uint8_t *raw = &rm3100_dma_data.buf[!rm3100_dma_data.idx * RM3100_BUF_SIZE];
+    uint8_t *raw = &recv_buf[!recv_idx * RM3100_BUF_SIZE + 1];
     for (uint8_t i = 0; i < 3; ++i)
     {
         mag[i] = (float )(((raw[3 * i]<<24)|(raw[3 * i + 1]<<16)|raw[3 * i + 2]<<8)>>8) * RM3100_SCALE;
@@ -80,7 +89,7 @@ size_t mag_read(mag_dev_t mag, off_t pos, void* data, size_t size)
 }
 
 const static struct mag_ops __mag_ops = {
-        NULL,
+        mag_config,
         NULL,
         mag_read,
         exti_handler

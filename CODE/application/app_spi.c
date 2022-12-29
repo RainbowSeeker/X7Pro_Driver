@@ -19,19 +19,6 @@
 #include "model/control/control_interface.h"
 #include "sysio/actuator_cmd.h"
 
-
-/* define log data */
-static mlog_elem_t IMU_Elems[] = {
-        MLOG_ELEMENT(timestamp, MLOG_UINT32),
-        MLOG_ELEMENT(gyr_x, MLOG_FLOAT),
-        MLOG_ELEMENT(gyr_y, MLOG_FLOAT),
-        MLOG_ELEMENT(gyr_z, MLOG_FLOAT),
-        MLOG_ELEMENT(acc_x, MLOG_FLOAT),
-        MLOG_ELEMENT(acc_y, MLOG_FLOAT),
-        MLOG_ELEMENT(acc_z, MLOG_FLOAT),
-};
-MLOG_BUS_DEFINE(IMU, IMU_Elems);
-
 uint8_t log_data[200] = {0};
 void App_SPI_Main(void *argument)
 {
@@ -52,11 +39,11 @@ void App_SPI_Main(void *argument)
     /* init ins model */
     ins_interface_init();
 
-//    /* init fms model */
-//    fms_interface_init();
-//
-//    /* init controller model */
-//    control_interface_init();
+    /* init fms model */
+    fms_interface_init();
+
+    /* init controller model */
+    control_interface_init();
 
 
     uint32_t tick = os_tick_get();
@@ -73,9 +60,9 @@ void App_SPI_Main(void *argument)
 #if !defined(FMT_USING_HIL) && !defined(FMT_USING_SIH)
         sensor_collect();
 #endif
-//        pilot_cmd_collect();
-//        gcs_cmd_collect();
-//        mission_data_collect();
+        pilot_cmd_collect();
+        gcs_cmd_collect();
+        mission_data_collect();
 
 #ifdef FMT_USING_SIH
         /* run Plant model */
@@ -84,12 +71,12 @@ void App_SPI_Main(void *argument)
         /* run INS model */
         PERIOD_EXECUTE3(ins_step, ins_model_info.period, time_now, ins_interface_step(timestamp););
         /* run FMS model */
-//        PERIOD_EXECUTE3(fms_step, fms_model_info.period, time_now, fms_interface_step(timestamp););
-//        /* run Controller model */
-//        PERIOD_EXECUTE3(control_step, control_model_info.period, time_now, control_interface_step(timestamp););
-//
-//        /* send actuator command */
-//        send_actuator_cmd();
+        PERIOD_EXECUTE3(fms_step, fms_model_info.period, time_now, fms_interface_step(timestamp););
+        /* run Controller model */
+        PERIOD_EXECUTE3(control_step, control_model_info.period, time_now, control_interface_step(timestamp););
+
+        /* send actuator command */
+        send_actuator_cmd();
 
 
         os_delay_until(&tick, 1);

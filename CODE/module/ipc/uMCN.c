@@ -43,9 +43,9 @@ void mcn_node_clear(McnNode_t node_t)
         return;
     }
 
-    MCN_ENTER_CRITICAL;
+    MCN_ENTER_CRITICAL();
     node_t->renewal = 0;
-    MCN_EXIT_CRITICAL;
+    MCN_EXIT_CRITICAL();
 }
 
 /**
@@ -112,9 +112,9 @@ bool mcn_poll(McnNode_t node_t)
 
     MCN_ASSERT(node_t != NULL);
 
-    MCN_ENTER_CRITICAL;
+    MCN_ENTER_CRITICAL();
     renewal = node_t->renewal;
-    MCN_EXIT_CRITICAL;
+    MCN_EXIT_CRITICAL();
 
     return renewal;
 }
@@ -161,10 +161,10 @@ err_t mcn_copy(McnHub_t hub, McnNode_t node_t, void* buffer)
         return E_NOTHANDLE;
     }
 
-    MCN_ENTER_CRITICAL;
+    MCN_ENTER_CRITICAL();
     memcpy(buffer, hub->pdata, hub->obj_size);
     node_t->renewal = 0;
-    MCN_EXIT_CRITICAL;
+    MCN_EXIT_CRITICAL();
 
     return E_OK;
 }
@@ -193,9 +193,9 @@ err_t mcn_copy_from_hub(McnHub_t hub, void* buffer)
         return E_NOTHANDLE;
     }
 
-    MCN_ENTER_CRITICAL;
+    MCN_ENTER_CRITICAL();
     memcpy(buffer, hub->pdata, hub->obj_size);
-    MCN_EXIT_CRITICAL;
+    MCN_EXIT_CRITICAL();
 
     return E_OK;
 }
@@ -231,7 +231,7 @@ err_t mcn_advertise(McnHub_t hub, int (*echo)(void* parameter))
         return E_NOMEM;
     }
 
-    MCN_ENTER_CRITICAL;
+    MCN_ENTER_CRITICAL();
     hub->pdata = pdata;
     hub->echo = echo;
 
@@ -255,7 +255,7 @@ err_t mcn_advertise(McnHub_t hub, int (*echo)(void* parameter))
     memset(hub->freq_est_window, 0, 2 * MCN_FREQ_EST_WINDOW_LEN);
     hub->window_index = 0;
 
-    MCN_EXIT_CRITICAL;
+    MCN_EXIT_CRITICAL();
 
     return E_OK;
 }
@@ -289,7 +289,7 @@ McnNode_t mcn_subscribe(McnHub_t hub, MCN_EVENT_HANDLE event, void (*pub_cb)(voi
     node->pub_cb = pub_cb;
     node->next = NULL;
 
-    MCN_ENTER_CRITICAL;
+    MCN_ENTER_CRITICAL();
 
     /* no node link yet */
     if (hub->link_tail == NULL) {
@@ -300,7 +300,7 @@ McnNode_t mcn_subscribe(McnHub_t hub, MCN_EVENT_HANDLE event, void (*pub_cb)(voi
     }
 
     hub->link_num++;
-    MCN_EXIT_CRITICAL;
+    MCN_EXIT_CRITICAL();
 
     if (hub->published) {
         /* update renewal flag as it's already published */
@@ -347,7 +347,7 @@ err_t mcn_unsubscribe(McnHub_t hub, McnNode_t node)
     }
 
     /* update list */
-    MCN_ENTER_CRITICAL;
+    MCN_ENTER_CRITICAL();
 
     if (hub->link_num == 1) {
         hub->link_head = hub->link_tail = NULL;
@@ -365,7 +365,7 @@ err_t mcn_unsubscribe(McnHub_t hub, McnNode_t node)
     }
 
     hub->link_num--;
-    MCN_EXIT_CRITICAL;
+    MCN_EXIT_CRITICAL();
 
     /* free current node */
     MCN_FREE(cur_node);
@@ -398,7 +398,7 @@ err_t mcn_publish(McnHub_t hub, const void* data)
     /* update freq estimator window */
     hub->freq_est_window[hub->window_index]++;
 
-    MCN_ENTER_CRITICAL;
+    MCN_ENTER_CRITICAL();
     /* copy data to hub */
     memcpy(hub->pdata, data, hub->obj_size);
     /* traverse each node */
@@ -418,7 +418,7 @@ err_t mcn_publish(McnHub_t hub, const void* data)
     }
 
     hub->published = 1;
-    MCN_EXIT_CRITICAL;
+    MCN_EXIT_CRITICAL();
 
     /* invoke callback func */
     node = hub->link_head;

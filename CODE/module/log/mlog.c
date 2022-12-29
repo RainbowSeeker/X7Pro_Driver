@@ -364,6 +364,7 @@ int mlog_get_bus_id(const char *bus_name)
  */
 err_t mlog_add_desc(char *desc)
 {
+    if (!desc)  return E_INVAL;
     if (strlen(desc) > MLOG_DESCRIPTION_SIZE - 1)
     {
         LOG_W("description too long.");
@@ -468,107 +469,108 @@ err_t mlog_start(char *file_name)
     mlog_handle.log_status = MLOG_STATUS_WRITE_HEAD;
 
     /* write log info */
-//    WRITE_PAYLOAD(&mlog_handle.header.version, sizeof(mlog_handle.header.version));
-//    WRITE_PAYLOAD(&mlog_handle.header.timestamp, sizeof(mlog_handle.header.timestamp));
-//    WRITE_PAYLOAD(&mlog_handle.header.max_name_len, sizeof(mlog_handle.header.max_name_len));
-//    WRITE_PAYLOAD(&mlog_handle.header.max_desc_len, sizeof(mlog_handle.header.max_desc_len));
-//    WRITE_PAYLOAD(&mlog_handle.header.max_model_info_len, sizeof(mlog_handle.header.max_model_info_len));
-//    WRITE_PAYLOAD(mlog_handle.header.description, MLOG_DESCRIPTION_SIZE);
-//    /* clear the description after it has been written */
-//    memset(mlog_handle.header.description, 0, MLOG_DESCRIPTION_SIZE);
-//
-//    /* write model information */
-//#ifdef FMT_USING_SIH
-//    sprintf(mlog_handle.header.model_info, "%s\n%s\n%s\n%s", ins_model_info.info, fms_model_info.info, control_model_info.info, plant_model_info.info);
-//#else
+    WRITE_PAYLOAD(&mlog_handle.header.version, sizeof(mlog_handle.header.version));
+    WRITE_PAYLOAD(&mlog_handle.header.timestamp, sizeof(mlog_handle.header.timestamp));
+    WRITE_PAYLOAD(&mlog_handle.header.max_name_len, sizeof(mlog_handle.header.max_name_len));
+    WRITE_PAYLOAD(&mlog_handle.header.max_desc_len, sizeof(mlog_handle.header.max_desc_len));
+    WRITE_PAYLOAD(&mlog_handle.header.max_model_info_len, sizeof(mlog_handle.header.max_model_info_len));
+    WRITE_PAYLOAD(mlog_handle.header.description, MLOG_DESCRIPTION_SIZE);
+    /* clear the description after it has been written */
+    memset(mlog_handle.header.description, 0, MLOG_DESCRIPTION_SIZE);
+
+    /* write model information */
+#ifdef FMT_USING_SIH
+    sprintf(mlog_handle.header.model_info, "%s\n%s\n%s\n%s", ins_model_info.info, fms_model_info.info, control_model_info.info, plant_model_info.info);
+#else
+    memset(mlog_handle.header.model_info, 0, MLOG_MODEL_INFO_SIZE);
 //    sprintf(mlog_handle.header.model_info, "%s\n%s\n%s", ins_model_info.info, fms_model_info.info,
 //            control_model_info.info);
-//#endif
-//    WRITE_PAYLOAD(mlog_handle.header.model_info, MLOG_MODEL_INFO_SIZE);
-//
-//    /* write bus information */
-//    WRITE_PAYLOAD(&mlog_handle.header.num_bus, sizeof(mlog_handle.header.num_bus));
-//    for (uint8_t n = 0; n < mlog_handle.header.num_bus; n++)
-//    {
-//        uint8_t msg_id = n;
-//
-//        /* write bus list */
-//        WRITE_PAYLOAD(mlog_handle.header.bus_list[n].name, MLOG_NAME_MAX_LEN);
-//        WRITE_PAYLOAD(&msg_id, sizeof(msg_id));
-//        WRITE_PAYLOAD(&mlog_handle.header.bus_list[n].num_elem, sizeof(mlog_handle.header.bus_list[n].num_elem));
-//        /* write bus element */
-//        for (int k = 0; k < mlog_handle.header.bus_list[n].num_elem; k++)
-//        {
-//            WRITE_PAYLOAD(mlog_handle.header.bus_list[n].elem_list[k].name, MLOG_NAME_MAX_LEN);
-//            WRITE_PAYLOAD(&mlog_handle.header.bus_list[n].elem_list[k].type,
-//                          sizeof(mlog_handle.header.bus_list[n].elem_list[k].type));
-//            WRITE_PAYLOAD(&mlog_handle.header.bus_list[n].elem_list[k].number,
-//                          sizeof(mlog_handle.header.bus_list[n].elem_list[k].number));
-//        }
-//    }
-//
-//    /* write parameter information */
-//    char name_buffer[MLOG_NAME_MAX_LEN + 1];
-//
-//    WRITE_PAYLOAD(&mlog_handle.header.num_param_group, sizeof(mlog_handle.header.num_param_group));
-//    for (int n = 0; n < mlog_handle.header.num_param_group; n++)
-//    {
-//        memset(name_buffer, 0, MLOG_NAME_MAX_LEN);
-//        strncpy(name_buffer, mlog_handle.header.param_group_list[n].name, MLOG_NAME_MAX_LEN);
-//
-//        WRITE_PAYLOAD(name_buffer, MLOG_NAME_MAX_LEN);
-//        WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_num,
-//                      sizeof(mlog_handle.header.param_group_list[n].param_num));
-//
-//        for (int k = 0; k < mlog_handle.header.param_group_list[n].param_num; k++)
-//        {
-//            memset(name_buffer, 0, MLOG_NAME_MAX_LEN);
-//            strncpy(name_buffer, mlog_handle.header.param_group_list[n].param_list[k].name, MLOG_NAME_MAX_LEN);
-//
-//            WRITE_PAYLOAD(name_buffer, MLOG_NAME_MAX_LEN);
-//            WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].type,
-//                          sizeof(mlog_handle.header.param_group_list[n].param_list[k].type));
-//
-//            int type = mlog_handle.header.param_group_list[n].param_list[k].type;
-//
-//            if (type == PARAM_TYPE_INT8)
-//            {
-//                WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].val.i8, sizeof(int8_t));
-//            }
-//            else if (type == PARAM_TYPE_UINT8)
-//            {
-//                WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].val.u8, sizeof(uint8_t));
-//            }
-//            else if (type == PARAM_TYPE_INT16)
-//            {
-//                WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].val.i16, sizeof(int16_t));
-//            }
-//            else if (type == PARAM_TYPE_UINT16)
-//            {
-//                WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].val.u16, sizeof(uint16_t));
-//            }
-//            else if (type == PARAM_TYPE_INT32)
-//            {
-//                WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].val.i32, sizeof(int32_t));
-//            }
-//            else if (type == PARAM_TYPE_UINT32)
-//            {
-//                WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].val.u32, sizeof(uint32_t));
-//            }
-//            else if (type == PARAM_TYPE_FLOAT)
-//            {
-//                WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].val.f, sizeof(float));
-//            }
-//            else if (type == PARAM_TYPE_DOUBLE)
-//            {
-//                WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].val.lf, sizeof(double));
-//            }
-//            else
-//            {
-//                LOG_W("unknown parameter type:%d", type);
-//            }
-//        }
-//    }
+#endif
+    WRITE_PAYLOAD(mlog_handle.header.model_info, MLOG_MODEL_INFO_SIZE);
+
+    /* write bus information */
+    WRITE_PAYLOAD(&mlog_handle.header.num_bus, sizeof(mlog_handle.header.num_bus));
+    for (uint8_t n = 0; n < mlog_handle.header.num_bus; n++)
+    {
+        uint8_t msg_id = n;
+
+        /* write bus list */
+        WRITE_PAYLOAD(mlog_handle.header.bus_list[n].name, MLOG_NAME_MAX_LEN);
+        WRITE_PAYLOAD(&msg_id, sizeof(msg_id));
+        WRITE_PAYLOAD(&mlog_handle.header.bus_list[n].num_elem, sizeof(mlog_handle.header.bus_list[n].num_elem));
+        /* write bus element */
+        for (int k = 0; k < mlog_handle.header.bus_list[n].num_elem; k++)
+        {
+            WRITE_PAYLOAD(mlog_handle.header.bus_list[n].elem_list[k].name, MLOG_NAME_MAX_LEN);
+            WRITE_PAYLOAD(&mlog_handle.header.bus_list[n].elem_list[k].type,
+                          sizeof(mlog_handle.header.bus_list[n].elem_list[k].type));
+            WRITE_PAYLOAD(&mlog_handle.header.bus_list[n].elem_list[k].number,
+                          sizeof(mlog_handle.header.bus_list[n].elem_list[k].number));
+        }
+    }
+
+    /* write parameter information */
+    char name_buffer[MLOG_NAME_MAX_LEN + 1];
+
+    WRITE_PAYLOAD(&mlog_handle.header.num_param_group, sizeof(mlog_handle.header.num_param_group));
+    for (int n = 0; n < mlog_handle.header.num_param_group; n++)
+    {
+        memset(name_buffer, 0, MLOG_NAME_MAX_LEN);
+        strncpy(name_buffer, mlog_handle.header.param_group_list[n].name, MLOG_NAME_MAX_LEN);
+
+        WRITE_PAYLOAD(name_buffer, MLOG_NAME_MAX_LEN);
+        WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_num,
+                      sizeof(mlog_handle.header.param_group_list[n].param_num));
+
+        for (int k = 0; k < mlog_handle.header.param_group_list[n].param_num; k++)
+        {
+            memset(name_buffer, 0, MLOG_NAME_MAX_LEN);
+            strncpy(name_buffer, mlog_handle.header.param_group_list[n].param_list[k].name, MLOG_NAME_MAX_LEN);
+
+            WRITE_PAYLOAD(name_buffer, MLOG_NAME_MAX_LEN);
+            WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].type,
+                          sizeof(mlog_handle.header.param_group_list[n].param_list[k].type));
+
+            int type = mlog_handle.header.param_group_list[n].param_list[k].type;
+
+            if (type == PARAM_TYPE_INT8)
+            {
+                WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].val.i8, sizeof(int8_t));
+            }
+            else if (type == PARAM_TYPE_UINT8)
+            {
+                WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].val.u8, sizeof(uint8_t));
+            }
+            else if (type == PARAM_TYPE_INT16)
+            {
+                WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].val.i16, sizeof(int16_t));
+            }
+            else if (type == PARAM_TYPE_UINT16)
+            {
+                WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].val.u16, sizeof(uint16_t));
+            }
+            else if (type == PARAM_TYPE_INT32)
+            {
+                WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].val.i32, sizeof(int32_t));
+            }
+            else if (type == PARAM_TYPE_UINT32)
+            {
+                WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].val.u32, sizeof(uint32_t));
+            }
+            else if (type == PARAM_TYPE_FLOAT)
+            {
+                WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].val.f, sizeof(float));
+            }
+            else if (type == PARAM_TYPE_DOUBLE)
+            {
+                WRITE_PAYLOAD(&mlog_handle.header.param_group_list[n].param_list[k].val.lf, sizeof(double));
+            }
+            else
+            {
+                LOG_W("unknown parameter type:%d", type);
+            }
+        }
+    }
 
     /* set log status */
     strncpy(mlog_handle.file_name, file_name, sizeof(mlog_handle.file_name) - 1);

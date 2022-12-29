@@ -17,14 +17,11 @@ static light_device_t spi_dev;
 static float gyro_range_scale;
 static float accel_range_scale;
 
-#define ICM42688_BUF_SIZE   (12)
-struct double_buf
-{
-    uint8_t buf[ICM42688_BUF_SIZE * 2];
-    uint8_t idx;
-};
+#define ICM42688_BUF_SIZE   (13)
 
-static DMA_DATA struct double_buf icm42688_dma_data = {0};
+static DMA_DATA uint8_t send_buf[ICM42688_BUF_SIZE];
+static DMA_DATA uint8_t recv_buf[ICM42688_BUF_SIZE * 2];
+static bool recv_idx = 0;
 
 /* Re-implement this function to define customized rotation */
 __WEAK void icm42688_rotate_to_ned(float *val)
@@ -37,7 +34,7 @@ static err_t gyro_read_raw(int16_t gyr[3])
     OS_ENTER_CRITICAL();
 
     // Invalidate the D cache covering the area into which data has been read
-    int16_t *raw = (int16_t *)(&icm42688_dma_data.buf[!icm42688_dma_data.idx * ICM42688_BUF_SIZE]);
+    int16_t *raw = (int16_t *)(&recv_buf[!recv_idx * ICM42688_BUF_SIZE + 1]);
     // big-endian to little-endian
     gyr[0] = int16_t_from_bytes((uint8_t *) &raw[3]);
     gyr[1] = int16_t_from_bytes((uint8_t *) &raw[4]);
@@ -66,6 +63,10 @@ static err_t gyro_config(gyro_dev_t gyro, const struct gyro_configure *cfg)
 {
     ASSERT(cfg != NULL);
 
+    memset(send_buf, 0, sizeof(send_buf));
+    memset(recv_buf, 0, sizeof(recv_buf));
+    send_buf[0] = ICM426XX_RA_ACCEL_DATA_X1 | 0x80;
+
     gyro_range_scale = (GYRO_SCALE_2000DPS * PI / 180.0f);
     gyro->config = *cfg;
 
@@ -74,10 +75,12 @@ static err_t gyro_config(gyro_dev_t gyro, const struct gyro_configure *cfg)
 
 static void exti_handler()
 {
-    // rechange the recv buf.
-    icm42688_dma_data.idx = !icm42688_dma_data.idx;
-    // transfer message
-    spi_read_multi_reg8_msk(spi_dev, ICM426XX_RA_ACCEL_DATA_X1, &icm42688_dma_data.buf[icm42688_dma_data.idx * ICM42688_BUF_SIZE], ICM42688_BUF_SIZE);
+    /* transfer message */
+    if (spi_transfer((struct spi_device *)spi_dev, send_buf, &recv_buf[recv_idx * ICM42688_BUF_SIZE], ICM42688_BUF_SIZE))
+    {
+        //rechange the recv buf.
+        recv_idx = !recv_idx;
+    }
 }
 
 static size_t gyro_read(gyro_dev_t gyro, off_t pos, void *data, size_t size)
@@ -106,7 +109,7 @@ static err_t accel_read_raw(int16_t acc[3])
 {
     OS_ENTER_CRITICAL();
 
-    int16_t *raw = (int16_t *)(&icm42688_dma_data.buf[!icm42688_dma_data.idx * ICM42688_BUF_SIZE]);
+    int16_t *raw = (int16_t *)(&recv_buf[!recv_idx * ICM42688_BUF_SIZE + 1]);
 
     // big-endian to little-endian
     acc[0] = int16_t_from_bytes((uint8_t *) &raw[0]);

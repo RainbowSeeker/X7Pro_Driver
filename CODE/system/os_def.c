@@ -88,7 +88,8 @@ err_t os_thread_resume(os_thread_t thread)
 
 err_t os_schedule(void)
 {
-    return osThreadYield();
+    return E_OK;
+//    return osThreadYield();
 }
 
 void os_thread_update_info(const char *name)
@@ -199,11 +200,6 @@ os_thread_t os_thread_self(void)
 
 err_t os_thread_startup(os_thread_t thread)
 {
-    ERROR_TRY(os_thread_resume(thread));
-    if (os_thread_self() != NULL)
-    {
-        os_schedule();
-    }
     return E_OK;
 }
 

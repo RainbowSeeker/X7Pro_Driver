@@ -27,7 +27,7 @@
 #define FMT_USING_MAVLINK_V2
 
 /* MLog */
-#define MLOG_BUFFER_SIZE         (22 * 1024)
+#define MLOG_BUFFER_SIZE         (120 * 1024)
 #define MLOG_SECTOR_SIZE         (4096)
 #define MLOG_MAX_SECTOR_TO_WRITE 5
 

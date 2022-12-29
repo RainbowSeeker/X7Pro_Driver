@@ -6,9 +6,6 @@
 #include "usart.h"
 
 
-
-
-
 //标准库需要的支持函数
 struct __FILE
 {
@@ -21,10 +18,6 @@ void _sys_exit(int x)
 {
     x = x;
 }
-
-
-
-
 
 
 /**

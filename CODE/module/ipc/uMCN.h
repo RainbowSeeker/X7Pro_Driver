@@ -11,8 +11,8 @@ extern "C" {
 
 #define MCN_MALLOC(size)            malloc(size)
 #define MCN_FREE(ptr)               free(ptr)
-#define MCN_ENTER_CRITICAL          OS_ENTER_CRITICAL
-#define MCN_EXIT_CRITICAL           OS_EXIT_CRITICAL
+#define MCN_ENTER_CRITICAL()        OS_ENTER_CRITICAL()
+#define MCN_EXIT_CRITICAL()         OS_EXIT_CRITICAL()
 #define MCN_EVENT_HANDLE            osSemaphoreId
 #define MCN_SEND_EVENT(event)       osSemaphoreRelease(event)
 #define MCN_WAIT_EVENT(event, time) osSemaphoreWait(event, time)

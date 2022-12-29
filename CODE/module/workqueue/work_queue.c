@@ -64,6 +64,18 @@ static WorkItem_t workqueue_pop(WorkQueue_t work_queue)
     return dq_item;
 }
 
+static void workqueue_wait(WorkQueue_t work_queue)
+{
+    base_t level = os_hw_interrupt_disable();
+    if (work_queue->size == 0)
+    {
+        /* no work scheduled, suspend itself */
+        os_thread_suspend(os_thread_self());
+        os_schedule();
+    }
+    os_hw_interrupt_enable(level);
+}
+
 /**
  * @brief Workqueue execution thread
  * 
@@ -78,17 +90,12 @@ static void workqueue_executor(void* parameter)
     uint32_t time_now, schedule_time;
 
     while (1) {
-        if (work_queue->size == 0) {
-            /* no work scheduled, suspend itself */
-            os_thread_suspend(os_thread_self());
-            os_schedule();
-            continue;
-        }
+        workqueue_wait(work_queue);
 
         time_now = systime_now_ms();
         schedule_time = work_queue->queue[0]->schedule_time;
         if (schedule_time > time_now) {
-            os_delay(schedule_time - time_now);
+            systime_msleep(schedule_time - time_now);
             continue;
         }
 
