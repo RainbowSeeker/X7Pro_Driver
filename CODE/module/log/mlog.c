@@ -230,7 +230,7 @@ void mlog_print_volume(uint8_t msg_id)
                 mlog_handle.buffer.num_sector) % mlog_handle.buffer.num_sector) * MLOG_SECTOR_SIZE
                 + mlog_handle.buffer.index;
     OS_EXIT_CRITICAL();
-    printf("\n[%lu]%s current volume:%5d / %5d (%.2f%%).", os_tick_get(), __mlog_table[msg_id].name, record_size, MLOG_BUFFER_SIZE, (float )record_size * 100 / MLOG_BUFFER_SIZE);
+    printf("\n[%lu]%s current volume:%5d / %5d (%.2f%%).", systime_now_ms(), __mlog_table[msg_id].name, record_size, MLOG_BUFFER_SIZE, (float )record_size * 100 / MLOG_BUFFER_SIZE);
 }
 
 

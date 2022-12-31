@@ -7,10 +7,8 @@
 #ifndef X7PRO_DRIVER_OBJECT_H
 #define X7PRO_DRIVER_OBJECT_H
 
-#include "common_def.h"
-#include "utils/list.h"
+#include "os_common.h"
 
-#define USING_DEVICE
 
 /**
  * Base structure of Kernel object

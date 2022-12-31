@@ -6,6 +6,7 @@
 
 #ifndef X7PRO_DRIVER_CACHE_H
 #define X7PRO_DRIVER_CACHE_H
+#include <stddef.h>
 #include "stm32h743xx.h"
 
 #define CACHE_LINE_SIZE 32

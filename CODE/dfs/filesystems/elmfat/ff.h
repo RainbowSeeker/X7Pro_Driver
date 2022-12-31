@@ -26,7 +26,7 @@
 extern "C" {
 #endif
 
-#include "system/os_def.h"
+#include "mutex.h"
 #include "ffconf.h"		/* FatFs configuration options */
 
 #if FF_DEFINED != FFCONF_DEF

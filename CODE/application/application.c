@@ -5,7 +5,6 @@
 //
 
 #include "application.h"
-#include "FreeRTOS.h"
 #include "common.h"
 #include "init.h"
 #include "workqueue/workqueue_manager.h"

@@ -362,7 +362,6 @@ HAL_StatusTypeDef HAL_SetTickFreq(HAL_TickFreqTypeDef Freq)
 
   if (uwTickFreq != Freq)
   {
-
     /* Back up uwTickFreq frequency */
     prevTickFreq = uwTickFreq;
 

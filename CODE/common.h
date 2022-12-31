@@ -9,14 +9,23 @@
 
 #include "common_def.h"
 #include "cmsis_os.h"
-#include "system/os_map.h"
-#include "system/cache.h"
+#include "drivers/cache.h"
 #include "utils/list.h"
 #include "module_common.h"
-#include "components/components.h"
 #include "finsh_api.h"
 #include <rtconfig.h>
 #include "stm32h7xx_hal.h"
+
+/* rtos include */
+#include "rtos/semaphore.h"
+#include "rtos/thread.h"
+#include "rtos/device.h"
+#include "rtos/timer.h"
+#include "rtos/mutex.h"
+#include "rtos/event.h"
+#include "rtos/mem.h"
+#include "rtos/mq.h"
+#include "rtos/completion/completion.h"
 
 /* HIL simulation */
 // #define FMT_USING_HIL

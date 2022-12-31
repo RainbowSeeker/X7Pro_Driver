@@ -24,6 +24,7 @@
 #include "shell.h"
 #include "mavproxy/mavproxy.h"
 #include "drv_usbd_cdc.h"
+#include "drivers/drv_systick.h"
 
 
 static const struct dfs_mount_tbl mnt_table[] = {
@@ -48,17 +49,26 @@ void bsp_early_init(void)
 
     SELF_CHECK(console_init());
 
+    /* system timer init */
+    SELF_CHECK(drv_systick_init());
+
+    /* system time module init */
+    SELF_CHECK(systime_init());
+
     /* spi driver init */
     SELF_CHECK(drv_spi_init());
+}
+void bsp_init(void)
+{
+    /* system statistic module */
+    SELF_CHECK(sys_stat_init());
 
     /* init uMCN */
     SELF_CHECK(mcn_init());
 
     /* create workqueue */
     SELF_CHECK(workqueue_manager_init());
-}
-void bsp_init(void)
-{
+
     SELF_CHECK(drv_sdio_init());
 
     SELF_CHECK(file_manager_init(mnt_table));
@@ -84,16 +94,14 @@ void bsp_init(void)
     SELF_CHECK(register_sensor_imu("gyro0", "accel0", 0));
     SELF_CHECK(register_sensor_imu("gyro1", "accel1", 1));
     SELF_CHECK(register_sensor_imu("gyro2", "accel2", 2));
-
     SELF_CHECK(register_sensor_mag("mag0", 0));
-
     SELF_CHECK(register_sensor_barometer("baro0"));
-
-    /* init finsh */
-    finsh_system_init();
 
     SELF_CHECK(mavproxy_init());
 
     void bsp_post_init();
     bsp_post_init();
+
+    /* init finsh */
+    finsh_system_init();
 }

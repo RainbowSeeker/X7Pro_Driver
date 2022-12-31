@@ -1,5 +1,6 @@
 #include "completion.h"
-#include <rtdebug.h>
+#include "thread.h"
+#include "rtdebug.h"
 
 #define COMPLETED    1
 #define UNCOMPLETED  0

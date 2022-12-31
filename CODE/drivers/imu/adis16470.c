@@ -21,6 +21,16 @@ static DMA_DATA uint8_t send_buf[ADIS_BUF_SIZE];
 static DMA_DATA uint8_t recv_buf[ADIS_BUF_SIZE * 2];
 static bool recv_idx = 0;
 
+static void drdy_collect(uint32_t user_data)
+{
+    /* transfer message */
+    if (spi_transfer((struct spi_device *)spi_dev, send_buf, &recv_buf[recv_idx * ADIS_BUF_SIZE], ADIS_BUF_SIZE))
+    {
+        //rechange the recv buf.
+        recv_idx = !recv_idx;
+    }
+}
+
 /* Re-implement this function to define customized rotation */
 __WEAK void adis16470_rotate_to_ned(float *val)
 {
@@ -106,6 +116,11 @@ static err_t gyro_read_raw(int16_t gyr[3])
     gyr[2] = int16_t_from_bytes((uint8_t *) &raw[2]);
 
     OS_EXIT_CRITICAL();
+
+#ifdef SENSOR_SOFT_DRDY
+    drdy_collect(0);
+#endif
+
     return E_OK;
 }
 
@@ -133,6 +148,9 @@ static err_t gyro_config(gyro_dev_t gyro, const struct gyro_configure *cfg)
     send_buf[0] = BURST_READ;
     gyro_range_scale = (1e-1 * PI / 180.0f);
     gyro->config = *cfg;
+#ifdef SENSOR_SOFT_DRDY
+    drdy_collect(0);
+#endif
 
     return E_OK;
 }
@@ -150,21 +168,13 @@ static size_t gyro_read(gyro_dev_t gyro, off_t pos, void *data, size_t size)
     return size;
 }
 
-static void exti_handler(uint32_t user_data)
-{
-    /* transfer message */
-    if (spi_transfer((struct spi_device *)spi_dev, send_buf, &recv_buf[recv_idx * ADIS_BUF_SIZE], ADIS_BUF_SIZE))
-    {
-        //rechange the recv buf.
-        recv_idx = !recv_idx;
-    }
-}
-
 const static struct gyro_ops _gyro_ops = {
         gyro_config,
         NULL,
         gyro_read,
-        exti_handler
+#ifndef SENSOR_SOFT_DRDY
+        drdy_collect
+#endif
 };
 
 static err_t imu_init(void)

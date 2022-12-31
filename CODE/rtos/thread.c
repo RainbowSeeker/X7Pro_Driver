@@ -1,13 +1,203 @@
 // Copyright (c) 2022 By RainbowSeeker.
 
 //
-// Created by 19114 on 2022/12/2.
+// Created by 19114 on 2022/12/30.
 //
 
-#include "os_def.h"
+#include "thread.h"
 
 /* global errno */
 static volatile int os_errno;
+
+static void (*thread_suspend_hook)(os_thread_t thread);
+static void (*thread_resume_hook) (os_thread_t thread);
+static void (*thread_inited_hook) (os_thread_t thread);
+static void (*thread_deleted_hook)(os_thread_t thread);
+static void (*scheduler_hook)(os_thread_t from, os_thread_t to);
+
+/**
+ * @ingroup Hook
+ * This function sets a hook function when the system suspend a thread.
+ *
+ * @param hook the specified hook function
+ *
+ * @note the hook function must be simple and never be blocked or suspend.
+ */
+void os_thread_suspend_sethook(void (*hook)(os_thread_t thread))
+{
+    thread_suspend_hook = hook;
+}
+
+/**
+ * @ingroup Hook
+ * This function sets a hook function when the system resume a thread.
+ *
+ * @param hook the specified hook function
+ *
+ * @note the hook function must be simple and never be blocked or suspend.
+ */
+void os_thread_resume_sethook(void (*hook)(os_thread_t thread))
+{
+    thread_resume_hook = hook;
+}
+
+/**
+ * @ingroup Hook
+ * This function sets a hook function when a thread is initialized.
+ *
+ * @param hook the specified hook function
+ */
+void os_thread_inited_sethook(void (*hook)(os_thread_t thread))
+{
+    thread_inited_hook = hook;
+}
+
+/**
+ * @ingroup Hook
+ * This function sets a hook function when a thread is deleted.
+ *
+ * @param hook the specified hook function
+ */
+void os_thread_deleted_sethook(void (*hook)(os_thread_t thread))
+{
+    thread_deleted_hook = hook;
+}
+
+#define IDLE_HOOK_LIST_SIZE  4
+
+static void (*idle_hook_list[IDLE_HOOK_LIST_SIZE])(void);
+
+
+os_thread_t os_thread_idle_gethandler()
+{
+    return os_thread_find("idle");
+}
+
+
+/**
+ * @ingroup Hook
+ * This function sets a hook function to idle thread loop. When the system performs
+ * idle loop, this hook function should be invoked.
+ *
+ * @param hook the specified hook function
+ *
+ * @return EOK: set OK
+ *         -EFULL: hook list is full
+ *
+ * @note the hook function must be simple and never be blocked or suspend.
+ */
+err_t os_thread_idle_sethook(void (*hook)(void))
+{
+    size_t i;
+    base_t level;
+    err_t ret = -E_FULL;
+    os_thread_t idle;
+
+    idle = os_thread_find("idle");
+    if (idle == NULL)
+    {
+        idle = malloc(sizeof(struct thread));
+        /* init thread list */
+        list_init(&idle->tlist);
+        object_init(&idle->parent, Object_Class_Thread, "idle");
+
+        idle->error = E_OK;
+        idle->stat = THREAD_READY;
+        idle->priority = 0;
+        idle->stack_size = 1024;
+        idle->tid = xTaskGetIdleTaskHandle();
+        if (thread_inited_hook)
+        {
+            thread_inited_hook(idle);
+        }
+    }
+
+
+    /* disable interrupt */
+    level = os_hw_interrupt_disable();
+
+    for (i = 0; i < IDLE_HOOK_LIST_SIZE; i++)
+    {
+        if (idle_hook_list[i] == NULL)
+        {
+            idle_hook_list[i] = hook;
+            ret = E_OK;
+            break;
+        }
+    }
+    /* enable interrupt */
+    os_hw_interrupt_enable(level);
+
+    return ret;
+}
+
+/**
+ * delete the idle hook on hook list
+ *
+ * @param hook the specified hook function
+ *
+ * @return EOK: delete OK
+ *         -ENOSYS: hook was not found
+ */
+err_t os_thread_idle_delhook(void (*hook)(void))
+{
+    size_t i;
+    base_t level;
+    err_t ret = -ENOSYS;
+
+    /* disable interrupt */
+    level = os_hw_interrupt_disable();
+
+    for (i = 0; i < IDLE_HOOK_LIST_SIZE; i++)
+    {
+        if (idle_hook_list[i] == hook)
+        {
+            idle_hook_list[i] = NULL;
+            ret = E_OK;
+            break;
+        }
+    }
+    /* enable interrupt */
+    os_hw_interrupt_enable(level);
+
+    return ret;
+}
+
+static void os_thread_idle_hook()
+{
+    size_t i;
+    for (i = 0; i < IDLE_HOOK_LIST_SIZE; i++)
+    {
+        if (idle_hook_list[i] != NULL)
+        {
+            idle_hook_list[i]();
+        }
+    }
+}
+
+/* Compiler Related Definitions */
+#if defined(__CC_ARM) || defined(__CLANG_ARM)           /* ARM Compiler */
+void IDLE_FUNC_NAME(){os_thread_idle_hook();}
+#elif defined (__GNUC__)                /* GNU GCC Compiler */
+void IDLE_FUNC_NAME() __attribute__((weak, alias("os_thread_idle_hook")));
+#else
+#error not supported tool chain
+#endif
+
+void os_scheduler_sethook(void hook(os_thread_t from, os_thread_t to))
+{
+    scheduler_hook = hook;
+}
+
+void os_scheduler_hook()
+{
+    os_thread_t from = os_thread_self();
+    if (from && scheduler_hook)
+    {
+        scheduler_hook(from, NULL);
+    }
+}
+
 
 /**
  * os_thread_create
@@ -35,7 +225,7 @@ os_thread_t os_thread_create(const char *name,
     if (priority >= OS_MAX_PRIORITY)
     {
         printf("\r\nThe priority you set is too high! \r\n Please decrease priority to < %d.", OS_MAX_PRIORITY);
-        return NULL;
+        goto _fail;
     }
 
     /* init thread list */
@@ -43,23 +233,34 @@ os_thread_t os_thread_create(const char *name,
     object_init(&thread->parent, Object_Class_Thread, name);
 
     thread->error = E_OK;
-    thread->stat = THREAD_INIT;
+    thread->stat = THREAD_READY;
     thread->priority = priority;
     thread->stack_size = stack_size;
+    if (thread_inited_hook)
+    {
+        thread_inited_hook(thread);
+    }
 
     if (xTaskCreate((TaskFunction_t)task_func_t,(const portCHAR *)name,
                     stack_size, parameter, priority,
                     &thread->tid) != pdPASS)
     {
-        free(thread);
-        return NULL;
+        goto _fail;
     }
     return thread;
+
+    _fail:
+    free(thread);
+    return NULL;
 }
 
 err_t os_thread_delete(os_thread_t thread)
 {
     if (thread == NULL) return E_EMPTY;
+    if (thread_deleted_hook)
+    {
+        thread_deleted_hook(thread);
+    }
     vTaskDelete(thread->tid);
     return E_OK;
 }
@@ -67,6 +268,10 @@ err_t os_thread_delete(os_thread_t thread)
 err_t os_thread_suspend(os_thread_t thread)
 {
     if (thread == NULL) return E_EMPTY;
+    if (thread_suspend_hook)
+    {
+        thread_suspend_hook(thread);
+    }
 
     return osThreadSuspend(thread->tid);
 }
@@ -74,6 +279,7 @@ err_t os_thread_suspend(os_thread_t thread)
 err_t os_thread_resume(os_thread_t thread)
 {
     if (thread == NULL) return E_EMPTY;
+
     /* disable interrupt */
     base_t level = os_hw_interrupt_disable();
 
@@ -82,14 +288,12 @@ err_t os_thread_resume(os_thread_t thread)
 
     /* enable interrupt */
     os_hw_interrupt_enable(level);
+    if (thread_resume_hook)
+    {
+        thread_resume_hook(thread);
+    }
 
     return osThreadResume(thread->tid);
-}
-
-err_t os_schedule(void)
-{
-    return E_OK;
-//    return osThreadYield();
 }
 
 void os_thread_update_info(const char *name)
@@ -117,13 +321,12 @@ void os_thread_update_info(const char *name)
 
 void os_thread_update_info_all(void)
 {
-    uint32_t total_runtime = 0;
     size_t task_num = os_thread_get_num();
     TaskStatus_t *task_status = malloc(task_num * sizeof(TaskStatus_t));
 
     if (task_status)
     {
-        task_num = uxTaskGetSystemState(task_status, task_num, &total_runtime);
+        task_num = uxTaskGetSystemState(task_status, task_num, NULL);
 
         /* update all thread info */
         for(size_t i = 0; i < task_num; i++ )
@@ -131,8 +334,6 @@ void os_thread_update_info_all(void)
             os_thread_t thread = os_thread_find(task_status[i].pcTaskName);
 
             thread->max_used = thread->stack_size - task_status[i].usStackHighWaterMark;
-            if (total_runtime)  thread->occupy = task_status[i].ulRunTimeCounter * 100 / total_runtime;
-            else thread->occupy = 0;
             if (task_status[i].eCurrentState == eReady) thread->stat = THREAD_READY;
             else if (task_status[i].eCurrentState == eSuspended) thread->stat = THREAD_SUSPEND;
             else if (task_status[i].eCurrentState == eRunning) thread->stat = THREAD_RUNNING;
@@ -153,7 +354,7 @@ os_thread_t os_thread_find(char *name)
     ASSERT(information != NULL);
 
     /* enter critical */
-    OS_ENTER_CRITICAL();
+    base_t level = os_hw_interrupt_disable();
     /* try to find object */
     list_for_each(node, &information->object_list)
     {
@@ -161,12 +362,12 @@ os_thread_t os_thread_find(char *name)
         obj = list_entry(node, struct object, list);
         if (strncmp(obj->name, name, NAME_MAX_LEN) == 0)
         {
-            OS_EXIT_CRITICAL();
+            os_hw_interrupt_enable(level);
             return (os_thread_t)obj;
         }
     }
     /* leave critical */
-    OS_EXIT_CRITICAL();
+    os_hw_interrupt_enable(level);
     return NULL;
 }
 
@@ -180,8 +381,7 @@ os_thread_t os_thread_self(void)
     information = object_get_information(Object_Class_Thread);
     ASSERT(information != NULL);
 
-    /* enter critical */
-    OS_ENTER_CRITICAL();
+    base_t level = os_hw_interrupt_disable();
     /* try to find object */
     list_for_each(node, &information->object_list)
     {
@@ -189,12 +389,11 @@ os_thread_t os_thread_self(void)
         obj = list_entry(node, struct object, list);
         if (((os_thread_t)obj)->tid == tid)
         {
-            OS_EXIT_CRITICAL();
+            os_hw_interrupt_enable(level);
             return (os_thread_t)obj;
         }
     }
-    /* leave critical */
-    OS_EXIT_CRITICAL();
+    os_hw_interrupt_enable(level);
     return NULL;
 }
 
@@ -228,46 +427,6 @@ void os_thread_timeout(void *parameter)
     /* do schedule */
     os_schedule();
 }
-
-/**
- * This function will initialize a timer, normally this function is used to
- * initialize a static timer object.
- *
- * @param timer the static timer object
- * @param name the name of timer
- * @param timeout the timeout function
- * @param parameter the parameter of timeout function
- * @param period the tick of timer
- * @param type the type of timer
- */
-os_timer_t os_timer_create(const char *name,
-                           void (*timeout)(void *),
-                           void *parameter,
-                           tick_t period,
-                           uint8_t type)
-{
-    os_timer_t timer = malloc(sizeof(struct timer));
-    if (timer == NULL)
-    {
-        printf("\r\nno mem");
-        return NULL;
-    }
-
-    object_init(&timer->parent, Object_Class_Timer, name);
-    timer->period = TICKS_FROM_MS(period);
-
-    timer->tid = xTimerCreate(name,
-                              timer->period,
-                              type == TIMER_TYPE_PERIODIC,
-                              (void *) parameter,
-                              (TimerCallbackFunction_t)timeout);
-    return timer;
-}
-
-
-
-
-
 /*
  * This function will get errno
  *
@@ -315,4 +474,3 @@ void os_set_errno(err_t error)
 
     thread->error = error;
 }
-

@@ -20,6 +20,16 @@ static DMA_DATA uint8_t send_buf[RM3100_BUF_SIZE];
 static DMA_DATA uint8_t recv_buf[RM3100_BUF_SIZE * 2];
 static bool recv_idx = 0;
 
+static void drdy_collect(uint32_t user_data)
+{
+    /* transfer message */
+    if (spi_transfer((struct spi_device *)spi_dev, send_buf, &recv_buf[recv_idx * RM3100_BUF_SIZE], RM3100_BUF_SIZE))
+    {
+        //rechange the recv buf.
+        recv_idx = !recv_idx;
+    }
+}
+
 //upate rate enum
 enum
 {
@@ -49,17 +59,13 @@ static err_t mag_config(mag_dev_t mag, const struct mag_configure* cfg)
     send_buf[0] = RM3100_MX | 0x80;
     mag->config = *cfg;
 
+#ifdef SENSOR_SOFT_DRDY
+    drdy_collect(0);
+#endif
+
     return E_OK;
 }
-static void exti_handler()
-{
-    /* transfer message */
-    if (spi_transfer((struct spi_device *)spi_dev, send_buf, &recv_buf[recv_idx * RM3100_BUF_SIZE], RM3100_BUF_SIZE))
-    {
-        //rechange the recv buf.
-        recv_idx = !recv_idx;
-    }
-}
+
 
 static err_t mag_measure(float mag[3])
 {
@@ -72,6 +78,9 @@ static err_t mag_measure(float mag[3])
     }
     OS_EXIT_CRITICAL();
 
+#ifdef SENSOR_SOFT_DRDY
+    drdy_collect(0);
+#endif
     return E_OK;
 }
 
@@ -92,7 +101,9 @@ const static struct mag_ops __mag_ops = {
         mag_config,
         NULL,
         mag_read,
-        exti_handler
+#ifndef SENSOR_SOFT_DRDY
+        drdy_collect
+#endif
 };
 
 /**

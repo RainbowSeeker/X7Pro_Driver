@@ -7,8 +7,8 @@
 #ifndef X7PRO_DRIVER_DEVICE_H
 #define X7PRO_DRIVER_DEVICE_H
 
-#include "common_def.h"
-#include "module/utils/list.h"
+#include "os_common.h"
+
 
 /**
  * device flags defitions

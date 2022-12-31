@@ -23,6 +23,16 @@ static DMA_DATA uint8_t send_buf[ICM42688_BUF_SIZE];
 static DMA_DATA uint8_t recv_buf[ICM42688_BUF_SIZE * 2];
 static bool recv_idx = 0;
 
+static void drdy_collect(uint32_t user_data)
+{
+    /* transfer message */
+    if (spi_transfer((struct spi_device *)spi_dev, send_buf, &recv_buf[recv_idx * ICM42688_BUF_SIZE], ICM42688_BUF_SIZE))
+    {
+        //rechange the recv buf.
+        recv_idx = !recv_idx;
+    }
+}
+
 /* Re-implement this function to define customized rotation */
 __WEAK void icm42688_rotate_to_ned(float *val)
 {
@@ -41,6 +51,10 @@ static err_t gyro_read_raw(int16_t gyr[3])
     gyr[2] = int16_t_from_bytes((uint8_t *) &raw[5]);
 
     OS_EXIT_CRITICAL();
+
+#ifdef SENSOR_SOFT_DRDY
+    drdy_collect(0);
+#endif
     return E_OK;
 }
 
@@ -70,18 +84,13 @@ static err_t gyro_config(gyro_dev_t gyro, const struct gyro_configure *cfg)
     gyro_range_scale = (GYRO_SCALE_2000DPS * PI / 180.0f);
     gyro->config = *cfg;
 
+#ifdef SENSOR_SOFT_DRDY
+    drdy_collect(0);
+#endif
+
     return E_OK;
 }
 
-static void exti_handler()
-{
-    /* transfer message */
-    if (spi_transfer((struct spi_device *)spi_dev, send_buf, &recv_buf[recv_idx * ICM42688_BUF_SIZE], ICM42688_BUF_SIZE))
-    {
-        //rechange the recv buf.
-        recv_idx = !recv_idx;
-    }
-}
 
 static size_t gyro_read(gyro_dev_t gyro, off_t pos, void *data, size_t size)
 {
@@ -100,7 +109,9 @@ const static struct gyro_ops _gyro_ops = {
         gyro_config,
         NULL,
         gyro_read,
-        exti_handler
+#ifndef SENSOR_SOFT_DRDY
+        drdy_collect
+#endif
 };
 
 

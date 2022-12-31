@@ -1,11 +1,9 @@
 // Copyright (c) 2022 By RainbowSeeker.
 
-#include <common.h>
+#include "work_queue.h"
 
-#include "module/workqueue/work_queue.h"
-
-#define work_lock(_wq)   os_mutex_take(_wq->lock, osWaitForever)
-#define work_unlock(_wq) os_mutex_release(_wq->lock)
+#define work_lock(_wq)      os_mutex_take(_wq->lock, osWaitForever)
+#define work_unlock(_wq)    os_mutex_release(_wq->lock)
 
 static void __swap_item(WorkItem_t* a, WorkItem_t* b)
 {
@@ -64,17 +62,6 @@ static WorkItem_t workqueue_pop(WorkQueue_t work_queue)
     return dq_item;
 }
 
-static void workqueue_wait(WorkQueue_t work_queue)
-{
-    base_t level = os_hw_interrupt_disable();
-    if (work_queue->size == 0)
-    {
-        /* no work scheduled, suspend itself */
-        os_thread_suspend(os_thread_self());
-        os_schedule();
-    }
-    os_hw_interrupt_enable(level);
-}
 
 /**
  * @brief Workqueue execution thread
@@ -90,7 +77,11 @@ static void workqueue_executor(void* parameter)
     uint32_t time_now, schedule_time;
 
     while (1) {
-        workqueue_wait(work_queue);
+        if (work_queue->size == 0){
+            /* no work scheduled, suspend itself */
+            os_thread_suspend(os_thread_self());
+            os_schedule();
+        }
 
         time_now = systime_now_ms();
         schedule_time = work_queue->queue[0]->schedule_time;
@@ -205,9 +196,11 @@ err_t workqueue_delete(WorkQueue_t work_queue)
     if (os_thread_delete(work_queue->thread) != E_OK) {
         return E_RROR;
     }
+
     if (os_mutex_delete(work_queue->lock) != E_OK) {
         return E_RROR;
     }
+
     free(work_queue->queue);
     free(work_queue);
 
@@ -239,6 +232,7 @@ WorkQueue_t workqueue_create(const char* name, uint8_t size, uint16_t stack_size
     }
     work_queue->qsize = size;
     work_queue->size = 0;
+
 
     os_mutex_init(&work_queue->lock);
     if (work_queue->lock == NULL) {
