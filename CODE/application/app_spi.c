@@ -44,9 +44,7 @@ void App_SPI_Main(void *argument)
 
     /* init controller model */
     control_interface_init();
-
-
-    uint32_t tick = os_tick_get();
+    
     while (1)
     {
         time_now = systime_now_ms();
@@ -79,7 +77,7 @@ void App_SPI_Main(void *argument)
         send_actuator_cmd();
 
 
-        os_delay_until(&tick, 1);
+        os_delay(1);
 //        osDelay(Baro_Update(&ms5611, Sys_GetTickUs()) / 1000);
 //        fm25vx.write(0x00C1, txbuf, len);
 //        fm25vx.read(0x00C1, rxbuf, len);

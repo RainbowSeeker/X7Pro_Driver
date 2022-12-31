@@ -66,6 +66,16 @@ static BDMA_DATA uint8_t send_buf[ICM20689_BUF_SIZE];
 static BDMA_DATA uint8_t recv_buf[ICM20689_BUF_SIZE * 2];
 static bool recv_idx = 0;
 
+static void drdy_collect(uint32_t user_data)
+{
+    /* transfer message */
+    if (spi_transfer((struct spi_device *)spi_dev, send_buf, &recv_buf[recv_idx * ICM20689_BUF_SIZE], ICM20689_BUF_SIZE))
+    {
+        //rechange the recv buf.
+        recv_idx = !recv_idx;
+    }
+}
+
 /* Re-implement this function to define customized rotation */
 __WEAK void icm20689_rotate_to_ned(float *val)
 {
@@ -310,6 +320,10 @@ static err_t gyro_read_raw(int16_t gyr[3])
     gyr[2] = int16_t_from_bytes((uint8_t *) &raw[6]);
 
     OS_EXIT_CRITICAL();
+
+#ifdef SENSOR_SOFT_DRDY
+    drdy_collect(0);
+#endif
     return E_OK;
 }
 
@@ -340,17 +354,11 @@ static err_t gyro_config(gyro_dev_t gyro, const struct gyro_configure *cfg)
     send_buf[0] = MPU_RA_ACCEL_XOUT_H | 0x80;
     gyro->config = *cfg;
 
-    return E_OK;
-}
+#ifdef SENSOR_SOFT_DRDY
+    drdy_collect(0);
+#endif
 
-static void exti_handler()
-{
-        /* transfer message */
-    if (spi_transfer((struct spi_device *)spi_dev, send_buf, &recv_buf[recv_idx * ICM20689_BUF_SIZE], ICM20689_BUF_SIZE))
-    {
-        //rechange the recv buf.
-        recv_idx = !recv_idx;
-    }
+    return E_OK;
 }
 
 static size_t gyro_read(gyro_dev_t gyro, off_t pos, void *data, size_t size)
@@ -370,7 +378,9 @@ const static struct gyro_ops _gyro_ops = {
         gyro_config,
         NULL,
         gyro_read,
-        exti_handler
+#ifndef SENSOR_SOFT_DRDY
+        drdy_collect
+#endif
 };
 
 static err_t accel_read_raw(int16_t acc[3])

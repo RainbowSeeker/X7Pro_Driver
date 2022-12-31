@@ -76,8 +76,8 @@
 #define FINSH_USING_MSH
 #define FINSH_USING_MSH_ONLY
 #define DFS_USING_WORKDIR
-#define FINSH_THREAD_PRIORITY   6
-#define FINSH_THREAD_STACK_SIZE 4096
+#define FINSH_THREAD_PRIORITY   OS_MAX_PRIORITY - 1
+#define FINSH_THREAD_STACK_SIZE 2048
 /* Enable finsh history */
 #define FINSH_USING_HISTORY
 /* Finsh maximal arguments number */

@@ -11,7 +11,6 @@
 #include  <stm32h7xx_hal.h>
 #include  <stdio.h>
 #include "string.h"
-#include "FreeRTOS.h"
 #include "cmsis_os.h"
 #include "spi.h"
 

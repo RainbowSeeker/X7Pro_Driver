@@ -17,8 +17,6 @@
                                 }
 
 
-uint32_t Sys_GetTickUs(void);
-void Sys_DelayUs(uint32_t Delay);
 void TickStart(void);
 uint32_t TickEnd(void);
 #endif //STM32H743IIT6_SYS_H

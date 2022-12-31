@@ -9,6 +9,8 @@
 
 #include "common.h"
 
+#define SENSOR_SOFT_DRDY       1
+
 #define RAW_TEMPERATURE_POS 0
 #define RAW_PRESSURE_POS    1
 #define COLLECT_DATA_POS    2

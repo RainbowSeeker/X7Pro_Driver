@@ -1,4 +1,3 @@
-
 #include "uMCN.h"
 
 static McnList __mcn_list = { .hub = NULL, .next = NULL };

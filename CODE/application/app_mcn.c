@@ -159,7 +159,7 @@ static bool mavlink_msg_sys_status_cb(mavlink_message_t* msg_t)
     sys_status.onboard_control_sensors_present = 1;
     sys_status.onboard_control_sensors_enabled = 1;
     sys_status.onboard_control_sensors_health = 1;
-//    sys_status.load = (uint16_t)(get_cpu_usage() * 1e3);
+    sys_status.load = (uint16_t)(get_cpu_usage() * 1e1);
 //    sys_status.voltage_battery = bat0_status.battery_voltage;
     sys_status.current_battery = -1;
     sys_status.battery_remaining = -1;

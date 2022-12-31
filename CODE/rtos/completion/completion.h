@@ -1,7 +1,7 @@
 #ifndef COMPLETION_H_
 #define COMPLETION_H_
 
-#include <common.h>
+#include "os_common.h"
 
 /**
  * Completion

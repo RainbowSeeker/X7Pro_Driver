@@ -5,7 +5,7 @@
 //
 
 #include "device.h"
-#include "common.h"
+
 
 static LIST_DEF(device_list);       /* associate all devices */
 static size_t device_num = 0;       /* calculate the number of device */

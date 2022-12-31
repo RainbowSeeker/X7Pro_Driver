@@ -5,8 +5,6 @@
 //
 
 #include "spi.h"
-#include "FreeRTOS.h"
-#include "atomic.h"
 #include "dma/dma.h"
 
 #define spi_lock(_bus)          os_sem_take(_bus->lock, osWaitForever)

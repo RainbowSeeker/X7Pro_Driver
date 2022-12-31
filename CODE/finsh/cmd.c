@@ -173,8 +173,8 @@ long list_thread(void)
     printf("%-*.s cpu pri  status      sp     stack size max used left tick  error\n", maxlen, item_title); object_split(maxlen);
     printf(     " --- ---  ------- ---------- ----------  ------  ---------- ---\n");
 #else
-    printf("%-*s pri  status  stacksz max_used usage error\n", maxlen, item_title); object_split(maxlen);
-    printf(     " ---  ------  ------- -------- ----- -----\n");
+    printf("%-*s  pri  status  stacksz max_used usage error\n", maxlen, item_title); object_split(maxlen);
+    printf(     "  ---  ------  ------- -------- ----- -----\n");
 #endif /*USING_SMP*/
 
     os_thread_update_info_all();
@@ -211,7 +211,7 @@ long list_thread(void)
                         printf("%-*.*s N/A %3d ", maxlen, NAME_MAX_LEN, thread->name, thread->current_priority);
 
 #else
-                    printf("%-*.*s %3d ", maxlen, NAME_MAX_LEN, thread->parent.name, thread->priority);
+                    printf("%-*.*s %3d  ", maxlen, NAME_MAX_LEN, thread->parent.name, thread->priority);
 #endif /*USING_SMP*/
                     stat = (thread->stat & THREAD_STAT_MASK);
                     if (stat == THREAD_READY)        printf(" ready  ");
@@ -220,6 +220,7 @@ long list_thread(void)
                     else if (stat == THREAD_CLOSE)   printf(" close  ");
                     else if (stat == THREAD_RUNNING) printf(" running");
 
+                    cpu_usage_stats* cpu_stat = (cpu_usage_stats*)thread->user_data;
 #if defined(ARCH_CPU_STACK_GROWS_UPWARD)
                     ptr = (uint8_t *)thread->stack_addr + thread->stack_size - 1;
                     while (*ptr == '#')ptr --;
@@ -231,11 +232,11 @@ long list_thread(void)
                             thread->remaining_tick,
                             thread->error);
 #else
-                    printf("%8lu      %02lu%%   %02lu%%   %03d\n",
+                    printf("%8lu    %02lu%%   %.2f%%   %03d\n",
                             thread->stack_size,
                             (thread->max_used) * 100
                             / thread->stack_size,
-                            thread->occupy,
+                           cpu_stat != NULL ? cpu_stat->cpu_usage : -1.0f,
                             thread->error);
 #endif
                 }
@@ -781,7 +782,7 @@ long list_timer(void)
 FINSH_FUNCTION_EXPORT(list_timer, list timer in system);
 #endif
 
-#ifdef USING_DEVICE
+
 static char *const device_type_str[] =
 {
     "Character Device",
@@ -863,7 +864,6 @@ long list_device(void)
     return 0;
 }
 FINSH_FUNCTION_EXPORT(list_device, list device in system);
-#endif
 
 
 #ifndef FINSH_USING_MSH_ONLY

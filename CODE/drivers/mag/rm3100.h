@@ -7,7 +7,7 @@
 #ifndef X7PRO_DRIVER_RM3100_H
 #define X7PRO_DRIVER_RM3100_H
 
-#include "common_def.h"
+#include "sensor/sensor_mag.h"
 
 #define RM3100_MAX_SPI_CLK_HZ   1000000
 #define RM3100_SCALE            (1.0f / 7.5f)

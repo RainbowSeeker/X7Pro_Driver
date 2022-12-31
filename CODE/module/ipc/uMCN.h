@@ -2,8 +2,8 @@
 #ifndef UMCN_H__
 #define UMCN_H__
 
-#include <common_def.h>
-#include "system/os_def.h"
+#include <common.h>
+#include "semaphore.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -13,9 +13,9 @@ extern "C" {
 #define MCN_FREE(ptr)               free(ptr)
 #define MCN_ENTER_CRITICAL()        OS_ENTER_CRITICAL()
 #define MCN_EXIT_CRITICAL()         OS_EXIT_CRITICAL()
-#define MCN_EVENT_HANDLE            osSemaphoreId
-#define MCN_SEND_EVENT(event)       osSemaphoreRelease(event)
-#define MCN_WAIT_EVENT(event, time) osSemaphoreWait(event, time)
+#define MCN_EVENT_HANDLE            os_sem_t
+#define MCN_SEND_EVENT(event)       os_sem_release(event)
+#define MCN_WAIT_EVENT(event, time) os_sem_take(event, time)
 #define MCN_ASSERT(EX)              ASSERT(EX)
 
 #define MCN_MAX_LINK_NUM        30

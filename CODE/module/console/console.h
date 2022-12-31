@@ -4,8 +4,7 @@
 #define CONSOLE_H__
 
 #include <common_def.h>
-#include "components/components.h"
-
+#include "device.h"
 //#define printf console_printf
 
 /* console API */

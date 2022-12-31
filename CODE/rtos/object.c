@@ -5,9 +5,9 @@
 //
 
 #include "object.h"
-#include <common.h>
-
-
+#include "thread.h"
+#include "mq.h"
+#include "device.h"
 
 enum Object_info_type
 {
@@ -31,9 +31,7 @@ enum Object_info_type
 #ifdef USING_MEMPOOL
     Object_Info_MemPool,                            /**< The object is a memory pool. */
 #endif
-#ifdef USING_DEVICE
     Object_Info_Device,                             /**< The object is a device */
-#endif
     Object_Info_Timer,                              /**< The object is a timer. */
 #ifdef USING_MODULE
     Object_Info_Module,                             /**< The object is a module. */
@@ -64,7 +62,7 @@ static struct object_information object_container[Object_Info_Unknown] =
     {Object_Class_MailBox, _OBJ_CONTAINER_LIST_INIT(Object_Info_MailBox), sizeof(struct mailbox)},
 #endif
                 /* initialize object container - message queue */
-    {Object_Class_MessageQueue, _OBJ_CONTAINER_LIST_INIT(Object_Info_MessageQueue), sizeof(struct messagequeue)},
+                {Object_Class_MessageQueue, _OBJ_CONTAINER_LIST_INIT(Object_Info_MessageQueue), sizeof(struct messagequeue)},
 #ifdef USING_MEMHEAP
                 /* initialize object container - memory heap */
     {Object_Class_MemHeap, _OBJ_CONTAINER_LIST_INIT(Object_Info_MemHeap), sizeof(struct memheap)},
@@ -73,10 +71,8 @@ static struct object_information object_container[Object_Info_Unknown] =
                 /* initialize object container - memory pool */
     {Object_Class_MemPool, _OBJ_CONTAINER_LIST_INIT(Object_Info_MemPool), sizeof(struct mempool)},
 #endif
-#ifdef USING_DEVICE
                 /* initialize object container - device */
-    {Object_Class_Device, _OBJ_CONTAINER_LIST_INIT(Object_Info_Device), sizeof(struct device)},
-#endif
+                {Object_Class_Device, _OBJ_CONTAINER_LIST_INIT(Object_Info_Device), sizeof(struct device)},
                 /* initialize object container - timer */
                 {Object_Class_Timer, _OBJ_CONTAINER_LIST_INIT(Object_Info_Timer), sizeof(struct timer)},
 #ifdef USING_MODULE
@@ -89,7 +85,7 @@ static struct object_information object_container[Object_Info_Unknown] =
 /**
  * This function will return the specified type of object information.
  *
- * @param type the type of object, which can be 
+ * @param type the type of object, which can be
  *             Object_Class_Thread/Semaphore/Mutex... etc
  *
  * @return the object type information or NULL

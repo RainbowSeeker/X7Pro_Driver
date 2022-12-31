@@ -1,8 +1,6 @@
 #include <common.h>
-
-//#include "hal/systick/systick.h"
+#include "hal/systick/systick.h"
 #include "module/system/systime.h"
-#include "sys.h"
 
 typedef struct
 {
@@ -82,26 +80,18 @@ uint8_t check_timetag3(TimeTag *timetag, uint32_t now, uint32_t period)
  */
 uint64_t systime_now_us(void)
 {
-//    uint32_t systick_us = 0;
-//    uint64_t time_now_ms;
-//    base_t level;
-//
-//    light_device_read(systick_dev, SYSTICK_RD_TIME_US, &systick_us, sizeof(uint32_t));
-//
-//    level = os_hw_interrupt_disable();
-//    /* atomic read */
-//    time_now_ms = __systime.msPeriod;
-//    os_hw_interrupt_enable(level);
-//
-//    return time_now_ms * (uint64_t)1000 + systick_us;
+    uint32_t systick_us = 0;
+    uint64_t time_now_ms;
+    base_t level;
 
-#include "stm32h7xx_hal.h"
-    extern TIM_HandleTypeDef htim1;
-    base_t level = os_hw_interrupt_disable();
-    uint64_t now_us = uwTick * 1000 + htim1.Instance->CNT * 1000 / htim1.Instance->ARR;
+    light_device_read(systick_dev, SYSTICK_RD_TIME_US, &systick_us, sizeof(uint32_t));
+
+    level = os_hw_interrupt_disable();
+    /* atomic read */
+    time_now_ms = __systime.msPeriod;
     os_hw_interrupt_enable(level);
 
-    return now_us;
+    return time_now_ms * (uint64_t)1000 + systick_us;
 }
 
 /**
@@ -164,26 +154,26 @@ void systime_msleep(uint32_t time_ms)
  */
 err_t systime_init(void)
 {
-//    systick_dev_t systick_device;
-//
-//    systick_dev = light_device_find("systick");
-//
-//    if (systick_dev == NULL) {
-//        return E_RROR;
-//    }
-//
-//    if (light_device_open(systick_dev, DEVICE_FLAG_RDONLY) != E_OK) {
-//        return E_RROR;
-//    }
-//
-//    systick_device = (systick_dev_t)systick_dev;
-//
-//    __systime.msPeriod = 0;
-//    __systime.msPerPeriod = systick_device->ticks_per_isr / systick_device->ticks_per_us / 1e3;
-//
-//    systick_device->systick_isr_cb = systick_isr_cb;
-//
-//    ASSERT(__systime.msPerPeriod > 0);
+    systick_dev_t systick_device;
+
+    systick_dev = light_device_find("systick");
+
+    if (systick_dev == NULL) {
+        return E_RROR;
+    }
+
+    if (light_device_open(systick_dev, DEVICE_FLAG_RDONLY) != E_OK) {
+        return E_RROR;
+    }
+
+    systick_device = (systick_dev_t)systick_dev;
+
+    __systime.msPeriod = 0;
+    __systime.msPerPeriod = systick_device->ms_per_isr;
+
+    systick_device->systick_isr_cb = systick_isr_cb;
+
+    ASSERT(__systime.msPerPeriod > 0);
 
     return E_OK;
 }
