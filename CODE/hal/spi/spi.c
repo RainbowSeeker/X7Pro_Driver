@@ -291,7 +291,7 @@ struct spi_message *spi_transfer_message(struct spi_device *device,
 
 err_t spi_take_bus(struct spi_device *device)
 {
-    err_t result = E_OK;
+    err_t result;
 
     ASSERT(device != NULL);
     ASSERT(device->bus != NULL);
@@ -301,12 +301,8 @@ err_t spi_take_bus(struct spi_device *device)
     if (result != E_OK)
     {
         os_set_errno(-EBUSY);
-
         return -EBUSY;
     }
-
-    /* reset errno */
-    os_set_errno(E_OK);
 
     return result;
 }
@@ -315,7 +311,7 @@ err_t spi_release_bus(struct spi_device *device)
 {
     ASSERT(device != NULL);
     ASSERT(device->bus != NULL);
-    ASSERT(device->bus->owner == device);
+//    ASSERT(device->bus->owner == device);
 
     /* release lock */
     spi_unlock(device->bus);
@@ -354,3 +350,5 @@ err_t spi_release(struct spi_device *device)
 
     return result;
 }
+
+

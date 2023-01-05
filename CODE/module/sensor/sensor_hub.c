@@ -7,7 +7,6 @@
 #include <module_common.h>
 #include "sensor_hub.h"
 #include "system/systime.h"
-#include "accgyro_adis16470.h"
 #include "sensor_imu.h"
 #include "sensor_mag.h"
 #include "sensor_baro.h"

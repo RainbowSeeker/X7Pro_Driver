@@ -20,6 +20,10 @@ static DMA_DATA uint8_t send_buf[RM3100_BUF_SIZE];
 static DMA_DATA uint8_t recv_buf[RM3100_BUF_SIZE * 2];
 static bool recv_idx = 0;
 
+__WEAK void rm3100_rotate_to_ned(float* data)
+{
+}
+
 static void drdy_collect(uint32_t user_data)
 {
     /* transfer message */
@@ -77,6 +81,8 @@ static err_t mag_measure(float mag[3])
         mag[i] = (float )(((raw[3 * i]<<24)|(raw[3 * i + 1]<<16)|raw[3 * i + 2]<<8)>>8) * RM3100_SCALE;
     }
     OS_EXIT_CRITICAL();
+
+    rm3100_rotate_to_ned(mag);
 
 #ifdef SENSOR_SOFT_DRDY
     drdy_collect(0);

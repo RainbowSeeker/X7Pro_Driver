@@ -25,6 +25,7 @@
 #include "mavproxy/mavproxy.h"
 #include "drv_usbd_cdc.h"
 #include "drivers/drv_systick.h"
+#include "drivers/fram/fm25vx.h"
 
 
 static const struct dfs_mount_tbl mnt_table[] = {
@@ -78,9 +79,9 @@ void bsp_init(void)
     /* init usbd_cdc */
     SELF_CHECK(drv_usb_cdc_init());
 
-    SELF_CHECK(drv_icm20689_init("gyro0", "accel0"));
+    SELF_CHECK(drv_adis16470_init("gyro0", "accel0"));
 
-    SELF_CHECK(drv_adis16470_init("gyro1", "accel1"));
+    SELF_CHECK(drv_icm20689_init("gyro1", "accel1"));
 
     SELF_CHECK(drv_icm42688_init("gyro2", "accel2"));
 
@@ -88,12 +89,14 @@ void bsp_init(void)
 
     SELF_CHECK(drv_rm3100_init("mag0"));
 
+    SELF_CHECK(drv_fm25v05_init("fram0"));
+
     SELF_CHECK(gps_ubx_init("serial2", "gps"));
 
     /* register sensor to sensor hub */
     SELF_CHECK(register_sensor_imu("gyro0", "accel0", 0));
     SELF_CHECK(register_sensor_imu("gyro1", "accel1", 1));
-    SELF_CHECK(register_sensor_imu("gyro2", "accel2", 2));
+//    SELF_CHECK(register_sensor_imu("gyro2", "accel2", 2));
     SELF_CHECK(register_sensor_mag("mag0", 0));
     SELF_CHECK(register_sensor_barometer("baro0"));
 

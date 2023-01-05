@@ -20,3 +20,4 @@ void icm42688_rotate_to_ned(float* data)
 {
     rotation(ROTATION_PITCH_180_YAW_270, data, data + 1, data + 2);
 }
+

@@ -261,6 +261,7 @@ err_t os_thread_delete(os_thread_t thread)
     {
         thread_deleted_hook(thread);
     }
+    list_remove(&thread->parent.list);
     vTaskDelete(thread->tid);
     return E_OK;
 }

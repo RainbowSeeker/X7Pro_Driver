@@ -279,4 +279,10 @@ static inline err_t spi_write_bank_reg8(light_device_t spi_device, uint8_t bank_
     return spi_write_reg8(spi_device, reg, val);
 }
 
+static inline err_t spi_wait(light_device_t device)
+{
+    return spi_take_bus((struct spi_device *)device)
+            || spi_release_bus((struct spi_device *)device);
+}
+
 #endif //X7PRO_DRIVER_SPI_H

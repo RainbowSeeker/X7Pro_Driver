@@ -261,7 +261,7 @@ static size_t hal_serial_read(struct device *dev,
         struct serial_rx_fifo *rx_fifo = (struct serial_rx_fifo *) serial->serial_rx;
         size_t recv_len = 0, fifo_recved_len = serial_fifo_calc_recved_len(serial);
 
-        recv_len = min(size, fifo_recved_len);
+        recv_len = MIN(size, fifo_recved_len);
 
         if (rx_fifo->get_index + recv_len < serial->config.bufsz)
             memcpy(buffer, rx_fifo->buffer + rx_fifo->get_index, recv_len);
