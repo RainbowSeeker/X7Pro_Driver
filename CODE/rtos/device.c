@@ -5,6 +5,7 @@
 //
 
 #include "device.h"
+#include "thread.h"
 
 
 static LIST_DEF(device_list);       /* associate all devices */

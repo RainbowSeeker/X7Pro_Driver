@@ -1,119 +1,120 @@
-//// Copyright (c) 2022 By RainbowSeeker.
+// Copyright (c) 2022 By RainbowSeeker.
+
 //
-////
-//// Created by 19114 on 2022/11/17.
-////
+// Created by 19114 on 2022/11/17.
 //
-//#include "fm25vx.h"
-//#include "algo/math/maths.h"
-//#include "bus_spi.h"
-//
-//static bool FM25Vx_Init(fram_t *fram);
-//static void FM25Vx_Read(uint16_t address, uint8_t *buf, int len);
-//static void FM25Vx_Write(uint16_t address, uint8_t *buf, int len);
-//
-//fram_t fm25vx = {
-//        .init = FM25Vx_Init,
-//        .read = FM25Vx_Read,
-//        .write = FM25Vx_Write,
-//};
-//
-//
-//
-//
-//
-//
-//
-////------------------------------------------
-//
-//static void FM25Vx_WriteCommandByte(const device_t *dev, uint8_t data)
-//{
-//    segment_t segment[] = {
-//            {.u.buffers = {&data, NULL},  sizeof(data),  true, NULL},
-//            {.u.link = {NULL, NULL},     0,            true,  NULL},
-//    };
-//
-//    SPI_Sequence(dev, &segment[0]);
-//
-//    SPI_Wait(dev);
-//}
-//
-//static void FM25Vx_Write(uint16_t address, uint8_t *buf, int len)
-//{
-//    fram_t *fram = &fm25vx;
-//    memset(fram->pTxData, 0, 36);
-//    fram->pTxData[0] = 0x02;
-//    for (int i = 0; i < len; i += 32)
-//    {
-//        int actLen=len-i;
-//        FM25Vx_WriteCommandByte(&fram->dev, 0x06);
-//        delay_ms(1);
-//        fram->pTxData[1] = (address>>8)&0xff;
-//        fram->pTxData[2] = address&0xff;
-//        memcpy(fram->pTxData + 3, buf + i, min(actLen, 32));
-//        SPI_ReadWriteBuf(&fram->dev, fram->pTxData, NULL, actLen + 3);
-//        SPI_Wait(&fram->dev);
-//        address += 32;
-//        delay_ms(1);
-//
-//    }
-//}
-//static void FM25Vx_Read(uint16_t address, uint8_t *buf, int len)
-//{
-//    fram_t *fram = &fm25vx;
-//    memset(fram->pTxData, 0, 36);
-//    fram->pTxData[0] = 0x03;
-//    for (int i = 0; i < len;)
-//    {
-//        int actLen = len - i;
-//        int rxLen = min(actLen, 29);
-//        actLen = rxLen + !(rxLen & 1);
-//        fram->pTxData[1] = (address>>8)&0xff;
-//        fram->pTxData[2] = address&0xff;
-//        SPI_ReadWriteBuf(&fram->dev, fram->pTxData, fram->pRxData, rxLen + 3);
-//        SPI_Wait(&fram->dev);
-//        memcpy(buf + i, fram->pRxData + 3, rxLen);
-//        address += rxLen;
-//        i += rxLen;
-//        delay_ms(1);
-//    }
-//}
-//
-//static device_e FM25V05_Detect(const device_t *dev)
-//{
-//    uint8_t buf[20] = {0x9F,};
-//    uint8_t attemptsRemaining = 20;
-//    while (attemptsRemaining--)
-//    {
-//        delay_ms(10);
-//        SPI_ReadWriteBuf(dev, buf, &buf[10], 10);
-//        if (buf[17] == 0xC2)
-//        {
-//            return FM25V05_SPI;
-//        }
-//    }
-//    return DEV_NONE;
-//}
-//
-//STATIC_DMA_DATA_AUTO uint8_t fm25vxTxBuf[36];
-//STATIC_DMA_DATA_AUTO uint8_t fm25vxRxBuf[36];
-//
-//static bool FM25Vx_Init(fram_t *fram)
-//{
-//    const hw_config_t fm25vx_config = {
-//            .name = "FM25V05", .busE = BUS_SPI2,
-//            .csPin = {.port = GPIOF, .pin = GPIO_PIN_5}
-//    };
-//
-//    if (!Device_PreConfig(&fram->dev, FM25V05_Detect, &fm25vx_config, NULL))
-//    {
-//        return false;
-//    }
-//
-//    fram->pTxData = fm25vxTxBuf;
-//    fram->pRxData = fm25vxRxBuf;
-//    return true;
-//}
-//
-//
-//
+
+#include "fm25vx.h"
+#include "drivers/drv_spi.h"
+#include "driver/io.h"
+#include "hal/spi/spi.h"
+#include "algo/math/maths.h"
+
+#define DRV_DBG(...) printf(__VA_ARGS__)
+
+static light_device_t spi_dev;
+
+#define FRAM_BUF_SIZE   (36)
+static DMA_DATA uint8_t send_buf[FRAM_BUF_SIZE];
+static DMA_DATA uint8_t recv_buf[FRAM_BUF_SIZE];
+
+static size_t _read(light_device_t dev, off_t pos, void *buffer, size_t size)
+{
+    send_buf[0] = 0x03;
+    for (int i = 0; i < size;)
+    {
+        int true_len = size - i;
+        int rx_len = MIN(true_len, 29);
+        send_buf[1] = (pos >> 8) & 0xff;
+        send_buf[2] = pos & 0xff;
+        spi_transfer((struct spi_device *)spi_dev, send_buf, recv_buf, rx_len + 3);
+        spi_wait(spi_dev);
+        memcpy(buffer + i, recv_buf + 3, rx_len);
+        pos += rx_len;
+        i += rx_len;
+        delay_ms(1);
+    }
+    return size;
+}
+
+static size_t _write(light_device_t dev, off_t pos, const void *buffer, size_t size)
+{
+    send_buf[0] = 0x02;
+    for (int i = 0; i < size; i += 32)
+    {
+        int true_len=size-i;
+        spi_sendrecv8((struct spi_device *) spi_dev, 0x06);
+        delay_ms(1);
+        send_buf[1] = (pos >> 8) & 0xff;
+        send_buf[2] = pos & 0xff;
+        memcpy(&send_buf[3], buffer + i, MIN(true_len, 32));
+        spi_send((struct spi_device *)spi_dev, send_buf, true_len + 3);
+        pos += 32;
+        delay_ms(1);
+    }
+    return size;
+}
+
+static err_t lowlevel_init(void)
+{
+    uint8_t retry = 0;
+    uint8_t buf[20] = {0x9F};
+    ERROR_TRY(light_device_open(spi_dev, DEVICE_OFLAG_RDWR));
+
+    do {
+        spi_transfer((struct spi_device *)spi_dev, buf, &buf[10], 10);
+
+        spi_wait(spi_dev);
+    } while (buf[17] != 0xC2 && ++retry < 20);
+
+    if(retry >= 20)
+    {
+        DRV_DBG("\nfram init error!\n");
+        return E_RROR;
+    }
+
+    memset(send_buf, 0, FRAM_BUF_SIZE);
+    memset(recv_buf, 0, FRAM_BUF_SIZE);
+
+    return E_OK;
+}
+
+static struct device fm25v05;
+
+err_t drv_fm25v05_init(const char *fram_device_name)
+{
+    static struct spi_device spi_device;
+    static io_tag cs = PF5;
+    io_init(cs, CS_CONFIG);
+    ERROR_TRY(spi_bus_attach_device(&spi_device,
+                                    "fm25v05",
+                                    "spi2",
+                                    (void *) &cs));
+
+    /* config spi */
+    struct spi_configuration cfg = {
+            .data_width = 8,
+            .mode = SPI_MODE_3 | SPI_MSB,
+            .max_hz = FM25V05_MAX_SPI_CLK_HZ
+    };
+    ERROR_TRY(spi_configure_device(&spi_device, &cfg));
+
+    spi_dev = light_device_find("fm25v05");
+    ASSERT(spi_dev != NULL);
+
+    /* driver internal init */
+    ERROR_TRY(lowlevel_init());
+
+    light_device_t device = &fm25v05;
+    device->type = Device_Class_SPIDevice;
+    device->ref_count = 0;
+    device->rx_indicate = NULL;
+    device->tx_complete = NULL;
+    device->init = NULL;
+    device->open = NULL;
+    device->close = NULL;
+    device->read = _read;
+    device->write = _write;
+
+    return light_device_register(device, fram_device_name, DEVICE_FLAG_RDWR);
+}

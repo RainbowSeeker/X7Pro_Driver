@@ -8,7 +8,7 @@
 extern "C" {
 #endif
 
-#define delay_ms        systime_mdelay
+#define delay_ms        systime_msleep
 #define delay_us        systime_udelay
 #define sys_msleep(_ms)    systime_msleep(_ms)
 

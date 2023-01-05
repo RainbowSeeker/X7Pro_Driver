@@ -10,7 +10,8 @@
 #include "sensor/sensor_mag.h"
 
 #define RM3100_MAX_SPI_CLK_HZ   1000000
-#define RM3100_SCALE            (1.0f / 7.5f)
+#define UT_TO_GUASS             (0.01f)
+#define RM3100_SCALE            (1.0f / 75.f) * UT_TO_GUASS
 
 //  MagI2C Register Map. See Table 5-1 at page 28.
 #define RM3100_ID       0x22

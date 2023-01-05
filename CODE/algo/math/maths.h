@@ -12,8 +12,8 @@
 
 #define ARRAYLEN(x)         (sizeof(x) / sizeof((x)[0]))
 
-#define max(_X1, _X2)       (((_X1) > (_X2)) ? (_X1) : (_X2))
-#define min(_X1, _X2)       (((_X1) < (_X2)) ? (_X1) : (_X2))
+#define MAX(_X1, _X2)       (((_X1) > (_X2)) ? (_X1) : (_X2))
+#define MIN(_X1, _X2)       (((_X1) < (_X2)) ? (_X1) : (_X2))
 
 #define PI 3.14159265358979f
 #define RAD2DEG(u) ((u)*180.0f / PI)

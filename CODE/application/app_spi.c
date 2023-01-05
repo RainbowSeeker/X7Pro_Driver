@@ -7,7 +7,6 @@
 #include <common.h>
 #include "module_common.h"
 #include "model/ins/base_ins/lib/INS.h"
-#include "sensor/accgyro_adis16470.h"
 #include "spi/spi.h"
 #include "barometer/barometer.h"
 #include "sensor/sensor_hub.h"
@@ -25,11 +24,6 @@ void App_SPI_Main(void *argument)
     static uint32_t time_start = 0;
     uint32_t time_now;
     uint32_t timestamp;
-//    Fram_Init(&fm25vx);
-//    uint8_t txbuf[25] = "fm25vx read & write test";
-//    uint8_t rxbuf[25] = {0};
-//    uint8_t len = strlen((char *)txbuf);
-//    uint8_t str[] = "hello world123\r\n";
 
 #if defined(FMT_USING_SIH)
     /* init plant model */
@@ -76,12 +70,7 @@ void App_SPI_Main(void *argument)
         /* send actuator command */
         send_actuator_cmd();
 
-
         os_delay(1);
-//        osDelay(Baro_Update(&ms5611, Sys_GetTickUs()) / 1000);
-//        fm25vx.write(0x00C1, txbuf, len);
-//        fm25vx.read(0x00C1, rxbuf, len);
-//        println("%s", rxbuf);
     }
 
 }

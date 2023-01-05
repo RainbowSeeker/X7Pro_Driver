@@ -495,6 +495,29 @@ static struct gps_ops gps_ops = {
         gps_read
 };
 
+static void gps_probe(void *parameter)
+{
+    /*probe the gps connection */
+    uint32_t baudrate;
+    uint8_t i;
+
+    for (i = 0; i < CONFIGURE_RETRY_MAX; i++) {
+        if (probe(&baudrate) == E_OK) {
+            if (configure_by_ubx(baudrate) == E_OK) {
+                /* GPS is dected, now register */
+                hal_gps_register(&gps_device, "gps", DEVICE_FLAG_RDWR, NULL);
+                register_sensor_gps((char*)parameter);
+                break;
+            }
+        }
+    }
+
+    if (i >= CONFIGURE_RETRY_MAX) {
+        DRV_DBG("GPS configuration fail! Please check if GPS module has connected.");
+    }
+
+    os_thread_delete(os_thread_self());
+}
 
 err_t gps_ubx_init(const char* serial_device_name, const char* gps_device_name)
 {
@@ -508,33 +531,15 @@ err_t gps_ubx_init(const char* serial_device_name, const char* gps_device_name)
     ASSERT(serial_device != NULL);
 
     /* set gps rx indicator */
-    SELF_CHECK(light_device_set_rx_indicate(serial_device, gps_serial_rx_ind));
+    ERROR_TRY(light_device_set_rx_indicate(serial_device, gps_serial_rx_ind));
     /* open serial device */
-    SELF_CHECK(light_device_open(serial_device, DEVICE_OFLAG_RDWR | DEVICE_FLAG_INT_RX));
+    ERROR_TRY(light_device_open(serial_device, DEVICE_OFLAG_RDWR | DEVICE_FLAG_INT_RX));
     /* init ublox decoder */
-    SELF_CHECK(init_ubx_decoder(&ubx_decoder, serial_device, ubx_rx_handle));
+    ERROR_TRY(init_ubx_decoder(&ubx_decoder, serial_device, ubx_rx_handle));
 
-    /*probe the gps connection */
+    if (os_thread_create("gps_probe", gps_probe, str_buffer, 0, 256) == NULL)
     {
-        uint32_t baudrate;
-        uint8_t i;
-
-        for (i = 0; i < CONFIGURE_RETRY_MAX; i++) {
-            if (probe(&baudrate) == E_OK) {
-                if (configure_by_ubx(baudrate) == E_OK) {
-                    /* GPS is dected, now register */
-                    hal_gps_register(&gps_device, "gps", DEVICE_FLAG_RDWR, NULL);
-                    register_sensor_gps((char*)str_buffer);
-                    break;
-                }
-            }
-        }
-
-        if (i >= CONFIGURE_RETRY_MAX) {
-            DRV_DBG("GPS configuration fail! Please check if GPS module has connected.");
-        }
-
-        os_thread_delete(os_thread_self());
+        return E_RROR;
     }
 
     return E_OK;
