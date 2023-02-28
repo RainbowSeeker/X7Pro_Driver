@@ -558,7 +558,7 @@ err_t drv_spi_init(void) {
 
     ERROR_TRY(stm32_spi_register(&stm32_spi6,
                                  "spi6",
-                                 "bdma_channel0",
-                                 "bdma_channel1"));
+                                 "bdma_stream0",
+                                 "bdma_stream1"));
     return E_OK;
 }

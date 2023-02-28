@@ -33,7 +33,5 @@ err_t hal_dma_register(struct dma_device * dma, const char *name, uint32_t flag)
     /* register a dma device */
     ret = light_device_register(device, name, flag | DEVICE_FLAG_STANDALONE);
 
-    //初始化失败，则开启设备，使得设备无法再次打开！
-    if (ret != E_OK) light_device_open(device, DEVICE_OFLAG_OPEN);
     return ret;
 }

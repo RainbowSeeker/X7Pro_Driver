@@ -327,7 +327,7 @@ static bool mavlink_msg_rc_channels_cb(mavlink_message_t* msg_t)
     return true;
 }
 
-void App_Mcn_Main(void *argument)
+void App_Comm_Main(void *argument)
 {
     fms_out_nod = mcn_subscribe(MCN_HUB(fms_output), NULL, NULL);
     ASSERT(fms_out_nod != NULL);

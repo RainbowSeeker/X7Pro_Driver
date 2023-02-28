@@ -70,48 +70,58 @@
 
 /* Default config for serial_configure structure */
 #define SERIAL_DEFAULT_CONFIG                     \
+    {                                             \
+        BAUD_RATE_57600,     /* 57600 bits/s */   \
             DATA_BITS_8,     /* 8 databits */     \
             STOP_BITS_1,     /* 1 stopbit */      \
             PARITY_NONE,     /* No parity  */     \
             BIT_ORDER_LSB,   /* LSB first sent */ \
             NRZ_NORMAL,      /* Normal mode */    \
             SERIAL_RB_BUFSZ, /* Buffer size */    \
-            0
+            0                                     \
+    }
 
+struct serial_configure {
+    uint32_t baud_rate;
 
+    uint32_t data_bits : 4;
+    uint32_t stop_bits : 2;
+    uint32_t parity : 2;
+    uint32_t bit_order : 1;
+    uint32_t invert : 1;
+    uint32_t bufsz : 16;
+    uint32_t reserved : 4;
+};
 
 
 /*
-* Serial FIFO mode
-*/
+ * Serial FIFO mode
+ */
 struct serial_rx_fifo {
     /* software fifo */
     uint8_t* buffer;
+
     uint16_t put_index, get_index;
+
     bool_t is_full;
 };
 
-struct serial_configure {
-    USART_TypeDef *instance;
-
-    struct dma
-    {
-        void *instance;
-        uint32_t tx_stream;
-        uint32_t tx_channel;   //used for dma mux
-        uint32_t rx_stream;
-        uint32_t rx_channel;   //used for dma mux
-    }dma;
-
-    uint32_t baud_rate;
-    uint32_t data_bits;
-    uint32_t stop_bits;
-    uint32_t parity;
-    uint32_t bit_order;
-    uint32_t invert;
-    uint32_t bufsz;
-    uint32_t reserved;
+struct serial_tx_fifo {
+    struct completion completion;
 };
+
+/*
+ * Serial DMA mode
+ */
+//struct serial_rx_dma {
+//    bool_t activated;
+//};
+//
+//struct serial_tx_dma {
+//    bool_t activated;
+//    struct data_queue data_queue;
+//};
+
 
 struct serial_device {
     struct device parent;
@@ -121,20 +131,17 @@ struct serial_device {
         err_t (*control)(struct serial_device* serial, int cmd, void* arg);
         int (*putc)(struct serial_device* serial, char c);
         int (*getc)(struct serial_device* serial);
-        size_t (*dma_transmit)(struct serial_device* serial, uint8_t* buf, size_t size);
+        size_t (*dma_transmit)(struct serial_device* serial, uint8_t* buf, size_t size, int direction);
     }*ops;
     struct serial_configure config;
 
     void* serial_rx;    //used for software fifo
     void* serial_tx;
-
-    size_t setting_recv_len;
-    size_t last_recv_index;
 };
 typedef struct serial_device* serial_dev_t;
 
 
-
+void hal_serial_isr(struct serial_device* serial, int event);
 err_t hal_serial_register(serial_dev_t serial, const char* name, uint32_t flag, void* data);
 
 #endif //X7PRO_DRIVER_SERIAL_H

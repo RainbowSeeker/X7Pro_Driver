@@ -64,15 +64,15 @@
 //};
 //
 //
-//void SPI_SetClkDivisor(const device_t *dev, uint16_t divisor)
+//void SPI_SetClkDivisor(const light_device_t *dev, uint16_t divisor)
 //{
-//    ((device_t *) dev)->busType_u.spi.speed = divisor;
+//    ((light_device_t *) dev)->busType_u.spi.speed = divisor;
 //}
 //
 //// Set the clock phase/polarity to be used for accesses by the given device
-//void SPI_SetClkPhasePolarity(const device_t *dev, bool leadingEdge)
+//void SPI_SetClkPhasePolarity(const light_device_t *dev, bool leadingEdge)
 //{
-//    ((device_t *) dev)->busType_u.spi.leadingEdge = leadingEdge;
+//    ((light_device_t *) dev)->busType_u.spi.leadingEdge = leadingEdge;
 //}
 //
 //uint16_t SPI_CalculateDivider(uint32_t freq)
@@ -189,7 +189,7 @@
 //    }
 //}
 //
-//void SPI_InternalStartDMA(const device_t *dev)
+//void SPI_InternalStartDMA(const light_device_t *dev)
 //{
 //    bus_t *bus = dev->bus;
 //
@@ -262,7 +262,7 @@
 //
 //}
 //
-//static void SPI_InternalInitStream(const device_t *dev, bool preInit)
+//static void SPI_InternalInitStream(const light_device_t *dev, bool preInit)
 //{
 //    STATIC_DMA_DATA_AUTO uint8_t dummyTxByte = 0xff;
 //    STATIC_DMA_DATA_AUTO uint8_t dummyRxByte;
@@ -332,7 +332,7 @@
 //}
 //
 //// Interrupt handler for SPI receive DMA completion
-//static void SPI_IrqHandler(const device_t *dev)
+//static void SPI_IrqHandler(const light_device_t *dev)
 //{
 //    bus_t *bus = dev->bus;
 //    segment_t *nextSegment;
@@ -368,7 +368,7 @@
 //        // If a following transaction has been linked, start it
 //        if (nextSegment->u.link.dev)
 //        {
-//            const device_t *nextDev = nextSegment->u.link.dev;
+//            const light_device_t *nextDev = nextSegment->u.link.dev;
 //            segment_t *nextSegments = (segment_t *) nextSegment->u.link.segment;
 //            // The end of the segment list has been reached
 //            bus->curSegment = nextSegments;
@@ -413,7 +413,7 @@
 //// Interrupt handler for SPI receive DMA completion
 //static void SPI_RxIrqHandler(dma_t *descriptor)
 //{
-//    const device_t *dev = (const device_t *) descriptor->userParam;
+//    const light_device_t *dev = (const light_device_t *) descriptor->userParam;
 //
 //    if (!dev)
 //    {
@@ -440,7 +440,7 @@
 //}
 //
 //// Mark this bus as being SPI and record the first owner to use it
-//bool SPI_SetBusInstance(device_t *dev, int busE)
+//bool SPI_SetBusInstance(light_device_t *dev, int busE)
 //{
 //    dev->bus = &spiBus[IDX_BY_BUS(busE)];
 //
@@ -474,14 +474,14 @@
 //}
 //
 //// Wait for DMA completion
-//void SPI_Wait(const device_t *dev)
+//void SPI_Wait(const light_device_t *dev)
 //{
 //    // Wait for completion
 //    while (dev->bus->curSegment != (segment_t *) BUS_SPI_FREE);
 //}
 //
 //// Return true if DMA engine is busy
-//bool SPI_IsBusy(const device_t *dev)
+//bool SPI_IsBusy(const light_device_t *dev)
 //{
 //    return (dev->bus->curSegment != (segment_t *) BUS_SPI_FREE);
 //}
@@ -512,7 +512,7 @@
 //    return true;
 //}
 //
-//void SPI_InternalStopDMA(const device_t *dev)
+//void SPI_InternalStopDMA(const light_device_t *dev)
 //{
 //    bus_t *bus = dev->bus;
 //
@@ -544,7 +544,7 @@
 //}
 //
 //// DMA transfer setup and start
-//void SPI_SequenceStart(const device_t *dev)
+//void SPI_SequenceStart(const light_device_t *dev)
 //{
 //    bus_t *bus = dev->bus;
 //    SPI_TypeDef *instance = bus->busType_u.spi.instance;
@@ -693,7 +693,7 @@
 //        if (bus->curSegment->u.link.dev)
 //        {
 //            segment_t *endSegment = (segment_t *) bus->curSegment;
-//            const device_t *nextDev = endSegment->u.link.dev;
+//            const light_device_t *nextDev = endSegment->u.link.dev;
 //            segment_t *nextSegments = (segment_t *) endSegment->u.link.segment;
 //            bus->curSegment = nextSegments;
 //            endSegment->u.link.dev = NULL;
@@ -709,7 +709,7 @@
 //}
 //
 //
-//void SPI_Sequence(const device_t *dev, segment_t *segment)
+//void SPI_Sequence(const light_device_t *dev, segment_t *segment)
 //{
 //    bus_t *bus = dev->bus;
 //    bool start = false;
@@ -769,7 +769,7 @@
 //    if (start) SPI_SequenceStart(dev);
 //}
 //
-//bool SPI_UseDMA(const device_t *dev)
+//bool SPI_UseDMA(const light_device_t *dev)
 //{
 //    // Full DMA only requires both transmit and receive
 //    return dev->bus->enDMA && dev->bus->dmaRx && dev->useDMA;
@@ -777,7 +777,7 @@
 //
 //
 //// Write data to a register
-//void SPI_WriteReg(const device_t *dev, uint8_t reg, uint8_t data)
+//void SPI_WriteReg(const light_device_t *dev, uint8_t reg, uint8_t data)
 //{
 //    // This routine blocks so no need to use static data
 //    segment_t segment[] = {
@@ -792,7 +792,7 @@
 //}
 //
 //// Write data to a register, returning false if the bus is busy
-//bool SPI_WriteRegRB(const device_t *dev, uint8_t reg, uint8_t data)
+//bool SPI_WriteRegRB(const light_device_t *dev, uint8_t reg, uint8_t data)
 //{
 //    // Ensure any prior DMA has completed before continuing
 //    if (SPI_IsBusy(dev))
@@ -806,7 +806,7 @@
 //}
 //
 //// Wait for bus to become free, then read a byte from a register
-//uint8_t SPI_ReadReg(const device_t *dev, uint8_t reg)
+//uint8_t SPI_ReadReg(const light_device_t *dev, uint8_t reg)
 //{
 //    uint8_t data;
 //    // This routine blocks so no need to use static data
@@ -824,13 +824,13 @@
 //}
 //
 //// Wait for bus to become free, then read a byte of data where the register is ORed with 0x80
-//uint8_t SPI_ReadRegMsk(const device_t *dev, uint8_t reg)
+//uint8_t SPI_ReadRegMsk(const light_device_t *dev, uint8_t reg)
 //{
 //    return SPI_ReadReg(dev, reg | 0x80);
 //}
 //
 //// Read a block of data from a register
-//void SPI_ReadRegBuf(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
+//void SPI_ReadRegBuf(const light_device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
 //{
 //    // This routine blocks so no need to use static data
 //    segment_t segments[] = {
@@ -845,13 +845,13 @@
 //}
 //
 //// Read a block of data where the register is ORed with 0x80
-//void SPI_ReadRegMskBuf(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
+//void SPI_ReadRegMskBuf(const light_device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
 //{
 //    return SPI_ReadRegBuf(dev, reg | 0x80, data, length);
 //}
 //
 //// Read a block of data from a register, returning false if the bus is busy
-//bool SPI_ReadRegBufRB(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
+//bool SPI_ReadRegBufRB(const light_device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
 //{
 //    // Ensure any prior DMA has completed before continuing
 //    if (SPI_IsBusy(dev))
@@ -865,13 +865,13 @@
 //}
 //
 //// Read a block of data where the register is ORed with 0x80, returning false if the bus is busy
-//bool SPI_ReadRegMskBufRB(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
+//bool SPI_ReadRegMskBufRB(const light_device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
 //{
 //    return SPI_ReadRegBufRB(dev, reg | 0x80, data, length);
 //}
 //
 //// Wait for bus to become free, then read/write block of data
-//void SPI_ReadWriteBuf(const device_t *dev, uint8_t *txData, uint8_t *rxData, int len)
+//void SPI_ReadWriteBuf(const light_device_t *dev, uint8_t *txData, uint8_t *rxData, int len)
 //{
 //    // This routine blocks so no need to use static data
 //    segment_t segments[] = {
@@ -884,7 +884,7 @@
 //    SPI_Wait(dev);
 //}
 //
-//void SPI_BusDeviceRegister(const device_t *dev)
+//void SPI_BusDeviceRegister(const light_device_t *dev)
 //{
 //    UNUSED(dev);
 //
@@ -1143,7 +1143,7 @@
 //    return true;
 //}
 //
-//bool SPI_DeviceBindByHardware(device_t *dev, const hw_config_t *config)
+//bool SPI_DeviceBindByHardware(light_device_t *dev, const hw_config_t *config)
 //{
 //    if (!SPI_SetBusInstance(dev, config->busE))
 //    {

@@ -32,7 +32,16 @@ target = "CUAV V7Pro"\n
 [[mavproxy.devices]]\n
         type = "usb"\n
         name = "usbd0"\n
-        auto-switch = true
+        auto-switch = true\n
+[pilot-cmd]\n
+        stick-channel = [4,3,2,1]\n
+[pilot-cmd.device]\n
+        type = "rc"\n
+        name = "rc"\n
+        protocol = "sbus"\n
+        channel-num = 16\n
+        sample-time = 0.05\n
+        range = [1000,2000]\n
 );
 
 
@@ -40,5 +49,8 @@ target = "CUAV V7Pro"\n
 
 #define BSP_USING_FDCAN1
 //#define BSP_USING_FDCAN2
+
+// Device Name
+#define FMTIO_DEVICE_NAME "serial5"
 
 #endif //X7PRO_DRIVER_BOARD_H

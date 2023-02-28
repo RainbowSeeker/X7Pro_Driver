@@ -20,7 +20,7 @@
 //#define USE_UART5
 //#define USE_UART6
 #define USE_UART7
-//#define USE_UART8
+#define USE_UART8
 //#define USE_LPUART1
 #if defined(USE_UART1) || defined(USE_UART2) || defined(USE_UART3) || defined(USE_UART4) || defined(USE_UART5) || defined(USE_UART6) || defined(USE_UART7) || defined(USE_UART8) || defined(USE_LPUART1)
 #define USE_UART

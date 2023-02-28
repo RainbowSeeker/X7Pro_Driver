@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'FMS'.
  *
- * Model version                  : 1.1871
- * Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
- * C/C++ source code generated on : Thu Dec  1 10:44:33 2022
+ * Model version                  : 9.79
+ * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+ * C/C++ source code generated on : Sat Feb 25 19:37:15 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -16,8 +16,6 @@
 #ifndef RTW_HEADER_FMS_types_h_
 #define RTW_HEADER_FMS_types_h_
 #include "rtwtypes.h"
-
-/* Model Code Variants */
 #ifndef DEFINED_TYPEDEF_FOR_Pilot_Cmd_Bus_
 #define DEFINED_TYPEDEF_FOR_Pilot_Cmd_Bus_
 
@@ -207,7 +205,7 @@ typedef struct {
 
 typedef struct {
   uint32_T timestamp;
-  uint16_T actuator_cmd[16];
+  int16_T actuator_cmd[16];
 } Control_Out_Bus;
 
 #endif
@@ -383,6 +381,19 @@ typedef struct {
 
 #endif
 
+#ifndef DEFINED_TYPEDEF_FOR_VehicleStatus_
+#define DEFINED_TYPEDEF_FOR_VehicleStatus_
+
+/* enumeration of vehicle status */
+typedef enum {
+  VehicleStatus_None = 0,              /* Default value */
+  VehicleStatus_Disarm,
+  VehicleStatus_Standby,
+  VehicleStatus_Arm
+} VehicleStatus;
+
+#endif
+
 #ifndef DEFINED_TYPEDEF_FOR_VehicleState_
 #define DEFINED_TYPEDEF_FOR_VehicleState_
 
@@ -423,19 +434,6 @@ typedef enum {
   ControlMode_POSCTL,
   ControlMode_Offboard
 } ControlMode;
-
-#endif
-
-#ifndef DEFINED_TYPEDEF_FOR_VehicleStatus_
-#define DEFINED_TYPEDEF_FOR_VehicleStatus_
-
-/* enumeration of vehicle status */
-typedef enum {
-  VehicleStatus_None = 0,              /* Default value */
-  VehicleStatus_Disarm,
-  VehicleStatus_Standby,
-  VehicleStatus_Arm
-} VehicleStatus;
 
 #endif
 

@@ -125,9 +125,14 @@ typedef base_t                  off_t;       /**< Type for offset */
 #endif
 
 #ifndef STRING
-#define STRING(...) #__VA_ARGS__
+#define STRING_(...) #__VA_ARGS__
+#define STRING(...) STRING_(__VA_ARGS__)
 #endif
 
+#ifndef CONTACT
+#define CONTACT_(x,y) x ## y
+#define CONTACT(x, y) CONTACT_(x, y)
+#endif
 enum err_status
 {
     E_OK = 0,         /**< There is no error */

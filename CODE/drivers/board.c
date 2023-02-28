@@ -15,6 +15,8 @@
 #include "sysio/actuator_cmd.h"
 #include "sysio/auto_cmd.h"
 #include "sysio/pilot_cmd.h"
+#include "sysio/pilot_cmd_config.h"
+#include "sysio/actuator_config.h"
 
 static toml_table_t* __toml_root_tab = NULL;
 #define SYS_CONFIG_FILE "/sys/sysconfig.toml"
@@ -60,9 +62,9 @@ static err_t bsp_parse_toml_sysconfig(toml_table_t* root_tab)
                 } else if (MATCH(key, "mavproxy")) {
                     err = mavproxy_toml_config(sub_tab);
                 } else if (MATCH(key, "pilot-cmd")) {
-//                    err = pilot_cmd_toml_config(sub_tab);
+                    err = pilot_cmd_toml_config(sub_tab);
                 } else if (MATCH(key, "actuator")) {
-//                    err = actuator_toml_config(sub_tab);
+                    err = actuator_toml_config(sub_tab);
                 } else {
                     console_printf("unknown table: %s\n", key);
                 }
@@ -103,7 +105,7 @@ void bsp_post_init()
     SELF_CHECK(mission_data_init());
 
     /* init actuator */
-//    SELF_CHECK(actuator_init());
+    SELF_CHECK(actuator_init());
 
     /* start device message queue work */
     SELF_CHECK(devmq_start_work());

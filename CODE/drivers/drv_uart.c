@@ -5,12 +5,19 @@
 //
 
 #include "drv_uart.h"
-#include "driver/dma.h"
-#include "nvic.h"
-#include "atomic.h"
 #include "algo/math/maths.h"
-#include "hal/serial/serial.h"
-#include "stm32h7xx_ll_usart.h"
+#include "board_config.h"
+/* STM32 uart driver */
+struct stm32_uart {
+    USART_TypeDef* instance;
+    IRQn_Type irq;
+    struct dma_device *dma_tx;
+    struct dma_device *dma_rx;
+    /* setting receive len */
+    size_t setting_recv_len;
+    /* last receive index */
+    size_t last_recv_index;
+};
 
 static void uart_enable_clock(USART_TypeDef *instance)
 {
@@ -36,6 +43,8 @@ static void uart_enable_clock(USART_TypeDef *instance)
     if (instance == UART7) __HAL_RCC_UART7_CLK_ENABLE();
     else if(instance == USART1) __HAL_RCC_USART1_CLK_ENABLE();
     else if(instance == USART2) __HAL_RCC_USART2_CLK_ENABLE();
+    else if(instance == UART4) __HAL_RCC_UART4_CLK_ENABLE();
+    else if(instance == UART8) __HAL_RCC_UART8_CLK_ENABLE();
     else ASSERT(0); // not support yet.
 }
 
@@ -43,8 +52,8 @@ static void uart_gpio_init(USART_TypeDef *instance)
 {
     if (instance == UART7)
     {
-        io_init(PF6, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_LOW, GPIO_AF7_UART7);
-        io_init(PE8, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_LOW, GPIO_AF7_UART7);
+        io_init(PF6, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_MEDIUM, GPIO_AF7_UART7);
+        io_init(PE8, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_MEDIUM, GPIO_AF7_UART7);
     }
     else if (instance == USART1)
     {
@@ -52,103 +61,85 @@ static void uart_gpio_init(USART_TypeDef *instance)
         PB6     ------> USART1_TX
         PB7     ------> USART1_RX
         */
-        io_init(PB7, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_LOW, GPIO_AF7_USART1);
-        io_init(PB6, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_LOW, GPIO_AF7_USART1);
+        io_init(PB7, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_MEDIUM, GPIO_AF7_USART1);
+        io_init(PB6, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_MEDIUM, GPIO_AF7_USART1);
+    }
+    else if (instance == UART4)
+    {
+        io_init(PD0, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_MEDIUM, GPIO_AF8_UART4);
+        io_init(PD1, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_MEDIUM, GPIO_AF8_UART4);
+    }
+    else if (instance == UART8)
+    {
+        io_init(PE0, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_MEDIUM, GPIO_AF8_UART8);
+        io_init(PE1, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_MEDIUM, GPIO_AF8_UART8);
     }
     else ASSERT(0); // not support yet.
 }
 
 
-static void uart_disable_irq(USART_TypeDef *instance)
+static inline void _dma_clear_flags(struct dma_device *dma)
 {
-    if (instance == UART7)
-    {
-        HAL_NVIC_DisableIRQ(UART7_IRQn);
-    }
-    else ASSERT(0); // not support yet.
+    LL_EX_DMA_ClearFlag(dma, 0x3D);
 }
 
-static void uart_enable_irq(USART_TypeDef *instance)
+static size_t uart_dma_transmit(struct serial_device *serial, uint8_t *buf, size_t size, int direction)
 {
-    if (instance == UART7)
-    {
-        HAL_NVIC_SetPriority(UART7_IRQn, NVIC_PRIO_UART, 0);
-        HAL_NVIC_EnableIRQ(UART7_IRQn);
+    if (direction == SERIAL_DMA_TX) {
+        struct stm32_uart* uart = serial->parent.user_data;
+        if (LL_DMA_IsEnabledStream(uart->dma_tx->instance, uart->dma_tx->stream))
+        {
+            /* if the dma stream is enabled, disable it */
+            LL_DMA_DisableStream(uart->dma_tx->instance, uart->dma_tx->stream);
+            /* wait all current transfers are finished */
+            while (LL_DMA_IsEnabledStream(uart->dma_tx->instance, uart->dma_tx->stream));
+        }
+
+        /* all interrupt flags much be cleared before the stream can be re-enabled */
+        _dma_clear_flags(uart->dma_tx);
+        /* set data length */
+        LL_DMA_SetDataLength(uart->dma_tx->instance, uart->dma_tx->stream, size);
+        /* configure dma address */
+        LL_DMA_SetMemoryAddress(uart->dma_tx->instance, uart->dma_tx->stream, (uint32_t) buf);
+        /* enable common interrupts */
+        LL_DMA_EnableIT_TC(uart->dma_tx->instance, uart->dma_tx->stream);
+        /* enable the specified dma stream */
+        LL_DMA_EnableStream(uart->dma_tx->instance, uart->dma_tx->stream);
+
+        /* clear uart transmission complete flag */
+        LL_USART_ClearFlag_TC(uart->instance);
+        /* enable the uart dma transmit */
+        LL_USART_EnableDMAReq_TX(uart->instance);
+        return size;
     }
-    else if (instance == USART1)
-    {
-        HAL_NVIC_SetPriority(USART1_IRQn, NVIC_PRIO_UART, 0);
-        HAL_NVIC_EnableIRQ(USART1_IRQn);
-    }
-    else ASSERT(0); // not support yet.
+
+    return 0;
 }
 
-static void uart_dma_clear_flags(DMA_TypeDef *dma, uint32_t stream)
-{
-    static const uint8_t flagBitshiftOffset[8] = {0U, 6U, 16U, 22U, 0U, 6U, 16U, 22U};
-
-    uint8_t stream_index = flagBitshiftOffset[stream];
-    if (stream < LL_DMA_STREAM_4)
-    {
-        dma->LIFCR = 0x3DU << stream_index;
-    }
-    else
-    {
-        dma->HIFCR = 0x3DU << stream_index;
-    }
-
-}
-
-static size_t uart_dma_transmit(struct serial_device *serial, uint8_t *buf, size_t size)
-{
-    if (LL_DMA_IsEnabledStream(serial->config.dma.instance, serial->config.dma.tx_stream))
-    {
-        /* if the dma stream is enabled, disable it */
-        LL_DMA_DisableStream(serial->config.dma.instance, serial->config.dma.tx_stream);
-        /* wait all current transfers are finished */
-        while (LL_DMA_IsEnabledStream(serial->config.dma.instance, serial->config.dma.tx_stream));
-    }
-
-    /* all interrupt flags much be cleared before the stream can be re-enabled */
-    uart_dma_clear_flags(serial->config.dma.instance, serial->config.dma.tx_stream);
-    /* set data length */
-    LL_DMA_SetDataLength(serial->config.dma.instance, serial->config.dma.tx_stream, size);
-    /* configure dma address */
-    LL_DMA_SetMemoryAddress(serial->config.dma.instance, serial->config.dma.tx_stream, (uint32_t) buf);
-    /* enable common interrupts */
-    LL_DMA_EnableIT_TC(serial->config.dma.instance, serial->config.dma.tx_stream);
-    /* enable the specified dma stream */
-    LL_DMA_EnableStream(serial->config.dma.instance, serial->config.dma.tx_stream);
-
-    /* clear uart transmission complete flag */
-    LL_USART_ClearFlag_TC(serial->config.instance);
-    /* enable the uart dma transmit */
-    LL_USART_EnableDMAReq_TX(serial->config.instance);
-    return size;
-}
-
-static void uart_dma_receive(struct serial_device *serial)
+static void uart_dma_receive(struct stm32_uart* uart)
 {
     /* all interrupt flags much be cleared before the stream can be re-enabled */
-    uart_dma_clear_flags(serial->config.dma.instance, serial->config.dma.rx_stream);
+    _dma_clear_flags(uart->dma_rx);
     /* enable common interrupts */
-    LL_DMA_EnableIT_TC(serial->config.dma.instance, serial->config.dma.tx_stream);
-    LL_USART_EnableIT_IDLE(serial->config.instance);
+    LL_DMA_EnableIT_TC(uart->dma_rx->instance, uart->dma_rx->stream);
     /* enable the specified dma stream */
-    LL_DMA_EnableStream(serial->config.dma.instance, serial->config.dma.rx_stream);
+    LL_DMA_EnableStream(uart->dma_rx->instance, uart->dma_rx->stream);
 
-    /* clear uart transmission complete flag */
-    LL_USART_ClearFlag_TC(serial->config.instance);
+    /* enable idle interrupts */
+    LL_USART_EnableIT_IDLE(uart->instance);
+    LL_USART_ClearFlag_IDLE(uart->instance);
     /* enable the uart dma receive */
-    LL_USART_EnableDMAReq_RX(serial->config.instance);
+    LL_USART_EnableDMAReq_RX(uart->instance);
 }
 
-
-static void uart_dma_tx_config(struct serial_device *serial)
+static void uart_dma_tx_config(struct stm32_uart* uart)
 {
     LL_DMA_InitTypeDef DMA_InitStruct;
+    uint32_t request;
+    ASSERT(dma_get_request_by_instance(uart->instance, &request) == E_OK);
+    ASSERT(uart->dma_tx != NULL);
 
-    DMA_InitStruct.PeriphOrM2MSrcAddress = (uint32_t) &serial->config.instance->TDR;
+    DMA_InitStruct.PeriphOrM2MSrcAddress = (uint32_t) &uart->instance->TDR;
     DMA_InitStruct.MemoryOrM2MDstAddress = 0x00000000U; /* will be configured later */
     DMA_InitStruct.Direction = LL_DMA_DIRECTION_MEMORY_TO_PERIPH;
     DMA_InitStruct.Mode = LL_DMA_MODE_NORMAL;
@@ -157,31 +148,34 @@ static void uart_dma_tx_config(struct serial_device *serial)
     DMA_InitStruct.PeriphOrM2MSrcDataSize = LL_DMA_PDATAALIGN_BYTE;
     DMA_InitStruct.MemoryOrM2MDstDataSize = LL_DMA_MDATAALIGN_BYTE;
     DMA_InitStruct.NbData = 0x00000000U; /* will be configured later */
-    DMA_InitStruct.PeriphRequest = serial->config.dma.tx_channel;
+    DMA_InitStruct.PeriphRequest = request;
     DMA_InitStruct.Priority = LL_DMA_PRIORITY_HIGH;
     DMA_InitStruct.FIFOMode = LL_DMA_FIFOMODE_DISABLE;
     DMA_InitStruct.FIFOThreshold = LL_DMA_FIFOTHRESHOLD_1_4;
     DMA_InitStruct.MemBurst = LL_DMA_MBURST_SINGLE;
     DMA_InitStruct.PeriphBurst = LL_DMA_PBURST_SINGLE;
     /* init tx dma */
-    LL_DMA_Init(serial->config.dma.instance, serial->config.dma.tx_stream, &DMA_InitStruct);
+    LL_DMA_Init(uart->dma_tx->instance, uart->dma_tx->stream, &DMA_InitStruct);
 
     /* disable double buffer mode */
-    LL_DMA_DisableDoubleBufferMode(serial->config.dma.instance, serial->config.dma.tx_stream);
-    LL_DMA_DisableFifoMode(serial->config.dma.instance, serial->config.dma.tx_stream);
+    LL_DMA_DisableDoubleBufferMode(uart->dma_tx->instance, uart->dma_tx->stream);
+    LL_DMA_DisableFifoMode(uart->dma_tx->instance, uart->dma_tx->stream);
 }
 
-static void uart_dma_rx_config(struct serial_device *serial, uint8_t *buf, size_t size)
+static void uart_dma_rx_config(struct stm32_uart* uart, uint8_t *buf, size_t size)
 {
     LL_DMA_InitTypeDef DMA_InitStruct;
+    uint32_t request;
+    ASSERT(dma_get_request_by_instance(uart->instance, &request) == E_OK);
+    ASSERT(uart->dma_rx != NULL);
 
     /* set expected receive length */
-    serial->setting_recv_len = size;
+    uart->setting_recv_len = size;
 
     __HAL_RCC_DMA1_CLK_ENABLE();
     __HAL_RCC_DMA2_CLK_ENABLE();
 
-    DMA_InitStruct.PeriphOrM2MSrcAddress = (uint32_t) &serial->config.instance->RDR;
+    DMA_InitStruct.PeriphOrM2MSrcAddress = (uint32_t) &uart->instance->RDR;
     DMA_InitStruct.MemoryOrM2MDstAddress = (uint32_t) buf;
     DMA_InitStruct.Direction = LL_DMA_DIRECTION_PERIPH_TO_MEMORY;
     DMA_InitStruct.Mode = LL_DMA_MODE_CIRCULAR;
@@ -190,65 +184,41 @@ static void uart_dma_rx_config(struct serial_device *serial, uint8_t *buf, size_
     DMA_InitStruct.PeriphOrM2MSrcDataSize = LL_DMA_PDATAALIGN_BYTE;
     DMA_InitStruct.MemoryOrM2MDstDataSize = LL_DMA_MDATAALIGN_BYTE;
     DMA_InitStruct.NbData = size;
-    DMA_InitStruct.PeriphRequest = serial->config.dma.rx_channel;
+    DMA_InitStruct.PeriphRequest = request - 1;
     DMA_InitStruct.Priority = LL_DMA_PRIORITY_HIGH;
     DMA_InitStruct.FIFOMode = LL_DMA_FIFOMODE_DISABLE;
     DMA_InitStruct.FIFOThreshold = LL_DMA_FIFOTHRESHOLD_1_4;
     DMA_InitStruct.MemBurst = LL_DMA_MBURST_SINGLE;
     DMA_InitStruct.PeriphBurst = LL_DMA_PBURST_SINGLE;
+
     /* init rx dma */
-    LL_DMA_Init(serial->config.dma.instance, serial->config.dma.rx_stream, &DMA_InitStruct);
+    LL_DMA_Init(uart->dma_rx->instance, uart->dma_rx->stream, &DMA_InitStruct);
 
     /* disable double buffer mode */
-    LL_DMA_DisableDoubleBufferMode(serial->config.dma.instance, serial->config.dma.rx_stream);
-    LL_DMA_DisableFifoMode(serial->config.dma.instance, serial->config.dma.rx_stream);
+    LL_DMA_DisableDoubleBufferMode(uart->dma_rx->instance, uart->dma_rx->stream);
+    LL_DMA_DisableFifoMode(uart->dma_rx->instance, uart->dma_rx->stream);
 
     /* start to receive data */
-    uart_dma_receive(serial);
+    uart_dma_receive(uart);
 }
 
-/**
- * Calculate DMA received data length.
- *
- * @param serial serial device
- *
- * @return length
- */
-static size_t uart_dma_calc_recved_len(struct serial_device *serial)
-{
-    struct serial_rx_fifo *rx_fifo = (struct serial_rx_fifo *) serial->serial_rx;
-
-    ASSERT(rx_fifo != NULL);
-
-    if (rx_fifo->put_index == rx_fifo->get_index)
-    {
-        return (rx_fifo->is_full == FALSE ? 0 : serial->config.bufsz);
-    }
-    else
-    {
-        if (rx_fifo->put_index > rx_fifo->get_index)
-        {
-            return rx_fifo->put_index - rx_fifo->get_index;
-        }
-        else
-        {
-            return serial->config.bufsz - (rx_fifo->get_index - rx_fifo->put_index);
-        }
-    }
-}
-
+static void dma_tx_done_isr(struct serial_device* serial);
+static void dma_rx_done_isr(struct serial_device* serial);
 
 static err_t uart_configure(struct serial_device *serial, struct serial_configure *config)
 {
-    ASSERT(serial != NULL);
-    ASSERT(config != NULL && config->instance);
-
+    struct stm32_uart* uart;
     LL_USART_InitTypeDef USART_InitStructure = {0};
 
-    uart_enable_clock(config->instance);
-    uart_gpio_init(config->instance);
+    ASSERT(serial != NULL);
+    ASSERT(config != NULL);
 
-    if (config->instance == LPUART1)
+    uart = (struct stm32_uart*)serial->parent.user_data;
+
+    uart_enable_clock(uart->instance);
+    uart_gpio_init(uart->instance);
+
+    if (uart->instance == LPUART1)
     {
         USART_InitStructure.PrescalerValue = LL_USART_PRESCALER_DIV8;
     }
@@ -290,44 +260,60 @@ static err_t uart_configure(struct serial_device *serial, struct serial_configur
     USART_InitStructure.OverSampling = LL_USART_OVERSAMPLING_16;
 
     /* USART need be disabled first in order to configure it */
-    LL_USART_Disable(config->instance);
-    LL_USART_Init(config->instance, &USART_InitStructure);
-    LL_USART_ConfigAsyncMode(config->instance);
-    LL_USART_Enable(config->instance);
-    return 0;
+    LL_USART_Disable(uart->instance);
+    LL_USART_Init(uart->instance, &USART_InitStructure);
+    LL_USART_ConfigAsyncMode(uart->instance);
+    LL_USART_Enable(uart->instance);
+
+    if (uart->dma_tx){
+        ERROR_TRY(hal_dma_register(uart->dma_tx, uart->dma_tx->parent.name, DEVICE_FLAG_WRONLY));
+        dma_configure_irq(uart->dma_tx, (void (*)(uint32_t)) dma_tx_done_isr, NVIC_PRIO_UART_DMA, (uint32_t) serial);
+    }
+    if (uart->dma_rx)
+    {
+        ERROR_TRY(hal_dma_register(uart->dma_rx, uart->dma_rx->parent.name, DEVICE_FLAG_RDONLY));
+        dma_configure_irq(uart->dma_rx, (void (*)(uint32_t)) dma_rx_done_isr, NVIC_PRIO_UART_DMA, (uint32_t) serial);
+    }
+
+    return E_OK;
 }
 
 static void uart_close(struct serial_device *serial)
 {
+    ASSERT(serial != NULL);
+    struct stm32_uart* uart = (struct stm32_uart*)serial->parent.user_data;
+
     if (serial->parent.open_flag & DEVICE_FLAG_INT_RX)
     {
         /* disable int rx irq */
-        LL_USART_DisableIT_RXNE(serial->config.instance);
+        LL_USART_DisableIT_RXNE(uart->instance);
     }
 
     if (serial->parent.open_flag & DEVICE_FLAG_DMA_RX)
     {
         /* disable dma rx irq and disable rx dma */
-        LL_DMA_DisableIT_TC(serial->config.dma.instance, serial->config.dma.rx_stream);
-        LL_USART_DisableIT_IDLE(serial->config.instance);
-        LL_DMA_DisableStream(serial->config.dma.instance, serial->config.dma.rx_stream);
-        LL_USART_DisableDMAReq_RX(serial->config.instance);
+        LL_DMA_DisableIT_TC(uart->dma_rx->instance, uart->dma_rx->stream);
+        LL_USART_DisableIT_IDLE(uart->instance);
+        LL_DMA_DisableStream(uart->dma_rx->instance, uart->dma_rx->stream);
+        LL_USART_DisableDMAReq_RX(uart->instance);
     }
 
     if (serial->parent.open_flag & DEVICE_FLAG_DMA_TX)
     {
         /* disable dma tx irq and disable tx dma */
-        LL_DMA_DisableIT_TC(serial->config.dma.instance, serial->config.dma.tx_stream);
-        LL_DMA_DisableStream(serial->config.dma.instance, serial->config.dma.tx_stream);
-        LL_USART_DisableDMAReq_TX(serial->config.instance);
+        LL_DMA_DisableIT_TC(uart->dma_tx->instance, uart->dma_tx->stream);
+        LL_DMA_DisableStream(uart->dma_tx->instance, uart->dma_tx->stream);
+        LL_USART_DisableDMAReq_TX(uart->instance);
     }
 }
 
 static err_t uart_control(struct serial_device *serial, int cmd, void *arg)
 {
+    struct stm32_uart* uart;
     uint32_t ctrl_arg = (uint32_t) (arg);
 
     ASSERT(serial != NULL);
+    uart = (struct stm32_uart*)serial->parent.user_data;
 
     switch (cmd)
     {
@@ -335,9 +321,9 @@ static err_t uart_control(struct serial_device *serial, int cmd, void *arg)
             if (ctrl_arg == DEVICE_FLAG_INT_RX)
             {
                 /* disable rx irq */
-                uart_disable_irq(serial->config.instance);
+                HAL_NVIC_DisableIRQ(uart->irq);
                 /* disable interrupt */
-                LL_USART_DisableIT_RXNE(serial->config.instance);
+                LL_USART_DisableIT_RXNE(uart->instance);
             }
             break;
 
@@ -345,9 +331,10 @@ static err_t uart_control(struct serial_device *serial, int cmd, void *arg)
             if (ctrl_arg == DEVICE_FLAG_INT_RX)
             {
                 /* disable rx irq */
-                uart_enable_irq(serial->config.instance);
+                HAL_NVIC_SetPriority(uart->irq, NVIC_PRIO_UART, 0);
+                HAL_NVIC_EnableIRQ(uart->irq);
                 /* disable interrupt */
-                LL_USART_EnableIT_RXNE(serial->config.instance);
+                LL_USART_EnableIT_RXNE(uart->instance);
             }
             break;
 
@@ -356,22 +343,26 @@ static err_t uart_control(struct serial_device *serial, int cmd, void *arg)
             if (ctrl_arg == DEVICE_FLAG_DMA_RX)
             {
                 struct serial_rx_fifo *rx_fifo = (struct serial_rx_fifo *) serial->serial_rx;
-                if (LL_DMA_IsEnabledStream(serial->config.dma.instance, serial->config.dma.rx_stream))
+
+                if (LL_DMA_IsEnabledStream(uart->dma_rx->instance, uart->dma_rx->stream))
                 {
                     /* dma is busy */
                     return E_BUSY;
                 }
-                uart_dma_rx_config(serial, rx_fifo->buffer, serial->config.bufsz);
+                /* disable rx irq */
+                HAL_NVIC_SetPriority(uart->irq, NVIC_PRIO_UART, 0);
+                HAL_NVIC_EnableIRQ(uart->irq);
+                uart_dma_rx_config(uart, rx_fifo->buffer, serial->config.bufsz);
             }
 
             if (ctrl_arg == DEVICE_FLAG_DMA_TX)
             {
-                if (LL_DMA_IsEnabledStream(serial->config.dma.instance, serial->config.dma.tx_stream))
+                if (LL_DMA_IsEnabledStream(uart->dma_tx->instance, uart->dma_tx->stream))
                 {
                     /* dma is busy */
                     return E_BUSY;
                 }
-                uart_dma_tx_config(serial);
+                uart_dma_tx_config(uart);
             }
             break;
 
@@ -389,28 +380,113 @@ static err_t uart_control(struct serial_device *serial, int cmd, void *arg)
 
 static int uart_putc(struct serial_device *serial, char c)
 {
+    struct stm32_uart* uart;
     ASSERT(serial != NULL);
+    uart = (struct stm32_uart*)serial->parent.user_data;
 
-    while (LL_USART_IsActiveFlag_TXE_TXFNF(serial->config.instance) == 0);
-    LL_USART_TransmitData8(serial->config.instance, c);
+    LL_USART_TransmitData8(uart->instance, c);
+    while (LL_USART_IsActiveFlag_TXE_TXFNF(uart->instance) == RESET);
     return 1;
 }
 
 static int uart_getc(struct serial_device *serial)
 {
     int ch = -1;
-
+    struct stm32_uart* uart;
     ASSERT(serial != NULL);
+    uart = (struct stm32_uart*)serial->parent.user_data;
 
     /* check if read data register is not empty */
-    if (LL_USART_IsActiveFlag_RXNE(serial->config.instance))
+    if (LL_USART_IsActiveFlag_RXNE(uart->instance))
     {
         /* read DR will clear RXNE */
-        ch = LL_USART_ReceiveData8(serial->config.instance);
+        ch = LL_USART_ReceiveData8(uart->instance);
     }
 
     return ch;
 }
+
+
+/**
+ * Serial port receive idle process. This need add to uart idle ISR.
+ *
+ * @param serial serial device
+ */
+static void dma_uart_rx_idle_isr(struct serial_device* serial)
+{
+    struct stm32_uart* uart = (struct stm32_uart*)serial->parent.user_data;
+    size_t recv_total_index, recv_len;
+    base_t level;
+    uint32_t remain_bytes;
+
+    /* disable interrupt */
+    level = os_hw_interrupt_disable();
+    /* check remain bytes to receive */
+    remain_bytes = LL_DMA_GetDataLength(uart->dma_rx->instance, uart->dma_rx->stream);
+    /* total received bytes */
+    recv_total_index = uart->setting_recv_len - remain_bytes;
+    /* received bytes at this time */
+    recv_len = recv_total_index - uart->last_recv_index;
+    /* update last received total bytes */
+    uart->last_recv_index = recv_total_index;
+    /* enable interrupt */
+    os_hw_interrupt_enable(level);
+
+    if (recv_len) {
+        /* high-level ISR routine */
+        hal_serial_isr(serial, SERIAL_EVENT_RX_DMADONE | (recv_len << 8));
+    }
+}
+
+
+/**
+ * DMA receive done process. This need add to DMA receive done ISR.
+ *
+ * @param serial serial device
+ */
+static void dma_rx_done_isr(struct serial_device* serial)
+{
+    struct stm32_uart* uart = (struct stm32_uart*)serial->parent.user_data;
+    if (LL_EX_DMA_IsActiveFlag(uart->dma_rx, DMA_IT_TCIF))
+    {
+        size_t recv_len;
+        base_t level;
+
+        /* disable interrupt */
+        level = os_hw_interrupt_disable();
+        /* received bytes at this time */
+        recv_len = uart->setting_recv_len - uart->last_recv_index;
+        /* reset last recv index */
+        uart->last_recv_index = 0;
+        /* enable interrupt */
+        os_hw_interrupt_enable(level);
+
+        if (recv_len) {
+            /* high-level ISR routine */
+            hal_serial_isr(serial, SERIAL_EVENT_RX_DMADONE | (recv_len << 8));
+        }
+        /* clear the interrupt flag */
+        LL_EX_DMA_ClearFlag(uart->dma_rx, DMA_IT_TCIF);
+    }
+}
+
+/**
+ * DMA transmit done process. This need add to DMA receive done ISR.
+ *
+ * @param serial serial device
+ */
+static void dma_tx_done_isr(struct serial_device* serial)
+{
+    struct stm32_uart* uart = (struct stm32_uart*)serial->parent.user_data;
+    if (LL_EX_DMA_IsActiveFlag(uart->dma_tx, DMA_IT_TCIF))
+    {
+        /* high-level ISR routine */
+        hal_serial_isr(serial, SERIAL_EVENT_TX_DMADONE);
+
+        LL_EX_DMA_ClearFlag(uart->dma_tx, DMA_IT_TCIF);
+    }
+}
+
 
 /**
  * Uart common interrupt process. This need add to uart ISR.
@@ -419,166 +495,38 @@ static int uart_getc(struct serial_device *serial)
  */
 static void uart_isr(struct serial_device *serial)
 {
-    if (LL_USART_IsActiveFlag_RXNE(serial->config.instance) && LL_USART_IsEnabledIT_RXNE(serial->config.instance))
+    struct stm32_uart* uart = (struct stm32_uart*)serial->parent.user_data;
+
+    if (LL_USART_IsActiveFlag_RXNE(uart->instance) && LL_USART_IsEnabledIT_RXNE(uart->instance))
     {
-        int ch = -1;
-        base_t level;
-        struct serial_rx_fifo *rx_fifo;
-
-        /* interrupt mode receive */
-        rx_fifo = (struct serial_rx_fifo *) serial->serial_rx;
-        ASSERT(rx_fifo != NULL);
-
-        while (1)
-        {
-            ch = serial->ops->getc(serial);
-
-            if (ch == -1)
-                break;
-
-            /* disable interrupt */
-            level = os_hw_interrupt_disable();
-
-            rx_fifo->buffer[rx_fifo->put_index] = ch;
-            rx_fifo->put_index += 1;
-
-            if (rx_fifo->put_index >= serial->config.bufsz)
-                rx_fifo->put_index = 0;
-
-            /* if the next position is read index, discard this 'read char' */
-            if (rx_fifo->put_index == rx_fifo->get_index)
-            {
-                rx_fifo->get_index += 1;
-                rx_fifo->is_full = TRUE;
-
-                if (rx_fifo->get_index >= serial->config.bufsz)
-                    rx_fifo->get_index = 0;
-            }
-
-            /* enable interrupt */
-            os_hw_interrupt_enable(level);
-        }
-
-        /* invoke callback */
-        if (serial->parent.rx_indicate != NULL)
-        {
-            size_t rx_length;
-
-            /* get rx length */
-            level = os_hw_interrupt_disable();
-            rx_length = (rx_fifo->put_index >= rx_fifo->get_index) ? (rx_fifo->put_index - rx_fifo->get_index) : (
-                    serial->config.bufsz - (rx_fifo->get_index - rx_fifo->put_index));
-            os_hw_interrupt_enable(level);
-            if (rx_length)
-            {
-                serial->parent.rx_indicate(&serial->parent, rx_length);
-            }
-        }
+        /* high-level ISR routine */
+        hal_serial_isr(serial, SERIAL_EVENT_RX_IND);
         /* the RXNE flag is cleared by reading the USART_RDR register */
     }
 
-    if (LL_USART_IsActiveFlag_IDLE(serial->config.instance) && LL_USART_IsEnabledIT_IDLE(serial->config.instance))
+    if (LL_USART_IsActiveFlag_IDLE(uart->instance) && LL_USART_IsEnabledIT_IDLE(uart->instance))
     {
-        if (LL_USART_IsEnabledDMAReq_RX(serial->config.instance))
+        if (LL_USART_IsEnabledDMAReq_RX(uart->instance))
         {
-            size_t recv_total_index, recv_len;
-            base_t level;
-            uint32_t remain_bytes;
-
-            /* disable interrupt */
-            level = os_hw_interrupt_disable();
-            /* check remain bytes to receive */
-            remain_bytes = LL_DMA_GetDataLength(serial->config.dma.instance, serial->config.dma.rx_stream);
-            /* total received bytes */
-            recv_total_index = serial->setting_recv_len - remain_bytes;
-            /* received bytes at this time */
-            recv_len = recv_total_index - serial->last_recv_index;
-            /* update last received total bytes */
-            serial->last_recv_index = recv_total_index;
-            /* enable interrupt */
-            os_hw_interrupt_enable(level);
-
-            if (recv_len)
-            {
-                /* high-level ISR routine */
-                int length = recv_len;
-
-                /* disable interrupt */
-                level = os_hw_interrupt_disable();
-                /* update fifo put index */
-                struct serial_rx_fifo *rx_fifo = (struct serial_rx_fifo *) serial->serial_rx;
-                ASSERT(rx_fifo != NULL);
-                if (rx_fifo->get_index <= rx_fifo->put_index)
-                {
-                    rx_fifo->put_index += length;
-
-                    /* beyond the fifo end */
-                    if (rx_fifo->put_index >= serial->config.bufsz)
-                    {
-                        rx_fifo->put_index %= serial->config.bufsz;
-
-                        /* force overwrite get index */
-                        if (rx_fifo->put_index >= rx_fifo->get_index)
-                        {
-                            rx_fifo->is_full = TRUE;
-                        }
-                    }
-                }
-                else
-                {
-                    rx_fifo->put_index += length;
-
-                    if (rx_fifo->put_index >= rx_fifo->get_index)
-                    {
-                        /* beyond the fifo end */
-                        if (rx_fifo->put_index >= serial->config.bufsz)
-                        {
-                            rx_fifo->put_index %= serial->config.bufsz;
-                        }
-
-                        /* force overwrite get index */
-                        rx_fifo->is_full = TRUE;
-                    }
-                }
-
-                if (rx_fifo->is_full == TRUE)
-                {
-                    rx_fifo->get_index = rx_fifo->put_index;
-                }
-
-                if (rx_fifo->get_index >= serial->config.bufsz)
-                    rx_fifo->get_index = 0;
-
-                /* calculate received total length in fifo */
-                length = uart_dma_calc_recved_len(serial);
-                /* enable interrupt */
-                os_hw_interrupt_enable(level);
-
-                /* invoke callback */
-                if (serial->parent.rx_indicate != NULL)
-                {
-                    serial->parent.rx_indicate(&(serial->parent), length);
-                }
-            }
-
+            dma_uart_rx_idle_isr(serial);
         }
         /* clear interrupt flag */
-        LL_USART_ClearFlag_IDLE(serial->config.instance);
+        LL_USART_ClearFlag_IDLE(uart->instance);
     }
 
-    if (LL_USART_IsActiveFlag_TC(serial->config.instance) && LL_USART_IsEnabledIT_TC(serial->config.instance))
+    if (LL_USART_IsActiveFlag_TC(uart->instance) && LL_USART_IsEnabledIT_TC(uart->instance))
     {
         // TODO: this can be used for TX_INT mode?
         // hal_serial_isr(serial, SERIAL_EVENT_TX_DONE);
 
         /* clear interrupt */
-        LL_USART_ClearFlag_TC(serial->config.instance);
+        LL_USART_ClearFlag_TC(uart->instance);
     }
 
-    if (LL_USART_IsActiveFlag_ORE(serial->config.instance) != RESET)
+    if (LL_USART_IsActiveFlag_ORE(uart->instance) != RESET)
     {
         uart_getc(serial);
-        LL_USART_ClearFlag_ORE(serial->config.instance);
+        LL_USART_ClearFlag_ORE(uart->instance);
     }
 }
 
@@ -593,10 +541,11 @@ static const struct uart_ops _usart_ops = {
 };
 
 
-SERIAL_DEFINE(0, UART7 , 115200);   //debug uart
-SERIAL_DEFINE(1, USART2, 115200);   //telem1
-SERIAL_DEFINE(2, USART1, 38400 );   //gps1
-SERIAL_DEFINE(3, UART8 , 115200);   //sbus ppm
+//---- serialx, uartx,  baudrate --------
+SERIAL_DEFINE(0,  7,  115200);   //debug uart
+SERIAL_DEFINE(1,  2,  115200);   //telem1
+SERIAL_DEFINE(2,  1,  57600);    //gps1
+SERIAL_DEFINE(5,  4,  115200);   //sbus ppm
 
 err_t drv_uart_init()
 {
@@ -604,21 +553,35 @@ err_t drv_uart_init()
     ERROR_TRY(hal_serial_register(&serial0,
                                "serial0",
                                DEVICE_FLAG_RDWR | DEVICE_FLAG_STANDALONE | DEVICE_FLAG_INT_RX,
-                               NULL));
+                               &uart7));
 #endif
 
 #ifdef USE_UART2
     ERROR_TRY(hal_serial_register(&serial1,
                                "serial1",
                                DEVICE_FLAG_RDWR | DEVICE_FLAG_STANDALONE | DEVICE_FLAG_INT_RX,
-                               NULL));
+                               &uart2));
 #endif
 
 #ifdef USE_UART1
     ERROR_TRY(hal_serial_register(&serial2,
                                   "serial2",
                                   DEVICE_FLAG_RDWR | DEVICE_FLAG_STANDALONE | DEVICE_FLAG_INT_RX,
-                                  NULL));
+                                  &uart1));
+#endif
+
+#ifdef USE_UART8
+    uart4.dma_tx = LL_DMA_DeviceGetByName("dma2_stream0");
+    uart4.dma_rx = LL_DMA_DeviceGetByName("dma2_stream1");
+
+//    serial5.config.stop_bits = STOP_BITS_2;
+//    serial5.config.parity = PARITY_EVEN;
+//    serial5.config.bufsz = 1024;
+
+    ERROR_TRY(hal_serial_register(&serial5,
+                                  "serial5",
+                                  DEVICE_FLAG_RDWR | DEVICE_FLAG_STANDALONE | DEVICE_FLAG_INT_RX | DEVICE_FLAG_DMA_TX | DEVICE_FLAG_DMA_RX,
+                                  &uart4));
 #endif
     return E_OK;
 }

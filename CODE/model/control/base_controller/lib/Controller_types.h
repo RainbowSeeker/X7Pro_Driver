@@ -3,12 +3,12 @@
  *
  * Code generated for Simulink model 'Controller'.
  *
- * Model version                  : 1.903
- * Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
- * C/C++ source code generated on : Thu Dec  1 10:31:19 2022
+ * Model version                  : 1.37
+ * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+ * C/C++ source code generated on : Sat Feb 25 18:26:08 2023
  *
  * Target selection: ert.tlc
- * Embedded hardware selection: ARM Compatible->ARM Cortex
+ * Embedded hardware selection: ARM Compatible->ARM Cortex-M
  * Code generation objectives: Unspecified
  * Validation result: Not run
  */
@@ -16,8 +16,6 @@
 #ifndef RTW_HEADER_Controller_types_h_
 #define RTW_HEADER_Controller_types_h_
 #include "rtwtypes.h"
-
-/* Model Code Variants */
 #ifndef DEFINED_TYPEDEF_FOR_FMS_Out_Bus_
 #define DEFINED_TYPEDEF_FOR_FMS_Out_Bus_
 
@@ -194,18 +192,18 @@ typedef struct {
 
 typedef struct {
   uint32_T timestamp;
-  uint16_T actuator_cmd[16];
+  int16_T actuator_cmd[16];
 } Control_Out_Bus;
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_biZzOMrg0u3lxrb7POOubF_
-#define DEFINED_TYPEDEF_FOR_struct_biZzOMrg0u3lxrb7POOubF_
+#ifndef DEFINED_TYPEDEF_FOR_struct_ny3PY9hontv4J5WqwlFzJB_
+#define DEFINED_TYPEDEF_FOR_struct_ny3PY9hontv4J5WqwlFzJB_
 
 typedef struct {
   uint32_T period;
-  int8_T model_info[23];
-} struct_biZzOMrg0u3lxrb7POOubF;
+  int8_T model_info[21];
+} struct_ny3PY9hontv4J5WqwlFzJB;
 
 #endif
 

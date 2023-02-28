@@ -63,8 +63,7 @@ static err_t lowlevel_init(void)
 
     do {
         spi_transfer((struct spi_device *)spi_dev, buf, &buf[10], 10);
-
-        spi_wait(spi_dev);
+        systime_msleep(10);
     } while (buf[17] != 0xC2 && ++retry < 20);
 
     if(retry >= 20)

@@ -9,8 +9,6 @@
 
 #include "common.h"
 
-
-
 #define DMA_THRESHOLD       8
 
 enum dma_handler_e
@@ -43,6 +41,7 @@ enum dma_handler_e
 };
 
 #define DEFINE_DMA_STREAM(d, s, f) { \
+    .parent.name = STRING(CONTACT(dma ## d,_stream ## s)),  \
     .instance = DMA ## d,            \
     .stream = LL_DMA_STREAM_ ## s,     \
     .ref = DMA ## d ## _Stream ## s, \
@@ -54,6 +53,7 @@ enum dma_handler_e
     }
 
 #define DEFINE_BDMA_STREAM(ch, f) { \
+    .parent.name = STRING(CONTACT(bdma,_stream ## ch)),  \
     .instance = BDMA,               \
     .stream = LL_BDMA_CHANNEL_ ## ch,     \
     .ref = BDMA_Channel ## ch, \
@@ -65,14 +65,14 @@ enum dma_handler_e
     }
 
 
-#define DEFINE_DMA_IRQ_HANDLER(d, s, i)  void DMA ## d ## _Stream ## s ## _IRQHandler(void) {\
-                                                                if (dma_device_table[i].cb) \
-                                                                    dma_device_table[i].cb(dma_device_table[i].user_data); \
+#define DEFINE_DMA_IRQ_HANDLER(d, s)  void DMA ## d ## _Stream ## s ## _IRQHandler(void) {\
+                                                                if (dma_device_table[DMA##d##_STREAM##s##_HANDLER].cb) \
+                                                                    dma_device_table[DMA##d##_STREAM##s##_HANDLER].cb(dma_device_table[DMA##d##_STREAM##s##_HANDLER].user_data); \
                                                             }
 
-#define DEFINE_BDMA_IRQ_HANDLER(ch, i)  void BDMA ## _Channel ## ch ## _IRQHandler(void) {\
-                                                                if (dma_device_table[i].cb) \
-                                                                    dma_device_table[i].cb(dma_device_table[i].user_data); \
+#define DEFINE_BDMA_IRQ_HANDLER(ch)  void BDMA ## _Channel ## ch ## _IRQHandler(void) {\
+                                                                if (dma_device_table[BDMA_CHANNEL##ch##_HANDLER].cb) \
+                                                                    dma_device_table[BDMA_CHANNEL##ch##_HANDLER].cb(dma_device_table[BDMA_CHANNEL##ch##_HANDLER].user_data); \
                                                             }
 
 

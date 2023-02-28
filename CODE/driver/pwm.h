@@ -25,7 +25,7 @@ void PWM_Init(pwm_t *pwm, const timer_hw_t *timerHardware, uint32_t hz, uint16_t
 
 __STATIC_INLINE void PWM_Output(pwm_t *pwm, uint16_t value)
 {
-    WRITE_REG(*pwm->ccr, value * PWM_PERIOD / PWM_MAX_DUTY);
+    WRITE_REG(*pwm->ccr, value * (pwm->tim->ARR + 1) / PWM_MAX_DUTY);
 }
 
 #endif //X7PRO_DRIVER_PWM_H

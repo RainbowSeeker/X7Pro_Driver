@@ -5,8 +5,6 @@
 //
 #include <common.h>
 #include "gpio.h"
-#include "dma.h"
-#include "bus_spi.h"
 #include "drivers/drv_uart.h"
 #include "module/ipc/uMCN.h"
 
@@ -21,11 +19,14 @@
 #include "drivers/mag/rm3100.h"
 #include "drivers/gps/gps_ubx.h"
 #include "sensor/sensor_hub.h"
-#include "shell.h"
 #include "mavproxy/mavproxy.h"
 #include "drv_usbd_cdc.h"
 #include "drivers/drv_systick.h"
 #include "drivers/fram/fm25vx.h"
+
+#include "fmtio/fmtio.h"
+#include "shell.h"
+#include "drivers/board.h"
 
 
 static const struct dfs_mount_tbl mnt_table[] = {
@@ -45,6 +46,9 @@ void bsp_early_init(void)
     io_set(PG0, IO_HIGH);
     io_init(PG0, CS_CONFIG);
 
+    io_set(PG5, IO_HIGH);
+    io_init(PG5, CS_CONFIG);
+
     /* usart driver init */
     SELF_CHECK(drv_uart_init());
 
@@ -59,6 +63,9 @@ void bsp_early_init(void)
     /* spi driver init */
     SELF_CHECK(drv_spi_init());
 }
+
+extern void bsp_post_init();
+
 void bsp_init(void)
 {
     /* system statistic module */
@@ -102,7 +109,8 @@ void bsp_init(void)
 
     SELF_CHECK(mavproxy_init());
 
-    void bsp_post_init();
+    fmtio_init(FMTIO_DEVICE_NAME);
+
     bsp_post_init();
 
     /* init finsh */

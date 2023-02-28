@@ -83,7 +83,7 @@
 	recvmsg从Can控制器接收数据，boxno为接收通道号。
 	struct rt_can_device
 	{
-		struct rt_device          parent;
+		struct device          parent;
 
 		const struct rt_can_ops *ops;
 		struct can_configure   config;

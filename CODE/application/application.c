@@ -10,19 +10,19 @@
 #include "workqueue/workqueue_manager.h"
 
 
-os_thread_t app_cliHandle;
-os_thread_t app_spiHandle;
-os_thread_t app_sdHandle;
-os_thread_t app_pwmHandle;
-os_thread_t app_mcnHandle;
-os_thread_t app_logHandle;
+os_thread_t app_vehicleHandle;
+os_thread_t app_loggerHandle;
+os_thread_t app_commHandle;
+os_thread_t app_statusHandle;
+os_thread_t app_ioHandle;
 
-extern void App_Cli_Main(void  *argument);
-extern void App_SPI_Main(void *argument);
-extern void App_SD_Main(void *argument);
-extern void App_PWM_Main(void *argument);
-extern void App_Mcn_Main(void *argument);
-extern void App_Log_Main(void *argument);
+extern void App_Vehicle_Main(void *argument);
+extern void App_Logger_Main(void *argument);
+extern void App_Comm_Main(void *argument);
+extern void App_Status_Main(void *argument);
+extern void App_IO_Main(void *argument);
+
+
 
 extern osThreadId defaultTaskHandle;
 void Application_Create(void)
@@ -31,11 +31,15 @@ void Application_Create(void)
 
     OS_ENTER_CRITICAL();
 
-    app_spiHandle = os_thread_create("app_spi", App_SPI_Main, NULL, VEHICLE_THREAD_PRIORITY, 1 * 1024);
+    app_vehicleHandle = os_thread_create("app_vehicle", App_Vehicle_Main, NULL, VEHICLE_THREAD_PRIORITY, 2 * 1024);
 
-    app_logHandle = os_thread_create("app_log", App_Log_Main, NULL, LOGGER_THREAD_PRIORITY, 1 * 1024);
+    app_loggerHandle = os_thread_create("app_logger", App_Logger_Main, NULL, LOGGER_THREAD_PRIORITY, 1 * 1024);
 
-    app_mcnHandle = os_thread_create("app_mcn", App_Mcn_Main, NULL, COMM_THREAD_PRIORITY, 1 * 1024);
+    app_commHandle = os_thread_create("app_comm", App_Comm_Main, NULL, COMM_THREAD_PRIORITY, 1 * 1024);
+
+    app_statusHandle = os_thread_create("app_status", App_Status_Main, NULL, STATUS_THREAD_PRIORITY, 2 * 1024);
+
+    app_ioHandle = os_thread_create("app_io", App_IO_Main, NULL, FMTIO_THREAD_PRIORITY, 1 * 1024);
 
     vTaskDelete(defaultTaskHandle);
     OS_EXIT_CRITICAL();

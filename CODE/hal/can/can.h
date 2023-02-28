@@ -41,7 +41,7 @@ struct can_filter_item
     uint32_t mask;
     int32_t hdr;
 #ifdef RT_CAN_USING_HDR
-    err_t (*ind)(device_t dev, void *args , int32_t hdr, size_t size);
+    err_t (*ind)(light_device_t dev, void *args , int32_t hdr, size_t size);
     void *args;
 #endif /*RT_CAN_USING_HDR*/
 };

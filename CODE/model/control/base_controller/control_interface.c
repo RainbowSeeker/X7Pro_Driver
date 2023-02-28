@@ -145,7 +145,7 @@ void control_interface_init(void)
     Control_Out_ID = mlog_get_bus_id("Control_Out");
     ASSERT(Control_Out_ID >= 0);
 
-    Controller_init();
+    Controller_initialize();
 
     init_parameter();
 }

@@ -32,7 +32,7 @@ void completion_init(struct completion *completion)
  *                NOTE: Generally, we use the macro RT_WAITING_FOREVER to set this parameter, which means that when the
  *                completion is unavailable, the thread will be waitting forever.
  *
- * @return Return the operation status. ONLY when the return value is RT_EOK, the operation is successful.
+ * @return Return the operation status. ONLY when the return value is E_OK, the operation is successful.
  *         If the return value is any other values, it means that the completion wait failed.
  *
  * @warning This function can ONLY be called in the thread context. It MUST NOT be called in interrupt context.

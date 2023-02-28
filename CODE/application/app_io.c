@@ -8,11 +8,13 @@
 #include <common.h>
 #include "module_common.h"
 #include "module/file_manager/file_manager.h"
+#include "drivers/board.h"
+#include "fmtio/fmtio.h"
 
 
-void App_SD_Main(void *argument)
+void App_IO_Main(void *argument)
 {
-    while (1)
-    {
-    }
+//    fmtio_init(FMTIO_DEVICE_NAME);
+
+    fmtio_loop();
 }

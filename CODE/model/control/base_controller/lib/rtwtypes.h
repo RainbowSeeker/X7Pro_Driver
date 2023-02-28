@@ -3,12 +3,12 @@
  *
  * Code generated for Simulink model 'Controller'.
  *
- * Model version                  : 1.903
- * Simulink Coder version         : 9.7 (R2022a) 13-Nov-2021
- * C/C++ source code generated on : Thu Dec  1 10:31:19 2022
+ * Model version                  : 1.37
+ * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
+ * C/C++ source code generated on : Sat Feb 25 18:26:08 2023
  *
  * Target selection: ert.tlc
- * Embedded hardware selection: ARM Compatible->ARM Cortex
+ * Embedded hardware selection: ARM Compatible->ARM Cortex-M
  * Code generation objectives: Unspecified
  * Validation result: Not run
  */
@@ -29,12 +29,12 @@
 
 /*=======================================================================*
  * Target hardware information
- *   Device type: ARM Compatible->ARM Cortex
+ *   Device type: ARM Compatible->ARM Cortex-M
  *   Number of bits:     char:   8    short:   16    int:  32
  *                       long:  32
  *                       native word size:  32
  *   Byte ordering: LittleEndian
- *   Signed integer division rounds to: Undefined
+ *   Signed integer division rounds to: Zero
  *   Shift right on a signed integer as arithmetic shift: on
  *=======================================================================*/
 
@@ -66,6 +66,68 @@ typedef unsigned long ulong_T;
 typedef char char_T;
 typedef unsigned char uchar_T;
 typedef char_T byte_T;
+
+/*===========================================================================*
+ * Complex number type definitions                                           *
+ *===========================================================================*/
+#define CREAL_T
+
+typedef struct {
+  real32_T re;
+  real32_T im;
+} creal32_T;
+
+typedef struct {
+  real64_T re;
+  real64_T im;
+} creal64_T;
+
+typedef struct {
+  real_T re;
+  real_T im;
+} creal_T;
+
+#define CINT8_T
+
+typedef struct {
+  int8_T re;
+  int8_T im;
+} cint8_T;
+
+#define CUINT8_T
+
+typedef struct {
+  uint8_T re;
+  uint8_T im;
+} cuint8_T;
+
+#define CINT16_T
+
+typedef struct {
+  int16_T re;
+  int16_T im;
+} cint16_T;
+
+#define CUINT16_T
+
+typedef struct {
+  uint16_T re;
+  uint16_T im;
+} cuint16_T;
+
+#define CINT32_T
+
+typedef struct {
+  int32_T re;
+  int32_T im;
+} cint32_T;
+
+#define CUINT32_T
+
+typedef struct {
+  uint32_T re;
+  uint32_T im;
+} cuint32_T;
 
 /*=======================================================================*
  * Min and Max:                                                          *

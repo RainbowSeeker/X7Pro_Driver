@@ -75,7 +75,7 @@ static void ulog_update_cb(void)
 }
 
 
-void App_Log_Main(void *argument)
+void App_Logger_Main(void *argument)
 {
     err_t err;
     uint32_t recv_set = 0;

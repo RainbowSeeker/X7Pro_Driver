@@ -13,7 +13,7 @@
 //
 //static void Dev_ExtiIntHandler(exti_callback_rec_t *cb)
 //{
-//    device_t *dev = container_of(cb, device_t, extiCallbackRec);
+//    light_device_t *dev = container_of(cb, light_device_t, extiCallbackRec);
 //#ifdef ENABLE_EXIT_STAT
 //    exti_stat_t *extiStat = &dev->extiStat;
 //
@@ -40,7 +40,7 @@
 //}
 //
 //
-//static bool Device_BindByHardware(device_t *dev, const hw_config_t *config)
+//static bool Device_BindByHardware(light_device_t *dev, const hw_config_t *config)
 //{
 //    if (!config || !dev)    return false;
 //
@@ -55,7 +55,7 @@
 //    return false;
 //}
 //
-//static bool Device_PreConfigDataReady(device_t *dev, const dr_config_t *config)
+//static bool Device_PreConfigDataReady(light_device_t *dev, const dr_config_t *config)
 //{
 //    if (!config)    return true;
 //
@@ -80,7 +80,7 @@
 //}
 //
 //
-//static bool Device_PreConfigHardware(device_t *dev, detect_func_t detectFunc, const hw_config_t *hwConfig)
+//static bool Device_PreConfigHardware(light_device_t *dev, detect_func_t detectFunc, const hw_config_t *hwConfig)
 //{
 //    if (!dev || !hwConfig || !Device_BindByHardware(dev, hwConfig))
 //        return false;
@@ -114,7 +114,7 @@
 //}
 //
 //
-//bool Device_PreConfig(device_t *dev, detect_func_t detectFunc, const hw_config_t *hwConfig, const dr_config_t *drConfig)
+//bool Device_PreConfig(light_device_t *dev, detect_func_t detectFunc, const hw_config_t *hwConfig, const dr_config_t *drConfig)
 //{
 //    if (!Device_PreConfigHardware(dev, detectFunc, hwConfig) || !Device_PreConfigDataReady(dev, drConfig))
 //    {
@@ -123,7 +123,7 @@
 //    return true;
 //}
 //
-//void Device_BindRxCallback(device_t *dev, segment_callback callback, uint32_t arg)
+//void Device_BindRxCallback(light_device_t *dev, segment_callback callback, uint32_t arg)
 //{
 //    dev->segments[0].callback = callback;
 //    dev->callbackArg = (uint32_t) arg;
@@ -136,7 +136,7 @@
 //
 //
 //
-//void Bus_DeviceRegister(const device_t *dev)
+//void Bus_DeviceRegister(const light_device_t *dev)
 //{
 //    switch (dev->bus->busType) {
 //#ifdef USE_SPI
@@ -155,7 +155,7 @@
 //}
 //
 //// Write routines where the register is masked with 0x7f
-//bool Bus_WriteRegister(const device_t *dev, uint8_t reg, uint8_t data)
+//bool Bus_WriteRegister(const light_device_t *dev, uint8_t reg, uint8_t data)
 //{
 //#if !defined(USE_SPI) && !defined(USE_I2C)
 //    UNUSED(reg);
@@ -175,7 +175,7 @@
 //    }
 //}
 //
-//bool Bus_WriteRegisterStart(const device_t *dev, uint8_t reg, uint8_t data)
+//bool Bus_WriteRegisterStart(const light_device_t *dev, uint8_t reg, uint8_t data)
 //{
 //#if !defined(USE_SPI) && !defined(USE_I2C)
 //    UNUSED(reg);
@@ -196,7 +196,7 @@
 //}
 //
 //// Access routines where the register is accessed directly
-//bool Bus_RawWriteRegister(const device_t *dev, uint8_t reg, uint8_t data)
+//bool Bus_RawWriteRegister(const light_device_t *dev, uint8_t reg, uint8_t data)
 //{
 //#ifdef USE_SPI
 //    if (dev->bus->busType ==  BUS_TYPE_SPI) {
@@ -208,7 +208,7 @@
 //    }
 //}
 //
-//bool Bus_RawWriteRegisterStart(const device_t *dev, uint8_t reg, uint8_t data)
+//bool Bus_RawWriteRegisterStart(const light_device_t *dev, uint8_t reg, uint8_t data)
 //{
 //#ifdef USE_SPI
 //    if (dev->bus->busType ==  BUS_TYPE_SPI) {
@@ -221,7 +221,7 @@
 //}
 //
 //// Read routines where the register is ORed with 0x80
-//bool Bus_ReadRegisterBuffer(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
+//bool Bus_ReadRegisterBuffer(const light_device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
 //{
 //#if !defined(USE_SPI) && !defined(USE_I2C)
 //    UNUSED(reg);
@@ -242,7 +242,7 @@
 //    }
 //}
 //
-//bool Bus_RawReadRegisterBuffer(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
+//bool Bus_RawReadRegisterBuffer(const light_device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
 //{
 //#ifdef USE_SPI
 //    if (dev->bus->busType == BUS_TYPE_SPI) {
@@ -254,7 +254,7 @@
 //    }
 //}
 //
-//bool Bus_RawReadRegisterBufferStart(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
+//bool Bus_RawReadRegisterBufferStart(const light_device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
 //{
 //#ifdef USE_SPI
 //    if (dev->bus->busType == BUS_TYPE_SPI) {
@@ -268,7 +268,7 @@
 //
 //
 //// Start the I2C read, but do not wait for completion
-//bool Bus_ReadRegisterBufferStart(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
+//bool Bus_ReadRegisterBufferStart(const light_device_t *dev, uint8_t reg, uint8_t *data, uint8_t length)
 //{
 //#if !defined(USE_SPI) && !defined(USE_I2C)
 //    UNUSED(reg);
@@ -293,7 +293,7 @@
 //
 //
 //// Returns true if bus is still busy
-//bool Bus_Busy(const device_t *dev, bool *error)
+//bool Bus_Busy(const light_device_t *dev, bool *error)
 //{
 //#if !defined(USE_I2C)
 //    UNUSED(error);

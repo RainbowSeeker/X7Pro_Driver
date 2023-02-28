@@ -29,6 +29,8 @@
 
 err_t dma_get_request_by_instance(void *instance, uint32_t *request);
 void dma_configure_irq(struct dma_device *dma, void (*cb)(uint32_t), uint32_t priority, uint32_t user_data);
+
+uint32_t LL_EX_DMA_IsActiveFlag(struct dma_device *dma, uint32_t flag);
 void LL_EX_DMA_ClearFlag(struct dma_device *dma, uint32_t flag);
 struct dma_device * LL_DMA_DeviceGetByName(const char *name);
 void LL_EX_DMA_ResetStream(struct dma_device *dma);

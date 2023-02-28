@@ -48,56 +48,39 @@ static struct dma_request dma_request_table[] = {
         {SPI4, LL_DMAMUX1_REQ_SPI4_TX},
         {SPI5, LL_DMAMUX1_REQ_SPI5_TX},
         {SPI6, LL_DMAMUX2_REQ_SPI6_TX},
+        {USART1, LL_DMAMUX1_REQ_USART1_TX},
+        {UART4, LL_DMAMUX1_REQ_UART4_TX},
+        {UART7, LL_DMAMUX1_REQ_UART7_TX},
+        {UART8, LL_DMAMUX1_REQ_UART8_TX},
 };
 
 
-DEFINE_DMA_IRQ_HANDLER(1, 0, DMA1_STREAM0_HANDLER);
+DEFINE_DMA_IRQ_HANDLER(1, 0);
+DEFINE_DMA_IRQ_HANDLER(1, 1);
+DEFINE_DMA_IRQ_HANDLER(1, 2);
+DEFINE_DMA_IRQ_HANDLER(1, 3);
+DEFINE_DMA_IRQ_HANDLER(1, 4);
+DEFINE_DMA_IRQ_HANDLER(1, 5);
+DEFINE_DMA_IRQ_HANDLER(1, 6);
+DEFINE_DMA_IRQ_HANDLER(1, 7);
 
-DEFINE_DMA_IRQ_HANDLER(1, 1, DMA1_STREAM1_HANDLER);
+DEFINE_DMA_IRQ_HANDLER(2, 0);
+DEFINE_DMA_IRQ_HANDLER(2, 1);
+DEFINE_DMA_IRQ_HANDLER(2, 2);
+DEFINE_DMA_IRQ_HANDLER(2, 3);
+DEFINE_DMA_IRQ_HANDLER(2, 4);
+DEFINE_DMA_IRQ_HANDLER(2, 5);
+DEFINE_DMA_IRQ_HANDLER(2, 6);
+DEFINE_DMA_IRQ_HANDLER(2, 7);
 
-DEFINE_DMA_IRQ_HANDLER(1, 2, DMA1_STREAM2_HANDLER);
-
-DEFINE_DMA_IRQ_HANDLER(1, 3, DMA1_STREAM3_HANDLER);
-
-DEFINE_DMA_IRQ_HANDLER(1, 4, DMA1_STREAM4_HANDLER);
-
-DEFINE_DMA_IRQ_HANDLER(1, 5, DMA1_STREAM5_HANDLER);
-
-DEFINE_DMA_IRQ_HANDLER(1, 6, DMA1_STREAM6_HANDLER);
-
-DEFINE_DMA_IRQ_HANDLER(1, 7, DMA1_STREAM7_HANDLER);
-
-DEFINE_DMA_IRQ_HANDLER(2, 0, DMA1_STREAM0_HANDLER);
-
-DEFINE_DMA_IRQ_HANDLER(2, 1, DMA1_STREAM1_HANDLER);
-
-DEFINE_DMA_IRQ_HANDLER(2, 2, DMA1_STREAM2_HANDLER);
-
-DEFINE_DMA_IRQ_HANDLER(2, 3, DMA1_STREAM3_HANDLER);
-
-DEFINE_DMA_IRQ_HANDLER(2, 4, DMA1_STREAM4_HANDLER);
-
-DEFINE_DMA_IRQ_HANDLER(2, 5, DMA1_STREAM5_HANDLER);
-
-DEFINE_DMA_IRQ_HANDLER(2, 6, DMA1_STREAM6_HANDLER);
-
-DEFINE_DMA_IRQ_HANDLER(2, 7, DMA1_STREAM7_HANDLER);
-
-DEFINE_BDMA_IRQ_HANDLER(0, BDMA_CHANNEL0_HANDLER);
-
-DEFINE_BDMA_IRQ_HANDLER(1, BDMA_CHANNEL1_HANDLER);
-
-DEFINE_BDMA_IRQ_HANDLER(2, BDMA_CHANNEL2_HANDLER);
-
-DEFINE_BDMA_IRQ_HANDLER(3, BDMA_CHANNEL3_HANDLER);
-
-DEFINE_BDMA_IRQ_HANDLER(4, BDMA_CHANNEL4_HANDLER);
-
-DEFINE_BDMA_IRQ_HANDLER(5, BDMA_CHANNEL5_HANDLER);
-
-DEFINE_BDMA_IRQ_HANDLER(6, BDMA_CHANNEL6_HANDLER);
-
-DEFINE_BDMA_IRQ_HANDLER(7, BDMA_CHANNEL7_HANDLER);
+DEFINE_BDMA_IRQ_HANDLER(0);
+DEFINE_BDMA_IRQ_HANDLER(1);
+DEFINE_BDMA_IRQ_HANDLER(2);
+DEFINE_BDMA_IRQ_HANDLER(3);
+DEFINE_BDMA_IRQ_HANDLER(4);
+DEFINE_BDMA_IRQ_HANDLER(5);
+DEFINE_BDMA_IRQ_HANDLER(6);
+DEFINE_BDMA_IRQ_HANDLER(7);
 
 err_t dma_get_request_by_instance(void *instance, uint32_t *request) {
     for (int i = 0; i < ARRAY_LEN(dma_request_table); ++i) {
@@ -122,6 +105,17 @@ void dma_configure_irq(struct dma_device *dma, void (*cb)(uint32_t), uint32_t pr
     HAL_NVIC_EnableIRQ(dma->irqn);
 }
 
+uint32_t LL_EX_DMA_IsActiveFlag(struct dma_device *dma, uint32_t flag) {
+    if (dma->instance == BDMA) {
+        return READ_BIT(BDMA->ISR, (flag << dma->flag_shift)) ? 1UL : 0UL;
+    } else {
+        if (dma->flag_shift > 31) {
+            return READ_BIT(((DMA_TypeDef *) dma->instance)->HISR, (flag << (dma->flag_shift - 32))) ? 1UL : 0UL;
+        } else {
+            return READ_BIT(((DMA_TypeDef *) dma->instance)->LISR, (flag << dma->flag_shift)) ? 1UL : 0UL;
+        }
+    }
+}
 
 void LL_EX_DMA_ClearFlag(struct dma_device *dma, uint32_t flag) {
     if (dma->instance == BDMA) {
@@ -137,17 +131,11 @@ void LL_EX_DMA_ClearFlag(struct dma_device *dma, uint32_t flag) {
 
 
 struct dma_device *LL_DMA_DeviceGetByName(const char *name) {
-    uint8_t idx;
-    if (MATCH(&name[0], "dma") && MATCH(&name[4], "_stream")) {
-        idx = (name[3] == '2' ? 8 : 0);
-        idx += (name[11] >= '0' && name[11] <= '7') ? (name[11] - '0') : 0;
-        return &dma_device_table[idx];
-    } else if (MATCH(&name[0], "bdma") && MATCH(&name[4], "_channel")) {
-        idx = 16 + ((name[12] >= '0' && name[12] <= '7') ? (name[12] - '0') : 0);
-        return &dma_device_table[idx];
-    } else {
-        return NULL;
+    for (int i = 0; i < ARRAY_LEN(dma_device_table); ++i)
+    {
+        if (MATCH(name, dma_device_table[i].parent.name))   return &dma_device_table[i];
     }
+    return NULL;
 }
 
 void LL_EX_DMA_ResetStream(struct dma_device *dma)

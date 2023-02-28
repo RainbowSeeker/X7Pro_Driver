@@ -6,38 +6,48 @@
 
 #ifndef X7PRO_DRIVER_DRV_UART_H
 #define X7PRO_DRIVER_DRV_UART_H
-#include "board_config.h"
-#include <stdbool.h>
-#include "stm32h7xx.h"
-#include "driver/io.h"
-#include "driver/dma.h"
 
+#include "hal/dma/dma.h"
+#include "nvic.h"
+#include "hal/serial/serial.h"
+#include "stm32h7xx_ll_usart.h"
+#include "drv_dma.h"
 
-#define SERIAL_DEFINE_DMA(_devid, _uartx, _dma, _stream_tx, _stream_rx)         \
+#define UART1   USART1
+#define UART2   USART2
+#define UART3   USART3
+#define UART6   USART6
+
+#define UART1_IRQHandler   USART1_IRQHandler
+#define UART2_IRQHandler   USART2_IRQHandler
+#define UART3_IRQHandler   USART3_IRQHandler
+#define UART6_IRQHandler   USART6_IRQHandler
+
+enum {
+    UART1_IRQn = USART1_IRQn,
+    UART2_IRQn = USART2_IRQn,
+    UART3_IRQn = USART3_IRQn,
+    UART6_IRQn = USART6_IRQn,
+};
+
+#define SERIAL_DEFINE(_devid, _uartx, _baudrate) \
+static struct stm32_uart uart ## _uartx = {  \
+.instance = UART ## _uartx,                  \
+.irq = UART ## _uartx ##_IRQn,                  \
+};                                  \
 static struct serial_device serial ## _devid =                                  \
-        {.ops = &_usart_ops,                                                    \
-        .config.instance = _uartx,                                      \
-        .config.dma.instance = DMA ## _dma,                                     \
-        .config.dma.tx_stream = LL_DMA_STREAM_ ## _stream_tx,                   \
-        .config.dma.tx_channel = LL_DMAMUX1_REQ_ ## _uartx ## _TX,          \
-        .config.dma.rx_stream = LL_DMA_STREAM_ ## _stream_rx,                   \
-        .config.dma.rx_channel = LL_DMAMUX1_REQ_ ## _uartx ## _RX,              \
-        SERIAL_DEFAULT_CONFIG                                                              \
+        {                                        \
+            .ops = &_usart_ops,                                                    \
+            _baudrate,                            \
+            DATA_BITS_8,     /* 8 databits */     \
+            STOP_BITS_1,     /* 1 stopbit */      \
+            PARITY_NONE,     /* No parity  */     \
+            BIT_ORDER_LSB,   /* LSB first sent */ \
+            NRZ_NORMAL,      /* Normal mode */    \
+            SERIAL_RB_BUFSZ, /* Buffer size */    \
+            0                                     \
         };                                                                      \
-void _uartx ## _IRQHandler(void)                  \
-    {                                                         \
-        uart_isr(&serial ## _devid);                                 \
-    }
-
-
-#define SERIAL_DEFINE(_devid, _uartx, _rate)         \
-static struct serial_device serial ## _devid =                                  \
-        {.ops = &_usart_ops,                                                    \
-        .config.instance = _uartx,                                      \
-        .config.baud_rate =  BAUD_RATE_ ## _rate,          \
-        SERIAL_DEFAULT_CONFIG                                                              \
-        };                                                                      \
-void _uartx ## _IRQHandler(void)                  \
+void UART ## _uartx ## _IRQHandler(void)                  \
     {                                                         \
         uart_isr(&serial ## _devid);                                 \
     }

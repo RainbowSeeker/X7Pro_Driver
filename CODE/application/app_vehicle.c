@@ -19,7 +19,7 @@
 #include "sysio/actuator_cmd.h"
 
 uint8_t log_data[200] = {0};
-void App_SPI_Main(void *argument)
+void App_Vehicle_Main(void *argument)
 {
     static uint32_t time_start = 0;
     uint32_t time_now;
@@ -38,7 +38,7 @@ void App_SPI_Main(void *argument)
 
     /* init controller model */
     control_interface_init();
-    
+
     while (1)
     {
         time_now = systime_now_ms();
