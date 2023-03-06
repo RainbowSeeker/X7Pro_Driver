@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'Controller'.
  *
- * Model version                  : 1.37
+ * Model version                  : 1.54
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Sat Feb 25 18:26:08 2023
+ * C/C++ source code generated on : Thu Mar  2 15:20:36 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -192,7 +192,7 @@ typedef struct {
 
 typedef struct {
   uint32_T timestamp;
-  int16_T actuator_cmd[16];
+  uint16_T actuator_cmd[16];
 } Control_Out_Bus;
 
 #endif

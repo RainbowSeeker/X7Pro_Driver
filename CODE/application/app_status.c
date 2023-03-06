@@ -9,6 +9,7 @@
 #include "mavproxy/mavproxy.h"
 
 #define LOG_TAG "StatusTask"
+//#define LOG_LVL  LOG_LVL_WARNING
 #include "ulog.h"
 #include "logger.h"
 

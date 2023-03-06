@@ -40,6 +40,7 @@ float Vector2_DotProduct(const float vector1[2], const float vector2[2]);
 uint8_t constrain(float* val, float min_val, float max_val);
 float constrain_float(float amt, float low, float high);
 uint16_t constrain_uint16(uint16_t amt, uint16_t low, uint16_t high);
+int16_t constrain_int16(int16_t amt, int16_t low, int16_t high);
 uint32_t constrain_uint32(uint32_t amt, uint32_t low, uint32_t high);
 
 static inline int about(float val)

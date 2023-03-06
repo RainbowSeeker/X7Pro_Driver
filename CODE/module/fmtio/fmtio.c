@@ -3,6 +3,7 @@
 #include "hal/fmtio_dev/fmtio_dev.h"
 #include "hal/rc/rc.h"
 #include "hal/serial/serial.h"
+#include "protocol/sbus/sbus.h"
 
 #define EVENT_FMTIO_RX (1) // 1 << 0
 
@@ -41,6 +42,7 @@ static IO_RCConfig rc_config = { .protocol = 1, .sample_time = 0.05 };
 static err_t rc_configure(rc_dev_t rc, struct rc_configure* cfg);
 static err_t rc_control(rc_dev_t rc, int cmd, void* arg);
 static uint16_t rc_read(rc_dev_t rc, uint16_t chan_mask, uint16_t* chan_val);
+
 static err_t pwm_config(actuator_dev_t dev, const struct actuator_configure* cfg);
 static err_t pwm_control(actuator_dev_t dev, int cmd, void* arg);
 static size_t pwm_read(actuator_dev_t dev, uint16_t chan_sel, uint16_t* chan_val, size_t size);
@@ -121,7 +123,7 @@ static err_t local_rx_handler(struct IOPacket* pkt)
 
     pkt->crc = 0;
     if (crc != crc_packet(pkt)) {
-        return EINVAL;
+        return E_INVAL;
     }
 
     switch (pkt->code) {
@@ -154,18 +156,15 @@ static err_t handle_rx_packet(void)
     err_t ret = E_OK;
 
     if (io_comm_suspend) {
-        return EBUSY;
+        return E_BUSY;
     }
 
     while (light_device_read(fmtio_dev, 0, &c, 1)) {
         if (io_parse_char(&io_rx_pkt, c) == E_OK) {
             /* handle rx pkg locally */
             ret = local_rx_handler(&io_rx_pkt);
-            /* call user defined rx handler */
-            // if (_rx_handler) {
-            //     _rx_handler(&io_rx_pkt);
-            // }
         }
+        sbus_putc(c);
     }
 
     return ret;
@@ -365,10 +364,13 @@ void fmtio_loop(void)
 {
     err_t err;
     uint32_t recv_set = 0;
-
+    uint32_t last_recv_time = 0;
+    uint32_t now = 0;
     /* try to re-configure io at the beginning, this is needed in case that fmu's configuration has changed
      * and then reboot. */
     io_default_config();
+
+    sbus_init();
 
     while (1) {
         /* wait event happen or timeout */
@@ -382,6 +384,21 @@ void fmtio_loop(void)
             handle_rx_packet();
         } else {
             console_printf("fmtio event err:%d\n", err);
+        }
+
+        now = systime_now_ms();
+        if (now > last_recv_time + 10)
+        {
+            struct IOPacket pkt = {.len = 32};
+            uint16_t rc_count = 0;
+            bool sbus_failsafe, sbus_frame_drop;
+
+            if (sbus_input((uint16_t *)pkt.data, &rc_count, &sbus_failsafe, &sbus_frame_drop,
+                                           16))
+            {
+                handle_rc_pkt(&pkt);
+            }
+            last_recv_time = now;
         }
     }
 }

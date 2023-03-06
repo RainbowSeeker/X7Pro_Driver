@@ -7,7 +7,7 @@
 #ifndef X7PRO_DRIVER_PWM_H
 #define X7PRO_DRIVER_PWM_H
 #include "timer.h"
-
+#include "stm32h7xx_ll_tim.h"
 
 #define PWM_MAX_DUTY        10000
 #define PWM_PERIOD          5000
@@ -17,6 +17,7 @@
 typedef struct {
     volatile uint32_t *ccr;
     TIM_TypeDef       *tim;
+    io_tag dir;
 }pwm_t;
 
 
@@ -27,5 +28,7 @@ __STATIC_INLINE void PWM_Output(pwm_t *pwm, uint16_t value)
 {
     WRITE_REG(*pwm->ccr, value * (pwm->tim->ARR + 1) / PWM_MAX_DUTY);
 }
+
+
 
 #endif //X7PRO_DRIVER_PWM_H

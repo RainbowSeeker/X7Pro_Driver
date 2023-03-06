@@ -1,13 +1,11 @@
-// Copyright (c) 2023 By RainbowSeeker.
-
 /*
  * File: rt_nonfinite.c
  *
  * Code generated for Simulink model 'Controller'.
  *
- * Model version                  : 1.37
+ * Model version                  : 1.54
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Sat Feb 25 18:26:08 2023
+ * C/C++ source code generated on : Thu Mar  2 15:20:36 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -22,12 +20,12 @@
 #include "rt_nonfinite.h"
 #define NumBitsPerChar                 8U
 
-//real_T rtInf;
-//real_T rtMinusInf;
-//real_T rtNaN;
-//real32_T rtInfF;
-//real32_T rtMinusInfF;
-//real32_T rtNaNF;
+real_T rtInf;
+real_T rtMinusInf;
+real_T rtNaN;
+real32_T rtInfF;
+real32_T rtMinusInfF;
+real32_T rtNaNF;
 
 /*
  * Initialize the rtInf, rtMinusInf, and rtNaN needed by the

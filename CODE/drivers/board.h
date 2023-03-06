@@ -25,16 +25,12 @@ target = "CUAV V7Pro"\n
         name = "mav_console"\n
         auto-switch = true\n
 [mavproxy]\n
-//[[mavproxy.devices]]\n
-//        type = "serial"\n
-//        name = "serial1"\n
-//        baudrate = 57600\n
 [[mavproxy.devices]]\n
         type = "usb"\n
         name = "usbd0"\n
         auto-switch = true\n
 [pilot-cmd]\n
-        stick-channel = [4,3,2,1]\n
+        stick-channel = [2,1,3,4]\n
 [pilot-cmd.device]\n
         type = "rc"\n
         name = "rc"\n
@@ -42,8 +38,42 @@ target = "CUAV V7Pro"\n
         channel-num = 16\n
         sample-time = 0.05\n
         range = [1000,2000]\n
+[[pilot-cmd.mode]]\n
+        mode = 0\n
+        channel = 5\n
+        range = [1060,1070]\n
+[[pilot-cmd.mode]]\n
+        mode = 5\n
+        channel = 5\n
+        range = [1490,1500]\n
+[[pilot-cmd.mode]]\n
+        mode = 6\n
+        channel = 5\n
+        range = [1930,1940]\n
+[[pilot-cmd.command]]\n
+        type = 1\n
+        cmd = 1002\n
+        channel = 6\n
+        range = [1930,1940]\n
+[[pilot-cmd.command]]\n
+        type = 1\n
+        cmd = 1000\n
+        channel = 6\n
+        range = [1060,1070]\n
+[actuator]\n
+[[actuator.devices]]\n
+        protocol = "pwm"\n
+        name = "aux_out"\n
+        freq = 50\n
+[[actuator.mappings]]\n
+        from = "control_out"\n
+        to = "aux_out"\n
+        chan-map = [[1,2,3],[1,2,3]]\n
 );
-
+//[[actuator.mappings]]\n
+//        from = "rc_channels"\n
+//        to = "aux_out"\n
+//        chan-map = [[1,4,4],[1,2,3]]\n
 
 // clang-format on
 

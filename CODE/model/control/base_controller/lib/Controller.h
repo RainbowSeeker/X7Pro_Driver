@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'Controller'.
  *
- * Model version                  : 1.37
+ * Model version                  : 1.54
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Sat Feb 25 18:26:08 2023
+ * C/C++ source code generated on : Thu Mar  2 15:20:36 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -36,18 +36,18 @@
 
 /* Block states (default storage) for system '<Root>' */
 typedef struct {
-  real32_T DiscreteTimeIntegrator5_DSTATE;/* '<S25>/Discrete-Time Integrator5' */
-  real32_T DiscreteTimeIntegrator_DSTATE;/* '<S27>/Discrete-Time Integrator' */
-  real32_T DiscreteTimeIntegrator1_DSTATE;/* '<S29>/Discrete-Time Integrator1' */
   real32_T Integrator1_DSTATE;         /* '<S12>/Integrator1' */
-  real32_T DiscreteTimeIntegrator_DSTATE_i;/* '<S17>/Discrete-Time Integrator' */
-  real32_T DiscreteTimeIntegrator1_DSTAT_j;/* '<S19>/Discrete-Time Integrator1' */
+  real32_T DiscreteTimeIntegrator_DSTATE;/* '<S17>/Discrete-Time Integrator' */
+  real32_T DiscreteTimeIntegrator1_DSTATE;/* '<S19>/Discrete-Time Integrator1' */
+  real32_T DiscreteTimeIntegrator5_DSTATE;/* '<S25>/Discrete-Time Integrator5' */
+  real32_T DiscreteTimeIntegrator_DSTATE_c;/* '<S27>/Discrete-Time Integrator' */
+  real32_T DiscreteTimeIntegrator1_DSTAT_o;/* '<S29>/Discrete-Time Integrator1' */
   real32_T Integrator_DSTATE;          /* '<S12>/Integrator' */
   uint32_T DiscreteTimeIntegrator_DSTATE_p;/* '<S4>/Discrete-Time Integrator' */
-  int8_T DiscreteTimeIntegrator_PrevRese;/* '<S27>/Discrete-Time Integrator' */
-  int8_T DiscreteTimeIntegrator1_PrevRes;/* '<S29>/Discrete-Time Integrator1' */
-  int8_T DiscreteTimeIntegrator_PrevRe_k;/* '<S17>/Discrete-Time Integrator' */
-  int8_T DiscreteTimeIntegrator1_PrevR_l;/* '<S19>/Discrete-Time Integrator1' */
+  int8_T DiscreteTimeIntegrator_PrevRese;/* '<S17>/Discrete-Time Integrator' */
+  int8_T DiscreteTimeIntegrator1_PrevRes;/* '<S19>/Discrete-Time Integrator1' */
+  int8_T DiscreteTimeIntegrator_PrevRe_a;/* '<S27>/Discrete-Time Integrator' */
+  int8_T DiscreteTimeIntegrator1_PrevR_a;/* '<S29>/Discrete-Time Integrator1' */
   uint8_T DiscreteTimeIntegrator5_IC_LOAD;/* '<S25>/Discrete-Time Integrator5' */
 } DW_Controller_T;
 
@@ -60,6 +60,14 @@ typedef struct {
   const real32_T Constant;             /* '<S17>/Constant' */
   const real32_T Constant_o;           /* '<S27>/Constant' */
 } ConstB_Controller_T;
+
+/* Constant parameters (default storage) */
+typedef struct {
+  /* Computed Parameter: X_Frame_Effective_Matrix_Value
+   * Referenced by: '<S5>/X_Frame_Effective_Matrix'
+   */
+  real32_T X_Frame_Effective_Matrix_Value[6];
+} ConstP_Controller_T;
 
 /* External inputs (root inport signals with default storage) */
 typedef struct {
@@ -86,6 +94,9 @@ extern ExtU_Controller_T Controller_U;
 /* External outputs (root outports fed by signals with default storage) */
 extern ExtY_Controller_T Controller_Y;
 extern const ConstB_Controller_T Controller_ConstB;/* constant block i/o */
+
+/* Constant parameters (default storage) */
+extern const ConstP_Controller_T Controller_ConstP;
 
 /*
  * Exported Global Parameters
@@ -124,10 +135,6 @@ extern RT_MODEL_Controller_T *const Controller_M;
 /*-
  * These blocks were eliminated from the model due to optimizations:
  *
- * Block '<S5>/Gain1' : Unused code path elimination
- * Block '<S5>/Multiply' : Unused code path elimination
- * Block '<S5>/Saturation' : Unused code path elimination
- * Block '<S5>/X_Frame_Effective_Matrix' : Unused code path elimination
  * Block '<S4>/Data Type Conversion' : Eliminate redundant data type conversion
  * Block '<S25>/Data Type Conversion' : Eliminate redundant data type conversion
  */

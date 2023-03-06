@@ -46,6 +46,10 @@
 #define NRZ_NORMAL   0 /* Non Return to Zero : normal mode */
 #define NRZ_INVERTED 1 /* Non Return to Zero : inverted mode */
 
+#define NRZ_TXRXSWAP        0x01
+#define NRZ_TXINV           0x02
+#define NRZ_RXINV           0x04
+
 #ifndef SERIAL_RB_BUFSZ
 #define SERIAL_RB_BUFSZ 256
 #endif
@@ -88,7 +92,7 @@ struct serial_configure {
     uint32_t stop_bits : 2;
     uint32_t parity : 2;
     uint32_t bit_order : 1;
-    uint32_t invert : 1;
+    uint32_t invert : 3;
     uint32_t bufsz : 16;
     uint32_t reserved : 4;
 };

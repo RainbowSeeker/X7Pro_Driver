@@ -229,6 +229,11 @@ uint16_t constrain_uint16(uint16_t amt, uint16_t low, uint16_t high)
     return ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)));
 }
 
+int16_t constrain_int16(int16_t amt, int16_t low, int16_t high)
+{
+    return ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)));
+}
+
 uint32_t constrain_uint32(uint32_t amt, uint32_t low, uint32_t high)
 {
     return ((amt) < (low) ? (low) : ((amt) > (high) ? (high) : (amt)));

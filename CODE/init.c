@@ -27,6 +27,7 @@
 #include "fmtio/fmtio.h"
 #include "shell.h"
 #include "drivers/board.h"
+#include "drivers/drv_pwm.h"
 
 
 static const struct dfs_mount_tbl mnt_table[] = {
@@ -110,6 +111,8 @@ void bsp_init(void)
     SELF_CHECK(mavproxy_init());
 
     fmtio_init(FMTIO_DEVICE_NAME);
+
+    drv_pwm_init();
 
     bsp_post_init();
 

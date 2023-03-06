@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'FMS'.
  *
- * Model version                  : 9.79
+ * Model version                  : 9.85
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Sat Feb 25 19:37:15 2023
+ * C/C++ source code generated on : Sat Mar  4 19:48:47 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex
@@ -50,27 +50,27 @@ const ConstB_FMS_T FMS_ConstB = {
   { 0.0F, 0.0F, 1.0F },                /* '<S205>/Vector Concatenate3' */
 
   { 0.0F, 0.0F, 1.0F },                /* '<S207>/Vector Concatenate3' */
-  -1.04719758F,                        /* '<S337>/Gain4' */
-  0.616850317F,                        /* '<S337>/Square' */
-  0.645964146F,                        /* '<S337>/Multiply' */
+  -1.04719758F,                        /* '<S325>/Gain4' */
+  0.616850317F,                        /* '<S325>/Square' */
+  0.645964146F,                        /* '<S325>/Multiply' */
 
   { 0.0F, 1.0F },
 
-  { 0.0F, 1.0F },                      /* '<S341>/Math Function' */
-  1.0F,                                /* '<S341>/Sum of Elements' */
-  1.0F,                                /* '<S341>/Math Function1' */
+  { 0.0F, 1.0F },                      /* '<S329>/Math Function' */
+  1.0F,                                /* '<S329>/Sum of Elements' */
+  1.0F,                                /* '<S329>/Math Function1' */
 
-  { 0.0F, 0.0F },                      /* '<S341>/Product' */
+  { 0.0F, 0.0F },                      /* '<S329>/Product' */
 
-  { 0.0F, 1.0F, 1.0F },                /* '<S341>/Switch' */
+  { 0.0F, 1.0F, 1.0F },                /* '<S329>/Switch' */
 
-  { 0.0F, 1.0F },                      /* '<S341>/Divide' */
+  { 0.0F, 1.0F },                      /* '<S329>/Divide' */
 
-  { 0.0F, 0.0F, 1.0F },                /* '<S391>/Vector Concatenate3' */
+  { 0.0F, 0.0F, 1.0F },                /* '<S379>/Vector Concatenate3' */
 
-  { 0.0F, 0.0F, 1.0F },                /* '<S324>/Vector Concatenate3' */
+  { 0.0F, 0.0F, 1.0F },                /* '<S312>/Vector Concatenate3' */
 
-  { 0.0F, 0.0F, 1.0F },                /* '<S396>/Vector Concatenate3' */
+  { 0.0F, 0.0F, 1.0F },                /* '<S384>/Vector Concatenate3' */
   1U,                                  /* '<S38>/Data Type Conversion' */
   12U,                                 /* '<S38>/Data Type Conversion1' */
   3U,                                  /* '<S39>/Data Type Conversion' */
@@ -79,34 +79,34 @@ const ConstB_FMS_T FMS_ConstB = {
   3U,                                  /* '<S40>/Data Type Conversion' */
   8U,                                  /* '<S40>/Data Type Conversion1' */
   5U,                                  /* '<S40>/Data Type Conversion2' */
+  1U,                                  /* '<S45>/Data Type Conversion' */
+  1U,                                  /* '<S45>/Data Type Conversion1' */
   3U,                                  /* '<S47>/Data Type Conversion' */
   4U,                                  /* '<S47>/Data Type Conversion1' */
   5U,                                  /* '<S47>/Data Type Conversion2' */
   3U,                                  /* '<S44>/Data Type Conversion' */
   3U,                                  /* '<S44>/Data Type Conversion1' */
   6U,                                  /* '<S44>/Data Type Conversion2' */
-  1U,                                  /* '<S281>/Data Type Conversion' */
-  1U,                                  /* '<S281>/Data Type Conversion1' */
-  3U,                                  /* '<S277>/Data Type Conversion' */
-  6U,                                  /* '<S277>/Data Type Conversion1' */
-  5U,                                  /* '<S277>/Data Type Conversion2' */
-  3U,                                  /* '<S279>/Data Type Conversion' */
-  16U,                                 /* '<S279>/Data Type Conversion1' */
-  5U,                                  /* '<S279>/Data Type Conversion2' */
-  3U,                                  /* '<S278>/Data Type Conversion' */
-  15U,                                 /* '<S278>/Data Type Conversion1' */
-  5U,                                  /* '<S278>/Data Type Conversion2' */
-  3U,                                  /* '<S280>/Data Type Conversion' */
-  17U,                                 /* '<S280>/Data Type Conversion1' */
-  5U,                                  /* '<S280>/Data Type Conversion2' */
+  3U,                                  /* '<S265>/Data Type Conversion' */
+  6U,                                  /* '<S265>/Data Type Conversion1' */
+  5U,                                  /* '<S265>/Data Type Conversion2' */
+  3U,                                  /* '<S267>/Data Type Conversion' */
+  16U,                                 /* '<S267>/Data Type Conversion1' */
+  5U,                                  /* '<S267>/Data Type Conversion2' */
+  3U,                                  /* '<S266>/Data Type Conversion' */
+  15U,                                 /* '<S266>/Data Type Conversion1' */
+  5U,                                  /* '<S266>/Data Type Conversion2' */
+  3U,                                  /* '<S268>/Data Type Conversion' */
+  17U,                                 /* '<S268>/Data Type Conversion1' */
+  5U,                                  /* '<S268>/Data Type Conversion2' */
   2U,                                  /* '<S36>/Data Type Conversion1' */
   2U,                                  /* '<S36>/Data Type Conversion2' */
 
   /* Start of '<S6>/Vehicle.Arm.Auto.Mission.LLA2FLAT' */
   {
-    1.9966471893352524,                /* '<S400>/Sum' */
-    0.0066943799901413165,             /* '<S400>/Multiply3' */
-    0.99330562000985867                /* '<S400>/Sum4' */
+    1.9966471893352524,                /* '<S388>/Sum' */
+    0.0066943799901413165,             /* '<S388>/Multiply3' */
+    0.99330562000985867                /* '<S388>/Sum4' */
   }
   ,
 
@@ -121,80 +121,61 @@ const ConstB_FMS_T FMS_ConstB = {
 
   /* End of '<S33>/Unknown' */
 
-  /* Start of '<S235>/Move Control' */
+  /* Start of '<S223>/Move Control' */
   {
-    -58.836F,                          /* '<S246>/Gain4' */
-    0.00250000018F,                    /* '<S246>/Square' */
-    0.14709F                           /* '<S246>/Multiply' */
+    -58.836F,                          /* '<S234>/Gain4' */
+    0.00250000018F,                    /* '<S234>/Square' */
+    0.14709F                           /* '<S234>/Multiply' */
   }
   ,
 
-  /* End of '<S235>/Move Control' */
+  /* End of '<S223>/Move Control' */
 
-  /* Start of '<S235>/Hold Control' */
+  /* Start of '<S223>/Hold Control' */
   {
-    { 0.0F, 0.0F, 1.0F }               /* '<S242>/Vector Concatenate3' */
+    { 0.0F, 0.0F, 1.0F }               /* '<S230>/Vector Concatenate3' */
   }
   ,
 
-  /* End of '<S235>/Hold Control' */
+  /* End of '<S223>/Hold Control' */
 
-  /* Start of '<S222>/Move Control' */
+  /* Start of '<S210>/Move Control' */
   {
-    -15.707963F,                       /* '<S232>/Gain4' */
-    0.0004F,                           /* '<S232>/Square' */
-    0.00628318498F                     /* '<S232>/Multiply' */
+    -15.707963F,                       /* '<S220>/Gain4' */
+    0.0004F,                           /* '<S220>/Square' */
+    0.00628318498F                     /* '<S220>/Multiply' */
   }
   ,
 
-  /* End of '<S222>/Move Control' */
-
-  /* Start of '<S211>/Move Control' */
-  {
-    -78.448F,                          /* '<S219>/Gain4' */
-    0.00250000018F,                    /* '<S219>/Square' */
-    0.196120009F                       /* '<S219>/Multiply' */
-  }
-  ,
-
-  /* End of '<S211>/Move Control' */
-
-  /* Start of '<S264>/Move Control' */
-  {
-    -58.836F,                          /* '<S275>/Gain4' */
-    0.00250000018F,                    /* '<S275>/Square' */
-    0.14709F                           /* '<S275>/Multiply' */
-  }
-  ,
-
-  /* End of '<S264>/Move Control' */
-
-  /* Start of '<S264>/Hold Control' */
-  {
-    { 0.0F, 0.0F, 1.0F }               /* '<S271>/Vector Concatenate3' */
-  }
-  ,
-
-  /* End of '<S264>/Hold Control' */
+  /* End of '<S210>/Move Control' */
 
   /* Start of '<S252>/Move Control' */
   {
-    -15.707963F,                       /* '<S262>/Gain4' */
-    0.0004F,                           /* '<S262>/Square' */
-    0.00628318498F                     /* '<S262>/Multiply' */
+    -58.836F,                          /* '<S263>/Gain4' */
+    0.00250000018F,                    /* '<S263>/Square' */
+    0.14709F                           /* '<S263>/Multiply' */
   }
   ,
 
   /* End of '<S252>/Move Control' */
 
-  /* Start of '<S37>/Unknown' */
+  /* Start of '<S252>/Hold Control' */
   {
-    1U,                                /* '<S45>/Data Type Conversion' */
-    1U                                 /* '<S45>/Data Type Conversion1' */
+    { 0.0F, 0.0F, 1.0F }               /* '<S259>/Vector Concatenate3' */
   }
   ,
 
-  /* End of '<S37>/Unknown' */
+  /* End of '<S252>/Hold Control' */
+
+  /* Start of '<S240>/Move Control' */
+  {
+    -15.707963F,                       /* '<S250>/Gain4' */
+    0.0004F,                           /* '<S250>/Square' */
+    0.00628318498F                     /* '<S250>/Multiply' */
+  }
+  ,
+
+  /* End of '<S240>/Move Control' */
 
   /* Start of '<S88>/Move Control' */
   {
@@ -224,71 +205,80 @@ const ConstB_FMS_T FMS_ConstB = {
 
   /* End of '<S78>/Move Control' */
 
-  /* Start of '<S307>/Move Control' */
+  /* Start of '<S41>/Unknown' */
   {
-    -58.836F,                          /* '<S318>/Gain4' */
-    0.00250000018F,                    /* '<S318>/Square' */
-    0.14709F                           /* '<S318>/Multiply' */
+    1U,                                /* '<S269>/Data Type Conversion' */
+    1U                                 /* '<S269>/Data Type Conversion1' */
   }
   ,
 
-  /* End of '<S307>/Move Control' */
-
-  /* Start of '<S307>/Hold Control' */
-  {
-    { 0.0F, 0.0F, 1.0F }               /* '<S314>/Vector Concatenate3' */
-  }
-  ,
-
-  /* End of '<S307>/Hold Control' */
+  /* End of '<S41>/Unknown' */
 
   /* Start of '<S295>/Move Control' */
   {
-    -15.707963F,                       /* '<S305>/Gain4' */
-    0.0004F,                           /* '<S305>/Square' */
-    0.00628318498F                     /* '<S305>/Multiply' */
+    -58.836F,                          /* '<S306>/Gain4' */
+    0.00250000018F,                    /* '<S306>/Square' */
+    0.14709F                           /* '<S306>/Multiply' */
   }
   ,
 
   /* End of '<S295>/Move Control' */
 
-  /* Start of '<S285>/Move Control' */
+  /* Start of '<S295>/Hold Control' */
   {
-    -78.448F,                          /* '<S293>/Gain4' */
-    0.00250000018F,                    /* '<S293>/Square' */
-    0.196120009F                       /* '<S293>/Multiply' */
+    { 0.0F, 0.0F, 1.0F }               /* '<S302>/Vector Concatenate3' */
   }
   ,
 
-  /* End of '<S285>/Move Control' */
+  /* End of '<S295>/Hold Control' */
 
-  /* Start of '<S361>/Move Control' */
+  /* Start of '<S283>/Move Control' */
   {
-    -58.836F,                          /* '<S372>/Gain4' */
-    0.00250000018F,                    /* '<S372>/Square' */
-    0.14709F                           /* '<S372>/Multiply' */
+    -15.707963F,                       /* '<S293>/Gain4' */
+    0.0004F,                           /* '<S293>/Square' */
+    0.00628318498F                     /* '<S293>/Multiply' */
   }
   ,
 
-  /* End of '<S361>/Move Control' */
+  /* End of '<S283>/Move Control' */
 
-  /* Start of '<S361>/Hold Control' */
+  /* Start of '<S273>/Move Control' */
   {
-    { 0.0F, 0.0F, 1.0F }               /* '<S368>/Vector Concatenate3' */
+    -78.448F,                          /* '<S281>/Gain4' */
+    0.00250000018F,                    /* '<S281>/Square' */
+    0.196120009F                       /* '<S281>/Multiply' */
   }
   ,
 
-  /* End of '<S361>/Hold Control' */
+  /* End of '<S273>/Move Control' */
 
-  /* Start of '<S351>/Move Control' */
+  /* Start of '<S349>/Move Control' */
   {
-    -78.448F,                          /* '<S359>/Gain4' */
-    0.00250000018F,                    /* '<S359>/Square' */
-    0.196120009F                       /* '<S359>/Multiply' */
+    -58.836F,                          /* '<S360>/Gain4' */
+    0.00250000018F,                    /* '<S360>/Square' */
+    0.14709F                           /* '<S360>/Multiply' */
   }
   ,
 
-  /* End of '<S351>/Move Control' */
+  /* End of '<S349>/Move Control' */
+
+  /* Start of '<S349>/Hold Control' */
+  {
+    { 0.0F, 0.0F, 1.0F }               /* '<S356>/Vector Concatenate3' */
+  }
+  ,
+
+  /* End of '<S349>/Hold Control' */
+
+  /* Start of '<S339>/Move Control' */
+  {
+    -78.448F,                          /* '<S347>/Gain4' */
+    0.00250000018F,                    /* '<S347>/Square' */
+    0.196120009F                       /* '<S347>/Multiply' */
+  }
+  ,
+
+  /* End of '<S339>/Move Control' */
 
   /* Start of '<S31>/Disarm' */
   {

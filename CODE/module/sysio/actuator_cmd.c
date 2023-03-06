@@ -22,39 +22,6 @@ static light_device_t* to_dev;
 static uint8_t mapping_num;
 static actuator_mapping* mapping_list;
 
-err_t send_hil_actuator_cmd(uint16_t chan_mask, const uint16_t* chan_val)
-{
-    err_t err = E_OK;
-    DEFINE_TIMETAG(hil_actuator_tt, 20);
-
-    if (check_timetag(TIMETAG(hil_actuator_tt))) {
-        mavlink_hil_actuator_controls_t hil_actuator_ctrl;
-        mavlink_message_t msg;
-        mavlink_system_t mav_sys;
-        uint8_t val_index = 0;
-
-        /* send command by mavlink */
-        mav_sys = mavproxy_get_system();
-
-        hil_actuator_ctrl.time_usec = systime_now_us();
-        hil_actuator_ctrl.mode = MAV_MODE_FLAG_SAFETY_ARMED;
-        hil_actuator_ctrl.flags = 0;
-        for (int i = 0; i < 16; i++) {
-            if (chan_mask & (1 << i)) {
-                /* map to -1~1 */
-                hil_actuator_ctrl.controls[i] = (float)chan_val[val_index++] * 0.002f - 3.0f;
-            } else {
-                hil_actuator_ctrl.controls[i] = 0.0f;
-            }
-        }
-        /* encode hil msg */
-        mavlink_msg_hil_actuator_controls_encode(mav_sys.sysid, mav_sys.compid, &msg, &hil_actuator_ctrl);
-        /* async mode to avoid block the task when usb is not connected */
-        err = mavproxy_send_immediate_msg(&msg, false);
-    }
-
-    return err;
-}
 
 err_t send_actuator_cmd(void)
 {
@@ -74,7 +41,7 @@ err_t send_actuator_cmd(void)
     for (i = 0; i < mapping_num; i++) {
         size_t size = mapping_list[i].map_size;
         uint16_t chan_sel = 0;
-        uint16_t chan_val[16];
+        int16_t chan_val[16];
 
         if (from_dev[i] == ACTUATOR_FROM_CONTROL_OUT) {
             if (has_poll_control_out == false) {

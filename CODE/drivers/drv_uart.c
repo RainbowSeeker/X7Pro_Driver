@@ -125,11 +125,12 @@ static void uart_dma_receive(struct stm32_uart* uart)
     /* enable the specified dma stream */
     LL_DMA_EnableStream(uart->dma_rx->instance, uart->dma_rx->stream);
 
-    /* enable idle interrupts */
-    LL_USART_EnableIT_IDLE(uart->instance);
-    LL_USART_ClearFlag_IDLE(uart->instance);
     /* enable the uart dma receive */
     LL_USART_EnableDMAReq_RX(uart->instance);
+
+    /* enable idle interrupts */
+    LL_USART_ClearFlag_IDLE(uart->instance);
+    LL_USART_EnableIT_IDLE(uart->instance);
 }
 
 static void uart_dma_tx_config(struct stm32_uart* uart)
@@ -263,6 +264,14 @@ static err_t uart_configure(struct serial_device *serial, struct serial_configur
     LL_USART_Disable(uart->instance);
     LL_USART_Init(uart->instance, &USART_InitStructure);
     LL_USART_ConfigAsyncMode(uart->instance);
+
+    if (config->invert)
+    {
+        LL_USART_SetTXRXSwap(uart->instance, (config->invert & NRZ_TXRXSWAP) ? LL_USART_TXRX_SWAPPED : LL_USART_TXRX_STANDARD);
+        LL_USART_SetTXPinLevel(uart->instance, (config->invert & NRZ_TXINV) ? LL_USART_TXPIN_LEVEL_INVERTED : LL_USART_TXPIN_LEVEL_STANDARD);
+        LL_USART_SetRXPinLevel(uart->instance, (config->invert & NRZ_RXINV) ? LL_USART_RXPIN_LEVEL_INVERTED : LL_USART_RXPIN_LEVEL_STANDARD);
+    }
+
     LL_USART_Enable(uart->instance);
 
     if (uart->dma_tx){
@@ -545,7 +554,7 @@ static const struct uart_ops _usart_ops = {
 SERIAL_DEFINE(0,  7,  115200);   //debug uart
 SERIAL_DEFINE(1,  2,  115200);   //telem1
 SERIAL_DEFINE(2,  1,  57600);    //gps1
-SERIAL_DEFINE(5,  4,  115200);   //sbus ppm
+SERIAL_DEFINE(5,  8,  100000);   //sbus ppm
 
 err_t drv_uart_init()
 {
@@ -571,17 +580,18 @@ err_t drv_uart_init()
 #endif
 
 #ifdef USE_UART8
-    uart4.dma_tx = LL_DMA_DeviceGetByName("dma2_stream0");
-    uart4.dma_rx = LL_DMA_DeviceGetByName("dma2_stream1");
-
-//    serial5.config.stop_bits = STOP_BITS_2;
-//    serial5.config.parity = PARITY_EVEN;
-//    serial5.config.bufsz = 1024;
+    uart8.dma_tx = LL_DMA_DeviceGetByName("dma2_stream0");
+    uart8.dma_rx = LL_DMA_DeviceGetByName("dma2_stream1");
+    serial5.config.data_bits = DATA_BITS_9;
+    serial5.config.stop_bits = STOP_BITS_2;
+    serial5.config.parity = PARITY_EVEN;
+    serial5.config.invert = NRZ_TXRXSWAP | NRZ_RXINV;
+    serial5.config.bufsz = 1024;
 
     ERROR_TRY(hal_serial_register(&serial5,
                                   "serial5",
                                   DEVICE_FLAG_RDWR | DEVICE_FLAG_STANDALONE | DEVICE_FLAG_INT_RX | DEVICE_FLAG_DMA_TX | DEVICE_FLAG_DMA_RX,
-                                  &uart4));
+                                  &uart8));
 #endif
     return E_OK;
 }

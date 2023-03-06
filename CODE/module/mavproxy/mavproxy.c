@@ -308,8 +308,9 @@ err_t mavproxy_init(void)
     /* create event */
     os_event_init(&mav_handle.event, 10);
 
+    //TODO: fix this
     /* register parameter modify callback */
-    register_param_modify_callback(on_param_modify);
+//    register_param_modify_callback(on_param_modify);
 
     /* register timer event to periodly wakeup itself */
     mav_handle.timer = os_timer_create("mavproxy", mavproxy_timer_update, NULL, MAVPROXY_INTERVAL, TIMER_TYPE_PERIODIC);

@@ -14,12 +14,12 @@
 #include "rtGetInf.h"
 #include "rtGetNaN.h"
 
-real_T rtInf;
-real_T rtMinusInf;
-real_T rtNaN;
-real32_T rtInfF;
-real32_T rtMinusInfF;
-real32_T rtNaNF;
+//static real_T rtInf;
+//static real_T rtMinusInf;
+//static real_T rtNaN;
+//static real32_T rtInfF;
+//static real32_T rtMinusInfF;
+//static real32_T rtNaNF;
 
 /* Function: rt_InitInfAndNaN ==================================================
  * Abstract:

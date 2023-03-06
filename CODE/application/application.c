@@ -39,7 +39,7 @@ void Application_Create(void)
 
     app_statusHandle = os_thread_create("app_status", App_Status_Main, NULL, STATUS_THREAD_PRIORITY, 2 * 1024);
 
-//    app_ioHandle = os_thread_create("app_io", App_IO_Main, NULL, FMTIO_THREAD_PRIORITY, 1 * 1024);
+    app_ioHandle = os_thread_create("app_io", App_IO_Main, NULL, FMTIO_THREAD_PRIORITY, 1 * 1024);
 
     vTaskDelete(defaultTaskHandle);
     OS_EXIT_CRITICAL();

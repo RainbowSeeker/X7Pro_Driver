@@ -77,9 +77,9 @@ static size_t hal_actuator_write(light_device_t dev, off_t pos, const void* buff
 
     actuator_dev_t act = (actuator_dev_t)dev;
     size_t wb = 0;
-    uint16_t chan_val[16];
+    int16_t chan_val[16];
     uint8_t index = 0;
-    uint16_t* val_ptr = (uint16_t*)buffer;
+    int16_t* val_ptr = (int16_t*)buffer;
 
     if (dev_suspend == TRUE || buffer == NULL || pos == 0) {
         return 0;
@@ -90,7 +90,7 @@ static size_t hal_actuator_write(light_device_t dev, off_t pos, const void* buff
     /* saturate channel value */
     for (uint8_t i = 0; i < 16; i++) {
         if (pos & (1 << i)) {
-            chan_val[index] = constrain_uint16(val_ptr[index], act->range[0], act->range[1]);
+            chan_val[index] = constrain_int16(val_ptr[index], act->range[0], act->range[1]);
             index++;
         }
     }
