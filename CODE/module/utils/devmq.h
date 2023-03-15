@@ -14,10 +14,10 @@ extern "C" {
 
 typedef int device_status;
 
-err_t devmq_create(light_device_t device, uint32_t msg_size, uint32_t max_msgs);
-err_t devmq_register(light_device_t device, void (*handler)(light_device_t dev, void* msg));
-err_t devmq_deregister(light_device_t device);
-err_t devmq_notify(light_device_t device, void* msg);
+err_t devmq_create(device_t device, uint32_t msg_size, uint32_t max_msgs);
+err_t devmq_register(device_t device, void (*handler)(device_t dev, void* msg));
+err_t devmq_deregister(device_t device);
+err_t devmq_notify(device_t device, void* msg);
 void devmq_distribute_msg(void* parameter);
 err_t devmq_start_work(void);
 

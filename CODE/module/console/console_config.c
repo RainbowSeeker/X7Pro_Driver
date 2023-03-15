@@ -16,7 +16,7 @@
 #define DEVICE_LIST                 console_dev_list
 #define DEVICE_NUM                  console_dev_num
 #define DEVICE_TYPE_IS(_idx, _name) MATCH(DEVICE_LIST[_idx].type, #_name)
-#define FIND_DEVICE(_idx)           light_device_find(DEVICE_LIST[_idx].name)
+#define FIND_DEVICE(_idx)           device_find(DEVICE_LIST[_idx].name)
 
 typedef struct {
     uint32_t baudrate;
@@ -38,7 +38,7 @@ static console_device_info console_dev_list[CONSOLE_MAX_DEVICE_NUM] = { 0 };
 
 static err_t switch_device_to(int idx);
 
-static void __handle_device_msg(light_device_t dev, void* msg)
+static void __handle_device_msg(device_t dev, void* msg)
 {
     int idx;
     device_status status = *((device_status*)msg);
@@ -54,12 +54,12 @@ static void __handle_device_msg(light_device_t dev, void* msg)
     }
 }
 
-static int find_device_idx(light_device_t device)
+static int find_device_idx(device_t device)
 {
     int idx;
 
     for (idx = 0; idx < DEVICE_NUM; idx++) {
-        if (light_device_find(DEVICE_LIST[idx].name) == device) {
+        if (device_find(DEVICE_LIST[idx].name) == device) {
             return idx;
         }
     }
@@ -85,7 +85,7 @@ static void reset_device_list(void)
     DEVICE_NUM = 0;
 }
 
-static err_t console_device_rx_ind(light_device_t dev, size_t size)
+static err_t console_device_rx_ind(device_t dev, size_t size)
 {
     err_t err = E_OK;
 
@@ -114,7 +114,7 @@ static err_t set_rx_indicator(void)
 
             if (config->auto_switch) {
                 /* set rx indicator to notify the device status */
-                err = light_device_set_rx_indicate(FIND_DEVICE(idx), console_device_rx_ind);
+                err = device_set_rx_indicate(FIND_DEVICE(idx), console_device_rx_ind);
                 if (err != E_OK) {
                     return E_RROR;
                 }
@@ -124,7 +124,7 @@ static err_t set_rx_indicator(void)
 
             if (config->auto_switch) {
                 /* set rx indicator to notify the device status */
-                err = light_device_set_rx_indicate(FIND_DEVICE(idx), console_device_rx_ind);
+                err = device_set_rx_indicate(FIND_DEVICE(idx), console_device_rx_ind);
                 if (err != E_OK) {
                     return E_RROR;
                 }
@@ -386,23 +386,23 @@ err_t console_toml_config(toml_table_t* table)
     }
 
     /* first close the old console device */
-    light_device_t old_dev = console_get_device();
+    device_t old_dev = console_get_device();
     if (old_dev != NULL) {
-        light_device_close(old_dev);
+        device_close(old_dev);
     }
 
     /* open all console devices by default, because we may need auto-switch feature */
     for (int idx = 0; idx < DEVICE_NUM; idx++) {
-        light_device_t cur_dev = FIND_DEVICE(idx);
+        device_t cur_dev = FIND_DEVICE(idx);
         uint16_t oflag = DEVICE_OFLAG_RDWR | DEVICE_FLAG_INT_RX | DEVICE_FLAG_STREAM;
 
         /* open all devices as we may need auto switch feature */
         if ((cur_dev->open_flag & DEVICE_OFLAG_OPEN)
             && (cur_dev->open_flag != oflag)) {
             /* reopen console device */
-            light_device_close(cur_dev);
+            device_close(cur_dev);
         }
-        if (light_device_open(cur_dev, oflag) != E_OK) {
+        if (device_open(cur_dev, oflag) != E_OK) {
             /* fail to open */
             return E_RROR;
         }
@@ -416,7 +416,7 @@ err_t console_toml_config(toml_table_t* table)
             struct serial_configure pconfig = serial_dev->config;
             /* configure console device according to the toml configure */
             pconfig.baud_rate = config->baudrate;
-            if (light_device_control(&serial_dev->parent, DEVICE_CTRL_CONFIG, &pconfig) != E_OK) {
+            if (device_control(&serial_dev->parent, DEVICE_CTRL_CONFIG, &pconfig) != E_OK) {
                 TOML_DBG_E("fail to configure device %s\n", DEVICE_LIST[idx].name);
                 return E_RROR;
             }

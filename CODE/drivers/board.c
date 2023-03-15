@@ -17,6 +17,7 @@
 #include "sysio/pilot_cmd.h"
 #include "sysio/pilot_cmd_config.h"
 #include "sysio/actuator_config.h"
+#include "pmu/power_manager.h"
 
 static toml_table_t* __toml_root_tab = NULL;
 #define SYS_CONFIG_FILE "/sys/sysconfig.toml"
@@ -114,5 +115,5 @@ void bsp_post_init()
 //    SELF_CHECK(led_control_init());
 
     /* initialize power management unit */
-//     SELF_CHECK(pmu_init());
+     SELF_CHECK(pmu_init());
 }

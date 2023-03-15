@@ -120,7 +120,7 @@ err_t hal_mag_register(mag_dev_t mag, const char* name, uint32_t flag, void* dat
     device->user_data = data;
 
     /* register a character device */
-    ret = light_device_register(device, name, flag);
+    ret = device_register(device, name, flag);
 
     return ret;
 }

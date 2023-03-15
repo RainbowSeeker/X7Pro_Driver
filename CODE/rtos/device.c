@@ -11,12 +11,6 @@
 static LIST_DEF(device_list);       /* associate all devices */
 static size_t device_num = 0;       /* calculate the number of device */
 
-#define device_init     (dev->init)
-#define device_open     (dev->open)
-#define device_close    (dev->close)
-#define device_read     (dev->read)
-#define device_write    (dev->write)
-#define device_control  (dev->control)
 
 /**
  * This function registers a device driver with specified name.
@@ -27,12 +21,12 @@ static size_t device_num = 0;       /* calculate the number of device */
  *
  * @return the error code, E_OK on initialization successfully.
  */
-err_t light_device_register(light_device_t device, const char *name, uint16_t flags)
+err_t device_register(device_t device, const char *name, uint16_t flags)
 {
     if (device == NULL)
         return E_RROR;
 
-    if (light_device_find(name) != NULL)
+    if (device_find(name) != NULL)
         return E_RROR;
 
     strncpy(device->name, name, NAME_MAX_LEN);
@@ -57,7 +51,7 @@ err_t light_device_register(light_device_t device, const char *name, uint16_t fl
  *
  * @return the error code, E_OK on successfully.
  */
-err_t light_device_unregister(light_device_t device)
+err_t device_unregister(device_t device)
 {
     ASSERT(device != NULL);
     OS_ENTER_CRITICAL();
@@ -73,9 +67,9 @@ err_t light_device_unregister(light_device_t device)
  *
  * @return the registered device driver on successful, or NULL on failure.
  */
-light_device_t light_device_find(const char *name)
+device_t device_find(const char *name)
 {
-    light_device_t device = NULL;
+    device_t device = NULL;
     struct list_node *node = NULL;
 
     /* parameter check */
@@ -111,17 +105,17 @@ light_device_t light_device_find(const char *name)
  *
  * @return the allocated device object, or NULL when failed.
  */
-light_device_t light_device_create(int type, int attach_size)
+device_t device_create(int type, int attach_size)
 {
     int size;
-    light_device_t device;
+    device_t device;
 
     size = ALIGN(sizeof(struct device), ALIGN_SIZE);
     attach_size = ALIGN(attach_size, ALIGN_SIZE);
     /* use the total size */
     size += attach_size;
 
-    device = (light_device_t) malloc(size);
+    device = (device_t) malloc(size);
     if (device)
     {
         memset(device, 0x0, sizeof(struct device));
@@ -137,11 +131,11 @@ light_device_t light_device_create(int type, int attach_size)
  *
  * @param dev, the specific device object.
  */
-void light_device_destroy(light_device_t dev)
+void device_destroy(device_t dev)
 {
     ASSERT(dev != NULL);
 
-    light_device_unregister(dev);
+    device_unregister(dev);
 
     /* release this device object */
     free(dev);
@@ -155,18 +149,18 @@ void light_device_destroy(light_device_t dev)
  *
  * @return the result
  */
-err_t light_device_init(light_device_t dev)
+err_t device_init(device_t dev)
 {
     err_t result = E_OK;
 
     ASSERT(dev != NULL);
 
     /* get device_init handler */
-    if (device_init != NULL)
+    if (dev->init != NULL)
     {
         if (!(dev->flag & DEVICE_FLAG_ACTIVATED))
         {
-            result = device_init(dev);
+            result = dev->init(dev);
             if (result != E_OK)
             {
                 printf("To initialize device:%s failed. The error code is %d\n", dev->name, result);
@@ -189,7 +183,7 @@ err_t light_device_init(light_device_t dev)
  *
  * @return the result
  */
-err_t light_device_open(light_device_t dev, uint16_t oflag)
+err_t device_open(device_t dev, uint16_t oflag)
 {
     err_t result = E_OK;
     ASSERT(dev != NULL);
@@ -197,9 +191,9 @@ err_t light_device_open(light_device_t dev, uint16_t oflag)
     /* if device is not initialized, initialize it. */
     if (!(dev->flag & DEVICE_FLAG_ACTIVATED))
     {
-        if (device_init != NULL)
+        if (dev->init != NULL)
         {
-            result = device_init(dev);
+            result = dev->init(dev);
             if (result != E_OK)
             {
                 printf("To initialize device:%s failed. The error code is %d\n", dev->name, result);
@@ -218,9 +212,9 @@ err_t light_device_open(light_device_t dev, uint16_t oflag)
     }
 
     /* call device_open interface */
-    if (device_open != NULL)
+    if (dev->open != NULL)
     {
-        result = device_open(dev, oflag);
+        result = dev->open(dev, oflag);
     }
     else
     {
@@ -250,7 +244,7 @@ err_t light_device_open(light_device_t dev, uint16_t oflag)
  *
  * @return the result
  */
-err_t light_device_close(light_device_t dev)
+err_t device_close(device_t dev)
 {
     err_t result = E_OK;
     ASSERT(dev != NULL);
@@ -264,9 +258,9 @@ err_t light_device_close(light_device_t dev)
         return E_OK;
 
     /* call device_close interface */
-    if (device_close != NULL)
+    if (dev->close != NULL)
     {
-        result = device_close(dev);
+        result = dev->close(dev);
     }
 
     /* set open flag */
@@ -289,7 +283,7 @@ err_t light_device_close(light_device_t dev)
  *
  * @note since 0.4.0, the unit of size/pos is a block for block device.
  */
-size_t light_device_read(light_device_t dev, off_t pos, void *buffer, size_t size)
+size_t device_read(device_t dev, off_t pos, void *buffer, size_t size)
 {
     ASSERT(dev != NULL);
     ASSERT(dev->flag & DEVICE_FLAG_RDONLY);
@@ -302,9 +296,9 @@ size_t light_device_read(light_device_t dev, off_t pos, void *buffer, size_t siz
     }
 
     /* call device_read interface */
-    if (device_read != NULL)
+    if (dev->read != NULL)
     {
-        return device_read(dev, pos, buffer, size);
+        return dev->read(dev, pos, buffer, size);
     }
 
     /* set error code */
@@ -326,7 +320,7 @@ size_t light_device_read(light_device_t dev, off_t pos, void *buffer, size_t siz
  *
  * @note since 0.4.0, the unit of size/pos is a block for block device.
  */
-size_t light_device_write(light_device_t dev, off_t pos, const void *buffer, size_t size)
+size_t device_write(device_t dev, off_t pos, const void *buffer, size_t size)
 {
     ASSERT(dev != NULL);
     ASSERT(dev->flag & DEVICE_FLAG_WRONLY);
@@ -338,9 +332,9 @@ size_t light_device_write(light_device_t dev, off_t pos, const void *buffer, siz
     }
 
     /* call device_write interface */
-    if (device_write != NULL)
+    if (dev->write != NULL)
     {
-        return device_write(dev, pos, buffer, size);
+        return dev->write(dev, pos, buffer, size);
     }
 
     /* set error code */
@@ -359,14 +353,14 @@ size_t light_device_write(light_device_t dev, off_t pos, const void *buffer, siz
  *
  * @return the result
  */
-err_t light_device_control(light_device_t dev, int cmd, void *arg)
+err_t device_control(device_t dev, int cmd, void *arg)
 {
     ASSERT(dev != NULL);
 
-    /* call device_write interface */
-    if (device_control != NULL)
+    /* call device_control interface */
+    if (dev->control != NULL)
     {
-        return device_control(dev, cmd, arg);
+        return dev->control(dev, cmd, arg);
     }
 
     return E_NOSYS;
@@ -382,7 +376,7 @@ err_t light_device_control(light_device_t dev, int cmd, void *arg)
  *
  * @return E_OK
  */
-err_t light_device_set_rx_indicate(light_device_t dev, err_t (*rx_ind)(light_device_t dev, size_t size))
+err_t device_set_rx_indicate(device_t dev, err_t (*rx_ind)(device_t dev, size_t size))
 {
     ASSERT(dev != NULL);
 
@@ -401,7 +395,7 @@ err_t light_device_set_rx_indicate(light_device_t dev, err_t (*rx_ind)(light_dev
  *
  * @return E_OK
  */
-err_t light_device_set_tx_complete(light_device_t dev, err_t (*tx_done)(light_device_t dev, void *buffer))
+err_t device_set_tx_complete(device_t dev, err_t (*tx_done)(device_t dev, void *buffer))
 {
     ASSERT(dev != NULL);
 

@@ -12,8 +12,8 @@ struct devmq_handler {
     os_mq_t mq;
     uint32_t msg_size;
     uint32_t max_msgs;
-    light_device_t device;
-    void (*handler)(light_device_t dev, void* msg);
+    device_t device;
+    void (*handler)(device_t dev, void* msg);
 };
 typedef struct devmq_handler* devmq_handler_t;
 
@@ -35,7 +35,7 @@ static devmq_node_t find_last_node(void)
     return nod;
 }
 
-static devmq_node_t find_device_node(light_device_t device)
+static devmq_node_t find_device_node(device_t device)
 {
     for (devmq_node_t nod = &devmq_list; nod != NULL && nod->handle != NULL; nod = nod->next) {
         if (nod->handle->device == device) {
@@ -45,7 +45,7 @@ static devmq_node_t find_device_node(light_device_t device)
     return NULL;
 }
 
-err_t devmq_create(light_device_t device, uint32_t msg_size, uint32_t max_msgs)
+err_t devmq_create(device_t device, uint32_t msg_size, uint32_t max_msgs)
 {
     ASSERT(device != NULL);
     ASSERT(msg_size > 0);
@@ -91,7 +91,7 @@ err_t devmq_create(light_device_t device, uint32_t msg_size, uint32_t max_msgs)
     return E_OK;
 }
 
-err_t devmq_register(light_device_t device, void (*handler)(light_device_t dev, void* msg))
+err_t devmq_register(device_t device, void (*handler)(device_t dev, void* msg))
 {
     ASSERT(device != NULL);
     ASSERT(handler != NULL);
@@ -106,7 +106,7 @@ err_t devmq_register(light_device_t device, void (*handler)(light_device_t dev, 
     return E_OK;
 }
 
-err_t devmq_deregister(light_device_t device)
+err_t devmq_deregister(device_t device)
 {
     ASSERT(device != NULL);
 
@@ -120,7 +120,7 @@ err_t devmq_deregister(light_device_t device)
     return E_OK;
 }
 
-err_t devmq_notify(light_device_t device, void* msg)
+err_t devmq_notify(device_t device, void* msg)
 {
     ASSERT(device != NULL);
     ASSERT(msg != NULL);

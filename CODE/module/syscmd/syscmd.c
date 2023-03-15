@@ -79,7 +79,7 @@ char syscmd_getc(void)
     if (os_sem_take(shell->rx_sem, osWaitForever) != E_OK)
         return -1;
 
-    light_device_read(shell->device, 0, &ch, SERIAL_RB_BUFSZ);
+    device_read(shell->device, 0, &ch, SERIAL_RB_BUFSZ);
 
     return ch[0];
 }
@@ -96,7 +96,7 @@ void syscmd_flush(void)
     // struct finsh_shell* shell = finsh_get_shell();
 
     char ch[SERIAL_RB_BUFSZ];
-    light_device_read(shell->device, 0, &ch, SERIAL_RB_BUFSZ);
+    device_read(shell->device, 0, &ch, SERIAL_RB_BUFSZ);
 }
 
 void syscmd_putc(const char c, int cnt)

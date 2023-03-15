@@ -1,7 +1,7 @@
 #include "can.h"
 
-#define can_lock(can)   os_mutex_take(can->lock, osWaitForever)
-#define can_unlock(can) os_mutex_release(can->lock)
+#define can_lock(can)   mutex_take(can->lock, osWaitForever)
+#define can_unlock(can) mutex_release(can->lock)
 
 static err_t can_init(struct device *dev)
 {
@@ -653,7 +653,7 @@ static void cantimeout(void *arg)
 
     can = (can_t)os_timer_get_parameter(arg);
     ASSERT(can);
-    light_device_control((light_device_t)can, CAN_CMD_GET_STATUS, (void *)&can->status);
+    device_control((device_t)can, CAN_CMD_GET_STATUS, (void *)&can->status);
 
     if (can->status_indicate.ind != NULL)
     {
@@ -704,7 +704,7 @@ err_t hw_can_register(struct can_device    *can,
 #endif
     can->can_rx         = NULL;
     can->can_tx         = NULL;
-    os_mutex_init(&can->lock);
+    mutex_init(&can->lock);
 
 #ifdef RT_CAN_USING_BUS_HOOK
     can->bus_hook       = NULL;
@@ -735,7 +735,7 @@ err_t hw_can_register(struct can_device    *can,
                                  can->config.ticks,
                                  TIMER_TYPE_PERIODIC);
     /* register a character device */
-    return light_device_register(device, name, DEVICE_FLAG_RDWR);
+    return device_register(device, name, DEVICE_FLAG_RDWR);
 }
 
 /* ISR for can interrupt */
@@ -903,7 +903,7 @@ int cmd_canstat(int argc, char **argv)
     if (argc >= 2)
     {
         struct can_status status;
-        light_device_t candev = light_device_find(argv[1]);
+        device_t candev = device_find(argv[1]);
         if (!candev)
         {
             printf(" Can't find can device %s\n", argv[1]);
@@ -911,7 +911,7 @@ int cmd_canstat(int argc, char **argv)
         }
         printf(" Finded can device: %s...", argv[1]);
 
-        light_device_control(candev, CAN_CMD_GET_STATUS, &status);
+        device_control(candev, CAN_CMD_GET_STATUS, &status);
         printf("\n Receive...error..count: %010ld. Send.....error....count: %010ld.",
                    status.rcverrcnt, status.snderrcnt);
         printf("\n Bit..pad..error..count: %010ld. Format...error....count: %010ld",

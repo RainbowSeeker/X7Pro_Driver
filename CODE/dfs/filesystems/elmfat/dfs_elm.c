@@ -13,7 +13,7 @@
 #include <dfs_fs.h>
 #include <dfs_file.h>
 
-static light_device_t disk[FF_VOLUMES] = {0};
+static device_t disk[FF_VOLUMES] = {0};
 
 static int elm_result_to_dfs(FRESULT result)
 {
@@ -66,7 +66,7 @@ static int elm_result_to_dfs(FRESULT result)
  *  -1, no space to install fatfs driver
  *  >= 0, there is an space to install fatfs driver
  */
-static int get_disk(light_device_t id)
+static int get_disk(device_t id)
 {
     int index;
 
@@ -96,7 +96,7 @@ int dfs_elm_mount(struct dfs_filesystem *fs, unsigned long rwflag, const void *d
     /* save device */
     disk[index] = fs->dev_id;
     /* check sector size */
-    if (light_device_control(fs->dev_id, DEVICE_CTRL_BLK_GETGEOME, &geometry) == E_OK)
+    if (device_control(fs->dev_id, DEVICE_CTRL_BLK_GETGEOME, &geometry) == E_OK)
     {
         if (geometry.bytes_per_sector > FF_MAX_SS)
         {
@@ -175,7 +175,7 @@ int dfs_elm_unmount(struct dfs_filesystem *fs)
     return E_OK;
 }
 
-int dfs_elm_mkfs(light_device_t dev_id)
+int dfs_elm_mkfs(device_t dev_id)
 {
 #define FSM_STATUS_INIT            0
 #define FSM_STATUS_USE_TEMP_DRIVER 1
@@ -228,7 +228,7 @@ int dfs_elm_mkfs(light_device_t dev_id)
 
             disk[index] = dev_id;
             /* try to open device */
-            light_device_open(dev_id, DEVICE_OFLAG_RDWR);
+            device_open(dev_id, DEVICE_OFLAG_RDWR);
 
             /* just fill the FatFs[vol] in ff.c, or mkfs will failded!
              * consider this condition: you just umount the elm fat,
@@ -261,7 +261,7 @@ int dfs_elm_mkfs(light_device_t dev_id)
         f_mount(NULL, logic_nbr, (BYTE)index);
         disk[index] = NULL;
         /* close device */
-        light_device_close(dev_id);
+        device_close(dev_id);
     }
 
     if (result != FR_OK)
@@ -849,9 +849,9 @@ int elm_init(void)
  DRESULT disk_read(BYTE drv, BYTE *buff, DWORD sector, UINT count)
 {
     size_t result;
-    light_device_t device = disk[drv];
+    device_t device = disk[drv];
 
-    result = light_device_read(device, sector, buff, count);
+    result = device_read(device, sector, buff, count);
     if (result == count)
     {
         return RES_OK;
@@ -864,9 +864,9 @@ int elm_init(void)
  DRESULT disk_write(BYTE drv, const BYTE *buff, DWORD sector, UINT count)
 {
     size_t result;
-    light_device_t device = disk[drv];
+    device_t device = disk[drv];
 
-    result = light_device_write(device, sector, buff, count);
+    result = device_write(device, sector, buff, count);
     if (result == count)
     {
         return RES_OK;
@@ -878,7 +878,7 @@ int elm_init(void)
 /* Miscellaneous Functions */
  DRESULT disk_ioctl(BYTE drv, BYTE ctrl, void *buff)
 {
-    light_device_t device = disk[drv];
+    device_t device = disk[drv];
 
     if (device == NULL)
         return RES_ERROR;
@@ -888,7 +888,7 @@ int elm_init(void)
         struct device_blk_geometry geometry;
 
         memset(&geometry, 0, sizeof(geometry));
-        light_device_control(device, DEVICE_CTRL_BLK_GETGEOME, &geometry);
+        device_control(device, DEVICE_CTRL_BLK_GETGEOME, &geometry);
 
         *(DWORD *)buff = geometry.sector_count;
         if (geometry.sector_count == 0)
@@ -899,7 +899,7 @@ int elm_init(void)
         struct device_blk_geometry geometry;
 
         memset(&geometry, 0, sizeof(geometry));
-        light_device_control(device, DEVICE_CTRL_BLK_GETGEOME, &geometry);
+        device_control(device, DEVICE_CTRL_BLK_GETGEOME, &geometry);
 
         *(WORD *)buff = (WORD)(geometry.bytes_per_sector);
     }
@@ -908,17 +908,17 @@ int elm_init(void)
         struct device_blk_geometry geometry;
 
         memset(&geometry, 0, sizeof(geometry));
-        light_device_control(device, DEVICE_CTRL_BLK_GETGEOME, &geometry);
+        device_control(device, DEVICE_CTRL_BLK_GETGEOME, &geometry);
 
         *(DWORD *)buff = geometry.block_size / geometry.bytes_per_sector;
     }
     else if (ctrl == CTRL_SYNC)
     {
-        light_device_control(device, DEVICE_CTRL_BLK_SYNC, NULL);
+        device_control(device, DEVICE_CTRL_BLK_SYNC, NULL);
     }
     else if (ctrl == CTRL_TRIM)
     {
-        light_device_control(device, DEVICE_CTRL_BLK_ERASE, buff);
+        device_control(device, DEVICE_CTRL_BLK_ERASE, buff);
     }
 
     return RES_OK;
@@ -960,10 +960,10 @@ int elm_init(void)
  int ff_cre_syncobj(BYTE drv, FF_SYNC_t *m)
 {
     char name[8];
-    os_mutex_t mutex;
+    mutex_t mutex;
 
     snprintf(name, sizeof(name), "fat%d", drv);
-    os_mutex_init(&mutex);
+    mutex_init(&mutex);
     if (mutex != NULL)
     {
         *m = mutex;
@@ -976,14 +976,14 @@ int elm_init(void)
  int ff_del_syncobj(FF_SYNC_t m)
 {
     if (m != NULL)
-        os_mutex_delete(m);
+        mutex_delete(m);
 
     return TRUE;
 }
 
  int ff_req_grant(FF_SYNC_t m)
 {
-    if (os_mutex_take(m, FF_FS_TIMEOUT) == E_OK)
+    if (mutex_take(m, FF_FS_TIMEOUT) == E_OK)
         return TRUE;
 
     return FALSE;
@@ -991,7 +991,7 @@ int elm_init(void)
 
  void ff_rel_grant(FF_SYNC_t m)
 {
-    os_mutex_release(m);
+    mutex_release(m);
 }
 
 #endif

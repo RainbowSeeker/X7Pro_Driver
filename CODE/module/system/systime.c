@@ -9,7 +9,7 @@ typedef struct
 } systime_t;
 
 static systime_t __systime;
-static light_device_t systick_dev;
+static device_t systick_dev;
 
 /**
  * @brief Systick ISR callback
@@ -84,7 +84,7 @@ uint64_t systime_now_us(void)
     uint64_t time_now_ms;
     base_t level;
 
-    light_device_read(systick_dev, SYSTICK_RD_TIME_US, &systick_us, sizeof(uint32_t));
+    device_read(systick_dev, SYSTICK_RD_TIME_US, &systick_us, sizeof(uint32_t));
 
     level = os_hw_interrupt_disable();
     /* atomic read */
@@ -156,13 +156,13 @@ err_t systime_init(void)
 {
     systick_dev_t systick_device;
 
-    systick_dev = light_device_find("systick");
+    systick_dev = device_find("systick");
 
     if (systick_dev == NULL) {
         return E_RROR;
     }
 
-    if (light_device_open(systick_dev, DEVICE_FLAG_RDONLY) != E_OK) {
+    if (device_open(systick_dev, DEVICE_FLAG_RDONLY) != E_OK) {
         return E_RROR;
     }
 

@@ -28,9 +28,9 @@ typedef struct {
 static struct IOPacket io_tx_pkt;
 static struct IOPacket io_rx_pkt;
 static struct IOPacket* io_tx_pkt_ptr = &io_tx_pkt;
-static light_device_t fmtio_dev;
+static device_t fmtio_dev;
 static os_event_t fmtio_event;
-static os_mutex_t tx_lock;
+static mutex_t tx_lock;
 static rc_data_t rc_data;
 static uint8_t rc_updated;
 /* suspend io package transfer */
@@ -77,7 +77,7 @@ static struct actuator_device act_dev = {
     .ops = &_act_ops
 };
 
-static err_t io_rx_ind(light_device_t dev, size_t size)
+static err_t io_rx_ind(device_t dev, size_t size)
 {
     /* wakeup thread to handle received data */
     return os_event_send(fmtio_event, EVENT_FMTIO_RX);
@@ -159,7 +159,7 @@ static err_t handle_rx_packet(void)
         return E_BUSY;
     }
 
-    while (light_device_read(fmtio_dev, 0, &c, 1)) {
+    while (device_read(fmtio_dev, 0, &c, 1)) {
         if (io_parse_char(&io_rx_pkt, c) == E_OK) {
             /* handle rx pkg locally */
             ret = local_rx_handler(&io_rx_pkt);
@@ -317,16 +317,16 @@ err_t send_io_cmd(uint8_t code, void* data, uint16_t len)
         return EBUSY;
     }
 
-    os_mutex_take(tx_lock, osWaitForever);
+    mutex_take(tx_lock, osWaitForever);
 
     if (set_io_pkt(io_tx_pkt_ptr, code, data, len) == E_OK) {
         size_t w_size = PKT_SIZE(io_tx_pkt_ptr);
-        if (light_device_write(fmtio_dev, -1, io_tx_pkt_ptr, w_size) == w_size) {
+        if (device_write(fmtio_dev, -1, io_tx_pkt_ptr, w_size) == w_size) {
             ret = E_OK;
         }
     }
 
-    os_mutex_release(tx_lock);
+    mutex_release(tx_lock);
 
     return ret;
 }
@@ -349,9 +349,9 @@ void fmtio_suspend_comm(uint8_t suspend)
 /**
  * @brief Get fmtio device
  * 
- * @return light_device_t fmtio handler
+ * @return device_t fmtio handler
  */
-light_device_t fmtio_get_device(void)
+device_t fmtio_get_device(void)
 {
     return fmtio_dev;
 }
@@ -411,12 +411,12 @@ void fmtio_loop(void)
  */
 err_t fmtio_init(const char* dev_name)
 {
-    light_device_t io_dev = light_device_find(dev_name);
+    device_t io_dev = device_find(dev_name);
 
     /* setup fmtio device */
     SELF_CHECK(hal_fmtio_dev_register(io_dev, "fmtio_dev", io_dev->flag, NULL));
 
-    fmtio_dev = light_device_find("fmtio_dev");
+    fmtio_dev = device_find("fmtio_dev");
     ASSERT(fmtio_dev != NULL);
 
     /* create event */
@@ -432,12 +432,12 @@ err_t fmtio_init(const char* dev_name)
     } else {
         oflag |= DEVICE_FLAG_INT_RX;
     }
-    SELF_CHECK(light_device_open(fmtio_dev, oflag));
+    SELF_CHECK(device_open(fmtio_dev, oflag));
 
-    SELF_CHECK(light_device_set_rx_indicate(fmtio_dev, io_rx_ind));
+    SELF_CHECK(device_set_rx_indicate(fmtio_dev, io_rx_ind));
 
     /* init io tx lock */
-    os_mutex_init(&tx_lock);
+    mutex_init(&tx_lock);
     ASSERT(tx_lock != NULL);
 
     /* init io packet */

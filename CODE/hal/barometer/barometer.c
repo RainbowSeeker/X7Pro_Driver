@@ -68,7 +68,7 @@ err_t hal_baro_register(baro_dev_t baro, const char* name, uint32_t flag, void* 
     device->user_data = data;
 
     /* register a character device */
-    ret = light_device_register(device, name, flag);
+    ret = device_register(device, name, flag);
 
     return ret;
 }

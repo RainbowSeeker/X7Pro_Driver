@@ -17,7 +17,7 @@ uint8_t sensor_gps_check_ready(sensor_gps_t *gps_dev)
 {
     uint8_t ready = 0;
 
-    light_device_control(gps_dev->dev, GPS_CMD_CHECK_READY, &ready);
+    device_control(gps_dev->dev, GPS_CMD_CHECK_READY, &ready);
 
     return ready;
 }
@@ -32,7 +32,7 @@ uint8_t sensor_gps_check_ready(sensor_gps_t *gps_dev)
 err_t sensor_gps_read(sensor_gps_t *gps_dev, gps_data_t* gps_data)
 {
     gps_report_t gps_drv_report;
-    size_t r_size = light_device_read(gps_dev->dev, GPS_READ_REPORT, &gps_drv_report, sizeof(gps_report_t));
+    size_t r_size = device_read(gps_dev->dev, GPS_READ_REPORT, &gps_drv_report, sizeof(gps_report_t));
 
     gps_data->timestamp_ms = gps_drv_report.timestamp_velocity;
     gps_data->fixType = gps_drv_report.fix_type;
@@ -64,11 +64,11 @@ sensor_gps_t *sensor_gps_init(const char* gps_dev_name)
     ASSERT(gps_dev != NULL);
 
     /* find sensor device */
-    gps_dev->dev = light_device_find(gps_dev_name);
+    gps_dev->dev = device_find(gps_dev_name);
     ASSERT(gps_dev->dev != NULL);
 
     /* open device */
-    SELF_CHECK(light_device_open(gps_dev->dev, DEVICE_OFLAG_RDWR));
+    SELF_CHECK(device_open(gps_dev->dev, DEVICE_OFLAG_RDWR));
 
     return gps_dev;
 }

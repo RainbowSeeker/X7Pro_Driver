@@ -36,8 +36,8 @@
 
 typedef struct sensor_imu
 {
-    light_device_t gyr_dev;
-    light_device_t acc_dev;
+    device_t gyr_dev;
+    device_t acc_dev;
     float gyr_rotation[3][3];
     float gyr_offset[3];
     float acc_rotation[3][3];
@@ -46,24 +46,24 @@ typedef struct sensor_imu
 
 typedef struct sensor_mag
 {
-    light_device_t dev;
+    device_t dev;
     float rotation[3][3];
     float offset[3];
 }sensor_mag_t;
 
 typedef struct sensor_baro
 {
-    light_device_t dev;
+    device_t dev;
 }sensor_baro_t;
 
 typedef struct sensor_gps
 {
-    light_device_t dev;
+    device_t dev;
 }sensor_gps_t;
 
 typedef struct sensor_airspeed
 {
-    light_device_t dev;
+    device_t dev;
 }sensor_airspeed_t;
 
 

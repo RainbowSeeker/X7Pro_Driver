@@ -7,7 +7,7 @@
 #include "gps.h"
 
 
-static err_t hal_gps_init(light_device_t dev)
+static err_t hal_gps_init(device_t dev)
 {
     err_t ret = E_OK;
     gps_dev_t gps_dev;
@@ -23,7 +23,7 @@ static err_t hal_gps_init(light_device_t dev)
     return ret;
 }
 
-static err_t hal_gps_open(light_device_t dev, uint16_t oflag)
+static err_t hal_gps_open(device_t dev, uint16_t oflag)
 {
     err_t ret = E_OK;
     gps_dev_t gps_dev;
@@ -39,7 +39,7 @@ static err_t hal_gps_open(light_device_t dev, uint16_t oflag)
     return ret;
 }
 
-static err_t hal_gps_close(light_device_t dev)
+static err_t hal_gps_close(device_t dev)
 {
     err_t ret = E_OK;
     gps_dev_t gps_dev;
@@ -116,7 +116,7 @@ err_t hal_gps_register(gps_dev_t gps_dev, const char* name, uint32_t flag, void*
     device->user_data = data;
 
     /* register a character device */
-    ret = light_device_register(device, name, flag);
+    ret = device_register(device, name, flag);
 
     return ret;
 }

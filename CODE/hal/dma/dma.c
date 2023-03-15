@@ -31,7 +31,7 @@ err_t hal_dma_register(struct dma_device * dma, const char *name, uint32_t flag)
     device->user_data = NULL;
 
     /* register a dma device */
-    ret = light_device_register(device, name, flag | DEVICE_FLAG_STANDALONE);
+    ret = device_register(device, name, flag | DEVICE_FLAG_STANDALONE);
 
     return ret;
 }

@@ -28,6 +28,7 @@
 #include "shell.h"
 #include "drivers/board.h"
 #include "drivers/drv_pwm.h"
+#include "drivers/drv_adc.h"
 
 
 static const struct dfs_mount_tbl mnt_table[] = {
@@ -86,6 +87,9 @@ void bsp_init(void)
 
     /* init usbd_cdc */
     SELF_CHECK(drv_usb_cdc_init());
+
+    /* adc driver init */
+    SELF_CHECK(drv_adc_init());
 
     SELF_CHECK(drv_adis16470_init("gyro0", "accel0"));
 

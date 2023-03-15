@@ -214,19 +214,6 @@ void show_version(void)
     printf("\n >> Rain << \n\t\t  --- build %s\n", __DATE__);
 }
 
-//标准库需要的支持函数
-struct __FILE
-{
-    int handle;
-};
-
-FILE __stdout;
-//定义_sys_exit()以避免使用半主机模式
-void _sys_exit(int x)
-{
-    x = x;
-}
-
 #ifdef RT_USING_CONSOLE
 #include "console/console.h"
 

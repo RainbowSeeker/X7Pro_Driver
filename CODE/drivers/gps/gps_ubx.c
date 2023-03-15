@@ -21,16 +21,16 @@
 #define M_RAD_TO_DEG_F      57.2957795130823f
 
 
-static light_device_t serial_device;
+static device_t serial_device;
 static struct gps_device gps_device;
 static ubx_decoder_t ubx_decoder;
 static gps_report_t gps_report;
 
-static err_t gps_serial_rx_ind(light_device_t dev, size_t size)
+static err_t gps_serial_rx_ind(device_t dev, size_t size)
 {
     uint8_t ch;
 
-    while (light_device_read(serial_device, 0, &ch, 1)) {
+    while (device_read(serial_device, 0, &ch, 1)) {
         parse_ubx_char(&ubx_decoder, ch);
     }
 
@@ -275,7 +275,7 @@ static int wait_for_ack(const uint16_t msg, const uint32_t timeout)
     return ret;
 }
 
-static err_t set_baudrate(light_device_t dev, uint32_t baudrate)
+static err_t set_baudrate(device_t dev, uint32_t baudrate)
 {
     struct serial_device* serial_dev = (struct serial_device*)dev;
 
@@ -284,7 +284,7 @@ static err_t set_baudrate(light_device_t dev, uint32_t baudrate)
 
         pconfig.baud_rate = baudrate;
 
-        return light_device_control(dev, DEVICE_CTRL_CONFIG, &pconfig);
+        return device_control(dev, DEVICE_CTRL_CONFIG, &pconfig);
     }
 
     return E_OK;
@@ -527,13 +527,13 @@ err_t gps_ubx_init(const char* serial_device_name, const char* gps_device_name)
 
     strncpy(str_buffer, gps_device_name, 20);
 
-    serial_device = light_device_find(serial_device_name);
+    serial_device = device_find(serial_device_name);
     ASSERT(serial_device != NULL);
 
     /* set gps rx indicator */
-    ERROR_TRY(light_device_set_rx_indicate(serial_device, gps_serial_rx_ind));
+    ERROR_TRY(device_set_rx_indicate(serial_device, gps_serial_rx_ind));
     /* open serial device */
-    ERROR_TRY(light_device_open(serial_device, DEVICE_OFLAG_RDWR | DEVICE_FLAG_INT_RX));
+    ERROR_TRY(device_open(serial_device, DEVICE_OFLAG_RDWR | DEVICE_FLAG_INT_RX));
     /* init ublox decoder */
     ERROR_TRY(init_ubx_decoder(&ubx_decoder, serial_device, ubx_rx_handle));
 

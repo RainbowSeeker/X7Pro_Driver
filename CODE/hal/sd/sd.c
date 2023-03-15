@@ -5,7 +5,7 @@
 /* local sector buffer */
 static DMA_DATA uint8_t sector_buffer[SECTOR_SIZE];
 
-static err_t hal_sd_init(light_device_t dev)
+static err_t hal_sd_init(device_t dev)
 {
     err_t ret = E_OK;
     sd_dev_t sd;
@@ -22,7 +22,7 @@ static err_t hal_sd_init(light_device_t dev)
     return ret;
 }
 
-static size_t hal_sd_read(light_device_t dev, off_t pos, void *buffer, size_t size)
+static size_t hal_sd_read(device_t dev, off_t pos, void *buffer, size_t size)
 {
     uint32_t sector = pos;
     uint32_t count = size;
@@ -80,7 +80,7 @@ static size_t hal_sd_read(light_device_t dev, off_t pos, void *buffer, size_t si
     return size;
 }
 
-static size_t hal_sd_write(light_device_t dev, off_t pos, const void *buffer, size_t size)
+static size_t hal_sd_write(device_t dev, off_t pos, const void *buffer, size_t size)
 {
     uint32_t sector = pos;
     uint32_t count = size;
@@ -133,7 +133,7 @@ static size_t hal_sd_write(light_device_t dev, off_t pos, const void *buffer, si
     return size;
 }
 
-err_t hal_sd_control(light_device_t dev, int cmd, void *args)
+err_t hal_sd_control(device_t dev, int cmd, void *args)
 {
     err_t ret = E_OK;
     sd_dev_t sd;
@@ -176,7 +176,7 @@ err_t hal_sd_register(sd_dev_t sd, const char *name, uint32_t flag, void *data)
     device->user_data = data;
 
     /* register a character device */
-    ret = light_device_register(device, name, flag);
+    ret = device_register(device, name, flag);
 
     return ret;
 }

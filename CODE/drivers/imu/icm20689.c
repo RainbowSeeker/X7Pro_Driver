@@ -59,7 +59,7 @@ typedef struct
 
 static float gyro_range_scale;
 static float accel_range_scale;
-static light_device_t spi_dev;
+static device_t spi_dev;
 
 #define ICM20689_BUF_SIZE   (15)
 static BDMA_DATA uint8_t send_buf[ICM20689_BUF_SIZE];
@@ -82,7 +82,7 @@ __WEAK void icm20689_rotate_to_ned(float *val)
     /* do nothing */
 }
 
-static err_t __write_checked_reg(light_device_t spi_device, uint8_t reg, uint8_t val)
+static err_t __write_checked_reg(device_t spi_device, uint8_t reg, uint8_t val)
 {
     uint8_t r_val;
 
@@ -92,7 +92,7 @@ static err_t __write_checked_reg(light_device_t spi_device, uint8_t reg, uint8_t
     return (r_val == val) ? E_OK : E_RROR;
 }
 
-static err_t __modify_reg(light_device_t spi_device, uint8_t reg, reg_val_t reg_val)
+static err_t __modify_reg(device_t spi_device, uint8_t reg, reg_val_t reg_val)
 {
     uint8_t value;
 
@@ -275,7 +275,7 @@ static err_t imu_init(void)
     uint8_t chip_id;
 
     /* open spi device */
-    ERROR_TRY(light_device_open(spi_dev, DEVICE_OFLAG_RDWR));
+    ERROR_TRY(device_open(spi_dev, DEVICE_OFLAG_RDWR));
 
     /* soft reset */
     spi_write_reg8(spi_dev, MPU_RA_PWR_MGMT_1, ICM20689_BIT_RESET);
@@ -496,7 +496,7 @@ err_t drv_icm20689_init(const char *gyro_device_name, const char *accel_device_n
     };
     ERROR_TRY(spi_configure_device(&spi_device, &cfg));
 
-    spi_dev = light_device_find("icm20689");
+    spi_dev = device_find("icm20689");
     ASSERT(spi_dev != NULL);
 
     /* driver low-level init */

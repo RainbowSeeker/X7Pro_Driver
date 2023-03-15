@@ -23,7 +23,7 @@ struct usbd_cdc_dev {
     struct usbd_cdc_ops* ops;
     ringbuffer* rx_rb;
     struct completion tx_cplt;
-    os_mutex_t tx_lock;
+    mutex_t tx_lock;
     int status;
 };
 typedef struct usbd_cdc_dev* usbd_cdc_dev_t;

@@ -221,7 +221,7 @@ int dfs_mount(const char   *device_name,
     struct dfs_filesystem *iter;
     struct dfs_filesystem *fs = NULL;
     char *fullpath = NULL;
-    light_device_t dev_id;
+    device_t dev_id;
 
     /* open specific device */
     if (device_name == NULL)
@@ -229,7 +229,7 @@ int dfs_mount(const char   *device_name,
         /* which is a non-device filesystem mount */
         dev_id = NULL;
     }
-    else if ((dev_id = light_device_find(device_name)) == NULL)
+    else if ((dev_id = device_find(device_name)) == NULL)
     {
         /* no this device */
         os_set_errno(-ENODEV);
@@ -318,7 +318,7 @@ int dfs_mount(const char   *device_name,
     /* open device, but do not check the status of device */
     if (dev_id != NULL)
     {
-        if (light_device_open(fs->dev_id,
+        if (device_open(fs->dev_id,
                            DEVICE_OFLAG_RDWR) != E_OK)
         {
             /* The underlying device has error, clear the entry. */
@@ -334,7 +334,7 @@ int dfs_mount(const char   *device_name,
     {
         /* close device */
         if (dev_id != NULL)
-            light_device_close(fs->dev_id);
+            device_close(fs->dev_id);
 
         /* mount failed */
         dfs_lock();
@@ -397,7 +397,7 @@ int dfs_unmount(const char *specialfile)
 
     /* close device, but do not check the status of device */
     if (fs->dev_id != NULL)
-        light_device_close(fs->dev_id);
+        device_close(fs->dev_id);
 
     if (fs->path != NULL)
         free(fs->path);
@@ -428,11 +428,11 @@ err1:
 int dfs_mkfs(const char *fs_name, const char *device_name)
 {
     int index;
-    light_device_t dev_id = NULL;
+    device_t dev_id = NULL;
 
     /* check device name, and it should not be NULL */
     if (device_name != NULL)
-        dev_id = light_device_find(device_name);
+        dev_id = device_find(device_name);
 
     if (dev_id == NULL)
     {
@@ -519,7 +519,7 @@ int dfs_mount_table(void)
 }
 INIT_ENV_EXPORT(dfs_mount_table);
 
-int dfs_mount_device(light_device_t dev)
+int dfs_mount_device(device_t dev)
 {
   int index = 0;
   
@@ -556,7 +556,7 @@ int dfs_mount_device(light_device_t dev)
   return E_RROR;
 }
 
-int dfs_unmount_device(light_device_t dev)
+int dfs_unmount_device(device_t dev)
 {
     struct dfs_filesystem *iter;
     struct dfs_filesystem *fs = NULL;
@@ -584,7 +584,7 @@ int dfs_unmount_device(light_device_t dev)
 
     /* close device, but do not check the status of device */
     if (fs->dev_id != NULL)
-        light_device_close(fs->dev_id);
+        device_close(fs->dev_id);
 
     if (fs->path != NULL)
         free(fs->path);

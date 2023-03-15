@@ -201,7 +201,7 @@
 //    uint16_t transferSize;
 //    uint8_t  aligenment;
 //    segment_t segments[2];
-//}light_device_t;
+//}device_t;
 //
 //
 //#define SPI_NUM         (BUS_SPICOUNT - 1)
@@ -212,17 +212,17 @@
 //
 //
 //
-//void Bus_DeviceRegister(const light_device_t *dev);
-//bool Bus_WriteRegisterStart(const light_device_t *dev, uint8_t reg, uint8_t data);
-//bool Bus_RawWriteRegister(const light_device_t *dev, uint8_t reg, uint8_t data);
-//bool Bus_RawWriteRegisterStart(const light_device_t *dev, uint8_t reg, uint8_t data);
-//bool Bus_RawReadRegisterBuffer(const light_device_t *dev, uint8_t reg, uint8_t *data, uint8_t length);
-//bool Bus_RawReadRegisterBufferStart(const light_device_t *dev, uint8_t reg, uint8_t *data, uint8_t length);
-//bool Bus_ReadRegisterBufferStart(const light_device_t *dev, uint8_t reg, uint8_t *data, uint8_t length);
-//bool Bus_Busy(const light_device_t *dev, bool *error);
+//void Bus_DeviceRegister(const device_t *dev);
+//bool Bus_WriteRegisterStart(const device_t *dev, uint8_t reg, uint8_t data);
+//bool Bus_RawWriteRegister(const device_t *dev, uint8_t reg, uint8_t data);
+//bool Bus_RawWriteRegisterStart(const device_t *dev, uint8_t reg, uint8_t data);
+//bool Bus_RawReadRegisterBuffer(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length);
+//bool Bus_RawReadRegisterBufferStart(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length);
+//bool Bus_ReadRegisterBufferStart(const device_t *dev, uint8_t reg, uint8_t *data, uint8_t length);
+//bool Bus_Busy(const device_t *dev, bool *error);
 //
 //
-//typedef  device_e (* detect_func_t)(const light_device_t *dev);
-//bool Device_PreConfig(light_device_t *dev, detect_func_t detectFunc, const hw_config_t *hwConfig, const dr_config_t *drConfig);
-//void Device_BindRxCallback(light_device_t *dev, segment_callback callback, uint32_t arg);
+//typedef  device_e (* detect_func_t)(const device_t *dev);
+//bool Device_PreConfig(device_t *dev, detect_func_t detectFunc, const hw_config_t *hwConfig, const dr_config_t *drConfig);
+//void Device_BindRxCallback(device_t *dev, segment_callback callback, uint32_t arg);
 //#endif //BUS_H

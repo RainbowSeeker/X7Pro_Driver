@@ -115,10 +115,10 @@
 //
 //err_t stm32_i2c_pin_init(struct rt_i2c_bus* i2c_bus)
 //{
-//    light_device_t pin_dev;
+//    device_t pin_dev;
 //    struct device_pin_mode mode;
 //
-//    pin_dev = light_device_find("pin");
+//    pin_dev = device_find("pin");
 //    if (pin_dev == NULL) {
 //        return E_EMPTY;
 //    }

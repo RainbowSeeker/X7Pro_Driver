@@ -641,7 +641,7 @@ err_t hal_serial_register(struct serial_device* serial,
     device->user_data = data;
 
     /* register a character device */
-    ret = light_device_register(device, name, flag);
+    ret = device_register(device, name, flag);
 
     return ret;
 }

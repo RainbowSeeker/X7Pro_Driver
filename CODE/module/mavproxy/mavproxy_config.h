@@ -23,7 +23,7 @@ typedef struct {
 
 /* toml configuration */
 err_t mavproxy_toml_config(toml_table_t* table);
-err_t mavproxy_get_devinfo(light_device_t dev, mavproxy_device_info* info);
+err_t mavproxy_get_devinfo(device_t dev, mavproxy_device_info* info);
 
 int get_device_num(void);
 mavproxy_device_info* get_device_list(void);

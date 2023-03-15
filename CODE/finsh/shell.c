@@ -172,7 +172,7 @@ static int finsh_getchar(void)
     char ch = 0;
 
     ASSERT(shell != NULL);
-    while (light_device_read(shell->device, -1, &ch, 1) != 1)
+    while (device_read(shell->device, -1, &ch, 1) != 1)
         os_sem_take(shell->rx_sem, osWaitForever);
 
     return (int)ch;
@@ -180,7 +180,7 @@ static int finsh_getchar(void)
 }
 
 #if !defined(RT_USING_POSIX) && defined(RT_USING_DEVICE)
-static err_t finsh_rx_ind(light_device_t dev, size_t size)
+static err_t finsh_rx_ind(device_t dev, size_t size)
 {
     ASSERT(shell != NULL);
 
@@ -199,10 +199,10 @@ static err_t finsh_rx_ind(light_device_t dev, size_t size)
  */
 void finsh_set_device(const char *device_name)
 {
-    light_device_t dev = NULL;
+    device_t dev = NULL;
 
     ASSERT(shell != NULL);
-    dev = light_device_find(device_name);
+    dev = device_find(device_name);
     if (dev == NULL)
     {
         printf("finsh: can not find device: %s\n", device_name);
@@ -212,14 +212,14 @@ void finsh_set_device(const char *device_name)
     /* check whether it's a same device */
     if (dev == shell->device) return;
     /* open this device and set the new device in finsh shell */
-    if (light_device_open(dev, DEVICE_OFLAG_RDWR | DEVICE_FLAG_INT_RX | \
+    if (device_open(dev, DEVICE_OFLAG_RDWR | DEVICE_FLAG_INT_RX | \
                        DEVICE_FLAG_STREAM) == E_OK)
     {
         if (shell->device != NULL)
         {
             /* close old finsh device */
-            light_device_close(shell->device);
-            light_device_set_rx_indicate(shell->device, NULL);
+            device_close(shell->device);
+            device_set_rx_indicate(shell->device, NULL);
         }
 
         /* clear line buffer before switch to new device */
@@ -227,7 +227,7 @@ void finsh_set_device(const char *device_name)
         shell->line_curpos = shell->line_position = 0;
 
         shell->device = dev;
-        light_device_set_rx_indicate(dev, finsh_rx_ind);
+        device_set_rx_indicate(dev, finsh_rx_ind);
     }
 }
 
@@ -240,14 +240,14 @@ void finsh_set_device(const char *device_name)
  */
 void finsh_set_device_without_open(const char *device_name)
 {
-	light_device_t dev = NULL;
+	device_t dev = NULL;
 
 	if(shell == NULL) {
 		/* finsh system is not initialized yet */
 		return ;
 	}
 
-	dev = light_device_find(device_name);
+	dev = device_find(device_name);
 
 	if(dev == NULL) {
 		printf("finsh: can not find device: %s\n", device_name);
@@ -257,7 +257,7 @@ void finsh_set_device_without_open(const char *device_name)
 	/* device should be opened by upper layer console */
 	if(shell->device != NULL) {
 		/* clear the rx indicate of old device */
-		light_device_set_rx_indicate(shell->device, NULL);
+		device_set_rx_indicate(shell->device, NULL);
 	}
 
 	/* clear line buffer before switch to new device */
@@ -267,7 +267,7 @@ void finsh_set_device_without_open(const char *device_name)
 	/* set new shell device */
 	shell->device = dev;
 	/* set rx indicate for new deivce */
-	light_device_set_rx_indicate(dev, finsh_rx_ind);
+	device_set_rx_indicate(dev, finsh_rx_ind);
 }
 
 /**
@@ -550,7 +550,7 @@ void finsh_thread_entry(void *parameter)
     /* set console device as shell device */
     if (shell->device == NULL)
     {
-        light_device_t console = console_get_device();
+        device_t console = console_get_device();
         if (console)
         {
             SELF_CHECK(console_enable_input());

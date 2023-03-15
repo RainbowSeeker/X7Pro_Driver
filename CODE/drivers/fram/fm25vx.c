@@ -12,13 +12,13 @@
 
 #define DRV_DBG(...) printf(__VA_ARGS__)
 
-static light_device_t spi_dev;
+static device_t spi_dev;
 
 #define FRAM_BUF_SIZE   (36)
 static DMA_DATA uint8_t send_buf[FRAM_BUF_SIZE];
 static DMA_DATA uint8_t recv_buf[FRAM_BUF_SIZE];
 
-static size_t _read(light_device_t dev, off_t pos, void *buffer, size_t size)
+static size_t _read(device_t dev, off_t pos, void *buffer, size_t size)
 {
     send_buf[0] = 0x03;
     for (int i = 0; i < size;)
@@ -37,7 +37,7 @@ static size_t _read(light_device_t dev, off_t pos, void *buffer, size_t size)
     return size;
 }
 
-static size_t _write(light_device_t dev, off_t pos, const void *buffer, size_t size)
+static size_t _write(device_t dev, off_t pos, const void *buffer, size_t size)
 {
     send_buf[0] = 0x02;
     for (int i = 0; i < size; i += 32)
@@ -59,7 +59,7 @@ static err_t lowlevel_init(void)
 {
     uint8_t retry = 0;
     uint8_t buf[20] = {0x9F};
-    ERROR_TRY(light_device_open(spi_dev, DEVICE_OFLAG_RDWR));
+    ERROR_TRY(device_open(spi_dev, DEVICE_OFLAG_RDWR));
 
     do {
         spi_transfer((struct spi_device *)spi_dev, buf, &buf[10], 10);
@@ -98,13 +98,13 @@ err_t drv_fm25v05_init(const char *fram_device_name)
     };
     ERROR_TRY(spi_configure_device(&spi_device, &cfg));
 
-    spi_dev = light_device_find("fm25v05");
+    spi_dev = device_find("fm25v05");
     ASSERT(spi_dev != NULL);
 
     /* driver internal init */
     ERROR_TRY(lowlevel_init());
 
-    light_device_t device = &fm25v05;
+    device_t device = &fm25v05;
     device->type = Device_Class_SPIDevice;
     device->ref_count = 0;
     device->rx_indicate = NULL;
@@ -115,5 +115,5 @@ err_t drv_fm25v05_init(const char *fram_device_name)
     device->read = _read;
     device->write = _write;
 
-    return light_device_register(device, fram_device_name, DEVICE_FLAG_RDWR);
+    return device_register(device, fram_device_name, DEVICE_FLAG_RDWR);
 }

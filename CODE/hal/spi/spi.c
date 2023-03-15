@@ -12,7 +12,7 @@
 
 static err_t spi_bus_init(struct spi_bus *bus, const char *name)
 {
-    light_device_t device;
+    device_t device;
 
     ASSERT(bus != NULL);
 
@@ -29,7 +29,7 @@ static err_t spi_bus_init(struct spi_bus *bus, const char *name)
     device->control = NULL;
 
     /* register to device manager */
-    return light_device_register(device, name, DEVICE_FLAG_RDWR);
+    return device_register(device, name, DEVICE_FLAG_RDWR);
 }
 
 err_t spi_bus_register(struct spi_bus *bus,
@@ -53,7 +53,7 @@ err_t spi_bus_register(struct spi_bus *bus,
     return E_OK;
 }
 
-static size_t spi_bus_read(light_device_t dev,
+static size_t spi_bus_read(device_t dev,
                            off_t pos,
                            void *buffer,
                            size_t size)
@@ -67,7 +67,7 @@ static size_t spi_bus_read(light_device_t dev,
     return spi_transfer(device, NULL, buffer, size);
 }
 
-static size_t spi_bus_write(light_device_t dev,
+static size_t spi_bus_write(device_t dev,
                             off_t pos,
                             const void *buffer,
                             size_t size)
@@ -81,7 +81,7 @@ static size_t spi_bus_write(light_device_t dev,
     return spi_transfer(device, (void *)buffer, NULL, size);
 }
 
-static err_t spi_bus_control(light_device_t dev,
+static err_t spi_bus_control(device_t dev,
                              int cmd,
                              void *args)
 {
@@ -99,7 +99,7 @@ static err_t spi_bus_control(light_device_t dev,
 
 static err_t spi_device_init(struct spi_device *dev, const char *name)
 {
-    light_device_t device;
+    device_t device;
     ASSERT(dev != NULL);
 
     device = &(dev->parent);
@@ -114,7 +114,7 @@ static err_t spi_device_init(struct spi_device *dev, const char *name)
     device->control = spi_bus_control;
 
     /* register to device manager */
-    return light_device_register(device, name, DEVICE_FLAG_RDWR);
+    return device_register(device, name, DEVICE_FLAG_RDWR);
 }
 
 
@@ -124,10 +124,10 @@ err_t spi_bus_attach_device(struct spi_device *device,
                             void *user_data)
 {
     err_t result;
-    light_device_t bus;
+    device_t bus;
 
     /* get physical spi bus */
-    bus = light_device_find(bus_name);
+    bus = device_find(bus_name);
 
     if (bus != NULL && bus->type == Device_Class_SPIBUS)
     {

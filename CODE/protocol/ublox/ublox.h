@@ -466,7 +466,7 @@ struct gps_tm {
 
 typedef int (*ubx_rx_handle_ptr)(void);
 typedef struct {
-    light_device_t ubx_dev;
+    device_t ubx_dev;
     ubx_decode_state_t decode_state;
     ubx_rxmsg_state_t rx_state;
     ubx_ack_state_t ack_state;
@@ -488,7 +488,7 @@ typedef struct {
 } ubx_decoder_t;
 
 void reset_ubx_decoder(ubx_decoder_t* ubx_decoder);
-err_t init_ubx_decoder(ubx_decoder_t* ubx_decoder, light_device_t ubx_dev, ubx_rx_handle_ptr ubx_rx_handle);
+err_t init_ubx_decoder(ubx_decoder_t* ubx_decoder, device_t ubx_dev, ubx_rx_handle_ptr ubx_rx_handle);
 int parse_ubx_char(ubx_decoder_t* ubx_decoder, const uint8_t c);
 
 err_t send_ubx_msg(ubx_decoder_t* ubx_decoder, const uint16_t msg, const uint8_t* payload, const uint16_t length);

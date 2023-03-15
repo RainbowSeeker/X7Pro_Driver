@@ -82,7 +82,7 @@ err_t hal_accel_register(accel_dev_t accel, const char* name, uint32_t flag, voi
     device->user_data = data;
 
     /* register a character device */
-    ret = light_device_register(device, name, flag);
+    ret = device_register(device, name, flag);
 
     return ret;
 }

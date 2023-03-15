@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'Controller'.
  *
- * Model version                  : 1.54
+ * Model version                  : 1.55
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Thu Mar  2 15:20:36 2023
+ * C/C++ source code generated on : Wed Mar  8 15:26:34 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -120,7 +120,7 @@ extern struct_Ae52N6uY2eO0jd5TMQiCYB CONTROL_PARAM;/* Variable: CONTROL_PARAM
                                                     *   '<S27>/Discrete-Time Integrator'
                                                     *   '<S28>/gain'
                                                     */
-extern struct_ny3PY9hontv4J5WqwlFzJB CONTROL_EXPORT;/* Variable: CONTROL_EXPORT
+extern struct_biZzOMrg0u3lxrb7POOubF CONTROL_EXPORT;/* Variable: CONTROL_EXPORT
                                                      * Referenced by: '<S4>/Constant'
                                                      */
 

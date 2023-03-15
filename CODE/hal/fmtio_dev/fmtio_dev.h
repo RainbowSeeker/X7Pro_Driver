@@ -10,7 +10,7 @@ extern "C" {
 #define FMTIO_SET_BAUDRATE 0x10
 #define FMTIO_GET_BAUDRATE 0x11
 
-err_t hal_fmtio_dev_register(light_device_t io_dev, const char* name, uint32_t flag, void* data);
+err_t hal_fmtio_dev_register(device_t io_dev, const char* name, uint32_t flag, void* data);
 
 #ifdef __cplusplus
 }

@@ -16,9 +16,9 @@ MCN_DEFINE(control_output, sizeof(Control_Out_Bus));
 
 /* define parameters */
 static param_t __param_list[] = {
-    PARAM_FLOAT(VEL_XY_P, 1.4),
+    PARAM_FLOAT(VEL_XY_P, 1.8),
     PARAM_FLOAT(VEL_XY_I, 0.2),
-    PARAM_FLOAT(VEL_XY_D, 0.2),
+    PARAM_FLOAT(VEL_XY_D, 0.15),
     PARAM_FLOAT(VEL_Z_P, 0.6),
     PARAM_FLOAT(VEL_Z_I, 0.1),
     PARAM_FLOAT(VEL_Z_D, 0.0),
@@ -35,13 +35,13 @@ static param_t __param_list[] = {
     PARAM_FLOAT(ROLL_PITCH_CMD_LIM, PI / 6),
     PARAM_FLOAT(ROLL_RATE_P, 0.08),
     PARAM_FLOAT(PITCH_RATE_P, 0.08),
-    PARAM_FLOAT(YAW_RATE_P, 0.15),
+    PARAM_FLOAT(YAW_RATE_P, -0.5),
     PARAM_FLOAT(ROLL_RATE_I, 0.1),
     PARAM_FLOAT(PITCH_RATE_I, 0.1),
-    PARAM_FLOAT(YAW_RATE_I, 0.2),
+    PARAM_FLOAT(YAW_RATE_I, -0.22),
     PARAM_FLOAT(ROLL_RATE_D, 0.002),
     PARAM_FLOAT(PITCH_RATE_D, 0.002),
-    PARAM_FLOAT(YAW_RATE_D, 0.001),
+    PARAM_FLOAT(YAW_RATE_D, -0.002),
     PARAM_FLOAT(RATE_I_MIN, -0.1),
     PARAM_FLOAT(RATE_I_MAX, 0.1),
     PARAM_FLOAT(RATE_D_MIN, -0.1),

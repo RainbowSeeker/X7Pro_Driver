@@ -57,7 +57,7 @@ enum {
     S_COLLECT_REPORT
 };
 
-static light_device_t spi_dev;
+static device_t spi_dev;
 uint32_t _raw_temperature, _raw_pressure;
 static ms5611_prom_t _prom;
 static uint8_t _ms5611_state;
@@ -68,7 +68,7 @@ static err_t write_cmd(uint8_t cmd)
 {
     size_t w_byte;
 
-//    w_byte = light_device_write(spi_dev, 0, &cmd, sizeof(cmd));
+//    w_byte = device_write(spi_dev, 0, &cmd, sizeof(cmd));
 //
 //    return w_byte == sizeof(cmd) ? E_OK : E_RROR;
     return spi_write_reg8(spi_dev, cmd, 1);
@@ -258,7 +258,7 @@ static void ms5611_measure(void* parameter)
 static err_t lowlevel_init(void)
 {
     uint8_t retry = 0;
-    ERROR_TRY(light_device_open(spi_dev, DEVICE_OFLAG_RDWR));
+    ERROR_TRY(device_open(spi_dev, DEVICE_OFLAG_RDWR));
 
 
     do {
@@ -343,7 +343,7 @@ err_t drv_ms5611_init(const char* baro_device_name)
     };
     ERROR_TRY(spi_configure_device(&spi_device, &cfg));
 
-    spi_dev = light_device_find("ms5611");
+    spi_dev = device_find("ms5611");
     ASSERT(spi_dev != NULL);
 
     /* driver internal init */

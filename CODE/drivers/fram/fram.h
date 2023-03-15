@@ -11,7 +11,7 @@
 //
 //typedef struct fram_s
 //{
-//    light_device_t dev;
+//    device_t dev;
 //    uint8_t *pTxData;
 //    uint8_t *pRxData;
 //

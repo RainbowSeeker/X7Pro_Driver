@@ -17,7 +17,7 @@ uint8_t sensor_baro_check_ready(sensor_baro_t *baro_dev)
 {
     uint8_t ready = 0;
 
-    light_device_control(baro_dev->dev, BARO_CMD_CHECK_READY, &ready);
+    device_control(baro_dev->dev, BARO_CMD_CHECK_READY, &ready);
 
     return ready;
 }
@@ -32,7 +32,7 @@ uint8_t sensor_baro_check_ready(sensor_baro_t *baro_dev)
 err_t sensor_baro_read(sensor_baro_t *baro_dev, baro_data_t* baro_data)
 {
     baro_report_t report;
-    if (light_device_read(baro_dev->dev, BARO_RD_REPORT, &report, sizeof(baro_report_t)) != sizeof(baro_report_t)) {
+    if (device_read(baro_dev->dev, BARO_RD_REPORT, &report, sizeof(baro_report_t)) != sizeof(baro_report_t)) {
         return E_RROR;
     }
 
@@ -56,11 +56,11 @@ sensor_baro_t *sensor_baro_init(const char* baro_dev_name)
     ASSERT(baro_dev != NULL);
 
     /* find baro device */
-    baro_dev->dev = light_device_find(baro_dev_name);
+    baro_dev->dev = device_find(baro_dev_name);
     ASSERT(baro_dev->dev != NULL);
 
     /* open device */
-    SELF_CHECK(light_device_open(baro_dev->dev, DEVICE_OFLAG_RDWR));
+    SELF_CHECK(device_open(baro_dev->dev, DEVICE_OFLAG_RDWR));
 
     return baro_dev;
 }

@@ -27,7 +27,7 @@ err_t fmtio_init(const char* dev_name);
 void fmtio_loop(void);
 void fmtio_suspend_comm(uint8_t suspend);
 err_t send_io_cmd(uint8_t code, void* data, uint16_t len);
-light_device_t fmtio_get_device(void);
+device_t fmtio_get_device(void);
 err_t send_io_cmd(uint8_t code, void* data, uint16_t len);
 
 #ifdef __cplusplus

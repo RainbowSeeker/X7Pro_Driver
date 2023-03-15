@@ -16,7 +16,7 @@ pilot_mode_config* pilotModes = NULL;
 pilot_event_cmd_t* pilotEventCmds = NULL;
 pilot_status_cmd_t* pilotStatusCmds = NULL;
 
-static light_device_t rcDev;
+static device_t rcDev;
 static uint8_t stickMapping[4];
 static int16_t rcChannel[16];
 static int16_t rcTrimChannel[16];
@@ -267,10 +267,10 @@ err_t pilot_cmd_collect(void)
         return E_NOTHANDLE;
     }
 
-    ERROR_TRY(light_device_control(rcDev, RC_CMD_CHECK_UPDATE, &update));
+    ERROR_TRY(device_control(rcDev, RC_CMD_CHECK_UPDATE, &update));
 
     if (update && ((time_now - last_timestamp) >= rc->config.sample_time * 1000)) {
-        if (light_device_read(rcDev, rc_read_mask, rcChannel, rc_chan_num * sizeof(uint16_t))) {
+        if (device_read(rcDev, rc_read_mask, rcChannel, rc_chan_num * sizeof(uint16_t))) {
 
             pilot_cmd_bus.timestamp = systime_now_ms();
 
@@ -305,7 +305,7 @@ err_t pilot_cmd_collect(void)
 
 err_t pilot_cmd_set_device(const char* dev_name)
 {
-    light_device_t new_dev = light_device_find(dev_name);
+    device_t new_dev = device_find(dev_name);
 
     if (new_dev == NULL) {
         return E_EMPTY;
@@ -313,11 +313,11 @@ err_t pilot_cmd_set_device(const char* dev_name)
 
     /* close old device if opened */
     if (rcDev && (rcDev->open_flag & DEVICE_OFLAG_OPEN)) {
-        light_device_close(rcDev);
+        device_close(rcDev);
     }
 
     /* open new device */
-    ERROR_TRY(light_device_open(new_dev, DEVICE_OFLAG_RDWR));
+    ERROR_TRY(device_open(new_dev, DEVICE_OFLAG_RDWR));
 
     /* set new device */
     rcDev = new_dev;

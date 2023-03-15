@@ -3,18 +3,18 @@
 
 #include "hal/serial/serial.h"
 
-static light_device_t mavproxy_dev = NULL;
+static device_t mavproxy_dev = NULL;
 static struct completion tx_cplt, rx_cplt;
 
 static err_t (*mav_rx_indicate)(uint32_t size) = NULL;
 
-static err_t mavproxy_dev_tx_done(light_device_t dev, void* buffer)
+static err_t mavproxy_dev_tx_done(device_t dev, void* buffer)
 {
     completion_done(&tx_cplt);
     return E_OK;
 }
 
-static err_t mavproxy_dev_rx_ind(light_device_t dev, size_t size)
+static err_t mavproxy_dev_rx_ind(device_t dev, size_t size)
 {
     completion_done(&rx_cplt);
 
@@ -34,7 +34,7 @@ size_t mavproxy_dev_write(const void* buffer, uint32_t len, int32_t timeout)
         return 0;
     }
     /* write data to device */
-    size = light_device_write(mavproxy_dev, 0, buffer, len);
+    size = device_write(mavproxy_dev, 0, buffer, len);
     if (size > 0) {
         /* wait write complete (synchronized write) */
         if (completion_wait(&tx_cplt, timeout) != E_OK) {
@@ -55,7 +55,7 @@ size_t mavproxy_dev_read(void* buffer, uint32_t len, int32_t timeout)
     }
 
     /* try to read data */
-    cnt = light_device_read(mavproxy_dev, 0, buffer, len);
+    cnt = device_read(mavproxy_dev, 0, buffer, len);
 
     /* sync mode */
     if (timeout != 0) {
@@ -76,7 +76,7 @@ size_t mavproxy_dev_read(void* buffer, uint32_t len, int32_t timeout)
                 }
             }
             /* read rest data */
-            cnt += light_device_read(mavproxy_dev, 0, (void*)((uint32_t)buffer + cnt), len - cnt);
+            cnt += device_read(mavproxy_dev, 0, (void*)((uint32_t)buffer + cnt), len - cnt);
         }
     }
 
@@ -90,9 +90,9 @@ void mavproxy_dev_set_rx_indicate(err_t (*rx_ind)(uint32_t size))
 
 err_t mavproxy_set_device(const char* dev_name)
 {
-    light_device_t new_dev;
+    device_t new_dev;
 
-    new_dev = light_device_find(dev_name);
+    new_dev = device_find(dev_name);
 
     if (new_dev == NULL) {
         return E_EMPTY;
@@ -104,7 +104,7 @@ err_t mavproxy_set_device(const char* dev_name)
             /* if device support DMA, then use it */
             flag = DEVICE_OFLAG_RDWR | DEVICE_FLAG_DMA_RX | DEVICE_FLAG_DMA_TX;
         }
-        err_t err = light_device_open(new_dev, flag);
+        err_t err = device_open(new_dev, flag);
         if (err != E_OK) {
             return E_RROR;
         }
@@ -112,13 +112,13 @@ err_t mavproxy_set_device(const char* dev_name)
     }
 
     /* set callback functions */
-    light_device_set_tx_complete(new_dev, mavproxy_dev_tx_done);
-    light_device_set_rx_indicate(new_dev, mavproxy_dev_rx_ind);
+    device_set_tx_complete(new_dev, mavproxy_dev_tx_done);
+    device_set_rx_indicate(new_dev, mavproxy_dev_rx_ind);
 
     return E_OK;
 }
 
-light_device_t mavproxy_get_device(void)
+device_t mavproxy_get_device(void)
 {
     return mavproxy_dev;
 }

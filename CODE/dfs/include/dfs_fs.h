@@ -27,7 +27,7 @@ struct dfs_filesystem_ops
     int (*unmount)  (struct dfs_filesystem *fs);
 
     /* make a file system */
-    int (*mkfs)     (light_device_t devid);
+    int (*mkfs)     (device_t devid);
     int (*statfs)   (struct dfs_filesystem *fs, struct statfs *buf);
 
     int (*unlink)   (struct dfs_filesystem *fs, const char *pathname);
@@ -39,7 +39,7 @@ struct dfs_filesystem_ops
 /* Mounted file system */
 struct dfs_filesystem
 {
-    light_device_t dev_id;     /* Attached device */
+    device_t dev_id;     /* Attached device */
 
     char *path;             /* File system mount point */
     const struct dfs_filesystem_ops *ops; /* Operations for file system type */
@@ -83,8 +83,8 @@ int dfs_unmount(const char *specialfile);
 
 int dfs_mkfs(const char *fs_name, const char *device_name);
 int dfs_statfs(const char *path, struct statfs *buffer);
-int dfs_mount_device(light_device_t dev);
-int dfs_unmount_device(light_device_t dev);
+int dfs_mount_device(device_t dev);
+int dfs_unmount_device(device_t dev);
 
 #ifdef __cplusplus
 }

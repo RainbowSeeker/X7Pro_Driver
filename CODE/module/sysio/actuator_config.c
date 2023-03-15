@@ -30,7 +30,7 @@
 #define DEVICE_LIST                     actuator_device_list
 #define DEVICE_NUM                      actuator_device_num
 #define DEVICE_PROTOCOL_IS(_idx, _name) MATCH(DEVICE_LIST[_idx].protocol, #_name)
-#define FIND_DEVICE(_idx)               light_device_find(DEVICE_LIST[_idx].name)
+#define FIND_DEVICE(_idx)               device_find(DEVICE_LIST[_idx].name)
 
 static actuator_device_info actuator_device_list[ACTUATOR_MAX_DEVICE_NUM];
 static uint8_t actuator_device_num;
@@ -51,7 +51,7 @@ static err_t actuator_parse_device(const toml_table_t* curtab, int idx)
 
     /* get device protocol */
     if (toml_string_in(curtab, "protocol", &DEVICE_LIST[idx].protocol) == 0) {
-        actuator_dev_t act_dev = (actuator_dev_t)light_device_find(DEVICE_LIST[idx].name);
+        actuator_dev_t act_dev = (actuator_dev_t)device_find(DEVICE_LIST[idx].name);
         if (act_dev == NULL) {
             TOML_DBG_E("can't find device %s\n", DEVICE_LIST[idx].name);
             return E_RROR;
@@ -61,7 +61,7 @@ static err_t actuator_parse_device(const toml_table_t* curtab, int idx)
             /* set protocol if it's not the case */
             if (act_dev->config.protocol != ACT_PROTOCOL_PWM) {
                 int protocol = ACT_PROTOCOL_PWM;
-                if (light_device_control(&act_dev->parent, ACT_CMD_SET_PROTOCOL, &protocol) != E_OK) {
+                if (device_control(&act_dev->parent, ACT_CMD_SET_PROTOCOL, &protocol) != E_OK) {
                     TOML_DBG_E("fail to set protocol to pwm\n");
                     return E_RROR;
                 }
@@ -84,7 +84,7 @@ static err_t actuator_parse_device(const toml_table_t* curtab, int idx)
             /* set protocol if it's not the case */
             if (act_dev->config.protocol != ACT_PROTOCOL_DSHOT) {
                 int protocol = ACT_PROTOCOL_DSHOT;
-                if (light_device_control(&act_dev->parent, ACT_CMD_SET_PROTOCOL, &protocol) != E_OK) {
+                if (device_control(&act_dev->parent, ACT_CMD_SET_PROTOCOL, &protocol) != E_OK) {
                     TOML_DBG_E("fail to set protocol to dshot\n");
                     return E_RROR;
                 }
@@ -362,7 +362,7 @@ err_t actuator_toml_config(toml_table_t* table)
 
     /* open actuator devices */
     for (i = 0; i < DEVICE_NUM; i++) {
-        actuator_dev_t act_dev = (actuator_dev_t)light_device_find(DEVICE_LIST[i].name);
+        actuator_dev_t act_dev = (actuator_dev_t)device_find(DEVICE_LIST[i].name);
 
         if (DEVICE_PROTOCOL_IS(i, pwm)) {
             act_pwm_drv_config* config = (act_pwm_drv_config*)DEVICE_LIST[i].config;
@@ -377,7 +377,7 @@ err_t actuator_toml_config(toml_table_t* table)
             continue;
         }
 
-        if (light_device_open(&act_dev->parent, DEVICE_OFLAG_RDWR) != E_OK) {
+        if (device_open(&act_dev->parent, DEVICE_OFLAG_RDWR) != E_OK) {
             return E_RROR;
         }
     }

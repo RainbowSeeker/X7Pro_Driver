@@ -40,12 +40,12 @@ static err_t hal_actuator_control(struct device* dev, int cmd, void* args)
     return E_OK;
 }
 
-static err_t hal_actuator_open(light_device_t dev, uint16_t oflag)
+static err_t hal_actuator_open(device_t dev, uint16_t oflag)
 {
     return hal_actuator_control(dev, ACT_CMD_CHANNEL_ENABLE, NULL);
 }
 
-static err_t hal_actuator_close(light_device_t dev)
+static err_t hal_actuator_close(device_t dev)
 {
     return hal_actuator_control(dev, ACT_CMD_CHANNEL_DISABLE, NULL);
 }
@@ -71,7 +71,7 @@ static size_t hal_actuator_read(struct device* dev, off_t pos, void* buffer, siz
     return rb;
 }
 
-static size_t hal_actuator_write(light_device_t dev, off_t pos, const void* buffer, size_t size)
+static size_t hal_actuator_write(device_t dev, off_t pos, const void* buffer, size_t size)
 {
     ASSERT(dev != NULL);
 
@@ -124,5 +124,5 @@ err_t hal_actuator_register(actuator_dev_t dev, const char* name, uint32_t flag,
     device->user_data = data;
 
     /* register device */
-    return light_device_register(device, name, flag);
+    return device_register(device, name, flag);
 }

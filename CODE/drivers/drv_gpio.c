@@ -121,7 +121,7 @@
 //    return NULL;
 //};
 //
-//static void gpio_pin_write(light_device_t dev, rt_base_t pin, rt_base_t value)
+//static void gpio_pin_write(device_t dev, rt_base_t pin, rt_base_t value)
 //{
 //    const struct pin_index* index;
 //
@@ -138,7 +138,7 @@
 //    }
 //}
 //
-//static int gpio_pin_read(light_device_t dev, rt_base_t pin)
+//static int gpio_pin_read(device_t dev, rt_base_t pin)
 //{
 //    int value;
 //    const struct pin_index* index;
@@ -160,7 +160,7 @@
 //    return value;
 //}
 //
-//static void gpio_pin_mode(light_device_t dev, rt_base_t pin, rt_base_t mode, rt_base_t otype)
+//static void gpio_pin_mode(device_t dev, rt_base_t pin, rt_base_t mode, rt_base_t otype)
 //{
 //    const struct pin_index* index;
 //    GPIO_InitTypeDef GPIO_InitStructure;

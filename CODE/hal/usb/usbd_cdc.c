@@ -6,7 +6,7 @@
 #define USBD_WAIT_TIMEOUT 1000
 #define USBD_RX_FIFO_SIZE 2048
 
-static err_t hal_usbd_cdc_init(light_device_t device)
+static err_t hal_usbd_cdc_init(device_t device)
 {
     usbd_cdc_dev_t usbd = (usbd_cdc_dev_t)device;
     err_t err = E_OK;
@@ -16,7 +16,7 @@ static err_t hal_usbd_cdc_init(light_device_t device)
         return E_NOMEM;
     }
 
-    os_mutex_init(&usbd->tx_lock);
+    mutex_init(&usbd->tx_lock);
     if (usbd->tx_lock == NULL) {
         return E_NOMEM;
     }
@@ -27,7 +27,7 @@ static err_t hal_usbd_cdc_init(light_device_t device)
     return err;
 }
 
-static err_t hal_usbd_cdc_open(light_device_t device, uint16_t oflag)
+static err_t hal_usbd_cdc_open(device_t device, uint16_t oflag)
 {
     if ((device->flag & oflag) != oflag) {
         return E_IO;
@@ -36,7 +36,7 @@ static err_t hal_usbd_cdc_open(light_device_t device, uint16_t oflag)
     return E_OK;
 }
 
-static size_t hal_usbd_cdc_read(light_device_t device, off_t pos, void* buffer, size_t size)
+static size_t hal_usbd_cdc_read(device_t device, off_t pos, void* buffer, size_t size)
 {
     usbd_cdc_dev_t usbd = (usbd_cdc_dev_t)device;
     size_t rb = 0;
@@ -48,7 +48,7 @@ static size_t hal_usbd_cdc_read(light_device_t device, off_t pos, void* buffer, 
     return rb;
 }
 
-static size_t hal_usbd_cdc_write(light_device_t device, off_t pos, const void* buffer, size_t size)
+static size_t hal_usbd_cdc_write(device_t device, off_t pos, const void* buffer, size_t size)
 {
     usbd_cdc_dev_t usbd = (usbd_cdc_dev_t)device;
     size_t wb = 0;
@@ -57,7 +57,7 @@ static size_t hal_usbd_cdc_write(light_device_t device, off_t pos, const void* b
         return 0;
     }
 
-    if (os_mutex_take(usbd->tx_lock, TICKS_FROM_MS(USBD_WAIT_TIMEOUT)) != E_OK) {
+    if (mutex_take(usbd->tx_lock, TICKS_FROM_MS(USBD_WAIT_TIMEOUT)) != E_OK) {
         return 0;
     }
 
@@ -68,7 +68,7 @@ static size_t hal_usbd_cdc_write(light_device_t device, off_t pos, const void* b
     /* wait until send is finished */
     completion_wait(&usbd->tx_cplt, TICKS_FROM_MS(USBD_WAIT_TIMEOUT));
 
-    os_mutex_release(usbd->tx_lock);
+    mutex_release(usbd->tx_lock);
     return wb;
 }
 
@@ -106,7 +106,7 @@ void hal_usbd_cdc_notify_status(usbd_cdc_dev_t usbd, int status)
 
 err_t hal_usbd_cdc_register(usbd_cdc_dev_t usbd, const char* name, uint16_t flag, void* data)
 {
-    light_device_t dev = &usbd->parent;
+    device_t dev = &usbd->parent;
 
     dev->type = Device_Class_USBDevice;
     dev->ref_count = 0;
@@ -123,7 +123,7 @@ err_t hal_usbd_cdc_register(usbd_cdc_dev_t usbd, const char* name, uint16_t flag
 
     dev->user_data = NULL;
 
-    if (light_device_register(dev, name, flag) != E_OK) {
+    if (device_register(dev, name, flag) != E_OK) {
         return E_RROR;
     }
 

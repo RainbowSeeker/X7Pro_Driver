@@ -406,11 +406,11 @@ void reset_ubx_decoder(ubx_decoder_t* ubx_decoder)
 
     /* flush read buffer */
     do {
-        ret = light_device_read(ubx_decoder->ubx_dev, 0, &c, 1);
+        ret = device_read(ubx_decoder->ubx_dev, 0, &c, 1);
     } while (ret);
 }
 
-err_t init_ubx_decoder(ubx_decoder_t* ubx_decoder, light_device_t ubx_dev, ubx_rx_handle_ptr ubx_rx_handle)
+err_t init_ubx_decoder(ubx_decoder_t* ubx_decoder, device_t ubx_dev, ubx_rx_handle_ptr ubx_rx_handle)
 {
     if (ubx_rx_handle == NULL && ubx_dev == NULL) {
         return E_EMPTY;
@@ -447,17 +447,17 @@ err_t send_ubx_msg(ubx_decoder_t* ubx_decoder, const uint16_t msg, const uint8_t
         _calc_ubx_checksum(payload, length, &checksum);
     }
 
-    if (light_device_write(ubx_decoder->ubx_dev, 0, (const void*)&header, sizeof(header)) != sizeof(header)) {
+    if (device_write(ubx_decoder->ubx_dev, 0, (const void*)&header, sizeof(header)) != sizeof(header)) {
         return E_RROR;
     }
 
     if (payload != NULL) {
-        if (light_device_write(ubx_decoder->ubx_dev, 0, (const void*)payload, length) != length) {
+        if (device_write(ubx_decoder->ubx_dev, 0, (const void*)payload, length) != length) {
             return E_RROR;
         }
     }
 
-    if (light_device_write(ubx_decoder->ubx_dev, 0, (const void*)&checksum, sizeof(checksum)) != sizeof(checksum)) {
+    if (device_write(ubx_decoder->ubx_dev, 0, (const void*)&checksum, sizeof(checksum)) != sizeof(checksum)) {
         return E_RROR;
     }
 

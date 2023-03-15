@@ -12,6 +12,7 @@
 //#define LOG_LVL  LOG_LVL_WARNING
 #include "ulog.h"
 #include "logger.h"
+#include "pmu/power_manager.h"
 
 MCN_DECLARE(fms_output);
 MCN_DECLARE(ins_output);
@@ -256,7 +257,7 @@ void App_Status_Main(void *argument)
         // update INS output status
         update_ins_status();
 
-//        PERIOD_EXECUTE(poll_bat_status, 500, pmu_poll_battery_status(););
+        PERIOD_EXECUTE(poll_bat_status, 500, pmu_poll_battery_status(););
 
         sys_msleep(10);
     }

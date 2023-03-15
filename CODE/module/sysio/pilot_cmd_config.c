@@ -579,7 +579,7 @@ err_t pilot_cmd_toml_config(toml_table_t* table)
         }
     }
 
-    rc_dev_t rc_dev = (rc_dev_t)light_device_find(rcDevInfo.name);
+    rc_dev_t rc_dev = (rc_dev_t)device_find(rcDevInfo.name);
     ASSERT(rc_dev != NULL);
 
     pilot_cmd_rc_dev_config* config = (pilot_cmd_rc_dev_config*)rcDevInfo.config;
@@ -592,7 +592,7 @@ err_t pilot_cmd_toml_config(toml_table_t* table)
     };
 
     /* configure console device according to the toml configure */
-    if (light_device_control(&rc_dev->parent, DEVICE_CTRL_CONFIG, &pconfig) != E_OK) {
+    if (device_control(&rc_dev->parent, DEVICE_CTRL_CONFIG, &pconfig) != E_OK) {
         TOML_DBG_E("fail to configure device %s\n", rcDevInfo.name);
         return E_RROR;
     }

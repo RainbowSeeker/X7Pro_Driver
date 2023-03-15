@@ -48,7 +48,7 @@ enum {
 
 };
 
-static light_device_t fmtio_dev;
+static device_t fmtio_dev;
 
 static uint32_t crc32part(const uint8_t* src, size_t len, uint32_t crc32val)
 {
@@ -65,7 +65,7 @@ static err_t send_char(uint8_t c)
 {
     uint32_t bytes;
 
-    bytes = light_device_write(fmtio_dev, osWaitForever, &c, 1);
+    bytes = device_write(fmtio_dev, osWaitForever, &c, 1);
     
     return (bytes == 1) ? E_OK : E_RROR;
 }
@@ -74,7 +74,7 @@ static err_t send(uint8_t* buff, uint32_t size)
 {
     uint32_t bytes;
 
-    bytes = light_device_write(fmtio_dev, osWaitForever, buff, size);
+    bytes = device_write(fmtio_dev, osWaitForever, buff, size);
 
     return (bytes == size) ? E_OK : E_RROR;
 }
@@ -84,7 +84,7 @@ static err_t get_sync(int32_t timeout)
     uint8_t c[2];
     uint32_t bytes;
 
-    bytes = light_device_read(fmtio_dev, timeout, c, 2);
+    bytes = device_read(fmtio_dev, timeout, c, 2);
     if (bytes != 2) {
         PERIOD_EXECUTE(io_error_sync, 1000, ulog_e(TAG, "err get sync:%d\n", bytes););
         return E_RROR;
@@ -105,7 +105,7 @@ static err_t sync(void)
 
     /* flush read buffer */
     do {
-        ret = light_device_read(fmtio_dev, 40, &c, 1);
+        ret = device_read(fmtio_dev, 40, &c, 1);
     } while (ret);
 
     /* complete any pending program operation */
@@ -127,7 +127,7 @@ static err_t get_info(int param, uint8_t* val, uint32_t size)
     send_char(param);
     send_char(PROTO_EOC);
 
-    bytes = light_device_read(fmtio_dev, 5000, val, size);
+    bytes = device_read(fmtio_dev, 5000, val, size);
 
     if (bytes != size) {
         return E_RROR;
@@ -263,7 +263,7 @@ static err_t program_fs(const char* file_name)
     send_char(PROTO_GET_CRC);
     send_char(PROTO_EOC);
 
-    bytes = light_device_read(fmtio_dev, 5000, &crc, sizeof(crc));
+    bytes = device_read(fmtio_dev, 5000, &crc, sizeof(crc));
 
     if (bytes != sizeof(crc)) {
         ulog_e(TAG, "did not receive CRC checksum");
@@ -327,9 +327,9 @@ err_t fmtio_upload(const char* path)
     /* suspend fmtio communication, since uploader need use that channel */
     fmtio_suspend_comm(1);
     /* bootloader baudrate is 115200 */
-    ERROR_TRY(light_device_control(fmtio_dev, FMTIO_GET_BAUDRATE, &old_baudrate));
+    ERROR_TRY(device_control(fmtio_dev, FMTIO_GET_BAUDRATE, &old_baudrate));
     if (old_baudrate != BL_BAUDRATE) {
-        ERROR_TRY(light_device_control(fmtio_dev, FMTIO_SET_BAUDRATE, (void*)BL_BAUDRATE));
+        ERROR_TRY(device_control(fmtio_dev, FMTIO_SET_BAUDRATE, (void*)BL_BAUDRATE));
     }
 
     uint32_t time = systime_now_ms();
@@ -353,7 +353,7 @@ err_t fmtio_upload(const char* path)
 
     /* change back baudrate */
     if (old_baudrate != BL_BAUDRATE) {
-        ERROR_TRY(light_device_control(fmtio_dev, FMTIO_SET_BAUDRATE, (void*)old_baudrate));
+        ERROR_TRY(device_control(fmtio_dev, FMTIO_SET_BAUDRATE, (void*)old_baudrate));
     }
     /* resume fmtio communication */
     fmtio_suspend_comm(0);

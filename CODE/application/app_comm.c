@@ -9,6 +9,7 @@
 #include "FMS_types.h"
 #include "mavproxy/px4_custom_mode.h"
 #include "sensor/sensor_hub.h"
+#include "pmu/power_manager.h"
 
 MCN_DECLARE(ins_output);
 MCN_DECLARE(sensor_baro);
@@ -150,17 +151,17 @@ static bool mavlink_msg_extended_sys_state_cb(mavlink_message_t* msg_t)
 static bool mavlink_msg_sys_status_cb(mavlink_message_t* msg_t)
 {
     mavlink_sys_status_t sys_status;
-//    struct battery_status bat0_status;
-//
-//    if (mcn_copy_from_hub(MCN_HUB(bat0_status), &bat0_status) != E_OK) {
-//        return false;
-//    }
+    struct battery_status bat0_status;
+
+    if (mcn_copy_from_hub(MCN_HUB(bat0_status), &bat0_status) != E_OK) {
+        return false;
+    }
 
     sys_status.onboard_control_sensors_present = 1;
     sys_status.onboard_control_sensors_enabled = 1;
     sys_status.onboard_control_sensors_health = 1;
     sys_status.load = (uint16_t)(get_cpu_usage() * 1e1);
-//    sys_status.voltage_battery = bat0_status.battery_voltage;
+    sys_status.voltage_battery = bat0_status.battery_voltage;
     sys_status.current_battery = -1;
     sys_status.battery_remaining = -1;
 

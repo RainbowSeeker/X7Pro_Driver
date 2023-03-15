@@ -13,7 +13,7 @@
 #include "drivers/drv_exti.h"
 #include "nvic.h"
 
-static light_device_t spi_dev;
+static device_t spi_dev;
 static float gyro_range_scale;
 static float accel_range_scale;
 
@@ -205,7 +205,7 @@ static err_t imu_init(void)
     uint8_t dev_id;
 
     /* init spi bus */
-    ERROR_TRY(light_device_open(spi_dev, DEVICE_OFLAG_RDWR));
+    ERROR_TRY(device_open(spi_dev, DEVICE_OFLAG_RDWR));
 
     /* soft reset */
     spi_write_reg8(spi_dev, ICM426XX_RA_PWR_MGMT0, 0);
@@ -308,7 +308,7 @@ err_t drv_icm42688_init(const char* gyro_dev_name, const char* accel_dev_name)
     };
     ERROR_TRY(spi_configure_device(&spi_device, &cfg));
 
-    spi_dev = light_device_find("icm42688");
+    spi_dev = device_find("icm42688");
     ASSERT(spi_dev != NULL);
 
     /* device low-level init */

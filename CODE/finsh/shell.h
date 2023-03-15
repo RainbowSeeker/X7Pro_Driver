@@ -82,7 +82,7 @@ struct finsh_shell
     uint16_t line_position;
     uint16_t line_curpos;
 
-    light_device_t device;
+    device_t device;
 
 #ifdef FINSH_USING_AUTH
     char password[FINSH_PASSWORD_MAX];

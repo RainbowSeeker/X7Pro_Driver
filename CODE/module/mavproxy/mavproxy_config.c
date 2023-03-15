@@ -16,7 +16,7 @@
 #define DEVICE_LIST                 mavproxy_device_list
 #define DEVICE_NUM                  mavproxy_device_num
 #define DEVICE_TYPE_IS(_idx, _name) MATCH(DEVICE_LIST[_idx].type, #_name)
-#define FIND_DEVICE(_idx)           light_device_find(DEVICE_LIST[_idx].name)
+#define FIND_DEVICE(_idx)           device_find(DEVICE_LIST[_idx].name)
 #define MAVPROXY_SERIAL_BAUDRATE    57600
 
 static mavproxy_device_info mavproxy_device_list[MAVPROXY_MAX_DEVICE_NUM] = { 0 };
@@ -32,12 +32,12 @@ mavproxy_device_info* get_device_list(void)
     return DEVICE_LIST;
 }
 
-static void __handle_device_msg(light_device_t dev, void* msg)
+static void __handle_device_msg(device_t dev, void* msg)
 {
     device_status status = *((device_status*)msg);
 
     for (int idx = 0; idx < DEVICE_NUM; idx++) {
-        if (light_device_find(DEVICE_LIST[idx].name) == dev) {
+        if (device_find(DEVICE_LIST[idx].name) == dev) {
             if (status == DEVICE_STATUS_CONNECT) {
                 /* if usb conncted, switch to usb channel */
                 mavproxy_set_channel(idx);
@@ -150,7 +150,7 @@ static err_t mavproxy_parse_device(const toml_table_t* curtab, int idx)
         } else if (DEVICE_TYPE_IS(idx, bb_com)) {
             DEVICE_NUM = idx + 1; /* the DEVICE_NUM has not set here, so add 1 for temp */
             if (MATCH(key, "auto-switch")) {
-                light_device_t ret = light_device_find(DEVICE_LIST[idx].name);
+                device_t ret = device_find(DEVICE_LIST[idx].name);
                 if (ret != NULL) {
                     err_t ret = mavproxy_set_channel(idx);
                     if (ret != E_OK) {
@@ -205,10 +205,10 @@ uint8_t mavproxy_get_channel_num(void)
     return DEVICE_NUM;
 }
 
-err_t mavproxy_get_devinfo(light_device_t dev, mavproxy_device_info* info)
+err_t mavproxy_get_devinfo(device_t dev, mavproxy_device_info* info)
 {
     for (int idx = 0; idx < DEVICE_NUM; idx++) {
-        if (light_device_find(DEVICE_LIST[idx].name) == dev) {
+        if (device_find(DEVICE_LIST[idx].name) == dev) {
             *info = DEVICE_LIST[idx];
             return E_OK;
         }
@@ -219,7 +219,7 @@ err_t mavproxy_get_devinfo(light_device_t dev, mavproxy_device_info* info)
 
 err_t mavproxy_switch_channel(uint8_t chan)
 {
-    light_device_t old_device, new_device;
+    device_t old_device, new_device;
 
     if (chan >= DEVICE_NUM) {
         return E_INVAL;
@@ -238,14 +238,14 @@ err_t mavproxy_switch_channel(uint8_t chan)
             if (serial_dev->config.baud_rate != config->baudrate) {
                 struct serial_configure pconfig = serial_dev->config;
                 pconfig.baud_rate = config->baudrate;
-                if (light_device_control(new_device, DEVICE_CTRL_CONFIG, &pconfig) != E_OK) {
+                if (device_control(new_device, DEVICE_CTRL_CONFIG, &pconfig) != E_OK) {
                     return E_RROR;
                 }
             }
         }
         /* now we can safely close the old device */
         if (old_device != NULL) {
-            light_device_close(old_device);
+            device_close(old_device);
         }
     } else {
         return E_RROR;

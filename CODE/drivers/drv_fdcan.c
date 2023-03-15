@@ -80,7 +80,7 @@ void HAL_FDCAN_MspDeInit(FDCAN_HandleTypeDef* fdcanHandle)
 #endif
 }
 
-static err_t fdcan_init(light_device_t dev)
+static err_t fdcan_init(device_t dev)
 {
     ASSERT(dev != NULL);
     struct stm32_fdcan *device = (struct stm32_fdcan *)dev;
@@ -139,7 +139,7 @@ static err_t fdcan_init(light_device_t dev)
 }
 
 
-static err_t fdcan_control(light_device_t dev, int cmd, void *args)
+static err_t fdcan_control(device_t dev, int cmd, void *args)
 {
     ASSERT(dev != NULL);
     struct stm32_fdcan *device = (struct stm32_fdcan *)dev;
@@ -161,7 +161,7 @@ static err_t fdcan_control(light_device_t dev, int cmd, void *args)
     return E_OK;
 }
 
-static size_t fdcan_read(light_device_t dev, off_t pos, void *buffer, size_t size)
+static size_t fdcan_read(device_t dev, off_t pos, void *buffer, size_t size)
 {
     ASSERT(dev != NULL);
     struct stm32_fdcan *device = (struct stm32_fdcan *)dev;
@@ -192,7 +192,7 @@ static size_t fdcan_read(light_device_t dev, off_t pos, void *buffer, size_t siz
     return 0;
 }
 
-static size_t fdcan_write(light_device_t dev, off_t pos, const void *buffer, size_t size)
+static size_t fdcan_write(device_t dev, off_t pos, const void *buffer, size_t size)
 {
     ASSERT(dev != NULL);
     struct stm32_fdcan *device = (struct stm32_fdcan *)dev;
@@ -269,7 +269,7 @@ int drv_fdcan_init(const char *name)
     fdcan.dev.control   = fdcan_control;
     fdcan.dev.user_data = NULL;
 
-    light_device_register(&fdcan.dev, name, DEVICE_FLAG_RDWR | DEVICE_FLAG_REMOVABLE | DEVICE_FLAG_STANDALONE);
+    device_register(&fdcan.dev, name, DEVICE_FLAG_RDWR | DEVICE_FLAG_REMOVABLE | DEVICE_FLAG_STANDALONE);
 
     LOG_I("%s init success!", name);
     return E_OK;
@@ -296,17 +296,17 @@ int fdcan_sample(int argc, char **argv)
         tx_buf[i] = atoi(argv[i+1]);
     }
 
-    dev = light_device_find("fdcan1");
+    dev = device_find("fdcan1");
     if (dev == NULL)
     {
         printf("can't find fdcan1 device!\n");
         return E_RROR;
     }
-    light_device_open(dev, DEVICE_OFLAG_RDWR);
+    device_open(dev, DEVICE_OFLAG_RDWR);
 
-    light_device_write(dev, 0, tx_buf, 8);
+    device_write(dev, 0, tx_buf, 8);
     os_delay(1);
-    light_device_read(dev, 0, rx_buf, 8);
+    device_read(dev, 0, rx_buf, 8);
 
     printf("fdcan1 loopback test over, rbuf = ");
     for (i = 0; i < 8; i++)

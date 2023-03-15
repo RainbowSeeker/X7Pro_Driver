@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'Controller'.
  *
- * Model version                  : 1.54
+ * Model version                  : 1.55
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Thu Mar  2 15:20:36 2023
+ * C/C++ source code generated on : Wed Mar  8 15:26:34 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -197,13 +197,13 @@ typedef struct {
 
 #endif
 
-#ifndef DEFINED_TYPEDEF_FOR_struct_ny3PY9hontv4J5WqwlFzJB_
-#define DEFINED_TYPEDEF_FOR_struct_ny3PY9hontv4J5WqwlFzJB_
+#ifndef DEFINED_TYPEDEF_FOR_struct_biZzOMrg0u3lxrb7POOubF_
+#define DEFINED_TYPEDEF_FOR_struct_biZzOMrg0u3lxrb7POOubF_
 
 typedef struct {
   uint32_T period;
-  int8_T model_info[21];
-} struct_ny3PY9hontv4J5WqwlFzJB;
+  int8_T model_info[23];
+} struct_biZzOMrg0u3lxrb7POOubF;
 
 #endif
 

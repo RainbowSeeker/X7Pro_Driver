@@ -93,7 +93,7 @@ static err_t hal_rc_control(struct device* dev, int cmd, void* args)
 
 err_t hal_rc_rx_ind(rc_dev_t rc, size_t size)
 {
-    light_device_t device = &(rc->parent);
+    device_t device = &(rc->parent);
 
     if (device->rx_indicate) {
         return device->rx_indicate(device, size);
@@ -125,5 +125,5 @@ err_t hal_rc_register(rc_dev_t rc, const char* name, uint32_t flag, void* data)
     device->user_data = data;
 
     /* register pin device */
-    return light_device_register(device, name, flag);
+    return device_register(device, name, flag);
 }

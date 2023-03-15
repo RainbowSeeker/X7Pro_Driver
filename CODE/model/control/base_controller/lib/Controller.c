@@ -3,9 +3,9 @@
  *
  * Code generated for Simulink model 'Controller'.
  *
- * Model version                  : 1.54
+ * Model version                  : 1.55
  * Simulink Coder version         : 9.8 (R2022b) 13-May-2022
- * C/C++ source code generated on : Thu Mar  2 15:20:36 2023
+ * C/C++ source code generated on : Wed Mar  8 15:26:34 2023
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM Cortex-M
@@ -68,11 +68,11 @@ struct_Ae52N6uY2eO0jd5TMQiCYB CONTROL_PARAM = {
                                         *   '<S28>/gain'
                                         */
 
-struct_ny3PY9hontv4J5WqwlFzJB CONTROL_EXPORT = {
+struct_biZzOMrg0u3lxrb7POOubF CONTROL_EXPORT = {
   2U,
 
-  { 70, 108, 97, 116, 32, 67, 111, 110, 116, 114, 111, 108, 108, 101, 114, 32,
-    118, 48, 46, 49, 0 }
+  { 66, 97, 115, 101, 32, 67, 111, 110, 116, 114, 111, 108, 108, 101, 114, 32,
+    118, 48, 46, 50, 46, 52, 0 }
 } ;                                    /* Variable: CONTROL_EXPORT
                                         * Referenced by: '<S4>/Constant'
                                         */
@@ -103,7 +103,7 @@ void Controller_step(void)
   real32_T rtb_Subtract1;
   real32_T rtb_Subtract3;
   real32_T rtb_Switch_g;
-  real32_T rtb_u_error_C_mPs;
+  real32_T rtb_uv_error_C_mPs;
   real32_T u;
   real32_T u0;
 
@@ -112,8 +112,8 @@ void Controller_step(void)
    *  Inport: '<Root>/INS_Out'
    *  Trigonometry: '<S14>/Trigonometric Function3'
    */
-  rtb_u_error_C_mPs = cosf(-Controller_U.INS_Out.psi);
-  rtb_VectorConcatenate[0] = rtb_u_error_C_mPs;
+  rtb_uv_error_C_mPs = cosf(-Controller_U.INS_Out.psi);
+  rtb_VectorConcatenate[0] = rtb_uv_error_C_mPs;
 
   /* Trigonometry: '<S14>/Trigonometric Function' incorporates:
    *  Gain: '<S13>/Gain'
@@ -132,7 +132,7 @@ void Controller_step(void)
   rtb_VectorConcatenate[3] = -rtb_Gain;
 
   /* Trigonometry: '<S14>/Trigonometric Function3' */
-  rtb_VectorConcatenate[4] = rtb_u_error_C_mPs;
+  rtb_VectorConcatenate[4] = rtb_uv_error_C_mPs;
 
   /* SignalConversion generated from: '<S14>/Vector Concatenate2' incorporates:
    *  Constant: '<S14>/Constant4'
@@ -162,7 +162,7 @@ void Controller_step(void)
   /* Sum: '<S8>/Sum' incorporates:
    *  DiscreteIntegrator: '<S12>/Integrator1'
    */
-  rtb_u_error_C_mPs = Controller_DW.Integrator1_DSTATE - rtb_Multiply_b[0];
+  rtb_uv_error_C_mPs = Controller_DW.Integrator1_DSTATE - rtb_Multiply_b[0];
 
   /* DiscreteIntegrator: '<S17>/Discrete-Time Integrator' incorporates:
    *  Inport: '<Root>/FMS_Out'
@@ -199,8 +199,8 @@ void Controller_step(void)
    *  DiscreteIntegrator: '<S19>/Discrete-Time Integrator1'
    *  Sum: '<S19>/Sum5'
    */
-  rtb_Gain = (rtb_u_error_C_mPs - Controller_DW.DiscreteTimeIntegrator1_DSTATE) *
-    62.831852F;
+  rtb_Gain = (rtb_uv_error_C_mPs - Controller_DW.DiscreteTimeIntegrator1_DSTATE)
+    * 62.831852F;
 
   /* Switch: '<S22>/Switch' incorporates:
    *  Constant: '<S30>/Constant'
@@ -345,7 +345,7 @@ void Controller_step(void)
         u0 = CONTROL_PARAM.VEL_XY_D_MIN;
       }
 
-      rtb_Switch_g = (CONTROL_PARAM.VEL_XY_P * rtb_u_error_C_mPs +
+      rtb_Switch_g = (CONTROL_PARAM.VEL_XY_P * rtb_uv_error_C_mPs +
                       Controller_DW.DiscreteTimeIntegrator_DSTATE) + u0;
     }
 
@@ -591,7 +591,7 @@ void Controller_step(void)
    *  Product: '<S17>/Multiply'
    */
   Controller_DW.DiscreteTimeIntegrator_DSTATE += CONTROL_PARAM.VEL_XY_I *
-    rtb_u_error_C_mPs * 0.002F;
+    rtb_uv_error_C_mPs * 0.002F;
   if (Controller_DW.DiscreteTimeIntegrator_DSTATE >= CONTROL_PARAM.VEL_XY_I_MAX)
   {
     Controller_DW.DiscreteTimeIntegrator_DSTATE = CONTROL_PARAM.VEL_XY_I_MAX;
@@ -652,13 +652,13 @@ void Controller_step(void)
   /* Signum: '<S15>/Sign5' */
   if (rtIsNaNF(rtb_Switch_g)) {
     /* Signum: '<S15>/Sign6' */
-    rtb_u_error_C_mPs = (rtNaNF);
+    rtb_uv_error_C_mPs = (rtNaNF);
   } else if (rtb_Switch_g < 0.0F) {
     /* Signum: '<S15>/Sign6' */
-    rtb_u_error_C_mPs = -1.0F;
+    rtb_uv_error_C_mPs = -1.0F;
   } else {
     /* Signum: '<S15>/Sign6' */
-    rtb_u_error_C_mPs = (real32_T)(rtb_Switch_g > 0.0F);
+    rtb_uv_error_C_mPs = (real32_T)(rtb_Switch_g > 0.0F);
   }
 
   /* Sum: '<S15>/Add6' */
@@ -699,8 +699,8 @@ void Controller_step(void)
    *  Sum: '<S15>/Subtract6'
    */
   Controller_DW.Integrator_DSTATE += ((rtb_Switch_g / Controller_ConstB.d -
-    rtb_u_error_C_mPs) * Controller_ConstB.Gain4 * ((u0 - u) * 0.5F) -
-    rtb_u_error_C_mPs * 58.836F) * 0.002F;
+    rtb_uv_error_C_mPs) * Controller_ConstB.Gain4 * ((u0 - u) * 0.5F) -
+    rtb_uv_error_C_mPs * 58.836F) * 0.002F;
 }
 
 /* Model initialize function */

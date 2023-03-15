@@ -297,5 +297,5 @@ err_t mavlink_console_init(void)
     /* register timer event */
     timer_mav_console = os_timer_create("mav_console", mav_console_timeout, NULL, 50, TIMER_TYPE_ONE_SHOT);
     /* open flag doesn't matter, since open function will not check open flag */
-    return light_device_register(device, MAV_CONSOLE_DEVICE_NAME, DEVICE_FLAG_RDWR);
+    return device_register(device, MAV_CONSOLE_DEVICE_NAME, DEVICE_FLAG_RDWR);
 }

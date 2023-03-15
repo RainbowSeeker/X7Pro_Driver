@@ -297,7 +297,7 @@ err_t mission_data_collect(void)
             old_fms_out.status = fms_out.status;
             if (fms_out.status == VehicleStatus_Disarm) {
                 /* if the vehicle disarmed, reset mission */
-                mission_reset();
+//                mission_reset();
             }
         }
 

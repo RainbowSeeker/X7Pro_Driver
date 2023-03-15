@@ -139,8 +139,8 @@ static err_t transfer(struct spi_device *device, struct spi_message *message) {
             // Check if TX data can be DMAed
             !((message->send_buf) &&
               (dma_tx->instance == BDMA ? (!IS_SRAM4(message->send_buf)) : (!IS_AXI_SRAM(message->send_buf)))) &&
-            light_device_open(&bus->dma_tx->parent, DEVICE_OFLAG_OPEN) == E_OK &&
-            light_device_open(&bus->dma_rx->parent, DEVICE_OFLAG_OPEN) == E_OK) {
+            device_open(&bus->dma_tx->parent, DEVICE_OFLAG_OPEN) == E_OK &&
+            device_open(&bus->dma_rx->parent, DEVICE_OFLAG_OPEN) == E_OK) {
             // Intialize the init structures for the first transfer
             if (dma_tx->instance == BDMA) {
                 STATIC_BDMA_DATA_AUTO uint8_t dummyTxByte = 0xff;
@@ -356,10 +356,10 @@ static void spi_dma_callback(uint32_t user_data) {
         scb_invalidate_dcache(bus->dma_msg.recv_buf, bus->dma_msg.len);
     }
 
-    light_device_close(&bus->dma_tx->parent);
-    light_device_close(&bus->dma_rx->parent);
+    device_close(&bus->dma_tx->parent);
+    device_close(&bus->dma_rx->parent);
     /* unlock mutex */
-    os_mutex_release(device->bus->lock);
+    mutex_release(device->bus->lock);
 }
 
 static err_t stm32_spi_verify_name(const char *name, int *idx) {

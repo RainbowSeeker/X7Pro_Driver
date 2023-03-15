@@ -14,7 +14,7 @@
 /* console write hook function, can be reimplemented by other modules. */
 __WEAK void console_write_hook(const char *content, uint32_t len);
 
-static light_device_t console_dev;
+static device_t console_dev;
 static char console_buffer[CONSOLE_BUFF_SIZE];
 
 /**
@@ -33,7 +33,7 @@ int console_write(const char *content, uint32_t len)
     }
 
     /* write content into console device */
-    uint32_t size = light_device_write(console_dev, 0, (void *) content, len);
+    uint32_t size = device_write(console_dev, 0, (void *) content, len);
 
     /* call write hook */
     if (console_write_hook)
@@ -115,7 +115,7 @@ void console_format(char *buffer, const char *fmt, ...)
  *
  * @return current console device. NULL indicates no device.
  */
-light_device_t console_get_device(void)
+device_t console_get_device(void)
 {
     return console_dev;
 }
@@ -128,10 +128,10 @@ light_device_t console_get_device(void)
  */
 err_t console_set_device(const char *device_name)
 {
-    light_device_t new;
+    device_t new;
     err_t err;
 
-    new = light_device_find(device_name);
+    new = device_find(device_name);
     if (new == NULL)
     {
         /* can not find console device */
@@ -165,10 +165,10 @@ err_t console_enable_input(void)
         && (console_dev->open_flag != oflag))
     {
         /* reopen console device */
-        light_device_close(console_dev);
+        device_close(console_dev);
     }
     /* open console device */
-    if (light_device_open(console_dev, oflag) != E_OK)
+    if (device_open(console_dev, oflag) != E_OK)
     {
         /* fail to open */
         return E_RROR;
@@ -189,7 +189,7 @@ err_t console_enable_input(void)
 err_t console_init(void)
 {
     /* console use serial0 by default */
-    console_dev = light_device_find("serial0");
+    console_dev = device_find("serial0");
     if (console_dev == NULL)
     {
         /* can not find console device */
@@ -197,7 +197,7 @@ err_t console_init(void)
     }
 
     /* here we only enable console output, the console input should be enabled specifically */
-    if (light_device_open(console_dev, DEVICE_OFLAG_WRONLY | DEVICE_FLAG_STREAM) != E_OK)
+    if (device_open(console_dev, DEVICE_OFLAG_WRONLY | DEVICE_FLAG_STREAM) != E_OK)
     {
         return E_RROR;
     }

@@ -1,7 +1,7 @@
 #include "systick.h"
 
 
-size_t systick_read(light_device_t dev, off_t pos, void* buffer, size_t size)
+size_t systick_read(device_t dev, off_t pos, void* buffer, size_t size)
 {
     ASSERT(dev != NULL);
 
@@ -15,7 +15,7 @@ size_t systick_read(light_device_t dev, off_t pos, void* buffer, size_t size)
     return 0;
 }
 
-static err_t systick_control(light_device_t dev, int cmd, void* args)
+static err_t systick_control(device_t dev, int cmd, void* args)
 {
     systick_dev_t systick;
 
@@ -65,5 +65,5 @@ err_t hal_systick_register(systick_dev_t systick, const char* name, uint32_t fla
     device->user_data = data;
 
     /* register pin device */
-    return light_device_register(device, name, flag);
+    return device_register(device, name, flag);
 }

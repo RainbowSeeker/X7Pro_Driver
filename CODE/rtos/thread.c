@@ -81,7 +81,7 @@ os_thread_t os_thread_idle_gethandler()
  *
  * @param hook the specified hook function
  *
- * @return EOK: set OK
+ * @return E_OK: set OK
  *         -EFULL: hook list is full
  *
  * @note the hook function must be simple and never be blocked or suspend.
@@ -136,7 +136,7 @@ err_t os_thread_idle_sethook(void (*hook)(void))
  *
  * @param hook the specified hook function
  *
- * @return EOK: delete OK
+ * @return E_OK: delete OK
  *         -ENOSYS: hook was not found
  */
 err_t os_thread_idle_delhook(void (*hook)(void))

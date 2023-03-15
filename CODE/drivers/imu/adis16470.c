@@ -12,7 +12,7 @@
 #include "sensor/sensor_imu.h"
 #include "drivers/drv_exti.h"
 
-static light_device_t spi_dev;
+static device_t spi_dev;
 static float gyro_range_scale;
 static float accel_range_scale;
 
@@ -182,7 +182,7 @@ static err_t imu_init(void)
     uint16_t dev_id;
 
     /* init spi bus */
-    ERROR_TRY(light_device_open(spi_dev, DEVICE_OFLAG_RDWR));
+    ERROR_TRY(device_open(spi_dev, DEVICE_OFLAG_RDWR));
 
     static uint8_t tx_data[2] = {ADI_PROD_ID, 0};
     static uint8_t rx_data[2];
@@ -250,7 +250,7 @@ err_t drv_adis16470_init(const char* gyro_dev_name, const char* accel_dev_name)
     };
     ERROR_TRY(spi_configure_device(&spi_device, &cfg));
 
-    spi_dev = light_device_find("adis16470");
+    spi_dev = device_find("adis16470");
     ASSERT(spi_dev != NULL);
 
     /* device low-level init */

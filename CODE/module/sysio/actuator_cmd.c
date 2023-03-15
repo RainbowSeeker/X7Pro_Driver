@@ -18,7 +18,7 @@ enum {
 static McnNode_t _control_out_nod;
 static McnNode_t _rc_channels_nod;
 static uint8_t* from_dev;
-static light_device_t* to_dev;
+static device_t* to_dev;
 static uint8_t mapping_num;
 static actuator_mapping* mapping_list;
 
@@ -83,7 +83,7 @@ err_t send_actuator_cmd(void)
 
 #if defined(FMT_HIL_WITH_ACTUATOR) || (!defined(FMT_USING_HIL) && !defined(FMT_USING_SIH))
         /* write actuator command */
-        if (light_device_write(to_dev[i], chan_sel, chan_val, size) != size) {
+        if (device_write(to_dev[i], chan_sel, chan_val, size) != size) {
             err = E_RROR;
         }
 #endif
@@ -113,7 +113,7 @@ err_t actuator_init(void)
 
     if (mapping_num) {
         from_dev = (uint8_t*)malloc(sizeof(uint8_t) * mapping_num);
-        to_dev = (light_device_t*)malloc(sizeof(light_device_t) * mapping_num);
+        to_dev = (device_t*)malloc(sizeof(device_t) * mapping_num);
         if (from_dev == NULL || to_dev == NULL) {
             return E_NOMEM;
         }
@@ -128,7 +128,7 @@ err_t actuator_init(void)
             from_dev[i] = ACTUATOR_FROM_UNKNOWN;
         }
 
-        to_dev[i] = light_device_find(mapping_list[i].to);
+        to_dev[i] = device_find(mapping_list[i].to);
         if (to_dev[i] == NULL) {
             return E_EMPTY;
         }

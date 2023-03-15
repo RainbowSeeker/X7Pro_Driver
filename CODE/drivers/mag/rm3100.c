@@ -13,7 +13,7 @@
 
 #define DRV_DBG(...)    printf(__VA_ARGS__)
 
-static light_device_t spi_dev;
+static device_t spi_dev;
 
 #define RM3100_BUF_SIZE   (10)
 static DMA_DATA uint8_t send_buf[RM3100_BUF_SIZE];
@@ -44,7 +44,7 @@ enum
     UR_37HZ,
 };
 
-static err_t _modify_reg(light_device_t spi_device, uint8_t reg, uint8_t val)
+static err_t _modify_reg(device_t spi_device, uint8_t reg, uint8_t val)
 {
     uint8_t r_val;
 
@@ -117,7 +117,7 @@ const static struct mag_ops __mag_ops = {
  * @param dev
  * @return
  */
-static err_t _verify_CCV(light_device_t device)
+static err_t _verify_CCV(device_t device)
 {
     uint8_t value[6];
     spi_read_multi_reg8_msk(device, RM3100_CCX_M, value, 6);
@@ -130,7 +130,7 @@ static err_t _verify_CCV(light_device_t device)
     return E_RROR;
 }
 
-static err_t _modify_TMRC(light_device_t device, uint8_t rate)
+static err_t _modify_TMRC(device_t device, uint8_t rate)
 {
     uint8_t tmrc_val[5] = {
             [UR_600HZ] = 0x92,
@@ -150,7 +150,7 @@ static err_t _modify_TMRC(light_device_t device, uint8_t rate)
  * @param device
  * @return
  */
-static err_t _modify_CCM(light_device_t device)
+static err_t _modify_CCM(device_t device)
 {
     while (_modify_reg(device, RM3100_CMM, 0x79) != E_OK);
     return E_OK;
@@ -161,7 +161,7 @@ static err_t lowlevel_init(void)
     uint8_t mag_id;
 
     /* init spi bus */
-    ERROR_TRY(light_device_open(spi_dev, DEVICE_OFLAG_RDWR));
+    ERROR_TRY(device_open(spi_dev, DEVICE_OFLAG_RDWR));
     
     // verify the revision identification
     ERROR_TRY(spi_read_reg8_msk(spi_dev, RM3100_REVID, &mag_id));
@@ -207,7 +207,7 @@ err_t drv_rm3100_init(const char* mag_device_name)
     ERROR_TRY(spi_configure_device(&spi_device, &cfg));
 
 
-    spi_dev = light_device_find("rm3100");
+    spi_dev = device_find("rm3100");
     ASSERT(spi_dev != NULL);
 
     ERROR_TRY(lowlevel_init());

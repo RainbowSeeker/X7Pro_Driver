@@ -4,12 +4,12 @@
 #include "hal/serial/serial.h"
 
 static struct device fmtio_dev;
-static light_device_t fmtio_dev_t = &fmtio_dev;
-static light_device_t io_dev_t;
+static device_t fmtio_dev_t = &fmtio_dev;
+static device_t io_dev_t;
 static struct completion tx_cplt, rx_cplt;
 static os_sem_t tx_lock;
 
-static err_t fmtio_dev_tx_done(light_device_t dev, void* buffer)
+static err_t fmtio_dev_tx_done(device_t dev, void* buffer)
 {
     err_t ret;
 
@@ -23,7 +23,7 @@ static err_t fmtio_dev_tx_done(light_device_t dev, void* buffer)
     return ret;
 }
 
-static err_t fmtio_dev_rx_ind(light_device_t dev, size_t size)
+static err_t fmtio_dev_rx_ind(device_t dev, size_t size)
 {
     err_t ret;
 
@@ -37,23 +37,23 @@ static err_t fmtio_dev_rx_ind(light_device_t dev, size_t size)
     return ret;
 }
 
-static err_t fmtio_dev_open(light_device_t dev, uint16_t oflag)
+static err_t fmtio_dev_open(device_t dev, uint16_t oflag)
 {
-    return light_device_open(io_dev_t, oflag);
+    return device_open(io_dev_t, oflag);
 }
 
-static err_t fmtio_dev_close(light_device_t dev)
+static err_t fmtio_dev_close(device_t dev)
 {
-    return light_device_close(io_dev_t);
+    return device_close(io_dev_t);
 }
 
-static size_t fmtio_dev_read(light_device_t dev, off_t pos, void* buffer, size_t size)
+static size_t fmtio_dev_read(device_t dev, off_t pos, void* buffer, size_t size)
 {
     size_t cnt = 0;
     int32_t timeout = (int32_t)pos;
 
     /* try to read data */
-    cnt = light_device_read(io_dev_t, 0, buffer, size);
+    cnt = device_read(io_dev_t, 0, buffer, size);
 
     /* if not enough data received, wait it */
     while (cnt < size) {
@@ -62,13 +62,13 @@ static size_t fmtio_dev_read(light_device_t dev, off_t pos, void* buffer, size_t
             return cnt;
         }
         /* read left data */
-        cnt += light_device_read(io_dev_t, 0, (void*)((uint32_t)buffer + cnt), size - cnt);
+        cnt += device_read(io_dev_t, 0, (void*)((uint32_t)buffer + cnt), size - cnt);
     }
 
     return cnt;
 }
 
-static size_t fmtio_dev_write(light_device_t dev, off_t pos, const void* buffer, size_t size)
+static size_t fmtio_dev_write(device_t dev, off_t pos, const void* buffer, size_t size)
 {
     size_t wb;
     int32_t timeout = (int32_t)pos;
@@ -78,7 +78,7 @@ static size_t fmtio_dev_write(light_device_t dev, off_t pos, const void* buffer,
         return 0;
     }
     /* write data to device */
-    wb = light_device_write(io_dev_t, 0, buffer, size);
+    wb = device_write(io_dev_t, 0, buffer, size);
     /* wait write complete */
     completion_wait(&tx_cplt, timeout);
     /* release tx lock */
@@ -87,7 +87,7 @@ static size_t fmtio_dev_write(light_device_t dev, off_t pos, const void* buffer,
     return wb;
 }
 
-err_t fmtio_dev_control(light_device_t dev, int cmd, void* args)
+err_t fmtio_dev_control(device_t dev, int cmd, void* args)
 {
     err_t ret = E_OK;
     serial_dev_t serial = (serial_dev_t)io_dev_t;
@@ -125,7 +125,7 @@ err_t fmtio_dev_control(light_device_t dev, int cmd, void* args)
  * @param data User data
  * @return err_t
  */
-err_t hal_fmtio_dev_register(light_device_t io_dev, const char* name, uint32_t flag, void* data)
+err_t hal_fmtio_dev_register(device_t io_dev, const char* name, uint32_t flag, void* data)
 {
     io_dev_t = io_dev;
 
@@ -140,8 +140,8 @@ err_t hal_fmtio_dev_register(light_device_t io_dev, const char* name, uint32_t f
     ASSERT(tx_lock != NULL);
 
     /* set tx/rx callback functions */
-    SELF_CHECK(light_device_set_tx_complete(io_dev_t, fmtio_dev_tx_done));
-    SELF_CHECK(light_device_set_rx_indicate(io_dev_t, fmtio_dev_rx_ind));
+    SELF_CHECK(device_set_tx_complete(io_dev_t, fmtio_dev_tx_done));
+    SELF_CHECK(device_set_rx_indicate(io_dev_t, fmtio_dev_rx_ind));
 
     /* init fmtio device */
     fmtio_dev_t->type = Device_Class_Char;
@@ -157,5 +157,5 @@ err_t hal_fmtio_dev_register(light_device_t io_dev, const char* name, uint32_t f
 
     fmtio_dev_t->user_data = data;
 
-    return light_device_register(fmtio_dev_t, name, flag);
+    return device_register(fmtio_dev_t, name, flag);
 }

@@ -100,7 +100,7 @@ enum device_class
 /**
  * Device structure
  */
-typedef struct device *light_device_t;
+typedef struct device *device_t;
 struct device
 {
     char                   name[NAME_MAX_LEN];       /* device name */
@@ -114,16 +114,16 @@ struct device
     uint8_t                device_id;                /* 0 - 255 */
 
     /* device call back */
-    err_t (*rx_indicate)(light_device_t dev, size_t size);
-    err_t (*tx_complete)(light_device_t dev, void *buffer);
+    err_t (*rx_indicate)(device_t dev, size_t size);
+    err_t (*tx_complete)(device_t dev, void *buffer);
 
     /* common device interface */
-    err_t  (*init)   (light_device_t dev);
-    err_t  (*open)   (light_device_t dev, uint16_t oflag);
-    err_t  (*close)  (light_device_t dev);
-    size_t (*read)   (light_device_t dev, off_t pos, void *buffer, size_t size);
-    size_t (*write)  (light_device_t dev, off_t pos, const void *buffer, size_t size);
-    err_t  (*control)(light_device_t dev, int cmd, void *args);
+    err_t  (*init)   (device_t dev);
+    err_t  (*open)   (device_t dev, uint16_t oflag);
+    err_t  (*close)  (device_t dev);
+    size_t (*read)   (device_t dev, off_t pos, void *buffer, size_t size);
+    size_t (*write)  (device_t dev, off_t pos, const void *buffer, size_t size);
+    err_t  (*control)(device_t dev, int cmd, void *args);
 
     void                     *user_data;            /* device private data */
 };
@@ -231,17 +231,17 @@ struct device_graphic_ops
 #define graphix_ops(device)          ((struct device_graphic_ops *)(device->user_data))
 
 
-err_t light_device_register(light_device_t dev, const char *name, uint16_t flags);
-err_t light_device_unregister(light_device_t dev);
-light_device_t light_device_find(const char *name);
-light_device_t light_device_create(int type, int attach_size);
-void light_device_destroy(light_device_t dev);
-err_t light_device_init(light_device_t dev);
-err_t light_device_open(light_device_t dev, uint16_t oflag);
-err_t light_device_close(light_device_t dev);
-size_t light_device_read(light_device_t dev, off_t pos, void *buffer, size_t size);
-size_t light_device_write(light_device_t dev, off_t pos, const void *buffer, size_t size);
-err_t light_device_control(light_device_t dev, int cmd, void *arg);
-err_t light_device_set_rx_indicate(light_device_t dev, err_t (*rx_ind)(light_device_t dev, size_t size));
-err_t light_device_set_tx_complete(light_device_t dev, err_t (*tx_done)(light_device_t dev, void *buffer));
+err_t device_register(device_t dev, const char *name, uint16_t flags);
+err_t device_unregister(device_t dev);
+device_t device_find(const char *name);
+device_t device_create(int type, int attach_size);
+void device_destroy(device_t dev);
+err_t device_init(device_t dev);
+err_t device_open(device_t dev, uint16_t oflag);
+err_t device_close(device_t dev);
+size_t device_read(device_t dev, off_t pos, void *buffer, size_t size);
+size_t device_write(device_t dev, off_t pos, const void *buffer, size_t size);
+err_t device_control(device_t dev, int cmd, void *arg);
+err_t device_set_rx_indicate(device_t dev, err_t (*rx_ind)(device_t dev, size_t size));
+err_t device_set_tx_complete(device_t dev, err_t (*tx_done)(device_t dev, void *buffer));
 #endif //X7PRO_DRIVER_DEVICE_H

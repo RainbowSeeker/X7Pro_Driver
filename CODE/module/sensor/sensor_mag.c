@@ -69,7 +69,7 @@ err_t sensor_mag_measure(sensor_mag_t *mag_dev, float buffer[3])
 {
     uint8_t r_byte;
 
-    r_byte = light_device_read(mag_dev->dev, 0, (void*)buffer, 12);
+    r_byte = device_read(mag_dev->dev, 0, (void*)buffer, 12);
 
     return r_byte == 12 ? E_OK : E_RROR;
 }
@@ -85,10 +85,10 @@ sensor_mag_t *sensor_mag_init(const char* mag_dev_name)
     sensor_mag_t *mag_dev = (sensor_mag_t *)malloc(sizeof(struct sensor_mag));
     ASSERT(mag_dev != NULL);
 
-    mag_dev->dev = light_device_find(mag_dev_name);
+    mag_dev->dev = device_find(mag_dev_name);
     ASSERT(mag_dev->dev);
 
-    SELF_CHECK(light_device_open(mag_dev->dev, DEVICE_OFLAG_RDWR));
+    SELF_CHECK(device_open(mag_dev->dev, DEVICE_OFLAG_RDWR));
 
     return mag_dev;
 }

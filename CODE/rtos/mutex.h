@@ -7,47 +7,47 @@
 #ifndef X7PRO_DRIVER_MUTEX_H
 #define X7PRO_DRIVER_MUTEX_H
 #include "os_common.h"
-typedef osMutexId os_mutex_t;
+typedef osMutexId mutex_t;
 
 
 /**
- * os_mutex_init
+ * mutex_init
  * @param mutex
  * @return
  */
-static inline err_t os_mutex_init(os_mutex_t *mutex)
+static inline err_t mutex_init(mutex_t *mutex)
 {
     *mutex = xSemaphoreCreateMutex();
     return (*mutex != NULL ? E_OK : E_NOMEM);
 }
 
 /**
- * os_mutex_detach
+ * mutex_detach
  * @param mutex
  */
-static inline void os_mutex_detach(os_mutex_t mutex)
+static inline void mutex_detach(mutex_t mutex)
 {
     //mutex del must be done in thread.
     ASSERT(osMutexDelete(mutex) == 0);
 }
 
 /**
- * os_mutex_delete
+ * mutex_delete
  * @param mutex
  */
-static inline err_t os_mutex_delete(os_mutex_t mutex)
+static inline err_t mutex_delete(mutex_t mutex)
 {
     //mutex del must be done in thread.
     return osMutexDelete(mutex);
 }
 
 /**
- * os_mutex_take
+ * mutex_take
  * @param mutex
  * @param millisec
  * @return
  */
-static inline err_t os_mutex_take(os_mutex_t mutex, size_t millisec)
+static inline err_t mutex_take(mutex_t mutex, size_t millisec)
 {
     if (os_interrupt_get_nest())
     {
@@ -65,10 +65,10 @@ static inline err_t os_mutex_take(os_mutex_t mutex, size_t millisec)
 }
 
 /**
- * os_mutex_release
+ * mutex_release
  * @param mutex
  */
-static inline err_t os_mutex_release(os_mutex_t mutex)
+static inline err_t mutex_release(mutex_t mutex)
 {
     if (os_interrupt_get_nest())
     {

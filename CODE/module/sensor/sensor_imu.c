@@ -71,7 +71,7 @@ err_t sensor_gyr_measure(sensor_imu_t *imu_dev, float buffer[3])
 
     ASSERT(imu_dev != NULL);
 
-    r_size = light_device_read(imu_dev->gyr_dev, 0, (void*)buffer, 12);
+    r_size = device_read(imu_dev->gyr_dev, 0, (void*)buffer, 12);
 
     return r_size == 12 ? E_OK : E_RROR;
 }
@@ -141,7 +141,7 @@ err_t sensor_acc_measure(sensor_imu_t *imu_dev, float buffer[3])
 
     ASSERT(imu_dev != NULL);
 
-    r_size = light_device_read(imu_dev->acc_dev, 0, (void*)buffer, 12);
+    r_size = device_read(imu_dev->acc_dev, 0, (void*)buffer, 12);
 
     return r_size == 12 ? E_OK : E_RROR;
 }
@@ -158,15 +158,15 @@ sensor_imu_t *sensor_imu_init(const char* gyr_dev_name, const char* acc_dev_name
     sensor_imu_t *imu_dev = (sensor_imu_t *)malloc(sizeof(struct sensor_imu));
     ASSERT(imu_dev != NULL);
 
-    imu_dev->gyr_dev = light_device_find(gyr_dev_name);
+    imu_dev->gyr_dev = device_find(gyr_dev_name);
     ASSERT(imu_dev->gyr_dev != NULL);
 
-    SELF_CHECK(light_device_open(imu_dev->gyr_dev, DEVICE_OFLAG_RDWR));
+    SELF_CHECK(device_open(imu_dev->gyr_dev, DEVICE_OFLAG_RDWR));
 
-    imu_dev->acc_dev = light_device_find(acc_dev_name);
+    imu_dev->acc_dev = device_find(acc_dev_name);
     ASSERT(imu_dev->acc_dev != NULL);
 
-    SELF_CHECK(light_device_open(imu_dev->acc_dev, DEVICE_OFLAG_RDWR));
+    SELF_CHECK(device_open(imu_dev->acc_dev, DEVICE_OFLAG_RDWR));
 
     return imu_dev;
 }
