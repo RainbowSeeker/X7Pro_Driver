@@ -960,10 +960,10 @@ int elm_init(void)
  int ff_cre_syncobj(BYTE drv, FF_SYNC_t *m)
 {
     char name[8];
-    mutex_t mutex;
+    os_mutex_t mutex;
 
     snprintf(name, sizeof(name), "fat%d", drv);
-    mutex_init(&mutex);
+    os_mutex_init(&mutex);
     if (mutex != NULL)
     {
         *m = mutex;
@@ -976,14 +976,14 @@ int elm_init(void)
  int ff_del_syncobj(FF_SYNC_t m)
 {
     if (m != NULL)
-        mutex_delete(m);
+        os_mutex_delete(m);
 
     return TRUE;
 }
 
  int ff_req_grant(FF_SYNC_t m)
 {
-    if (mutex_take(m, FF_FS_TIMEOUT) == E_OK)
+    if (os_mutex_take(m, FF_FS_TIMEOUT) == E_OK)
         return TRUE;
 
     return FALSE;
@@ -991,7 +991,7 @@ int elm_init(void)
 
  void ff_rel_grant(FF_SYNC_t m)
 {
-    mutex_release(m);
+    os_mutex_release(m);
 }
 
 #endif

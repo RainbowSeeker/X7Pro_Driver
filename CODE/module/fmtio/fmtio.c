@@ -30,7 +30,7 @@ static struct IOPacket io_rx_pkt;
 static struct IOPacket* io_tx_pkt_ptr = &io_tx_pkt;
 static device_t fmtio_dev;
 static os_event_t fmtio_event;
-static mutex_t tx_lock;
+static os_mutex_t tx_lock;
 static rc_data_t rc_data;
 static uint8_t rc_updated;
 /* suspend io package transfer */
@@ -317,7 +317,7 @@ err_t send_io_cmd(uint8_t code, void* data, uint16_t len)
         return EBUSY;
     }
 
-    mutex_take(tx_lock, OS_WAIT_FOREVER);
+    os_mutex_take(tx_lock, OS_WAIT_FOREVER);
 
     if (set_io_pkt(io_tx_pkt_ptr, code, data, len) == E_OK) {
         size_t w_size = PKT_SIZE(io_tx_pkt_ptr);
@@ -326,7 +326,7 @@ err_t send_io_cmd(uint8_t code, void* data, uint16_t len)
         }
     }
 
-    mutex_release(tx_lock);
+    os_mutex_release(tx_lock);
 
     return ret;
 }
@@ -437,7 +437,7 @@ err_t fmtio_init(const char* dev_name)
     SELF_CHECK(device_set_rx_indicate(fmtio_dev, io_rx_ind));
 
     /* init io tx lock */
-    mutex_init(&tx_lock);
+    os_mutex_init(&tx_lock);
     ASSERT(tx_lock != NULL);
 
     /* init io packet */

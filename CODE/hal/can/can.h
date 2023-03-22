@@ -192,7 +192,7 @@ struct can_device
 #ifdef RT_CAN_USING_BUS_HOOK
     can_bus_hook bus_hook;
 #endif /*RT_CAN_USING_BUS_HOOK*/
-    mutex_t lock;
+    os_mutex_t lock;
     void *can_rx;
     void *can_tx;
 };

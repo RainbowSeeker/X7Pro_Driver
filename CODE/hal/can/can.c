@@ -1,7 +1,7 @@
 #include "can.h"
 
-#define can_lock(can)   mutex_take(can->lock, OS_WAIT_FOREVER)
-#define can_unlock(can) mutex_release(can->lock)
+#define can_lock(can)   os_mutex_take(can->lock, OS_WAIT_FOREVER)
+#define can_unlock(can) os_mutex_release(can->lock)
 
 static err_t can_init(struct device *dev)
 {
@@ -704,7 +704,7 @@ err_t hw_can_register(struct can_device    *can,
 #endif
     can->can_rx         = NULL;
     can->can_tx         = NULL;
-    mutex_init(&can->lock);
+    os_mutex_init(&can->lock);
 
 #ifdef RT_CAN_USING_BUS_HOOK
     can->bus_hook       = NULL;

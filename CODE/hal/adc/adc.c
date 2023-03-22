@@ -51,7 +51,7 @@ size_t hal_adc_read(device_t dev, off_t pos, void* buffer, size_t size)
     size_t res = 0;
     adc_dev_t adc_dev = (adc_dev_t)dev;
 
-    if (mutex_take(adc_dev->lock, TICKS_FROM_MS(ADC_TIMEOUT_MS)) != E_OK) {
+    if (os_mutex_take(adc_dev->lock, TICKS_FROM_MS(ADC_TIMEOUT_MS)) != E_OK) {
         return 0;
     }
 
@@ -59,7 +59,7 @@ size_t hal_adc_read(device_t dev, off_t pos, void* buffer, size_t size)
         res = size;
     }
 
-    mutex_release(adc_dev->lock);
+    os_mutex_release(adc_dev->lock);
 
     return res;
 }
@@ -86,7 +86,7 @@ err_t hal_adc_register(adc_dev_t adc_dev, const char* name, uint32_t flag, void*
     device->control = NULL;
     device->user_data = data;
 
-    mutex_init(&adc_dev->lock);
+    os_mutex_init(&adc_dev->lock);
     ASSERT(adc_dev->lock != NULL);
 
     /* register a character device */

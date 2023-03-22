@@ -122,7 +122,6 @@ void MX_SPI1_Init(void)
 
   /* SPI1 interrupt Init */
   NVIC_SetPriority(SPI1_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),5, 0));
-  NVIC_EnableIRQ(SPI1_IRQn);
 
   /* USER CODE BEGIN SPI1_Init 1 */
     //spiq reset
@@ -227,7 +226,6 @@ void MX_SPI4_Init(void)
 
   /* SPI4 interrupt Init */
   NVIC_SetPriority(SPI4_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),5, 0));
-  NVIC_EnableIRQ(SPI4_IRQn);
 
   /* USER CODE BEGIN SPI4_Init 1 */
 
@@ -336,7 +334,6 @@ void MX_SPI6_Init(void)
 
   /* SPI6 interrupt Init */
   NVIC_SetPriority(SPI6_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),5, 0));
-  NVIC_EnableIRQ(SPI6_IRQn);
 
   /* USER CODE BEGIN SPI6_Init 1 */
 

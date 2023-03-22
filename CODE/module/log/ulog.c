@@ -68,7 +68,7 @@
 struct ulog
 {
     bool_t init_ok;
-    mutex_t output_locker;
+    os_mutex_t output_locker;
     /* all backends */
     slist_t backend_list;
     /* the thread log's line buffer */
@@ -178,7 +178,7 @@ static void output_unlock(void)
     /* is in thread context */
     if (os_interrupt_get_nest() == 0)
     {
-        mutex_release(ulog.output_locker);
+        os_mutex_release(ulog.output_locker);
     }
     else
     {
@@ -193,7 +193,7 @@ static void output_lock(void)
     /* is in thread context */
     if (os_interrupt_get_nest() == 0)
     {
-        mutex_take(ulog.output_locker, OS_WAIT_FOREVER);
+        os_mutex_take(ulog.output_locker, OS_WAIT_FOREVER);
     }
     else
     {
@@ -1196,7 +1196,7 @@ int ulog_init(void)
     if (ulog.init_ok)
         return 0;
 
-    mutex_init(&ulog.output_locker);
+    os_mutex_init(&ulog.output_locker);
     slist_init(&ulog.backend_list);
 
 #ifdef ULOG_USING_FILTER
@@ -1211,7 +1211,7 @@ int ulog_init(void)
     if (ulog.async_rbb == NULL)
     {
         printf("Error: ulog init failed! No memory for async rbb.\n");
-        mutex_detach(ulog.output_locker);
+        os_mutex_detach(ulog.output_locker);
         return E_NOMEM;
     }
 
@@ -1258,7 +1258,7 @@ void ulog_deinit(void)
     }
 #endif /* ULOG_USING_FILTER */
 
-    mutex_detach(ulog.output_locker);
+    os_mutex_detach(ulog.output_locker);
 
 #ifdef ULOG_USING_ASYNC_OUTPUT
     rbb_destroy(ulog.async_rbb);

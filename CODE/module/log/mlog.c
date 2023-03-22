@@ -41,7 +41,7 @@ struct mlog
     uint8_t log_status;
     mlog_header_t header;
     mlog_buffer_t buffer;
-    mutex_t lock;
+    os_mutex_t lock;
     mlog_stats_t *stats;
 };
 
@@ -415,7 +415,7 @@ err_t mlog_push_msg(const uint8_t *payload, uint8_t msg_id, uint16_t len)
         return E_FULL;
     }
 
-    mutex_take(mlog_handle.lock, OS_WAIT_FOREVER);
+    os_mutex_take(mlog_handle.lock, OS_WAIT_FOREVER);
 
     /* write msg begin flag */
     buffer_putc(MLOG_BEGIN_MSG1);
@@ -427,7 +427,7 @@ err_t mlog_push_msg(const uint8_t *payload, uint8_t msg_id, uint16_t len)
     /* write msg end flag */
     buffer_putc(MLOG_END_MSG);
 
-    mutex_release(mlog_handle.lock);
+    os_mutex_release(mlog_handle.lock);
 
     mlog_handle.stats[msg_id].total_msg += 1;
 
@@ -730,7 +730,7 @@ err_t mlog_init(void)
     }
 
     /* create write lock */
-    if (mutex_init(&mlog_handle.lock) != E_OK)
+    if (os_mutex_init(&mlog_handle.lock) != E_OK)
     {
         console_printf("fail to create mlog lock!\n");
         return E_RROR;

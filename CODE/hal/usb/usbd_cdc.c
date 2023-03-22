@@ -16,7 +16,7 @@ static err_t hal_usbd_cdc_init(device_t device)
         return E_NOMEM;
     }
 
-    mutex_init(&usbd->tx_lock);
+    os_mutex_init(&usbd->tx_lock);
     if (usbd->tx_lock == NULL) {
         return E_NOMEM;
     }
@@ -57,7 +57,7 @@ static size_t hal_usbd_cdc_write(device_t device, off_t pos, const void* buffer,
         return 0;
     }
 
-    if (mutex_take(usbd->tx_lock, TICKS_FROM_MS(USBD_WAIT_TIMEOUT)) != E_OK) {
+    if (os_mutex_take(usbd->tx_lock, TICKS_FROM_MS(USBD_WAIT_TIMEOUT)) != E_OK) {
         return 0;
     }
 
@@ -68,7 +68,7 @@ static size_t hal_usbd_cdc_write(device_t device, off_t pos, const void* buffer,
     /* wait until send is finished */
     completion_wait(&usbd->tx_cplt, TICKS_FROM_MS(USBD_WAIT_TIMEOUT));
 
-    mutex_release(usbd->tx_lock);
+    os_mutex_release(usbd->tx_lock);
     return wb;
 }
 

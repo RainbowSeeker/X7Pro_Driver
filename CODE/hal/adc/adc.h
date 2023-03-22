@@ -31,7 +31,7 @@ enum {
 struct adc_device {
     struct device parent;
     const struct adc_ops* ops;
-    mutex_t lock;
+    os_mutex_t lock;
 };
 typedef struct adc_device* adc_dev_t;
 

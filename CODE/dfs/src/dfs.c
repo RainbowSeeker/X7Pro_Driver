@@ -30,7 +30,7 @@ const struct dfs_filesystem_ops *filesystem_operation_table[DFS_FILESYSTEM_TYPES
 struct dfs_filesystem filesystem_table[DFS_FILESYSTEMS_MAX];
 
 /* device filesystem lock */
-static mutex_t fslock;
+static os_mutex_t fslock;
 
 #ifdef DFS_USING_WORKDIR
 char working_directory[DFS_PATH_MAX] = {"/"};
@@ -66,7 +66,7 @@ int dfs_init(void)
     memset(&_fdtab, 0, sizeof(_fdtab));
 
     /* create device filesystem lock */
-    mutex_init(&fslock);
+    os_mutex_init(&fslock);
 #ifdef DFS_USING_WORKDIR
     /* set current working directory */
     memset(working_directory, 0, sizeof(working_directory));
@@ -100,7 +100,7 @@ void dfs_lock(void)
 
     while (result == -EBUSY)
     {
-        result = mutex_take(fslock, OS_WAIT_FOREVER);
+        result = os_mutex_take(fslock, OS_WAIT_FOREVER);
     }
 
     if (result != E_OK)
@@ -116,7 +116,7 @@ void dfs_lock(void)
  */
 void dfs_unlock(void)
 {
-    mutex_release(fslock);
+    os_mutex_release(fslock);
 }
 
 static int fd_alloc(struct dfs_fdtable *fdt, int startfd)

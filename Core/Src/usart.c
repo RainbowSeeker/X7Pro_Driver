@@ -113,7 +113,6 @@ void MX_UART7_Init(void)
 
   /* UART7 interrupt Init */
   NVIC_SetPriority(UART7_IRQn, NVIC_EncodePriority(NVIC_GetPriorityGrouping(),5, 0));
-  NVIC_EnableIRQ(UART7_IRQn);
 
   /* USER CODE BEGIN UART7_Init 1 */
 
