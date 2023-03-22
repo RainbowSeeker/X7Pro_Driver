@@ -1,30 +1,33 @@
+@********************************************************************************************************
+@                                              uC/OS-III
+@                                        The Real-Time Kernel
+@
+@                    Copyright 2009-2022 Silicon Laboratories Inc. www.silabs.com
+@
+@                                 SPDX-License-Identifier: APACHE-2.0
+@
+@               This software is subject to an open source license and is distributed by
+@                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+@                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 @
 @********************************************************************************************************
-@                                                uC/OS-III
-@                                          The Real-Time Kernel
+
+@********************************************************************************************************
 @
+@                                             ARMv7-M Port
 @
-@                           (c) Copyright 2009-2017; Micrium, Inc.; Weston, FL
-@                    All rights reserved.  Protected by international copyright laws.
-@
-@                                              ARMv7-M Port
-@
-@ File      : OS_CPU_A.ASM
-@ Version   : V3.06.02
-@ By        : JJL
-@             BAN
-@             JBL
-@
-@ For       : ARMv7M Cortex-M
+@ File      : os_cpu_a.asm
+@ Version   : V3.08.02
+@********************************************************************************************************
+@ For       : ARMv7-M Cortex-M
 @ Mode      : Thumb-2 ISA
 @ Toolchain : GNU C Compiler
-@
+@********************************************************************************************************
 @ Note(s)   : (1) This port supports the ARM Cortex-M3, Cortex-M4 and Cortex-M7 architectures.
 @             (2) It has been tested with the following Hardware Floating Point Unit.
 @                 (a) Single-precision: FPv4-SP-D16-M and FPv5-SP-D16-M
 @                 (b) Double-precision: FPv5-D16-M
 @********************************************************************************************************
-@
 
 @********************************************************************************************************
 @                                          PUBLIC FUNCTIONS
@@ -38,17 +41,14 @@
     .extern  OSIntExit
     .extern  OSTaskSwHook
     .extern  OS_CPU_ExceptStkBase
+    .extern  OS_KA_BASEPRI_Boundary
 
 
     .global  OSStartHighRdy                                     @ Functions declared in this file
     .global  OSCtxSw
     .global  OSIntCtxSw
-    .global  PendSV_Handler
+    .global  OS_CPU_PendSVHandler
 
-#if (defined(__VFP_FP__) && !defined(__SOFTFP__))
-    .global  OS_CPU_FP_Reg_Push
-    .global  OS_CPU_FP_Reg_Pop
-#endif
 
 
 @********************************************************************************************************
@@ -69,56 +69,6 @@
    .align 2
    .thumb
    .syntax unified
-
-
-@********************************************************************************************************
-@                                   FLOATING POINT REGISTERS PUSH
-@                             void  OS_CPU_FP_Reg_Push (CPU_STK  *stkPtr)
-@
-@ Note(s) : 1) This function saves S16-S31 registers of the Floating Point Unit.
-@
-@           2) Pseudo-code is:
-@              a) Push remaining FPU regs S16-S31 on process stack;
-@              b) Update OSTCBCurPtr->StkPtr;
-@********************************************************************************************************
-
-#if (defined(__VFP_FP__) && !defined(__SOFTFP__))
-
-.thumb_func
-OS_CPU_FP_Reg_Push:
-    MRS     R1, PSP                                             @ PSP is process stack pointer
-    CBZ     R1, OS_CPU_FP_nosave                                @ Skip FP register save the first time
-
-    VSTMDB  R0!, {S16-S31}
-    LDR     R1, =OSTCBCurPtr
-    LDR     R2, [R1]
-    STR     R0, [R2]
-OS_CPU_FP_nosave:
-    BX      LR
-#endif
-
-
-@********************************************************************************************************
-@                                   FLOATING POINT REGISTERS POP
-@                             void  OS_CPU_FP_Reg_Pop (CPU_STK  *stkPtr)
-@
-@ Note(s) : 1) This function restores S16-S31 of the Floating Point Unit.
-@
-@           2) Pseudo-code is:
-@              a) Restore regs S16-S31 of new process stack;
-@              b) Update OSTCBHighRdyPtr->StkPtr pointer of new proces stack;
-@********************************************************************************************************
-
-#if (defined(__VFP_FP__) && !defined(__SOFTFP__))
-
-.thumb_func
-OS_CPU_FP_Reg_Pop:
-    VLDMIA  R0!, {S16-S31}
-    LDR     R1, =OSTCBHighRdyPtr
-    LDR     R2, [R1]
-    STR     R0, [R2]
-    BX      LR
-#endif
 
 
 @********************************************************************************************************
@@ -181,6 +131,7 @@ OSStartHighRdy:
 
     MRS     R0, CONTROL
     ORR     R0, R0, #2
+    BIC     R0, R0, #4                                          @ Clear FPCA bit to indicate FPU is not in use
     MSR     CONTROL, R0
     ISB                                                         @ Sync instruction stream
 
@@ -194,27 +145,18 @@ OSStartHighRdy:
 
 @********************************************************************************************************
 @                       PERFORM A CONTEXT SWITCH (From task level) - OSCtxSw()
+@                   PERFORM A CONTEXT SWITCH (From interrupt level) - OSIntCtxSw()
 @
 @ Note(s) : 1) OSCtxSw() is called when OS wants to perform a task context switch.  This function
 @              triggers the PendSV exception which is where the real work is done.
-@********************************************************************************************************
-
-.thumb_func
-OSCtxSw:
-    LDR     R0, =NVIC_INT_CTRL                                  @ Trigger the PendSV exception (causes context switch)
-    LDR     R1, =NVIC_PENDSVSET
-    STR     R1, [R0]
-    BX      LR
-
-
-@********************************************************************************************************
-@                   PERFORM A CONTEXT SWITCH (From interrupt level) - OSIntCtxSw()
 @
-@ Note(s) : 1) OSIntCtxSw() is called by OSIntExit() when it determines a context switch is needed as
+@           2) OSIntCtxSw() is called by OSIntExit() when it determines a context switch is needed as
 @              the result of an interrupt.  This function simply triggers a PendSV exception which will
 @              be handled when there are no more interrupts active and interrupts are enabled.
 @********************************************************************************************************
 
+.thumb_func
+OSCtxSw:
 .thumb_func
 OSIntCtxSw:
     LDR     R0, =NVIC_INT_CTRL                                  @ Trigger the PendSV exception (causes context switch)
@@ -225,7 +167,7 @@ OSIntCtxSw:
 
 @********************************************************************************************************
 @                                       HANDLE PendSV EXCEPTION
-@                                   void PendSV_Handler(void)
+@                                   void OS_CPU_PendSVHandler(void)
 @
 @ Note(s) : 1) PendSV is used to cause a context switch.  This is a recommended method for performing
 @              context switches with Cortex-M.  This is because the Cortex-M auto-saves half of the
@@ -256,12 +198,39 @@ OSIntCtxSw:
 @           4) Since PendSV is set to lowest priority in the system (by OSStartHighRdy() above), we
 @              know that it will only be run when no other exception or interrupt is active, and
 @              therefore safe to assume that context being switched out was using the process stack (PSP).
+@
+@           5) Increasing priority using a write to BASEPRI does not take effect immediately.
+@              (a) IMPLICATION  This erratum means that the instruction after an MSR to boost BASEPRI
+@                  might incorrectly be preempted by an insufficient high priority exception.
+@
+@              (b) WORKAROUND  The MSR to boost BASEPRI can be replaced by the following code sequence:
+@
+@                  CPSID i
+@                  MSR to BASEPRI
+@                  DSB
+@                  ISB
+@                  CPSIE i
 @********************************************************************************************************
 
 .thumb_func
-PendSV_Handler:
-    CPSID   I                                                   @ Prevent interruption during context switch
+OS_CPU_PendSVHandler:
+    CPSID   I                                                   @ Cortex-M7 errata notice. See Note #5
+    MOVW    R2, #:lower16:OS_KA_BASEPRI_Boundary                @ Set BASEPRI priority level required for exception preemption
+    MOVT    R2, #:upper16:OS_KA_BASEPRI_Boundary
+    LDR     R1, [R2]
+    MSR     BASEPRI, R1
+    DSB
+    ISB
+    CPSIE   I
+
     MRS     R0, PSP                                             @ PSP is process stack pointer
+#if (defined(__VFP_FP__) && !defined(__SOFTFP__))
+                                                                @ Push high vfp registers if the task is using the FPU context
+    TST       R14, #0x10
+    IT        EQ
+    VSTMDBEQ  R0!, {S16-S31}
+#endif
+
     STMFD   R0!, {R4-R11, R14}                                  @ Save remaining regs r4-11, R14 on process stack
 
     MOVW    R5, #:lower16:OSTCBCurPtr                           @ OSTCBCurPtr->StkPtr = SP;
@@ -288,7 +257,21 @@ PendSV_Handler:
     ORR     LR,  R4, #0x04                                      @ Ensure exception return uses process stack
     LDR     R0, [R2]                                            @ R0 is new process SP; SP = OSTCBHighRdyPtr->StkPtr;
     LDMFD   R0!, {R4-R11, R14}                                  @ Restore r4-11, R14 from new process stack
+
+#if (defined(__VFP_FP__) && !defined(__SOFTFP__))
+                                                                @ Pop the high vfp registers if the next task is using the FPU context
+    TST       R14, #0x10
+    IT        EQ
+    VLDMIAEQ  R0!, {S16-S31}
+#endif
+
     MSR     PSP, R0                                             @ Load PSP with new process SP
+
+    MOV     R2, #0                                              @ Restore BASEPRI priority level to 0
+    CPSID   I                                                   @ Cortex-M7 errata notice. See Note #5
+    MSR     BASEPRI, R2
+    DSB
+    ISB
     CPSIE   I
     BX      LR                                                  @ Exception return will restore remaining context
 

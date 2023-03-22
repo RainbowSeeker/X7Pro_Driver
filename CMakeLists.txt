@@ -26,7 +26,7 @@ add_link_options(-mfloat-abi=hard -mfpu=fpv4-sp-d16)
 #Uncomment for software floating point
 #add_compile_options(-mfloat-abi=soft)
 
-add_compile_options(-mcpu=cortex-m7 -mthumb -mthumb-interwork)
+add_compile_options(-mcpu=cortex-m7 -mthumb -mthumb-interwork -D__FPU_PRESENT=1)
 add_compile_options(-ffunction-sections -fdata-sections -fno-common -fmessage-length=0)
 
 # uncomment to mitigate c++17 absolute addresses warnings
@@ -49,11 +49,13 @@ else ()
     add_compile_options(-Og -g)
 endif ()
 
-include_directories(Core/Inc Drivers/STM32H7xx_HAL_Driver/Inc Drivers/STM32H7xx_HAL_Driver/Inc/Legacy Middlewares/Third_Party/FreeRTOS/Source/include Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F Drivers/CMSIS/Device/ST/STM32H7xx/Include Drivers/CMSIS/Include Middlewares/ST/ARM/DSP/Inc CODE CODE/application CODE/device CODE/module CODE/dfs/include CODE/dfs/filesystems/elmfat CODE/module/log CODE/hal CODE/finsh CODE/lib/mavlink/v2.0/fmt_mavlink CODE/model/fms/base_fms/lib CODE/lib/STM32_USB_Device_Library/Class/CDC/Inc CODE/lib/STM32_USB_Device_Library/Core/Inc CODE/drivers/usbd CODE/rtos)
+include_directories(Core/Inc Drivers/STM32H7xx_HAL_Driver/Inc Drivers/STM32H7xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32H7xx/Include Drivers/CMSIS/Include Middlewares/ST/ARM/DSP/Inc USB_DEVICE/App USB_DEVICE/Target Middlewares/ST/STM32_USB_Device_Library/Core/Inc Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc CODE CODE/application CODE/device CODE/module CODE/dfs/include CODE/dfs/filesystems/elmfat CODE/module/log CODE/hal CODE/finsh CODE/rtos
+    CODE/lib/mavlink/v2.0/fmt_mavlink CODE/model/fms/base_fms/lib CODE/lib/STM32_USB_Device_Library/Class/CDC/Inc CODE/lib/STM32_USB_Device_Library/Core/Inc CODE/drivers/usbd
+    UCOSIII/uC-CPU UCOSIII/uC-CPU/ARM-Cortex-M4/GNU UCOSIII/uC-LIB UCOSIII/UCOS-BSP UCOSIII/UCOS-CONFIG UCOSIII/uCOS-III/Source UCOSIII/uCOS-III/Ports/ARM-Cortex-M/ARMv7-M/GNU)
 
-add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32H743xx -DUSE_FULL_LL_DRIVER -D__FPU_PRESENT=1)
+add_definitions(-DDEBUG -DUSE_HAL_DRIVER -DSTM32H743xx -DUSE_FULL_LL_DRIVER)
 
-file(GLOB_RECURSE SOURCES "Library/*.*" "Core/*.*" "Middlewares/*.*" "Drivers/*.*" CODE/*.*)
+file(GLOB_RECURSE SOURCES "Library/*.*" "Core/*.*" "Middlewares/*.*" "Drivers/*.*" "USB_DEVICE/*.*" CODE/*.*  UCOSIII/*.c UCOSIII/*.h UCOSIII/*.s UCOSIII/*.S)
 
 set(LINKER_SCRIPT ${CMAKE_SOURCE_DIR}/STM32H743XIHX_FLASH.ld)
 
@@ -66,7 +68,6 @@ link_directories(Middlewares/ST/ARM/DSP/lib)
 add_executable(${PROJECT_NAME}.elf ${SOURCES} ${LINKER_SCRIPT})
 
 target_link_libraries(${PROJECT_NAME}.elf arm_cortexM4lf_math)
-#target_link_libraries(${PROJECT_NAME}.elf arm_cortexM7lfsp_math)
 
 set(HEX_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.hex)
 set(BIN_FILE ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.bin)

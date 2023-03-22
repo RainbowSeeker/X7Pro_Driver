@@ -7,7 +7,7 @@
 #include "spi.h"
 #include "dma/dma.h"
 
-#define spi_lock(_bus)          os_sem_take(_bus->lock, osWaitForever)
+#define spi_lock(_bus)          os_sem_take(_bus->lock, OS_WAIT_FOREVER)
 #define spi_unlock(_bus)        os_sem_release(_bus->lock)
 
 static err_t spi_bus_init(struct spi_bus *bus, const char *name)

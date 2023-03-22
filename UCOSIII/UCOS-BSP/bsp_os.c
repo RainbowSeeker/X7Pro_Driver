@@ -95,7 +95,6 @@ void  BSP_OS_TickInit (void)
 
     CPU_CRITICAL_ENTER();
     OS_CPU_SysTickInitFreq(cpu_freq);                           /* Init uC/OS periodic time src (SysTick).              */
-    BSP_OS_TickDisable();                                       /* See Note #2.                                         */
     CPU_CRITICAL_EXIT();
 }
 
@@ -114,13 +113,6 @@ void  BSP_OS_TickInit (void)
 *********************************************************************************************************
 */
 
-void  BSP_OS_TickEnable (void)
-{
-    CPU_REG_NVIC_ST_CTRL |= (CPU_REG_NVIC_ST_CTRL_TICKINT |     /* Enables SysTick exception request                    */
-                             CPU_REG_NVIC_ST_CTRL_ENABLE);      /* Enables SysTick counter                              */
-
-}
-
 
 /*
 *********************************************************************************************************
@@ -135,12 +127,6 @@ void  BSP_OS_TickEnable (void)
 * Note(s)     : none
 *********************************************************************************************************
 */
-
-void  BSP_OS_TickDisable (void)
-{
-    CPU_REG_NVIC_ST_CTRL &= ~(CPU_REG_NVIC_ST_CTRL_TICKINT |    /* Disables SysTick exception request                   */
-                              CPU_REG_NVIC_ST_CTRL_ENABLE);     /* Disables SysTick counter                             */
-}
 
 
 /*

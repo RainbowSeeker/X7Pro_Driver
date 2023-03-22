@@ -56,9 +56,11 @@ void exti_irq_handler(uint32_t mask)
     }
 }
 
-#define DEFINE_EXTI_IRQ_HANDLER(name, mask)            \
-    void name(void) {                            \
+#define DEFINE_EXTI_IRQ_HANDLER(name, mask)       \
+    void name(void) {                             \
+        os_interrupt_enter();                     \
         exti_irq_handler(mask & EXTI_EVENT_MASK); \
+        os_interrupt_leave();                     \
     }
 
 
@@ -95,8 +97,8 @@ void exti_enable(io_tag io)
         return;
 
 
-    HAL_NVIC_EnableIRQ(exti_irqn_table[exti_groups[io_idx]]);
-    EXTI_REG_IMR |= extiLine;
+//    HAL_NVIC_EnableIRQ(exti_irqn_table[exti_groups[io_idx]]);
+//    EXTI_REG_IMR |= extiLine;
 }
 
 void exti_disable(io_tag io)

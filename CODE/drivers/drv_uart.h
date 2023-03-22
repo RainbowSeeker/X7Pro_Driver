@@ -48,8 +48,10 @@ static struct serial_device serial ## _devid =                                  
             0                                     \
         };                                                                      \
 void UART ## _uartx ## _IRQHandler(void)                  \
-    {                                                         \
-        uart_isr(&serial ## _devid);                                 \
+    {                                            \
+        os_interrupt_enter();\
+        uart_isr(&serial ## _devid);             \
+        os_interrupt_leave();\
     }
 
 err_t drv_uart_init();

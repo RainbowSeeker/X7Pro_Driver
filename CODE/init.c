@@ -20,7 +20,6 @@
 #include "drivers/gps/gps_ubx.h"
 #include "sensor/sensor_hub.h"
 #include "mavproxy/mavproxy.h"
-#include "drv_usbd_cdc.h"
 #include "drivers/drv_systick.h"
 #include "drivers/fram/fm25vx.h"
 
@@ -29,6 +28,7 @@
 #include "drivers/board.h"
 #include "drivers/drv_pwm.h"
 #include "drivers/drv_adc.h"
+#include "drivers/usbd/drv_usbd_cdc.h"
 
 
 static const struct dfs_mount_tbl mnt_table[] = {
@@ -36,20 +36,34 @@ static const struct dfs_mount_tbl mnt_table[] = {
         { NULL } /* NULL indicate the end */
 };
 
-void bsp_early_init(void)
+void bsp_hw_init(void)
 {
-    MX_GPIO_Init();
-    io_set(PD11, IO_HIGH);
+    //ALARM
+    io_init(PE5, CS_CONFIG);
+    io_set(PE5, IO_LOW);
+
+    //SENSORS_SW
+    io_init(PE3, CS_CONFIG);
+    io_set(PE3, IO_HIGH);
+
+    //SDEN
+    io_init(PG7, CS_CONFIG);
+    io_set(PG7, IO_HIGH);
+
     io_init(PD11, CS_CONFIG);
+    io_set(PD11, IO_HIGH);
 
-    io_set(PH15, IO_HIGH);
     io_init(PH15, CS_CONFIG);
+    io_set(PH15, IO_HIGH);
 
-    io_set(PG0, IO_HIGH);
     io_init(PG0, CS_CONFIG);
+    io_set(PG0, IO_HIGH);
 
-    io_set(PG5, IO_HIGH);
+    io_init(PG4, CS_CONFIG);
+    io_set(PG4, IO_HIGH);
+
     io_init(PG5, CS_CONFIG);
+    io_set(PG5, IO_HIGH);
 
     /* usart driver init */
     SELF_CHECK(drv_uart_init());
@@ -97,7 +111,7 @@ void bsp_init(void)
 
     SELF_CHECK(drv_icm42688_init("gyro2", "accel2"));
 
-    SELF_CHECK(drv_ms5611_init("baro0"));
+//    SELF_CHECK(drv_ms5611_init("baro0"));
 
     SELF_CHECK(drv_rm3100_init("mag0"));
 
@@ -108,9 +122,9 @@ void bsp_init(void)
     /* register sensor to sensor hub */
     SELF_CHECK(register_sensor_imu("gyro0", "accel0", 0));
     SELF_CHECK(register_sensor_imu("gyro1", "accel1", 1));
-//    SELF_CHECK(register_sensor_imu("gyro2", "accel2", 2));
+    SELF_CHECK(register_sensor_imu("gyro2", "accel2", 2));
     SELF_CHECK(register_sensor_mag("mag0", 0));
-    SELF_CHECK(register_sensor_barometer("baro0"));
+//    SELF_CHECK(register_sensor_barometer("baro0"));
 
     SELF_CHECK(mavproxy_init());
 

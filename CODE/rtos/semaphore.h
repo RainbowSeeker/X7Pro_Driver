@@ -8,8 +8,7 @@
 #define X7PRO_DRIVER_SEMAPHORE_H
 #include "os_common.h"
 
-typedef osSemaphoreId os_sem_t;
-
+typedef OS_SEM *os_sem_t;
 
 /**
  * os_sem_create
@@ -19,23 +18,16 @@ typedef osSemaphoreId os_sem_t;
  */
 static inline os_sem_t os_sem_create(size_t count)
 {
-    osSemaphoreId sem;
-    if (count == 1) {
-        vSemaphoreCreateBinary(sem);
-        return sem;
-    }
-    else {
-#if (configUSE_COUNTING_SEMAPHORES == 1 )
-        return xSemaphoreCreateCounting(count, count);
-#else
-        return NULL;
-#endif
-    }
+    os_sem_t sem = calloc(1, sizeof(OS_SEM));
+    OSSemCreate(sem, NULL, count, &os_err);
+    return os_err == 0 ? sem : NULL;
 }
 
 static inline err_t os_sem_delete(os_sem_t sem)
 {
-    return osSemaphoreDelete(sem);
+    OSSemDel(sem, OS_OPT_DEL_ALWAYS, &os_err);
+    free(sem);
+    return os_err == 0 ? E_OK : E_RROR;
 }
 
 /**
@@ -46,24 +38,14 @@ static inline err_t os_sem_delete(os_sem_t sem)
  */
 static inline err_t os_sem_take(os_sem_t sem, size_t millisec)
 {
-    if (os_interrupt_get_nest())
-    {
-        long taskWoken = pdFALSE;
-        if (xSemaphoreTakeFromISR(sem, &taskWoken) != pdTRUE)
-        {
-            return E_RROR;
-        }
-        portEND_SWITCHING_ISR(taskWoken);
-    }
-    else
-        return xSemaphoreTake(sem, TICKS_FROM_MS(millisec)) == pdTRUE ? E_OK : E_RROR;
-
-    return E_OK;
+    OSSemPend(sem, millisec, os_interrupt_get_nest() > 0 ? OS_OPT_PEND_NON_BLOCKING : OS_OPT_PEND_BLOCKING, NULL, &os_err);
+    return os_err == 0 ? E_OK : E_RROR;
 }
 
 static inline err_t os_sem_trytake(os_sem_t sem)
 {
-    return os_sem_take(sem, 0);
+    OSSemPend(sem, 0, OS_OPT_PEND_NON_BLOCKING, NULL, &os_err);
+    return os_err == 0 ? E_OK : E_RROR;
 }
 
 /**
@@ -73,19 +55,8 @@ static inline err_t os_sem_trytake(os_sem_t sem)
  */
 static inline err_t os_sem_release(os_sem_t sem)
 {
-    if (os_interrupt_get_nest())
-    {
-        long taskWoken = pdFALSE;
-        if (xSemaphoreGiveFromISR(sem, &taskWoken) != pdTRUE)
-        {
-            return E_RROR;
-        }
-        portEND_SWITCHING_ISR(taskWoken);
-    }
-    else
-        return xSemaphoreGive(sem) == pdTRUE ? E_OK : E_RROR;
-
-    return E_OK;
+    OSSemPost(sem, OS_OPT_POST_1, &os_err);
+    return os_err == 0 ? E_OK : E_RROR;
 }
 
 #endif //X7PRO_DRIVER_SEMAPHORE_H

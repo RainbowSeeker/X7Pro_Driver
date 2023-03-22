@@ -1,23 +1,16 @@
 /*
 *********************************************************************************************************
-*                                                uC/CPU
+*                                               uC/CPU
 *                                    CPU CONFIGURATION & PORT LAYER
 *
-*                          (c) Copyright 2004-2017; Micrium, Inc.; Weston, FL
+*                    Copyright 2004-2021 Silicon Laboratories Inc. www.silabs.com
 *
-*               All rights reserved.  Protected by international copyright laws.
+*                                 SPDX-License-Identifier: APACHE-2.0
 *
-*               uC/CPU is provided in source form to registered licensees ONLY.  It is
-*               illegal to distribute this source code to any third party unless you receive
-*               written permission by an authorized Micrium representative.  Knowledge of
-*               the source code may NOT be used to develop a similar product.
+*               This software is subject to an open source license and is distributed by
+*                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+*                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 *
-*               Please help us continue to provide the Embedded community with the finest
-*               software available.  Your honesty is greatly appreciated.
-*
-*               You can find our product's user manual, API reference, release notes and
-*               more information at doc.micrium.com.
-*               You can contact us at www.micrium.com.
 *********************************************************************************************************
 */
 
@@ -26,10 +19,8 @@
 *
 *                                           CORE CPU MODULE
 *
-* Filename      : cpu_core.c
-* Version       : V1.31.02
-* Programmer(s) : SR
-*                 ITJ
+* Filename : cpu_core.c
+* Version  : V1.32.01
 *********************************************************************************************************
 */
 
@@ -182,11 +173,6 @@ static  CPU_TS_TMR  CPU_IntDisMeasMaxCalc(CPU_TS_TMR  time_tot_cnts);
 *
 * Return(s)   : none.
 *
-* Caller(s)   : Your Product's Application.
-*
-*               This function is a CPU initialization function & MAY be called by application/
-*               initialization function(s).
-*
 * Note(s)     : (2) CPU_Init() MUST be called ... :
 *
 *                   (a) ONLY ONCE from a product's application; ...
@@ -234,8 +220,6 @@ void  CPU_Init (void)
 *
 * Return(s)   : none.
 *
-* Caller(s)   : various.
-*
 * Note(s)     : (1) CPU_SW_Exception() deadlocks the current code execution -- whether multi-tasked/
 *                   -processed/-threaded or single-threaded -- when the current code execution cannot
 *                   gracefully recover or report a fault or exception condition.
@@ -261,12 +245,6 @@ void  CPU_SW_Exception (void)
 * Argument(s) : none.
 *
 * Return(s)   : none.
-*
-* Caller(s)   : CPU_NameInit(),
-*               Application.
-*
-*               This function is a CPU module application programming interface (API) function & MAY be
-*               called by application function(s).
 *
 * Note(s)     : none.
 *********************************************************************************************************
@@ -301,11 +279,6 @@ void  CPU_NameClr (void)
 *                               CPU_ERR_NULL_PTR                Argument 'p_name' passed a NULL pointer.
 *
 * Return(s)   : none.
-*
-* Caller(s)   : Application.
-*
-*               This function is a CPU module application programming interface (API) function & MAY
-*               be called by application function(s).
 *
 * Note(s)     : (1) The size of the ASCII character array that will receive the return CPU host name
 *                   ASCII string :
@@ -359,11 +332,6 @@ void  CPU_NameGet (CPU_CHAR  *p_name,
 *
 * Return(s)   : none.
 *
-* Caller(s)   : Application.
-*
-*               This function is a CPU module application programming interface (API) function & MAY be
-*               called by application function(s).
-*
 * Note(s)     : (1) 'p_name' ASCII string size, including the terminating NULL character, MUST be less
 *                    than or equal to CPU_CFG_NAME_SIZE.
 *********************************************************************************************************
@@ -412,11 +380,6 @@ void  CPU_NameSet (const  CPU_CHAR  *p_name,
 * Argument(s) : none.
 *
 * Return(s)   : Current 32-bit CPU timestamp (in timestamp timer counts).
-*
-* Caller(s)   : Application.
-*
-*               This function is a CPU module application programming interface (API) function & MAY
-*               be called by application function(s).
 *
 * Note(s)     : (1) When applicable, the amount of time measured by CPU timestamps is calculated by
 *                   either of the following equations :
@@ -494,11 +457,6 @@ CPU_TS32  CPU_TS_Get32 (void)
 *
 * Return(s)   : Current 64-bit CPU timestamp (in timestamp timer counts).
 *
-* Caller(s)   : Application.
-*
-*               This function is a CPU module application programming interface (API) function & MAY
-*               be called by application function(s).
-*
 * Note(s)     : (1) When applicable, the amount of time measured by CPU timestamps is calculated by
 *                   either of the following equations :
 *
@@ -575,11 +533,6 @@ CPU_TS64  CPU_TS_Get64 (void)
 *
 * Return(s)   : none.
 *
-* Caller(s)   : Application/BSP periodic time handler (see Note #1).
-*
-*               This function is a CPU timestamp BSP function & SHOULD be called only by appropriate
-*               application/BSP function(s).
-*
 * Note(s)     : (1) (a) CPU timestamp(s) MUST be updated periodically by some application (or BSP) time
 *                       handler in order to (adequately) maintain CPU timestamp(s)' time.
 *
@@ -623,11 +576,6 @@ void  CPU_TS_Update (void)
 *
 *               0,                                          otherwise.
 *
-* Caller(s)   : Application.
-*
-*               This function is a CPU module application programming interface (API) function & MAY be
-*               called by application function(s).
-*
 * Note(s)     : none.
 *********************************************************************************************************
 */
@@ -659,12 +607,6 @@ CPU_TS_TMR_FREQ  CPU_TS_TmrFreqGet (CPU_ERR  *p_err)
 * Argument(s) : freq_hz     Frequency (in Hertz) to set for CPU timestamp's timer.
 *
 * Return(s)   : none.
-*
-* Caller(s)   : CPU_TS_TmrInit(),
-*               Application/BSP initialization function(s).
-*
-*               This function is a CPU module BSP function & SHOULD be called only by appropriate
-*               application/BSP function(s) [see Note #1].
 *
 * Note(s)     : (1) (a) (1) CPU timestamp timer frequency is NOT required for internal CPU timestamp
 *                           operations but may OPTIONALLY be configured by CPU_TS_TmrInit() or other
@@ -704,11 +646,6 @@ void  CPU_TS_TmrFreqSet (CPU_TS_TMR_FREQ  freq_hz)
 *               See also 'cpu_core.h  FUNCTION PROTOTYPES  CPU_TS_TmrRd()      Note #2c'
 *                      & 'cpu_core.h  FUNCTION PROTOTYPES  CPU_TSxx_to_uSec()  Note #2'.
 *
-* Caller(s)   : Application.
-*
-*               This function is a CPU module application programming interface (API) function
-*               & MAY be called by application function(s).
-*
 * Note(s)     : (1) After initialization, 'CPU_IntDisMeasMaxCur_cnts' MUST ALWAYS be accessed
 *                   exclusively with interrupts disabled -- but NOT with critical sections.
 *********************************************************************************************************
@@ -743,12 +680,6 @@ CPU_TS_TMR  CPU_IntDisMeasMaxCurReset (void)
 *
 *               See also 'cpu_core.h  FUNCTION PROTOTYPES  CPU_TS_TmrRd()      Note #2c'
 *                      & 'cpu_core.h  FUNCTION PROTOTYPES  CPU_TSxx_to_uSec()  Note #2'.
-*
-* Caller(s)   : CPU_IntDisMeasMaxCurReset(),
-*               Application.
-*
-*               This function is a CPU module application programming interface (API) function
-*               & MAY be called by application function(s).
 *
 * Note(s)     : (1) After initialization, 'CPU_IntDisMeasMaxCur_cnts' MUST ALWAYS be accessed
 *                   exclusively with interrupts disabled -- but NOT with critical sections.
@@ -786,12 +717,6 @@ CPU_TS_TMR  CPU_IntDisMeasMaxCurGet (void)
 *               See also 'cpu_core.h  FUNCTION PROTOTYPES  CPU_TS_TmrRd()      Note #2c'
 *                      & 'cpu_core.h  FUNCTION PROTOTYPES  CPU_TSxx_to_uSec()  Note #2'.
 *
-* Caller(s)   : CPU_IntDisMeasInit(),
-*               Application.
-*
-*               This function is a CPU module application programming interface (API) function
-*               & MAY be called by application function(s).
-*
 * Note(s)     : (1) After initialization, 'CPU_IntDisMeasMax_cnts' MUST ALWAYS be accessed
 *                   exclusively with interrupts disabled -- but NOT with critical sections.
 *********************************************************************************************************
@@ -825,11 +750,6 @@ CPU_TS_TMR  CPU_IntDisMeasMaxGet (void)
 *
 * Return(s)   : none.
 *
-* Caller(s)   : CPU_CRITICAL_ENTER().
-*
-*               This function is an INTERNAL CPU module function & MUST NOT be called by application
-*               function(s).
-*
 * Note(s)     : none.
 *********************************************************************************************************
 */
@@ -855,11 +775,6 @@ void  CPU_IntDisMeasStart (void)
 * Argument(s) : none.
 *
 * Return(s)   : none.
-*
-* Caller(s)   : CPU_CRITICAL_EXIT().
-*
-*               This function is an INTERNAL CPU module function & MUST NOT be called by application
-*               function(s).
 *
 * Note(s)     : (1) (a) The total amount of time interrupts are disabled by system &/or application code
 *                       during critical sections is calculated by the following equations :
@@ -1054,12 +969,6 @@ void  CPU_IntDisMeasStop (void)
 *
 *               DEF_INT_CPU_U_MAX_VAL,                                              otherwise.
 *
-* Caller(s)   : CPU_CntTrailZeros(),
-*               Application.
-*
-*               This function is a CPU module application programming interface (API) function & MAY
-*               be called by application function(s).
-*
 * Note(s)     : (1) (a) Supports the following data value sizes :
 *
 *                       (1)  8-bits
@@ -1176,13 +1085,6 @@ CPU_DATA  CPU_CntLeadZeros (CPU_DATA  val)
 *
 * Return(s)   : Number of contiguous, most-significant, leading zero bits in 'val'.
 *
-* Caller(s)   : CPU_CntLeadZeros(),
-*               CPU_CntTrailZeros08(),
-*               Application.
-*
-*               This function is a CPU module application programming interface (API) function & MAY be
-*               called by application function(s).
-*
 * Note(s)     : (1) Supports  8-bit values :
 *
 *                               b07  b06  b05  b04  b03  b02  b01  b00    # Leading Zeros
@@ -1240,13 +1142,6 @@ CPU_DATA  CPU_CntLeadZeros08 (CPU_INT08U  val)
 * Argument(s) : val         Data value to count leading zero bits.
 *
 * Return(s)   : Number of contiguous, most-significant, leading zero bits in 'val'.
-*
-* Caller(s)   : CPU_CntLeadZeros(),
-*               CPU_CntTrailZeros16(),
-*               Application.
-*
-*               This function is a CPU module application programming interface (API) function & MAY be
-*               called by application function(s).
 *
 * Note(s)     : (1) Supports 16-bit values :
 *
@@ -1313,13 +1208,6 @@ CPU_DATA  CPU_CntLeadZeros16 (CPU_INT16U  val)
 * Argument(s) : val         Data value to count leading zero bits.
 *
 * Return(s)   : Number of contiguous, most-significant, leading zero bits in 'val'.
-*
-* Caller(s)   : CPU_CntLeadZeros(),
-*               CPU_CntTrailZeros32(),
-*               Application.
-*
-*               This function is a CPU module application programming interface (API) function & MAY be
-*               called by application function(s).
 *
 * Note(s)     : (1) Supports 32-bit values :
 *
@@ -1400,13 +1288,6 @@ CPU_DATA  CPU_CntLeadZeros32 (CPU_INT32U  val)
 * Argument(s) : val         Data value to count leading zero bits.
 *
 * Return(s)   : Number of contiguous, most-significant, leading zero bits in 'val'.
-*
-* Caller(s)   : CPU_CntLeadZeros(),
-*               CPU_CntTrailZeros64(),
-*               Application.
-*
-*               This function is a CPU module application programming interface (API) function & MAY be
-*               called by application function(s).
 *
 * Note(s)     : (1) Supports 64-bit values :
 *
@@ -1515,11 +1396,6 @@ CPU_DATA  CPU_CntLeadZeros64 (CPU_INT64U  val)
 * Argument(s) : val         Data value to count trailing zero bits.
 *
 * Return(s)   : Number of contiguous, least-significant, trailing zero bits in 'val'.
-*
-* Caller(s)   : Application.
-*
-*               This function is a CPU module application programming interface (API) function & MAY
-*               be called by application function(s).
 *
 * Note(s)     : (1) (a) Supports the following data value sizes :
 *
@@ -1649,11 +1525,6 @@ CPU_DATA  CPU_CntTrailZeros (CPU_DATA  val)
 *
 * Return(s)   : Number of contiguous, least-significant, trailing zero bits in 'val'.
 *
-* Caller(s)   : Application.
-*
-*               This function is a CPU module application programming interface (API) function & MAY be
-*               called by application function(s).
-*
 * Note(s)     : (1) Supports  8-bit values :
 *
 *                               b07  b06  b05  b04  b03  b02  b01  b00    # Trailing Zeros
@@ -1750,11 +1621,6 @@ CPU_DATA  CPU_CntTrailZeros08 (CPU_INT08U  val)
 * Argument(s) : val         Data value to count trailing zero bits.
 *
 * Return(s)   : Number of contiguous, least-significant, trailing zero bits in 'val'.
-*
-* Caller(s)   : Application.
-*
-*               This function is a CPU module application programming interface (API) function & MAY be
-*               called by application function(s).
 *
 * Note(s)     : (1) Supports 16-bit values :
 *
@@ -1855,11 +1721,6 @@ CPU_DATA  CPU_CntTrailZeros16 (CPU_INT16U  val)
 *
 * Return(s)   : Number of contiguous, least-significant, trailing zero bits in 'val'.
 *
-* Caller(s)   : Application.
-*
-*               This function is a CPU module application programming interface (API) function & MAY be
-*               called by application function(s).
-*
 * Note(s)     : (1) Supports 32-bit values :
 *
 *                          b31  b30  b29  b28  b27  ...  b02  b01  b00    # Trailing Zeros
@@ -1958,11 +1819,6 @@ CPU_DATA  CPU_CntTrailZeros32 (CPU_INT32U  val)
 * Argument(s) : val         Data value to count trailing zero bits.
 *
 * Return(s)   : Number of contiguous, least-significant, trailing zero bits in 'val'.
-*
-* Caller(s)   : Application.
-*
-*               This function is a CPU module application programming interface (API) function & MAY be
-*               called by application function(s).
 *
 * Note(s)     : (1) Supports 64-bit values :
 *
@@ -2064,8 +1920,6 @@ CPU_DATA  CPU_CntTrailZeros64 (CPU_INT64U  val)
 *
 * Return(s)   : value's population count.
 *
-* Caller(s)   : various.
-*
 * Note(s)     : (1) Algorithm taken from en.wikipedia.org/wiki/Hamming_weight
 *********************************************************************************************************
 */
@@ -2104,8 +1958,6 @@ CPU_INT08U  CPU_PopCnt32 (CPU_INT32U  value)
 *
 * Return(s)   : none.
 *
-* Caller(s)   : OSStatReset().
-*
 * Note(s)     : Critical section provided by caller.
 *********************************************************************************************************
 */
@@ -2138,8 +1990,6 @@ void  CPU_StatReset (void)
 *
 * Return(s)   : none.
 *
-* Caller(s)   : CPU_Init().
-*
 * Note(s)     : none.
 *********************************************************************************************************
 */
@@ -2165,8 +2015,6 @@ static  void  CPU_NameInit (void)
 * Argument(s) : none.
 *
 * Return(s)   : none.
-*
-* Caller(s)   : CPU_Init().
 *
 * Note(s)     : (1) The following initialization MUST be sequenced as follows :
 *
@@ -2235,8 +2083,6 @@ static  void  CPU_TS_Init (void)
 *
 * Return(s)   : none.
 *
-* Caller(s)   : CPU_Init().
-*
 * Note(s)     : (2) CPU_IntDisMeasInit() SHOULD precede ALL calls to CPU_CRITICAL_ENTER()/CPU_CRITICAL_EXIT()
 *                   & other CPU interrupts disabled time measurement functions; otherwise, invalid interrupts
 *                   disabled time measurements may be calculated/returned.
@@ -2303,9 +2149,6 @@ static  void  CPU_IntDisMeasInit (void)
 * Argument(s) : time_tot_cnts   Total interrupt disabled time, in timer counts.
 *
 * Return(s)   : Maximum interrupts disabled time (in CPU timestamp timer counts).
-*
-* Caller(s)   : CPU_IntDisMeasMaxCurGet(),
-*               CPU_IntDisMeasMaxGet().
 *
 * Note(s)     : (1) (a) The total amount of time interrupts are disabled by system &/or application code
 *                       during critical sections is calculated by the following equations :
@@ -2408,4 +2251,3 @@ static  CPU_TS_TMR  CPU_IntDisMeasMaxCalc (CPU_TS_TMR  time_tot_cnts)
     return (time_max_cnts);
 }
 #endif
-

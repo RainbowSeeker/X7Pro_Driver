@@ -1,36 +1,28 @@
 /*
-**************************************************************************************************************************
-*                                                      uC/OS-III
-*                                                 The Real-Time Kernel
+*********************************************************************************************************
+*                                              uC/OS-III
+*                                        The Real-Time Kernel
 *
-*                                  (c) Copyright 2009-2017; Micrium, Inc.; Weston, FL
-*                           All rights reserved.  Protected by international copyright laws.
+*                    Copyright 2009-2022 Silicon Laboratories Inc. www.silabs.com
 *
-* File    : OS_TRACE.H
-* By      : JJL
-* Version : V3.06.02
+*                                 SPDX-License-Identifier: APACHE-2.0
 *
-* LICENSING TERMS:
-* ---------------
-*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or
-*           for peaceful research.  If you plan or intend to use uC/OS-III in a commercial application/
-*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your
-*           application/product.   We provide ALL the source code for your convenience and to help you
-*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use
-*           it commercially without paying a licensing fee.
+*               This software is subject to an open source license and is distributed by
+*                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+*                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 *
-*           Knowledge of the source code may NOT be used to develop a similar product.
-*
-*           Please help us continue to provide the embedded community with the finest software available.
-*           Your honesty is greatly appreciated.
-*
-*           You can find our product's user manual, API reference, release notes and
-*           more information at doc.micrium.com.
-*           You can contact us at www.micrium.com.
-**************************************************************************************************************************
-* Note(s) : (1) The header file os_trace_events.h is the interface between uC/OS-III and your trace recorder of choice.
-*               To support trace recording, include one of the sub-folders at uCOS-III/Trace/ into your project.
-**************************************************************************************************************************
+*********************************************************************************************************
+*/
+
+/*
+*********************************************************************************************************
+* File    : os_trace.h
+* Version : V3.08.02
+*********************************************************************************************************
+* Note(s) : (1) The header file os_trace_events.h is the interface between uC/OS-III and your
+*               trace recorder of choice. To support trace recording, include one of the sub-folders
+*               at uCOS-III/Trace/ into your project.
+*********************************************************************************************************
 */
 
 #ifndef   OS_TRACE_H
@@ -111,6 +103,10 @@
 
 #ifndef  OS_TRACE_TASK_RESUME
 #define  OS_TRACE_TASK_RESUME(p_tcb)
+#endif
+
+#ifndef  OS_TRACE_TASK_PREEMPT
+#define  OS_TRACE_TASK_PREEMPT(p_tcb)
 #endif
 
 #ifndef  OS_TRACE_TASK_PRIO_CHANGE
@@ -345,6 +341,14 @@
 #define  OS_TRACE_TASK_SEM_PEND_ENTER(p_tcb, timeout, opt, p_ts)
 #endif
 
+#ifndef  OS_TRACE_TASK_RESUME_ENTER
+#define  OS_TRACE_TASK_RESUME_ENTER(p_tcb)
+#endif
+
+#ifndef  OS_TRACE_TASK_SUSPEND_ENTER
+#define  OS_TRACE_TASK_SUSPEND_ENTER(p_tcb)
+#endif
+
 #ifndef  OS_TRACE_SEM_DEL_ENTER
 #define  OS_TRACE_SEM_DEL_ENTER(p_sem, opt)
 #endif
@@ -415,6 +419,14 @@
 
 #ifndef  OS_TRACE_TASK_SEM_PEND_EXIT
 #define  OS_TRACE_TASK_SEM_PEND_EXIT(RetVal)
+#endif
+
+#ifndef  OS_TRACE_TASK_RESUME_EXIT
+#define  OS_TRACE_TASK_RESUME_EXIT(RetVal)
+#endif
+
+#ifndef  OS_TRACE_TASK_SUSPEND_EXIT
+#define  OS_TRACE_TASK_SUSPEND_EXIT(RetVal)
 #endif
 
 #ifndef  OS_TRACE_SEM_DEL_EXIT

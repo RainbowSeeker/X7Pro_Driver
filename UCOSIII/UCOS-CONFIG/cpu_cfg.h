@@ -1,20 +1,16 @@
 /*
 *********************************************************************************************************
-*                                            EXAMPLE CODE
+*                                               uC/CPU
+*                                    CPU CONFIGURATION & PORT LAYER
 *
-*               This file is provided as an example on how to use Micrium products.
+*                    Copyright 2004-2021 Silicon Laboratories Inc. www.silabs.com
 *
-*               Please feel free to use any application code labeled as 'EXAMPLE CODE' in
-*               your application products.  Example code may be used as is, in whole or in
-*               part, or may be used as a reference only. This file can be modified as
-*               required to meet the end-product requirements.
+*                                 SPDX-License-Identifier: APACHE-2.0
 *
-*               Please help us continue to provide the Embedded community with the finest
-*               software available.  Your honesty is greatly appreciated.
+*               This software is subject to an open source license and is distributed by
+*                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+*                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 *
-*               You can find our product's user manual, API reference, release notes and
-*               more information at https://doc.micrium.com.
-*               You can contact us at www.micrium.com.
 *********************************************************************************************************
 */
 
@@ -23,8 +19,10 @@
 *
 *                                       CPU CONFIGURATION FILE
 *
+*                                              TEMPLATE
+*
 * Filename : cpu_cfg.h
-* Version  : V1.31.02
+* Version  : V1.32.01
 *********************************************************************************************************
 */
 
@@ -152,7 +150,7 @@
 *********************************************************************************************************
 */
 
-#if 1                                                           /* Configure CPU count leading  zeros bits ...          */
+#if 0                                                           /* Configure CPU count leading  zeros bits ...          */
 #define  CPU_CFG_LEAD_ZEROS_ASM_PRESENT                         /* ... assembly-version (see Note #1a).                 */
 #endif
 
@@ -186,15 +184,64 @@
 *********************************************************************************************************
 *                                          CACHE MANAGEMENT
 *
-* Note(s) : (1) Configure CPU_CFG_CACHE_MGMT_EN to enable the cache managment API.
-
+* Note(s) : (1) Configure CPU_CFG_CACHE_MGMT_EN to enable the cache management API.
 *
-*           (2) Defining CPU_CFG_CACHE_MGMT_EN to DEF_ENABLED only enable the cache management function.
-*               Cache are assumed to be configured and enabled by the time CPU_init() is called.
+*           (2) This option only enables the cache management functions.
+*               It does not enable any hardware caches, which should be configured in startup code.
+*               Caches must be configured and enabled by the time CPU_Init() is called.
+*
+*           (3) This option is usually required for device drivers which use a DMA engine to transmit
+*               buffers that are located in cached memory.
 *********************************************************************************************************
 */
 
 #define  CPU_CFG_CACHE_MGMT_EN            DEF_DISABLED          /* Defines CPU data    word-memory order (see Note #1). */
+
+
+/*
+*********************************************************************************************************
+*                                      KERNEL AWARE IPL BOUNDARY
+*
+* Note(s) : (1) Determines the IPL level that establishes the boundary for ISRs that are kernel-aware and
+*               those that are not.  All ISRs at this level or lower are kernel-aware.
+*
+*           (2) ARMv7-M: Since the port is using BASEPRI to separate kernel vs non-kernel aware ISR, please
+*               make sure your external interrupt priorities are set accordingly. For example, if
+*               CPU_CFG_KA_IPL_BOUNDARY is set to 4 then external interrupt priorities 4-15 will be kernel
+*               aware while priorities 0-3 will be use as non-kernel aware.
+*********************************************************************************************************
+*/
+
+#define  CPU_CFG_KA_IPL_BOUNDARY                           5u
+
+
+/*
+*********************************************************************************************************
+*                                            ARM CORTEX-M
+*
+* Note(s) : (1) Determines the interrupt programmable priority levels. This is normally specified in the
+*               Microcontroller reference manual. 4-bits gives us 16 programmable priority levels.
+*
+*                     Example 1                                       Example 2
+*                     NVIC_IPRx                                       NVIC_IPRx
+*                 7                0                              7                0
+*                +------------------+                            +------------------+
+*                |       PRIO       |                            |       PRIO       |
+*                +------------------+                            +------------------+
+*
+*                Bits[7:4] Priority mask bits                    Bits[7:6] Priority mask bits
+*                Bits[3:0] Reserved                              Bits[5:0] Reserved
+*
+*                Example 1: CPU_CFG_NVIC_PRIO_BITS should be set to 4 due to the processor
+*                           implementing only bits[7:4].
+*
+*                Example 2: CPU_CFG_NVIC_PRIO_BITS should be set to 2 due to the processor
+*                           implementing only bits[7:6].
+*********************************************************************************************************
+*/
+#if 1
+#define  CPU_CFG_NVIC_PRIO_BITS                            4u
+#endif
 
 
 /*
@@ -204,4 +251,3 @@
 */
 
 #endif                                                          /* End of CPU cfg module include.                       */
-

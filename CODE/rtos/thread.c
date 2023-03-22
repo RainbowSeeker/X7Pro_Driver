@@ -5,9 +5,10 @@
 //
 
 #include "thread.h"
+#include "mem.h"
 
-/* global errno */
-static volatile int os_errno;
+STATIC_DMA_DATA_AUTO uint8_t thread_stk_array[ALL_THREAD_STK_SIZE];
+static uint32_t thread_stk_ptr = 0;
 
 static void (*thread_suspend_hook)(os_thread_t thread);
 static void (*thread_resume_hook) (os_thread_t thread);
@@ -105,7 +106,7 @@ err_t os_thread_idle_sethook(void (*hook)(void))
         idle->stat = THREAD_READY;
         idle->priority = 0;
         idle->stack_size = 1024;
-        idle->tid = xTaskGetIdleTaskHandle();
+        idle->tid = &OSIdleTaskTCB;
         if (thread_inited_hook)
         {
             thread_inited_hook(idle);
@@ -163,7 +164,7 @@ err_t os_thread_idle_delhook(void (*hook)(void))
     return ret;
 }
 
-static void os_thread_idle_hook()
+void os_thread_idle_hook()
 {
     size_t i;
     for (i = 0; i < IDLE_HOOK_LIST_SIZE; i++)
@@ -175,14 +176,6 @@ static void os_thread_idle_hook()
     }
 }
 
-/* Compiler Related Definitions */
-#if defined(__CC_ARM) || defined(__CLANG_ARM)           /* ARM Compiler */
-void IDLE_FUNC_NAME(){os_thread_idle_hook();}
-#elif defined (__GNUC__)                /* GNU GCC Compiler */
-void IDLE_FUNC_NAME() __attribute__((weak, alias("os_thread_idle_hook")));
-#else
-#error not supported tool chain
-#endif
 
 void os_scheduler_sethook(void hook(os_thread_t from, os_thread_t to))
 {
@@ -214,8 +207,13 @@ os_thread_t os_thread_create(const char *name,
                              size_t priority,
                              uint16_t stack_size)
 {
-    os_thread_t thread = malloc(sizeof(struct thread));
-
+    os_thread_t thread = calloc(1, sizeof(struct thread));
+    if (thread == NULL)
+    {
+        printf("\r\nno mem");
+        return NULL;
+    }
+    thread->tid = calloc(1, sizeof(OS_TCB));
     if (thread == NULL)
     {
         printf("\r\nno mem");
@@ -225,6 +223,18 @@ os_thread_t os_thread_create(const char *name,
     if (priority >= OS_MAX_PRIORITY)
     {
         printf("\r\nThe priority you set is too high! \r\n Please decrease priority to < %d.", OS_MAX_PRIORITY);
+        goto _fail;
+    }
+
+    if (stack_size > MAX_THREAD_STK_SIZE)
+    {
+        printf("\r\nThe stack_size you set is too high! \r\n Please decrease stack_size to < %d.", MAX_THREAD_STK_SIZE);
+        goto _fail;
+    }
+
+    if (thread_stk_ptr + stack_size >= ALL_THREAD_STK_SIZE)
+    {
+        printf("\r\nThe thread_stk_ptr is exhausted! \r\n Please increase your thread_stk_ptr.");
         goto _fail;
     }
 
@@ -241,12 +251,25 @@ os_thread_t os_thread_create(const char *name,
         thread_inited_hook(thread);
     }
 
-    if (xTaskCreate((TaskFunction_t)task_func_t,(const portCHAR *)name,
-                    stack_size, parameter, priority,
-                    &thread->tid) != pdPASS)
+    OSTaskCreate(thread->tid,
+                 (CPU_CHAR *)name,
+                 task_func_t,
+                 parameter,
+                 priority,
+                 (CPU_STK *) &thread_stk_array[thread_stk_ptr],
+                 stack_size / 10,
+                 stack_size,
+                 0,
+                 0,
+                 0,
+                 (OS_OPT_TASK_STK_CHK | 0),
+                 &os_err);
+    if (os_err != 0)
     {
         goto _fail;
     }
+//    memset(&thread_stk_array[thread_stk_ptr], 0, stack_size);
+    thread_stk_ptr += stack_size;
     return thread;
 
     _fail:
@@ -262,8 +285,8 @@ err_t os_thread_delete(os_thread_t thread)
         thread_deleted_hook(thread);
     }
     list_remove(&thread->parent.list);
-    vTaskDelete(thread->tid);
-    return E_OK;
+    OSTaskDel(thread->tid, &os_err);
+    return os_err == 0 ? E_OK : E_RROR;
 }
 
 err_t os_thread_suspend(os_thread_t thread)
@@ -273,8 +296,8 @@ err_t os_thread_suspend(os_thread_t thread)
     {
         thread_suspend_hook(thread);
     }
-
-    return osThreadSuspend(thread->tid);
+    OSTaskSuspend(thread->tid, &os_err);
+    return os_err == 0 ? E_OK : E_RROR;
 }
 
 err_t os_thread_resume(os_thread_t thread)
@@ -294,56 +317,48 @@ err_t os_thread_resume(os_thread_t thread)
         thread_resume_hook(thread);
     }
 
-    return osThreadResume(thread->tid);
-}
-
-void os_thread_update_info(const char *name)
-{
-    uint32_t total_runtime = 0;
-    size_t task_num = os_thread_get_num();
-    TaskStatus_t task_status;
-
-//    vTaskGetInfo();
-//    for(size_t i = 0; i < task_num; i++ )
-//    {
-//        os_thread_t thread = os_thread_find(task_status[i].pcTaskName);
-//
-//        thread->max_used = thread->stack_size - task_status[i].usStackHighWaterMark;
-//        if (total_runtime)  thread->occupy = task_status[i].ulRunTimeCounter * 100 / total_runtime;
-//        else thread->occupy = 0;
-//        if (task_status[i].eCurrentState == eReady) thread->stat = THREAD_READY;
-//        else if (task_status[i].eCurrentState == eSuspended) thread->stat = THREAD_SUSPEND;
-//        else if (task_status[i].eCurrentState == eRunning) thread->stat = THREAD_RUNNING;
-//        else if (task_status[i].eCurrentState == eBlocked) thread->stat = THREAD_BLOCK;
-//        else thread->stat = THREAD_CLOSE;
-//    }
+    OSTaskResume(thread->tid, &os_err);
+    return os_err == 0 ? E_OK : E_RROR;
 }
 
 
 void os_thread_update_info_all(void)
 {
-    size_t task_num = os_thread_get_num();
-    TaskStatus_t *task_status = malloc(task_num * sizeof(TaskStatus_t));
+    list_t *node;
+    struct object_information *information;
+    information = object_get_information(Object_Class_Thread);
+    ASSERT(information != NULL);
 
-    if (task_status)
+    /* enter critical */
+    base_t level = os_hw_interrupt_disable();
+    /* try to find object */
+    list_for_each(node, &information->object_list)
     {
-        task_num = uxTaskGetSystemState(task_status, task_num, NULL);
-
-        /* update all thread info */
-        for(size_t i = 0; i < task_num; i++ )
+        os_thread_t thread = (os_thread_t)list_entry(node, struct object, list);
+        switch (thread->tid->TaskState)
         {
-            os_thread_t thread = os_thread_find(task_status[i].pcTaskName);
-
-            thread->max_used = thread->stack_size - task_status[i].usStackHighWaterMark;
-            if (task_status[i].eCurrentState == eReady) thread->stat = THREAD_READY;
-            else if (task_status[i].eCurrentState == eSuspended) thread->stat = THREAD_SUSPEND;
-            else if (task_status[i].eCurrentState == eRunning) thread->stat = THREAD_RUNNING;
-            else if (task_status[i].eCurrentState == eBlocked) thread->stat = THREAD_BLOCK;
-            else thread->stat = THREAD_CLOSE;
+            case OS_TASK_STATE_RDY:
+                thread->stat = THREAD_READY;
+                break;
+            case OS_TASK_STATE_DLY:
+            case OS_TASK_STATE_PEND:
+                thread->stat = THREAD_BLOCK;
+                break;
+            case OS_TASK_STATE_SUSPENDED:
+                thread->stat = THREAD_READY;
+                break;
+            case OS_TASK_STATE_DEL:
+                thread->stat = THREAD_CLOSE;
+                break;
+            default:
+                thread->stat = THREAD_READY;
+                break;
         }
-
-        free(task_status);
+        thread->max_used = thread->tid->StkUsed;
     }
+    /* leave critical */
+    os_hw_interrupt_enable(level);
+
 }
 
 os_thread_t os_thread_find(char *name)
@@ -375,7 +390,6 @@ os_thread_t os_thread_find(char *name)
 
 os_thread_t os_thread_self(void)
 {
-    osThreadId tid = osThreadGetId();
     list_t *node;
 
     struct object_information *information;
@@ -388,7 +402,7 @@ os_thread_t os_thread_self(void)
     {
         struct object *obj;
         obj = list_entry(node, struct object, list);
-        if (((os_thread_t)obj)->tid == tid)
+        if (((os_thread_t)obj)->tid == OSTCBCurPtr)
         {
             os_hw_interrupt_enable(level);
             return (os_thread_t)obj;
@@ -411,7 +425,7 @@ err_t os_thread_startup(os_thread_t thread)
  */
 void os_thread_timeout(void *parameter)
 {
-    struct thread *thread = (struct thread *)os_timer_get_parameter(parameter);
+    struct thread *thread = (struct thread *)parameter;
 
     /* thread check */
     ASSERT(thread != NULL);
@@ -427,51 +441,4 @@ void os_thread_timeout(void *parameter)
 
     /* do schedule */
     os_schedule();
-}
-/*
- * This function will get errno
- *
- * @return errno
- */
-err_t os_get_errno(void)
-{
-    os_thread_t thread;
-
-    if (os_interrupt_get_nest() != 0)
-    {
-        /* it's in interrupt context */
-        return os_errno;
-    }
-
-    thread = os_thread_self();
-    if (thread == NULL)
-        return os_errno;
-
-    return thread->error;
-}
-
-/*
- * This function will set errno
- *
- * @param error the errno shall be set
- */
-void os_set_errno(err_t error)
-{
-    os_thread_t thread;
-
-    if (os_interrupt_get_nest() != 0)
-    {
-        /* it's in interrupt context */
-        os_errno = error;
-        return;
-    }
-
-    thread = os_thread_self();
-    if (thread == NULL)
-    {
-        os_errno = error;
-        return;
-    }
-
-    thread->error = error;
 }

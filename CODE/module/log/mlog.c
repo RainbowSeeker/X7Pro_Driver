@@ -415,7 +415,7 @@ err_t mlog_push_msg(const uint8_t *payload, uint8_t msg_id, uint16_t len)
         return E_FULL;
     }
 
-    mutex_take(mlog_handle.lock, osWaitForever);
+    mutex_take(mlog_handle.lock, OS_WAIT_FOREVER);
 
     /* write msg begin flag */
     buffer_putc(MLOG_BEGIN_MSG1);

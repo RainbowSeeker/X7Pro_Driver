@@ -66,7 +66,7 @@ static void on_param_modify(param_t* param)
 
 static void mavproxy_timer_update(void* parameter)
 {
-    os_event_send(mav_handle.event, EVENT_MAVPROXY_UPDATE);
+    os_event_send(&mav_handle.event, EVENT_MAVPROXY_UPDATE);
 }
 
 static void dump_immediate_msg(void)
@@ -150,10 +150,10 @@ err_t mavproxy_send_immediate_msg(const mavlink_message_t* msg, bool sync)
         size_t size;
 
         /* make sure only one thread can access tx buffer at mean time. */
-        os_sem_take(mav_handle.tx_lock, osWaitForever);
+        os_sem_take(mav_handle.tx_lock, OS_WAIT_FOREVER);
 
         len = mavlink_msg_to_send_buffer(mav_handle.tx_buffer, msg);
-        size = mavproxy_dev_write(mav_handle.tx_buffer, len, osWaitForever);
+        size = mavproxy_dev_write(mav_handle.tx_buffer, len, OS_WAIT_FOREVER);
 
         os_sem_release(mav_handle.tx_lock);
 
@@ -173,7 +173,7 @@ err_t mavproxy_send_immediate_msg(const mavlink_message_t* msg, bool sync)
     OS_EXIT_CRITICAL();
 
     /* wakeup mavproxy to send out temporary msg immediately */
-    os_event_send(mav_handle.event, EVENT_MAVPROXY_UPDATE);
+    os_event_send(&mav_handle.event, EVENT_MAVPROXY_UPDATE);
 
     return E_OK;
 }
@@ -189,7 +189,7 @@ err_t mavproxy_send_immediate_msg(const mavlink_message_t* msg, bool sync)
  */
 err_t mavproxy_send_event(uint32_t event_set)
 {
-    return os_event_send(mav_handle.event, event_set);
+    return os_event_send(&mav_handle.event, event_set);
 }
 
 /**
@@ -243,7 +243,8 @@ void mavproxy_loop(void)
 
     while (1) {
         /* wait event occur */
-        res = os_event_recv(mav_handle.event, osWaitForever, &recv_set);
+        res = os_event_recv(&mav_handle.event, EVENT_MAVPROXY_UPDATE | EVENT_MAVCONSOLE_TIMEOUT | EVENT_SEND_ALL_PARAM,
+                            OS_WAIT_FOREVER, &recv_set);
 
         if (res == E_OK) {
             /* switch mavproxy channel if needed */
@@ -306,7 +307,7 @@ err_t mavproxy_init(void)
     }
 
     /* create event */
-    os_event_init(&mav_handle.event, 10);
+    os_event_init(&mav_handle.event);
 
     //TODO: fix this
     /* register parameter modify callback */

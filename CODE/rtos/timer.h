@@ -14,7 +14,7 @@
 struct timer
 {
     struct object parent;
-    osTimerId tid;     //freertos timer ptr
+    OS_TMR tid;     //timer ptr
     tick_t period;
 };
 typedef struct timer *os_timer_t;
@@ -31,15 +31,11 @@ typedef struct timer *os_timer_t;
  * @param type the type of timer
  */
 os_timer_t os_timer_create(const char *name,
-                           void (*timeout)(void *),
+                           void (*timeout)(void *p_tmr, void *p_arg),
                            void *parameter,
                            tick_t period,
                            uint8_t type);
 
-static inline void *os_timer_get_parameter(void *parameter)
-{
-    return pvTimerGetTimerID((TimerHandle_t)parameter);
-}
 /**
  * os_timer_start
  * @param timer
@@ -47,7 +43,8 @@ static inline void *os_timer_get_parameter(void *parameter)
  */
 static inline err_t os_timer_start(os_timer_t timer)
 {
-    return osTimerStart(timer->tid, timer->period);
+//    OSTmrStart(&timer->tid, &os_err);
+    return os_err == 0 ? E_OK : E_RROR;
 }
 
 /**
@@ -57,7 +54,8 @@ static inline err_t os_timer_start(os_timer_t timer)
  */
 static inline err_t os_timer_stop(os_timer_t timer)
 {
-    return osTimerStop(timer->tid);
+    OSTmrStop(&timer->tid, OS_OPT_TMR_NONE, NULL, &os_err);
+    return os_err == 0 ? E_OK : E_RROR;
 }
 
 #endif //RTOS_TIMER_H

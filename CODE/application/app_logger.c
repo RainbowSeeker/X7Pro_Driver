@@ -6,7 +6,6 @@
 #include "common.h"
 #include "module_common.h"
 #include "module/file_manager/file_manager.h"
-#include "sys.h"
 #include "logger.h"
 
 
@@ -17,7 +16,7 @@
 #define EVENT_MLOG_UPDATE (1 << 0)
 #define EVENT_ULOG_UPDATE (1 << 1)
 
-static os_event_t _log_event = NULL;
+static os_event_t _log_event;
 
 #ifdef ENABLE_ULOG_CONSOLE_BACKEND
 
@@ -66,12 +65,12 @@ static void ulog_fs_backend_deinit(struct ulog_backend* backend)
 
 static void mlog_update_cb(void)
 {
-    os_event_send(_log_event, EVENT_MLOG_UPDATE);
+    os_event_send(&_log_event, EVENT_MLOG_UPDATE);
 }
 
 static void ulog_update_cb(void)
 {
-    os_event_send(_log_event, EVENT_ULOG_UPDATE);
+    os_event_send(&_log_event, EVENT_ULOG_UPDATE);
 }
 
 
@@ -80,7 +79,7 @@ void App_Logger_Main(void *argument)
     err_t err;
     uint32_t recv_set = 0;
 
-    if (os_event_init(&_log_event, 10) != E_OK)
+    if (os_event_init(&_log_event) != E_OK)
     {
         printf("log event create fail\n");
         return;
@@ -118,7 +117,7 @@ void App_Logger_Main(void *argument)
 
     while (1)
     {
-        err = os_event_recv(_log_event, 20, &recv_set);
+        err = os_event_recv(&_log_event, EVENT_MLOG_UPDATE | EVENT_ULOG_UPDATE, 20, &recv_set);
         if (err == E_OK)
         {
             if (recv_set & EVENT_MLOG_UPDATE)

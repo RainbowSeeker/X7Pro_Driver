@@ -131,7 +131,7 @@ inline int _serial_int_rx(struct serial_device* serial, uint8_t* data, int lengt
 //
 //    while (length) {
 //        if (serial->ops->putc(serial, *(char*)data) == -1) {
-//            completion_wait(&(tx->completion), osWaitForever);
+//            completion_wait(&(tx->completion), OS_WAIT_FOREVER);
 //            continue;
 //        }
 //

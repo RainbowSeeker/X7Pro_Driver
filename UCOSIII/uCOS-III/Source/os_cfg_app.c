@@ -1,37 +1,28 @@
 /*
-************************************************************************************************************************
-*                                                      uC/OS-III
-*                                                 The Real-Time Kernel
+*********************************************************************************************************
+*                                              uC/OS-III
+*                                        The Real-Time Kernel
 *
-*                                  (c) Copyright 2009-2017; Micrium, Inc.; Weston, FL
-*                           All rights reserved.  Protected by international copyright laws.
+*                    Copyright 2009-2022 Silicon Laboratories Inc. www.silabs.com
 *
-*                                       OS CONFIGURATION (APPLICATION SPECIFICS)
+*                                 SPDX-License-Identifier: APACHE-2.0
 *
-* File    : OS_CFG_APP.C
-* By      : JJL
-* Version : V3.06.02
+*               This software is subject to an open source license and is distributed by
+*                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+*                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 *
-* LICENSING TERMS:
-* ---------------
-*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or
-*           for peaceful research.  If you plan or intend to use uC/OS-III in a commercial application/
-*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your
-*           application/product.   We provide ALL the source code for your convenience and to help you
-*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use
-*           it commercially without paying a licensing fee.
+*********************************************************************************************************
+*/
+
+/*
+*********************************************************************************************************
+*                               OS CONFIGURATION (APPLICATION SPECIFICS)
 *
-*           Knowledge of the source code may NOT be used to develop a similar product.
-*
-*           Please help us continue to provide the embedded community with the finest software available.
-*           Your honesty is greatly appreciated.
-*
-*           You can find our product's user manual, API reference, release notes and
-*           more information at doc.micrium.com.
-*           You can contact us at www.micrium.com.
-************************************************************************************************************************
+* File    : os_cfg_app.c
+* Version : V3.08.02
+*********************************************************************************************************
 * Note(s) : DO NOT CHANGE THIS FILE!
-************************************************************************************************************************
+*********************************************************************************************************
 */
 
 #define  MICRIUM_SOURCE
@@ -42,19 +33,15 @@
 const  CPU_CHAR  *os_cfg_app__c = "$Id: $";
 #endif
 
-#if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_IDLE_EN > 0u)
 #define  OS_CFG_IDLE_TASK_STK_LIMIT      ((OS_CFG_IDLE_TASK_STK_SIZE  * OS_CFG_TASK_STK_LIMIT_PCT_EMPTY) / 100u)
 #endif
 
-#if (OS_CFG_STAT_TASK_EN == DEF_ENABLED)
+#if (OS_CFG_STAT_TASK_EN > 0u)
 #define  OS_CFG_STAT_TASK_STK_LIMIT      ((OS_CFG_STAT_TASK_STK_SIZE  * OS_CFG_TASK_STK_LIMIT_PCT_EMPTY) / 100u)
 #endif
 
-#if (OS_CFG_TASK_TICK_EN == DEF_ENABLED)
-#define  OS_CFG_TICK_TASK_STK_LIMIT      ((OS_CFG_TICK_TASK_STK_SIZE  * OS_CFG_TASK_STK_LIMIT_PCT_EMPTY) / 100u)
-#endif
-
-#if (OS_CFG_TMR_EN == DEF_ENABLED)
+#if (OS_CFG_TMR_EN > 0u)
 #define  OS_CFG_TMR_TASK_STK_LIMIT       ((OS_CFG_TMR_TASK_STK_SIZE   * OS_CFG_TASK_STK_LIMIT_PCT_EMPTY) / 100u)
 #endif
 
@@ -64,7 +51,7 @@ const  CPU_CHAR  *os_cfg_app__c = "$Id: $";
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_IDLE_EN > 0u)
 CPU_STK        OSCfg_IdleTaskStk   [OS_CFG_IDLE_TASK_STK_SIZE];
 #endif
 
@@ -72,19 +59,15 @@ CPU_STK        OSCfg_IdleTaskStk   [OS_CFG_IDLE_TASK_STK_SIZE];
 CPU_STK        OSCfg_ISRStk        [OS_CFG_ISR_STK_SIZE];
 #endif
 
-#if (OS_MSG_EN == DEF_ENABLED)
+#if (OS_MSG_EN > 0u)
 OS_MSG         OSCfg_MsgPool       [OS_CFG_MSG_POOL_SIZE];
 #endif
 
-#if (OS_CFG_STAT_TASK_EN == DEF_ENABLED)
+#if (OS_CFG_STAT_TASK_EN > 0u)
 CPU_STK        OSCfg_StatTaskStk   [OS_CFG_STAT_TASK_STK_SIZE];
 #endif
 
-#if (OS_CFG_TASK_TICK_EN == DEF_ENABLED)
-CPU_STK        OSCfg_TickTaskStk   [OS_CFG_TICK_TASK_STK_SIZE];
-#endif
-
-#if (OS_CFG_TMR_EN == DEF_ENABLED)
+#if (OS_CFG_TMR_EN > 0u)
 CPU_STK        OSCfg_TmrTaskStk    [OS_CFG_TMR_TASK_STK_SIZE];
 #endif
 
@@ -94,7 +77,7 @@ CPU_STK        OSCfg_TmrTaskStk    [OS_CFG_TMR_TASK_STK_SIZE];
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_IDLE_EN > 0u)
 CPU_STK      * const  OSCfg_IdleTaskStkBasePtr   = &OSCfg_IdleTaskStk[0];
 CPU_STK_SIZE   const  OSCfg_IdleTaskStkLimit     =  OS_CFG_IDLE_TASK_STK_LIMIT;
 CPU_STK_SIZE   const  OSCfg_IdleTaskStkSize      =  OS_CFG_IDLE_TASK_STK_SIZE;
@@ -117,7 +100,7 @@ CPU_INT32U     const  OSCfg_ISRStkSizeRAM        =             0u;
 #endif
 
 
-#if (OS_MSG_EN == DEF_ENABLED)
+#if (OS_MSG_EN > 0u)
 OS_MSG_SIZE    const  OSCfg_MsgPoolSize          =  OS_CFG_MSG_POOL_SIZE;
 CPU_INT32U     const  OSCfg_MsgPoolSizeRAM       =  sizeof(OSCfg_MsgPool);
 OS_MSG       * const  OSCfg_MsgPoolBasePtr       = &OSCfg_MsgPool[0];
@@ -128,7 +111,7 @@ OS_MSG       * const  OSCfg_MsgPoolBasePtr       = (OS_MSG *)0;
 #endif
 
 
-#if (OS_CFG_STAT_TASK_EN == DEF_ENABLED)
+#if (OS_CFG_STAT_TASK_EN > 0u)
 OS_PRIO        const  OSCfg_StatTaskPrio         =  OS_CFG_STAT_TASK_PRIO;
 OS_RATE_HZ     const  OSCfg_StatTaskRate_Hz      =  OS_CFG_STAT_TASK_RATE_HZ;
 CPU_STK      * const  OSCfg_StatTaskStkBasePtr   = &OSCfg_StatTaskStk[0];
@@ -148,24 +131,14 @@ CPU_INT32U     const  OSCfg_StatTaskStkSizeRAM   =            0u;
 CPU_STK_SIZE   const  OSCfg_StkSizeMin           =  OS_CFG_STK_SIZE_MIN;
 
 
-#if (OS_CFG_TASK_TICK_EN == DEF_ENABLED)
-OS_PRIO        const  OSCfg_TickTaskPrio         =  OS_CFG_TICK_TASK_PRIO;
+#if (OS_CFG_TICK_EN > 0u)
 OS_RATE_HZ     const  OSCfg_TickRate_Hz          =  OS_CFG_TICK_RATE_HZ;
-CPU_STK      * const  OSCfg_TickTaskStkBasePtr   = &OSCfg_TickTaskStk[0];
-CPU_STK_SIZE   const  OSCfg_TickTaskStkLimit     =  OS_CFG_TICK_TASK_STK_LIMIT;
-CPU_STK_SIZE   const  OSCfg_TickTaskStkSize      =  OS_CFG_TICK_TASK_STK_SIZE;
-CPU_INT32U     const  OSCfg_TickTaskStkSizeRAM   =  sizeof(OSCfg_TickTaskStk);
 #else
-OS_PRIO        const  OSCfg_TickTaskPrio         =  0u;
 OS_RATE_HZ     const  OSCfg_TickRate_Hz          =  0u;
-CPU_STK      * const  OSCfg_TickTaskStkBasePtr   =  (CPU_STK *)0;
-CPU_STK_SIZE   const  OSCfg_TickTaskStkLimit     =  0u;
-CPU_STK_SIZE   const  OSCfg_TickTaskStkSize      =  0u;
-CPU_INT32U     const  OSCfg_TickTaskStkSizeRAM   =  0u;
 #endif
 
 
-#if (OS_CFG_TMR_EN == DEF_ENABLED)
+#if (OS_CFG_TMR_EN > 0u)
 OS_PRIO        const  OSCfg_TmrTaskPrio          =  OS_CFG_TMR_TASK_PRIO;
 OS_RATE_HZ     const  OSCfg_TmrTaskRate_Hz       =  OS_CFG_TMR_TASK_RATE_HZ;
 CPU_STK      * const  OSCfg_TmrTaskStkBasePtr    = &OSCfg_TmrTaskStk[0];
@@ -190,28 +163,24 @@ CPU_INT32U     const  OSCfg_TmrTaskStkSizeRAM    =             0u;
 
 CPU_INT32U     const  OSCfg_DataSizeRAM          = 0u
 
-#if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_IDLE_EN > 0u)
                                                  + sizeof(OSCfg_IdleTaskStk)
 #endif
 
-#if (OS_MSG_EN == DEF_ENABLED)
+#if (OS_MSG_EN > 0u)
                                                  + sizeof(OSCfg_MsgPool)
 #endif
 
-#if (OS_CFG_STAT_TASK_EN == DEF_ENABLED)
+#if (OS_CFG_STAT_TASK_EN > 0u)
                                                  + sizeof(OSCfg_StatTaskStk)
 #endif
 
-#if (OS_CFG_TMR_EN == DEF_ENABLED)
+#if (OS_CFG_TMR_EN > 0u)
                                                  + sizeof(OSCfg_TmrTaskStk)
 #endif
 
 #if (OS_CFG_ISR_STK_SIZE > 0u)
                                                  + sizeof(OSCfg_ISRStk)
-#endif
-
-#if (OS_CFG_TASK_TICK_EN == DEF_ENABLED)
-                                                 + sizeof(OSCfg_TickTaskStk)
 #endif
 
                                                  + 0u;
@@ -241,7 +210,7 @@ void  OSCfg_Init (void)
 {
     (void)OSCfg_DataSizeRAM;
 
-#if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_IDLE_EN > 0u)
     (void)OSCfg_IdleTaskStkBasePtr;
     (void)OSCfg_IdleTaskStkLimit;
     (void)OSCfg_IdleTaskStkSize;
@@ -252,13 +221,13 @@ void  OSCfg_Init (void)
     (void)OSCfg_ISRStkSize;
     (void)OSCfg_ISRStkSizeRAM;
 
-#if (OS_MSG_EN == DEF_ENABLED)
+#if (OS_MSG_EN > 0u)
     (void)OSCfg_MsgPoolSize;
     (void)OSCfg_MsgPoolSizeRAM;
     (void)OSCfg_MsgPoolBasePtr;
 #endif
 
-#if (OS_CFG_STAT_TASK_EN == DEF_ENABLED)
+#if (OS_CFG_STAT_TASK_EN > 0u)
     (void)OSCfg_StatTaskPrio;
     (void)OSCfg_StatTaskRate_Hz;
     (void)OSCfg_StatTaskStkBasePtr;
@@ -269,14 +238,11 @@ void  OSCfg_Init (void)
 
     (void)OSCfg_StkSizeMin;
 
+#if (OS_CFG_TICK_EN > 0u)
     (void)OSCfg_TickRate_Hz;
-    (void)OSCfg_TickTaskPrio;
-    (void)OSCfg_TickTaskStkBasePtr;
-    (void)OSCfg_TickTaskStkLimit;
-    (void)OSCfg_TickTaskStkSize;
-    (void)OSCfg_TickTaskStkSizeRAM;
+#endif
 
-#if (OS_CFG_TMR_EN == DEF_ENABLED)
+#if (OS_CFG_TMR_EN > 0u)
     (void)OSCfg_TmrTaskPrio;
     (void)OSCfg_TmrTaskRate_Hz;
     (void)OSCfg_TmrTaskStkBasePtr;

@@ -8,7 +8,7 @@
 #include "hal/barometer/barometer.h"
 #include "hal/spi/spi.h"
 #include "module/workqueue/workqueue_manager.h"
-#include "driver/io.h"
+#include "drivers/io.h"
 
 #define DRV_DBG(...) printf(__VA_ARGS__)
 #define POW2(_x)     ((_x) * (_x))

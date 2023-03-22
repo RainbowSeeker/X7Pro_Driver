@@ -12,7 +12,8 @@
 #include "timer.h"
 
 #define MAX_THREAD_NUM          10
-#define IDLE_FUNC_NAME          vApplicationIdleHook
+#define ALL_THREAD_STK_SIZE     20480
+#define MAX_THREAD_STK_SIZE     10240
 
 /*
  * Thread
@@ -50,7 +51,7 @@
 struct thread
 {
     struct object parent;
-    osThreadId  tid;     //freertos thread ptr
+    OS_TCB      *tid;     //thread ptr
     list_t      tlist;                                  /**< the thread list */
 
     uint32_t    stack_size;                             /**< stack size */
@@ -70,7 +71,7 @@ typedef struct thread *os_thread_t;
  */
 static inline size_t  os_thread_get_num(void)
 {
-    return uxTaskGetNumberOfTasks();
+//    return uxTaskGetNumberOfTasks();
 }
 
 /**
@@ -92,6 +93,7 @@ err_t os_thread_idle_sethook(void (*hook)(void));
 err_t os_thread_idle_delhook(void (*hook)(void));
 void os_scheduler_sethook(void hook(os_thread_t from, os_thread_t to));
 void os_scheduler_hook();
+void os_thread_idle_hook();
 /**
  * os_thread_create
  * @param name
@@ -101,8 +103,11 @@ void os_scheduler_hook();
  * @param stack_size
  * @return
  */
-os_thread_t os_thread_create(const char *name, void (*task_func_t)(void *), void *parameter, size_t priority, uint16_t stack_size);
-
+os_thread_t os_thread_create(const char *name,
+                             void (*task_func_t)(void *),
+                             void *parameter,
+                             size_t priority,
+                             uint16_t stack_size);
 /**
  * os_thread_find
  * @param name

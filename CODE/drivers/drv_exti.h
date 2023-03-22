@@ -8,7 +8,7 @@
 #define X7PRO_DRIVER_DRV_EXTI_H
 
 #include <common.h>
-#include "driver/io.h"
+#include "io.h"
 #include "nvic.h"
 
 

@@ -8,6 +8,6 @@
 #define X7PRO_DRIVER_INIT_H
 
 
-void bsp_early_init(void);
+void bsp_hw_init(void);
 void bsp_init(void);
 #endif //X7PRO_DRIVER_INIT_H

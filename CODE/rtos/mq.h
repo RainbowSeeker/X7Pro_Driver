@@ -11,7 +11,7 @@
 struct messagequeue
 {
     struct object parent;
-    osMessageQId qid;
+    OS_MSG_Q qid;
     size_t msg_size;
     size_t max_msgs;
 };
@@ -35,7 +35,7 @@ static inline os_mq_t os_mq_create(const char *name,
     object_init(&mq->parent, Object_Class_MessageQueue, name);
     mq->msg_size = msg_size;
     mq->max_msgs = max_msgs;
-    mq->qid =  xQueueCreate(max_msgs, msg_size);
+    OS_MsgQInit(&mq->qid, max_msgs);
     return mq;
 }
 
@@ -48,52 +48,42 @@ static inline os_mq_t os_mq_create(const char *name,
  */
 static inline err_t os_mq_send(os_mq_t mq, const void *buffer, size_t size)
 {
-    err_t err = E_OK;
     ASSERT(mq);
     ASSERT(size <= mq->msg_size);
 
-    void *buf_to;
-    if (size != mq->msg_size)
-    {
-        buf_to = malloc(size);
-        memcpy(buf_to, buffer, size);
-    }
-    else
-    {
-        buf_to = (void *)buffer;
-    }
+//    void *buf_to;
+//    if (size != mq->msg_size)
+//    {
+//        buf_to = malloc(size);
+//        memcpy(buf_to, buffer, size);
+//    }
+//    else
+//    {
+//        buf_to = (void *)buffer;
+//    }
 
-    long taskWoken = pdFALSE;
-    if (os_interrupt_get_nest()) {
-        if (xQueueSendFromISR(mq->qid, buf_to, &taskWoken) != pdTRUE) {
-            err = E_RROR;
-        } else{
-            portEND_SWITCHING_ISR(taskWoken);
-        }
-    }
-    else {
-        if (xQueueSend(mq->qid, buf_to, 0) != pdTRUE) {
-            err = E_RROR;
-        }
-    }
-    if (size != mq->msg_size) free(buf_to);
-    return err;
+    OS_MsgQPut(&mq->qid, buffer, size, OS_OPT_POST_FIFO, 0, &os_err);
+
+//    if (size != mq->msg_size) free(buf_to);
+    return os_err == 0 ? E_OK : E_RROR;
 }
 
 
 static inline err_t os_mq_recv(os_mq_t mq, void *buffer, size_t size, uint32_t timeout)
 {
-    osEvent recv = osMessageGet(mq->qid, timeout);
-    switch (recv.status)
+    size_t size_g;
+
+    while (timeout--)
     {
-        case osEventMessage:
-            memcpy(buffer, &recv.value.v, size);
+        void *recv_ptr = OS_MsgQGet(&mq->qid, &size_g, NULL, &os_err);
+        if (size_g)
+        {
+            memcpy(buffer, recv_ptr, size_g);
             return E_OK;
-        case osEventTimeout:
-            return E_TIMEOUT;
-        default:
-            return E_RROR;
+        }
+        os_delay(1);
     }
+    return E_RROR;
 }
 
 #endif //X7PRO_DRIVER_MQ_H

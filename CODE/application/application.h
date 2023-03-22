@@ -9,5 +9,5 @@
 
 
 
-void Application_Create(void);
+void application_create(void *p_arg);
 #endif //X7PRO_DRIVER_APPLICATION_H

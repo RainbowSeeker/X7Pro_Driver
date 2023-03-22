@@ -1,35 +1,26 @@
 /*
-************************************************************************************************************************
-*                                                      uC/OS-III
-*                                                 The Real-Time Kernel
+*********************************************************************************************************
+*                                              uC/OS-III
+*                                        The Real-Time Kernel
 *
-*                                  (c) Copyright 2009-2017; Micrium, Inc.; Weston, FL
-*                           All rights reserved.  Protected by international copyright laws.
+*                    Copyright 2009-2022 Silicon Laboratories Inc. www.silabs.com
 *
-*                                                    CORE FUNCTIONS
+*                                 SPDX-License-Identifier: APACHE-2.0
 *
-* File    : OS_CORE.C
-* By      : JJL
-* Version : V3.06.02
+*               This software is subject to an open source license and is distributed by
+*                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+*                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 *
-* LICENSING TERMS:
-* ---------------
-*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or
-*           for peaceful research.  If you plan or intend to use uC/OS-III in a commercial application/
-*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your
-*           application/product.   We provide ALL the source code for your convenience and to help you
-*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use
-*           it commercially without paying a licensing fee.
+*********************************************************************************************************
+*/
+
+/*
+*********************************************************************************************************
+*                                            CORE FUNCTIONS
 *
-*           Knowledge of the source code may NOT be used to develop a similar product.
-*
-*           Please help us continue to provide the embedded community with the finest software available.
-*           Your honesty is greatly appreciated.
-*
-*           You can find our product's user manual, API reference, release notes and
-*           more information at doc.micrium.com.
-*           You can contact us at www.micrium.com.
-************************************************************************************************************************
+* File    : os_core.c
+* Version : V3.08.02
+*********************************************************************************************************
 */
 
 #define  MICRIUM_SOURCE
@@ -84,18 +75,18 @@ void  OSInit (OS_ERR  *p_err)
     OSPrioCur             =           0u;                       /* Initialize priority variables to a known state       */
     OSPrioHighRdy         =           0u;
 
-#if (OS_CFG_SCHED_LOCK_TIME_MEAS_EN == DEF_ENABLED)
+#if (OS_CFG_SCHED_LOCK_TIME_MEAS_EN > 0u)
     OSSchedLockTimeBegin  =           0u;
     OSSchedLockTimeMax    =           0u;
     OSSchedLockTimeMaxCur =           0u;
 #endif
 
 #ifdef OS_SAFETY_CRITICAL_IEC61508
-    OSSafetyCriticalStartFlag = DEF_FALSE;
+    OSSafetyCriticalStartFlag = OS_FALSE;
 #endif
 
-#if (OS_CFG_SCHED_ROUND_ROBIN_EN == DEF_ENABLED)
-    OSSchedRoundRobinEn             = DEF_FALSE;
+#if (OS_CFG_SCHED_ROUND_ROBIN_EN > 0u)
+    OSSchedRoundRobinEn             = OS_FALSE;
     OSSchedRoundRobinDfltTimeQuanta = OSCfg_TickRate_Hz / 10u;
 #endif
 
@@ -109,13 +100,13 @@ void  OSInit (OS_ERR  *p_err)
             p_stk++;
         }
     }
-#if (OS_CFG_TASK_STK_REDZONE_EN == DEF_ENABLED)                 /* Initialize Redzoned ISR stack                        */
+#if (OS_CFG_TASK_STK_REDZONE_EN > 0u)                           /* Initialize Redzoned ISR stack                        */
     OS_TaskStkRedzoneInit(OSCfg_ISRStkBasePtr, OSCfg_ISRStkSize);
 #endif
 #endif
 
-#if (OS_CFG_APP_HOOKS_EN == DEF_ENABLED)                        /* Clear application hook pointers                      */
-#if (OS_CFG_TASK_STK_REDZONE_EN == DEF_ENABLED)
+#if (OS_CFG_APP_HOOKS_EN > 0u)                                  /* Clear application hook pointers                      */
+#if (OS_CFG_TASK_STK_REDZONE_EN > 0u)
     OS_AppRedzoneHitHookPtr = (OS_APP_HOOK_TCB )0;
 #endif
     OS_AppTaskCreateHookPtr = (OS_APP_HOOK_TCB )0;
@@ -137,14 +128,14 @@ void  OSInit (OS_ERR  *p_err)
     OS_RdyListInit();                                           /* Initialize the Ready List                            */
 
 
-#if (OS_CFG_FLAG_EN == DEF_ENABLED)                             /* Initialize the Event Flag module                     */
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_FLAG_EN > 0u)                                       /* Initialize the Event Flag module                     */
+#if (OS_CFG_DBG_EN > 0u)
     OSFlagDbgListPtr = (OS_FLAG_GRP *)0;
     OSFlagQty        =                0u;
 #endif
 #endif
 
-#if (OS_CFG_MEM_EN == DEF_ENABLED)                              /* Initialize the Memory Manager module                 */
+#if (OS_CFG_MEM_EN > 0u)                                        /* Initialize the Memory Manager module                 */
     OS_MemInit(p_err);
     if (*p_err != OS_ERR_NONE) {
         return;
@@ -152,7 +143,7 @@ void  OSInit (OS_ERR  *p_err)
 #endif
 
 
-#if (OS_MSG_EN == DEF_ENABLED)                                  /* Initialize the free list of OS_MSGs                  */
+#if (OS_MSG_EN > 0u)                                            /* Initialize the free list of OS_MSGs                  */
     OS_MsgPoolInit(p_err);
     if (*p_err != OS_ERR_NONE) {
         return;
@@ -160,24 +151,24 @@ void  OSInit (OS_ERR  *p_err)
 #endif
 
 
-#if (OS_CFG_MUTEX_EN == DEF_ENABLED)                            /* Initialize the Mutex Manager module                  */
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_MUTEX_EN > 0u)                                      /* Initialize the Mutex Manager module                  */
+#if (OS_CFG_DBG_EN > 0u)
     OSMutexDbgListPtr = (OS_MUTEX *)0;
     OSMutexQty        =             0u;
 #endif
 #endif
 
 
-#if (OS_CFG_Q_EN == DEF_ENABLED)                                /* Initialize the Message Queue Manager module          */
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_Q_EN > 0u)                                          /* Initialize the Message Queue Manager module          */
+#if (OS_CFG_DBG_EN > 0u)
     OSQDbgListPtr = (OS_Q *)0;
     OSQQty        =         0u;
 #endif
 #endif
 
 
-#if (OS_CFG_SEM_EN == DEF_ENABLED)                              /* Initialize the Semaphore Manager module              */
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_SEM_EN > 0u)                                        /* Initialize the Semaphore Manager module              */
+#if (OS_CFG_DBG_EN > 0u)
     OSSemDbgListPtr = (OS_SEM *)0;
     OSSemQty        =           0u;
 #endif
@@ -198,7 +189,7 @@ void  OSInit (OS_ERR  *p_err)
     }
 
 
-#if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_IDLE_EN > 0u)
     OS_IdleTaskInit(p_err);                                     /* Initialize the Idle Task                             */
     if (*p_err != OS_ERR_NONE) {
         return;
@@ -206,15 +197,15 @@ void  OSInit (OS_ERR  *p_err)
 #endif
 
 
-#if (OS_CFG_TASK_TICK_EN == DEF_ENABLED)
-    OS_TickTaskInit(p_err);                                     /* Initialize the Tick Task                             */
+#if (OS_CFG_TICK_EN > 0u)
+    OS_TickInit(p_err);
     if (*p_err != OS_ERR_NONE) {
         return;
     }
 #endif
 
 
-#if (OS_CFG_STAT_TASK_EN == DEF_ENABLED)                        /* Initialize the Statistic Task                        */
+#if (OS_CFG_STAT_TASK_EN > 0u)                                  /* Initialize the Statistic Task                        */
     OS_StatTaskInit(p_err);
     if (*p_err != OS_ERR_NONE) {
         return;
@@ -222,7 +213,7 @@ void  OSInit (OS_ERR  *p_err)
 #endif
 
 
-#if (OS_CFG_TMR_EN == DEF_ENABLED)                              /* Initialize the Timer Manager module                  */
+#if (OS_CFG_TMR_EN > 0u)                                        /* Initialize the Timer Manager module                  */
     OS_TmrInit(p_err);
     if (*p_err != OS_ERR_NONE) {
         return;
@@ -230,14 +221,14 @@ void  OSInit (OS_ERR  *p_err)
 #endif
 
 
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     OS_Dbg_Init();
 #endif
 
 
     OSCfg_Init();
 
-    OSInitialized = DEF_TRUE;                                   /* Kernel is initialized                                */
+    OSInitialized = OS_TRUE;                                    /* Kernel is initialized                                */
 }
 
 
@@ -307,7 +298,7 @@ void  OSIntEnter (void)
 
 void  OSIntExit (void)
 {
-#if (OS_CFG_TASK_STK_REDZONE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_STK_REDZONE_EN > 0u)
     CPU_BOOLEAN  stk_status;
 #endif
     CPU_SR_ALLOC();
@@ -340,27 +331,28 @@ void  OSIntExit (void)
 
                                                                 /* Verify ISR Stack                                     */
 #if (OS_CFG_ISR_STK_SIZE > 0u)
-#if (OS_CFG_TASK_STK_REDZONE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_STK_REDZONE_EN > 0u)
     stk_status = OS_TaskStkRedzoneChk(OSCfg_ISRStkBasePtr, OSCfg_ISRStkSize);
-    if (stk_status != DEF_OK) {
+    if (stk_status != OS_TRUE) {
         OSRedzoneHitHook((OS_TCB *)0);
     }
 #endif
 #endif
 
     OSPrioHighRdy   = OS_PrioGetHighest();                      /* Find highest priority                                */
-#if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_IDLE_EN > 0u)
     OSTCBHighRdyPtr = OSRdyList[OSPrioHighRdy].HeadPtr;         /* Get highest priority task ready-to-run               */
     if (OSTCBHighRdyPtr == OSTCBCurPtr) {                       /* Current task still the highest priority?             */
                                                                 /* Yes                                                  */
-#if (OS_CFG_TASK_STK_REDZONE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_STK_REDZONE_EN > 0u)
         stk_status = OSTaskStkRedzoneChk((OS_TCB *)0);
-        if (stk_status != DEF_OK) {
+        if (stk_status != OS_TRUE) {
             OSRedzoneHitHook(OSTCBCurPtr);
         }
 #endif
         OS_TRACE_ISR_EXIT();
         CPU_INT_EN();
+        OS_TRACE_TASK_SWITCHED_IN(OSTCBHighRdyPtr);             /* Do this here because we don't execute OSIntCtxSw().  */
         return;
     }
 #else
@@ -370,15 +362,16 @@ void  OSIntExit (void)
                                                                 /* Yes                                                  */
             OS_TRACE_ISR_EXIT();
             CPU_INT_EN();
+            OS_TRACE_TASK_SWITCHED_IN(OSTCBHighRdyPtr);         /* Do this here because we don't execute OSIntCtxSw().  */
             return;
         }
     }
 #endif
 
-#if (OS_CFG_TASK_PROFILE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_PROFILE_EN > 0u)
     OSTCBHighRdyPtr->CtxSwCtr++;                                /* Inc. # of context switches for this new task         */
 #endif
-#if ((OS_CFG_TASK_PROFILE_EN == DEF_ENABLED) || (OS_CFG_DBG_EN == DEF_ENABLED))
+#if ((OS_CFG_TASK_PROFILE_EN > 0u) || (OS_CFG_DBG_EN > 0u))
     OSTaskCtxSwCtr++;                                           /* Keep track of the total number of ctx switches       */
 #endif
 
@@ -412,7 +405,7 @@ void  OSIntExit (void)
 #ifdef OS_SAFETY_CRITICAL_IEC61508
 void  OSSafetyCriticalStart (void)
 {
-    OSSafetyCriticalStartFlag = DEF_TRUE;
+    OSSafetyCriticalStartFlag = OS_TRUE;
 }
 
 #endif
@@ -439,7 +432,7 @@ void  OSSched (void)
     CPU_SR_ALLOC();
 
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Can't schedule when the kernel is stopped.           */
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN > 0u)                       /* Can't schedule when the kernel is stopped.           */
     if (OSRunning != OS_STATE_OS_RUNNING) {
         return;
     }
@@ -455,7 +448,7 @@ void  OSSched (void)
 
     CPU_INT_DIS();
     OSPrioHighRdy   = OS_PrioGetHighest();                      /* Find the highest priority ready                      */
-#if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_IDLE_EN > 0u)
     OSTCBHighRdyPtr = OSRdyList[OSPrioHighRdy].HeadPtr;         /* Get highest priority task ready-to-run               */
     if (OSTCBHighRdyPtr == OSTCBCurPtr) {                       /* Current task still the highest priority?             */
         CPU_INT_EN();                                           /* Yes                                                  */
@@ -471,12 +464,13 @@ void  OSSched (void)
     }
 #endif
 
+    OS_TRACE_TASK_PREEMPT(OSTCBCurPtr);
 
-#if (OS_CFG_TASK_PROFILE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_PROFILE_EN > 0u)
     OSTCBHighRdyPtr->CtxSwCtr++;                                /* Inc. # of context switches to this task              */
 #endif
 
-#if ((OS_CFG_TASK_PROFILE_EN == DEF_ENABLED) || (OS_CFG_DBG_EN == DEF_ENABLED))
+#if ((OS_CFG_TASK_PROFILE_EN > 0u) || (OS_CFG_DBG_EN > 0u))
     OSTaskCtxSwCtr++;                                           /* Increment context switch counter                     */
 #endif
 
@@ -484,7 +478,7 @@ void  OSSched (void)
     OS_TLS_TaskSw();
 #endif
 
-#if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_IDLE_EN > 0u)
     OS_TASK_SW();                                               /* Perform a task level context switch                  */
     CPU_INT_EN();
 #else
@@ -495,18 +489,18 @@ void  OSSched (void)
         OSTCBHighRdyPtr = OSTCBCurPtr;
         CPU_INT_EN();
         for (;;) {
-#if ((OS_CFG_DBG_EN == DEF_ENABLED) || (OS_CFG_STAT_TASK_EN == DEF_ENABLED))
+#if ((OS_CFG_DBG_EN > 0u) || (OS_CFG_STAT_TASK_EN > 0u))
             CPU_CRITICAL_ENTER();
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
             OSIdleTaskCtr++;
 #endif
-#if (OS_CFG_STAT_TASK_EN == DEF_ENABLED)
+#if (OS_CFG_STAT_TASK_EN > 0u)
             OSStatTaskCtr++;
 #endif
             CPU_CRITICAL_EXIT();
 #endif
 
-#if (OS_CFG_APP_HOOKS_EN == DEF_ENABLED)
+#if (OS_CFG_APP_HOOKS_EN > 0u)
             OSIdleTaskHook();                                   /* Call user definable HOOK                             */
 #endif
             if ((*((volatile OS_PRIO *)&OSPrioHighRdy) != (OS_CFG_PRIO_MAX - 1u))) {
@@ -556,7 +550,7 @@ void  OSSchedLock (OS_ERR  *p_err)
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
     if (OSIntNestingCtr > 0u) {                                 /* Not allowed to call from an ISR                      */
        *p_err = OS_ERR_SCHED_LOCK_ISR;
         return;
@@ -575,7 +569,7 @@ void  OSSchedLock (OS_ERR  *p_err)
 
     CPU_CRITICAL_ENTER();
     OSSchedLockNestingCtr++;                                    /* Increment lock nesting level                         */
-#if (OS_CFG_SCHED_LOCK_TIME_MEAS_EN == DEF_ENABLED)
+#if (OS_CFG_SCHED_LOCK_TIME_MEAS_EN > 0u)
     OS_SchedLockTimeMeasStart();
 #endif
     CPU_CRITICAL_EXIT();
@@ -617,7 +611,7 @@ void  OSSchedUnlock (OS_ERR  *p_err)
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
     if (OSIntNestingCtr > 0u) {                                 /* Not allowed to call from an ISR                      */
        *p_err = OS_ERR_SCHED_UNLOCK_ISR;
         return;
@@ -642,7 +636,7 @@ void  OSSchedUnlock (OS_ERR  *p_err)
         return;
     }
 
-#if (OS_CFG_SCHED_LOCK_TIME_MEAS_EN == DEF_ENABLED)
+#if (OS_CFG_SCHED_LOCK_TIME_MEAS_EN > 0u)
     OS_SchedLockTimeMeasStop();
 #endif
 
@@ -658,7 +652,7 @@ void  OSSchedUnlock (OS_ERR  *p_err)
 *
 * Description: This function is called to change the round-robin scheduling parameters.
 *
-* Arguments  : en                determines whether round-robin will be enabled (when DEF_EN) or not (when DEF_DIS)
+* Arguments  : en                determines whether round-robin will be enabled (when OS_TRUE) or not (when OS_FALSE)
 *
 *              dflt_time_quanta  default number of ticks between time slices.  0 means OSCfg_TickRate_Hz / 10.
 *
@@ -672,7 +666,7 @@ void  OSSchedUnlock (OS_ERR  *p_err)
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_SCHED_ROUND_ROBIN_EN == DEF_ENABLED)
+#if (OS_CFG_SCHED_ROUND_ROBIN_EN > 0u)
 void  OSSchedRoundRobinCfg (CPU_BOOLEAN   en,
                             OS_TICK       dflt_time_quanta,
                             OS_ERR       *p_err)
@@ -689,10 +683,10 @@ void  OSSchedRoundRobinCfg (CPU_BOOLEAN   en,
 #endif
 
     CPU_CRITICAL_ENTER();
-    if (en != DEF_ENABLED) {
-        OSSchedRoundRobinEn = DEF_FALSE;
+    if (en == 0u) {
+        OSSchedRoundRobinEn = OS_FALSE;
     } else {
-        OSSchedRoundRobinEn = DEF_TRUE;
+        OSSchedRoundRobinEn = OS_TRUE;
     }
 
     if (dflt_time_quanta > 0u) {
@@ -726,7 +720,7 @@ void  OSSchedRoundRobinCfg (CPU_BOOLEAN   en,
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_SCHED_ROUND_ROBIN_EN == DEF_ENABLED)
+#if (OS_CFG_SCHED_ROUND_ROBIN_EN > 0u)
 void  OSSchedRoundRobinYield (OS_ERR  *p_err)
 {
     OS_RDY_LIST  *p_rdy_list;
@@ -742,7 +736,7 @@ void  OSSchedRoundRobinYield (OS_ERR  *p_err)
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
     if (OSIntNestingCtr > 0u) {                                 /* Can't call this function from an ISR                 */
        *p_err = OS_ERR_YIELD_ISR;
         return;
@@ -754,7 +748,7 @@ void  OSSchedRoundRobinYield (OS_ERR  *p_err)
         return;
     }
 
-    if (OSSchedRoundRobinEn != DEF_TRUE) {                      /* Make sure round-robin has been enabled               */
+    if (OSSchedRoundRobinEn != OS_TRUE) {                       /* Make sure round-robin has been enabled               */
        *p_err = OS_ERR_ROUND_ROBIN_DISABLED;
         return;
     }
@@ -821,22 +815,19 @@ void  OSStart (OS_ERR  *p_err)
     }
 #endif
 
-    if (OSInitialized != DEF_TRUE) {
+    if (OSInitialized != OS_TRUE) {
        *p_err = OS_ERR_OS_NOT_INIT;
         return;
     }
 
     kernel_task_cnt = 0u;                                       /* Calculate the number of kernel tasks                 */
-#if (OS_CFG_STAT_TASK_EN == DEF_ENABLED)
+#if (OS_CFG_STAT_TASK_EN > 0u)
     kernel_task_cnt++;
 #endif
-#if (OS_CFG_TASK_TICK_EN  == DEF_ENABLED)
+#if (OS_CFG_TMR_EN > 0u)
     kernel_task_cnt++;
 #endif
-#if (OS_CFG_TMR_EN == DEF_ENABLED)
-    kernel_task_cnt++;
-#endif
-#if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_IDLE_EN > 0u)
     kernel_task_cnt++;
 #endif
 
@@ -912,10 +903,10 @@ CPU_INT16U  OSVersion (OS_ERR  *p_err)
 *              3) This hook has been added to allow you to do such things as STOP the CPU to conserve power.
 ************************************************************************************************************************
 */
-#if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_IDLE_EN > 0u)
 void  OS_IdleTask (void  *p_arg)
 {
-#if ((OS_CFG_DBG_EN == DEF_ENABLED) || (OS_CFG_STAT_TASK_EN == DEF_ENABLED))
+#if ((OS_CFG_DBG_EN > 0u) || (OS_CFG_STAT_TASK_EN > 0u))
     CPU_SR_ALLOC();
 #endif
 
@@ -923,18 +914,18 @@ void  OS_IdleTask (void  *p_arg)
     (void)p_arg;                                                /* Prevent compiler warning for not using 'p_arg'       */
 
     for (;;) {
-#if ((OS_CFG_DBG_EN == DEF_ENABLED) || (OS_CFG_STAT_TASK_EN == DEF_ENABLED))
+#if ((OS_CFG_DBG_EN > 0u) || (OS_CFG_STAT_TASK_EN > 0u))
         CPU_CRITICAL_ENTER();
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
         OSIdleTaskCtr++;
 #endif
-#if (OS_CFG_STAT_TASK_EN == DEF_ENABLED)
+#if (OS_CFG_STAT_TASK_EN > 0u)
         OSStatTaskCtr++;
 #endif
         CPU_CRITICAL_EXIT();
 #endif
 
-#if (OS_CFG_APP_HOOKS_EN == DEF_ENABLED)
+#if (OS_CFG_APP_HOOKS_EN > 0u)
         OSIdleTaskHook();                                       /* Call user definable HOOK                             */
 #endif
     }
@@ -954,15 +945,15 @@ void  OS_IdleTask (void  *p_arg)
 * Note(s)    : 1) This function is INTERNAL to uC/OS-III and your application MUST NOT call it.
 ************************************************************************************************************************
 */
-#if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_IDLE_EN > 0u)
 void  OS_IdleTaskInit (OS_ERR  *p_err)
 {
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     OSIdleTaskCtr = 0u;
 #endif
                                                                 /* --------------- CREATE THE IDLE TASK --------------- */
     OSTaskCreate(&OSIdleTaskTCB,
-#if  (OS_CFG_DBG_EN == DEF_DISABLED)
+#if  (OS_CFG_DBG_EN == 0u)
                  (CPU_CHAR   *)0,
 #else
                  (CPU_CHAR   *)"uC/OS-III Idle Task",
@@ -991,11 +982,14 @@ void  OS_IdleTaskInit (OS_ERR  *p_err)
 * Arguments  : p_obj          is a pointer to the object to pend on.  If there are no object used to pend on then
 *              -----          the caller must pass a NULL pointer.
 *
+*              p_tcb          is the task that will be blocked.
+*
 *              pending_on     Specifies what the task will be pending on:
 *
 *                                 OS_TASK_PEND_ON_FLAG
 *                                 OS_TASK_PEND_ON_TASK_Q     <- No object (pending for a message sent to the task)
 *                                 OS_TASK_PEND_ON_MUTEX
+*                                 OS_TASK_PEND_ON_COND
 *                                 OS_TASK_PEND_ON_Q
 *                                 OS_TASK_PEND_ON_SEM
 *                                 OS_TASK_PEND_ON_TASK_SEM   <- No object (pending on a signal sent to the task)
@@ -1009,30 +1003,31 @@ void  OS_IdleTaskInit (OS_ERR  *p_err)
 */
 
 void  OS_Pend (OS_PEND_OBJ  *p_obj,
+               OS_TCB       *p_tcb,
                OS_STATE      pending_on,
                OS_TICK       timeout)
 {
     OS_PEND_LIST  *p_pend_list;
 
 
-    OSTCBCurPtr->PendOn     = pending_on;                       /* Resource not available, wait until it is             */
-    OSTCBCurPtr->PendStatus = OS_STATUS_PEND_OK;
+    p_tcb->PendOn     = pending_on;                             /* Resource not available, wait until it is             */
+    p_tcb->PendStatus = OS_STATUS_PEND_OK;
 
-    OS_TaskBlock(OSTCBCurPtr,                                   /* Block the task and add it to the tick list if needed */
+    OS_TaskBlock(p_tcb,                                         /* Block the task and add it to the tick list if needed */
                  timeout);
 
     if (p_obj != (OS_PEND_OBJ *)0) {                            /* Add the current task to the pend list ...            */
         p_pend_list             = &p_obj->PendList;             /* ... if there is an object to pend on                 */
-        OSTCBCurPtr->PendObjPtr =  p_obj;                       /* Save the pointer to the object pending on            */
+        p_tcb->PendObjPtr =  p_obj;                             /* Save the pointer to the object pending on            */
         OS_PendListInsertPrio(p_pend_list,                      /* Insert in the pend list in priority order            */
-                              OSTCBCurPtr);
+                              p_tcb);
 
     } else {
-        OSTCBCurPtr->PendObjPtr = (OS_PEND_OBJ *)0;             /* If no object being pended on, clear the pend object  */
+        p_tcb->PendObjPtr = (OS_PEND_OBJ *)0;                   /* If no object being pended on, clear the pend object  */
     }
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     OS_PendDbgNameAdd(p_obj,
-                      OSTCBCurPtr);
+                      p_tcb);
 #endif
 }
 
@@ -1063,23 +1058,23 @@ void  OS_PendAbort (OS_TCB     *p_tcb,
                     CPU_TS      ts,
                     OS_STATUS   reason)
 {
-#if (OS_CFG_TS_EN == DEF_DISABLED)
+#if (OS_CFG_TS_EN == 0u)
     (void)ts;                                                   /* Prevent compiler warning for not using 'ts'          */
 #endif
 
     switch (p_tcb->TaskState) {
         case OS_TASK_STATE_PEND:
         case OS_TASK_STATE_PEND_TIMEOUT:
-#if (OS_MSG_EN == DEF_ENABLED)
+#if (OS_MSG_EN > 0u)
              p_tcb->MsgPtr     = (void *)0;
              p_tcb->MsgSize    =         0u;
 #endif
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
              p_tcb->TS         = ts;
 #endif
              OS_PendListRemove(p_tcb);                          /* Remove task from the pend list                       */
 
-#if (OS_CFG_TASK_TICK_EN == DEF_ENABLED)
+#if (OS_CFG_TICK_EN > 0u)
              if (p_tcb->TaskState == OS_TASK_STATE_PEND_TIMEOUT) {
                  OS_TickListRemove(p_tcb);                      /* Cancel the timeout                                   */
              }
@@ -1092,16 +1087,16 @@ void  OS_PendAbort (OS_TCB     *p_tcb,
 
         case OS_TASK_STATE_PEND_SUSPENDED:
         case OS_TASK_STATE_PEND_TIMEOUT_SUSPENDED:
-#if (OS_MSG_EN == DEF_ENABLED)
+#if (OS_MSG_EN > 0u)
              p_tcb->MsgPtr     = (void *)0;
              p_tcb->MsgSize    =         0u;
 #endif
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
              p_tcb->TS         = ts;
 #endif
              OS_PendListRemove(p_tcb);                          /* Remove task from the pend list                       */
 
-#if (OS_CFG_TASK_TICK_EN == DEF_ENABLED)
+#if (OS_CFG_TICK_EN > 0u)
              if (p_tcb->TaskState == OS_TASK_STATE_PEND_TIMEOUT_SUSPENDED) {
                  OS_TickListRemove(p_tcb);                      /* Cancel the timeout                                   */
              }
@@ -1139,7 +1134,7 @@ void  OS_PendAbort (OS_TCB     *p_tcb,
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
 void  OS_PendDbgNameAdd (OS_PEND_OBJ  *p_obj,
                          OS_TCB       *p_tcb)
 {
@@ -1246,7 +1241,7 @@ void  OS_PendListInit (OS_PEND_LIST  *p_pend_list)
 {
     p_pend_list->HeadPtr    = (OS_TCB *)0;
     p_pend_list->TailPtr    = (OS_TCB *)0;
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     p_pend_list->NbrEntries =           0u;
 #endif
 }
@@ -1325,7 +1320,7 @@ void  OS_PendListInsertPrio (OS_PEND_LIST  *p_pend_list,
     prio  = p_tcb->Prio;                                        /* Obtain the priority of the task to insert            */
 
     if (p_pend_list->HeadPtr == (OS_TCB *)0) {                  /* CASE 0: Insert when there are no entries             */
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
         p_pend_list->NbrEntries = 1u;                           /* This is the first entry                              */
 #endif
         p_tcb->PendNextPtr   = (OS_TCB *)0;                     /* No other OS_TCBs in the list                         */
@@ -1333,7 +1328,7 @@ void  OS_PendListInsertPrio (OS_PEND_LIST  *p_pend_list,
         p_pend_list->HeadPtr =  p_tcb;
         p_pend_list->TailPtr =  p_tcb;
     } else {
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
         p_pend_list->NbrEntries++;                              /* CASE 1: One more OS_TCBs in the list                 */
 #endif
         p_tcb_next = p_pend_list->HeadPtr;
@@ -1444,7 +1439,7 @@ void  OS_PendListRemove (OS_TCB  *p_tcb)
             p_prev->PendNextPtr  = p_next;
             p_next->PendPrevPtr  = p_prev;
         }
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
         p_pend_list->NbrEntries--;                              /* One less entry in the list                           */
 #endif
         p_tcb->PendNextPtr = (OS_TCB      *)0;
@@ -1485,10 +1480,10 @@ void  OS_Post (OS_PEND_OBJ  *p_obj,
                OS_MSG_SIZE   msg_size,
                CPU_TS        ts)
 {
-#if (OS_CFG_TS_EN == DEF_DISABLED)
+#if (OS_CFG_TS_EN == 0u)
     (void)ts;                                                   /* Prevent compiler warning for not using 'ts'          */
 #endif
-#if (OS_MSG_EN == DEF_DISABLED)
+#if (OS_MSG_EN == 0u)
     (void)p_void;
     (void)msg_size;
 #endif
@@ -1502,21 +1497,21 @@ void  OS_Post (OS_PEND_OBJ  *p_obj,
 
         case OS_TASK_STATE_PEND:
         case OS_TASK_STATE_PEND_TIMEOUT:
-#if (OS_MSG_EN == DEF_ENABLED)
+#if (OS_MSG_EN > 0u)
              p_tcb->MsgPtr  = p_void;                           /* Deposit message in OS_TCB of task waiting            */
              p_tcb->MsgSize = msg_size;                         /* ... assuming posting a message                       */
 #endif
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
                  p_tcb->TS      = ts;
 #endif
              if (p_obj != (OS_PEND_OBJ *)0) {
                  OS_PendListRemove(p_tcb);                      /* Remove task from pend list                           */
              }
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
              OS_PendDbgNameRemove(p_obj,
                                   p_tcb);
 #endif
-#if (OS_CFG_TASK_TICK_EN == DEF_ENABLED)
+#if (OS_CFG_TICK_EN > 0u)
              if (p_tcb->TaskState == OS_TASK_STATE_PEND_TIMEOUT) {
                  OS_TickListRemove(p_tcb);                      /* Remove from tick list                                */
              }
@@ -1529,21 +1524,21 @@ void  OS_Post (OS_PEND_OBJ  *p_obj,
 
         case OS_TASK_STATE_PEND_SUSPENDED:
         case OS_TASK_STATE_PEND_TIMEOUT_SUSPENDED:
-#if (OS_MSG_EN == DEF_ENABLED)
+#if (OS_MSG_EN > 0u)
              p_tcb->MsgPtr  = p_void;                           /* Deposit message in OS_TCB of task waiting            */
              p_tcb->MsgSize = msg_size;                         /* ... assuming posting a message                       */
 #endif
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
              p_tcb->TS      = ts;
 #endif
              if (p_obj != (OS_PEND_OBJ *)0) {
                  OS_PendListRemove(p_tcb);                      /* Remove from pend list                                */
              }
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
              OS_PendDbgNameRemove(p_obj,
                                   p_tcb);
 #endif
-#if (OS_CFG_TASK_TICK_EN == DEF_ENABLED)
+#if (OS_CFG_TICK_EN > 0u)
              if (p_tcb->TaskState == OS_TASK_STATE_PEND_TIMEOUT_SUSPENDED) {
                  OS_TickListRemove(p_tcb);                      /* Cancel any timeout                                   */
              }
@@ -1611,7 +1606,7 @@ void  OS_RdyListInit (void)
 
     for (i = 0u; i < OS_CFG_PRIO_MAX; i++) {                    /* Initialize the array of OS_RDY_LIST at each priority */
         p_rdy_list = &OSRdyList[i];
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
         p_rdy_list->NbrEntries =           0u;
 #endif
         p_rdy_list->HeadPtr    = (OS_TCB *)0;
@@ -1716,7 +1711,7 @@ void  OS_RdyListInsertHead (OS_TCB  *p_tcb)
 
     p_rdy_list = &OSRdyList[p_tcb->Prio];
     if (p_rdy_list->HeadPtr == (OS_TCB *)0) {                   /* CASE 0: Insert when there are no entries             */
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
         p_rdy_list->NbrEntries =           1u;                  /* This is the first entry                              */
 #endif
         p_tcb->NextPtr         = (OS_TCB *)0;                   /* No other OS_TCBs in the list                         */
@@ -1724,7 +1719,7 @@ void  OS_RdyListInsertHead (OS_TCB  *p_tcb)
         p_rdy_list->HeadPtr    =  p_tcb;                        /* Both list pointers point to this OS_TCB              */
         p_rdy_list->TailPtr    =  p_tcb;
     } else {                                                    /* CASE 1: Insert BEFORE the current head of list       */
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
         p_rdy_list->NbrEntries++;                               /* One more OS_TCB in the list                          */
 #endif
         p_tcb->NextPtr         =  p_rdy_list->HeadPtr;          /* Adjust new OS_TCBs links                             */
@@ -1801,7 +1796,7 @@ void  OS_RdyListInsertTail (OS_TCB  *p_tcb)
 
     p_rdy_list = &OSRdyList[p_tcb->Prio];
     if (p_rdy_list->HeadPtr == (OS_TCB *)0) {                   /* CASE 0: Insert when there are no entries             */
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
         p_rdy_list->NbrEntries  =           1u;                 /* This is the first entry                              */
 #endif
         p_tcb->NextPtr          = (OS_TCB *)0;                  /* No other OS_TCBs in the list                         */
@@ -1809,7 +1804,7 @@ void  OS_RdyListInsertTail (OS_TCB  *p_tcb)
         p_rdy_list->HeadPtr     =  p_tcb;                       /* Both list pointers point to this OS_TCB              */
         p_rdy_list->TailPtr     =  p_tcb;
     } else {                                                    /* CASE 1: Insert AFTER the current tail of list        */
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
         p_rdy_list->NbrEntries++;                               /* One more OS_TCB in the list                          */
 #endif
         p_tcb->NextPtr          = (OS_TCB *)0;                  /* Adjust new OS_TCBs links                             */
@@ -1966,21 +1961,21 @@ void  OS_RdyListRemove (OS_TCB  *p_tcb)
     p_tcb2     = p_tcb->NextPtr;
     if (p_tcb1 == (OS_TCB *)0) {                                /* Was the OS_TCB to remove at the head?                */
         if (p_tcb2 == (OS_TCB *)0) {                            /* Yes, was it the only OS_TCB?                         */
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
             p_rdy_list->NbrEntries =           0u;              /* Yes, no more entries                                 */
 #endif
             p_rdy_list->HeadPtr    = (OS_TCB *)0;
             p_rdy_list->TailPtr    = (OS_TCB *)0;
             OS_PrioRemove(p_tcb->Prio);
         } else {
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
             p_rdy_list->NbrEntries--;                           /* No,  one less entry                                  */
 #endif
             p_tcb2->PrevPtr     = (OS_TCB *)0;                  /* adjust back link of new list head                    */
             p_rdy_list->HeadPtr =  p_tcb2;                      /* adjust OS_RDY_LIST's new head                        */
         }
     } else {
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
         p_rdy_list->NbrEntries--;                               /* No,  one less entry                                  */
 #endif
         p_tcb1->NextPtr = p_tcb2;
@@ -2011,18 +2006,18 @@ void  OS_RdyListRemove (OS_TCB  *p_tcb)
 *
 *              2) It's assumed that these functions are called when interrupts are disabled.
 *
-*              3) We are reading the CPU_TS_TmrRd() directly even if this is a 16-bit timer.  The reason is that we
-*                 don't expect to have the scheduler locked for 65536 counts even at the rate the TS timer is updated.
-*                 In other words, locking the scheduler for longer than 65536 count would not be a good thing for a
-*                 real-time system.
+*              3) We are reading the time stamp timer via OS_TS_GET() directly even if this is a 16-bit timer.  The
+*                 reason is that we don't expect to have the scheduler locked for 65536 counts even at the rate the TS
+*                 timer is updated.  In other words, locking the scheduler for longer than 65536 count would not be a
+*                 good thing for a real-time system.
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_SCHED_LOCK_TIME_MEAS_EN == DEF_ENABLED)
+#if (OS_CFG_SCHED_LOCK_TIME_MEAS_EN > 0u)
 void  OS_SchedLockTimeMeasStart (void)
 {
     if (OSSchedLockNestingCtr == 1u) {
-        OSSchedLockTimeBegin = CPU_TS_TmrRd();
+        OSSchedLockTimeBegin = OS_TS_GET();
     }
 }
 
@@ -2035,7 +2030,7 @@ void  OS_SchedLockTimeMeasStop (void)
 
 
     if (OSSchedLockNestingCtr == 0u) {                          /* Make sure we fully un-nested scheduler lock          */
-        delta = CPU_TS_TmrRd()                                  /* Compute the delta time between begin and end         */
+        delta = OS_TS_GET()                                     /* Compute the delta time between begin and end         */
               - OSSchedLockTimeBegin;
         if (OSSchedLockTimeMax    < delta) {                    /* Detect peak value                                    */
             OSSchedLockTimeMax    = delta;
@@ -2064,14 +2059,14 @@ void  OS_SchedLockTimeMeasStop (void)
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_SCHED_ROUND_ROBIN_EN == DEF_ENABLED)
+#if (OS_CFG_SCHED_ROUND_ROBIN_EN > 0u)
 void  OS_SchedRoundRobin (OS_RDY_LIST  *p_rdy_list)
 {
-    OS_TCB   *p_tcb;
+    OS_TCB  *p_tcb;
     CPU_SR_ALLOC();
 
 
-    if (OSSchedRoundRobinEn != DEF_TRUE) {                      /* Make sure round-robin has been enabled               */
+    if (OSSchedRoundRobinEn != OS_TRUE) {                       /* Make sure round-robin has been enabled               */
         return;
     }
 
@@ -2083,7 +2078,7 @@ void  OS_SchedRoundRobin (OS_RDY_LIST  *p_rdy_list)
         return;
     }
 
-#if (OS_CFG_TASK_IDLE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_IDLE_EN > 0u)
     if (p_tcb == &OSIdleTaskTCB) {
         CPU_CRITICAL_EXIT();
         return;
@@ -2142,28 +2137,26 @@ void  OS_SchedRoundRobin (OS_RDY_LIST  *p_rdy_list)
 void  OS_TaskBlock (OS_TCB   *p_tcb,
                     OS_TICK   timeout)
 {
-#if (OS_CFG_TASK_TICK_EN == DEF_DISABLED)
-    (void)timeout;
+#if (OS_CFG_DYN_TICK_EN > 0u)
+    OS_TICK  elapsed;
+
+
+    elapsed = OS_DynTickGet();
 #endif
 
-#if (OS_CFG_TASK_TICK_EN == DEF_ENABLED)
-#if (OS_CFG_DYN_TICK_EN == DEF_ENABLED)
-        OS_TICK tick_ctr;
-#endif
-
-
+#if (OS_CFG_TICK_EN > 0u)
     if (timeout > 0u) {                                         /* Add task to tick list if timeout non zero            */
-#if (OS_CFG_DYN_TICK_EN == DEF_ENABLED)
-        tick_ctr = BSP_OS_TickGet();
-        OS_TickListInsert(&OSTickListTimeout, p_tcb, timeout + (tick_ctr - OSTickCtr));
+#if (OS_CFG_DYN_TICK_EN > 0u)
+        (void)OS_TickListInsert(p_tcb, elapsed, (OSTickCtr + elapsed), timeout);
 #else
-        OS_TickListInsert(&OSTickListTimeout, p_tcb, timeout);
+        (void)OS_TickListInsert(p_tcb,      0u,             OSTickCtr, timeout);
 #endif
         p_tcb->TaskState = OS_TASK_STATE_PEND_TIMEOUT;
     } else {
         p_tcb->TaskState = OS_TASK_STATE_PEND;
     }
 #else
+    (void)timeout;
     p_tcb->TaskState = OS_TASK_STATE_PEND;
 #endif
     OS_RdyListRemove(p_tcb);

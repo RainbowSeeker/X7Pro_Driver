@@ -48,11 +48,13 @@ else ()
     add_compile_options(-Og -g)
 endif ()
 
-include_directories(${includes} CODE CODE/application CODE/device CODE/module CODE/dfs/include CODE/dfs/filesystems/elmfat CODE/module/log CODE/hal CODE/finsh)
+include_directories(${includes} CODE CODE/application CODE/device CODE/module CODE/dfs/include CODE/dfs/filesystems/elmfat CODE/module/log CODE/hal CODE/finsh CODE/rtos
+    CODE/lib/mavlink/v2.0/fmt_mavlink CODE/model/fms/base_fms/lib CODE/lib/STM32_USB_Device_Library/Class/CDC/Inc CODE/lib/STM32_USB_Device_Library/Core/Inc CODE/drivers/usbd
+    UCOSIII/uC-CPU UCOSIII/uC-CPU/ARM-Cortex-M4/GNU UCOSIII/uC-LIB UCOSIII/UCOS-BSP UCOSIII/UCOS-CONFIG UCOSIII/uCOS-III/Source UCOSIII/uCOS-III/Ports/ARM-Cortex-M/ARMv7-M/GNU)
 
 add_definitions(${defines})
 
-file(GLOB_RECURSE SOURCES ${sources} CODE/*.*)
+file(GLOB_RECURSE SOURCES ${sources} CODE/*.*  UCOSIII/*.c UCOSIII/*.h UCOSIII/*.s UCOSIII/*.S)
 
 set(LINKER_SCRIPT $${CMAKE_SOURCE_DIR}/${linkerScript})
 
@@ -60,7 +62,11 @@ add_link_options(-Wl,-gc-sections,--print-memory-usage,-Map=$${PROJECT_BINARY_DI
 add_link_options(-mcpu=${mcpu} -mthumb -mthumb-interwork)
 add_link_options(-T $${LINKER_SCRIPT})
 
+link_directories(Middlewares/ST/ARM/DSP/lib)
+
 add_executable($${PROJECT_NAME}.elf $${SOURCES} $${LINKER_SCRIPT})
+
+target_link_libraries(${PROJECT_NAME}.elf arm_cortexM4lf_math)
 
 set(HEX_FILE $${PROJECT_BINARY_DIR}/$${PROJECT_NAME}.hex)
 set(BIN_FILE $${PROJECT_BINARY_DIR}/$${PROJECT_NAME}.bin)

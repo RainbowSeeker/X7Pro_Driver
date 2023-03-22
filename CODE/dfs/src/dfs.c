@@ -100,7 +100,7 @@ void dfs_lock(void)
 
     while (result == -EBUSY)
     {
-        result = mutex_take(fslock, osWaitForever);
+        result = mutex_take(fslock, OS_WAIT_FOREVER);
     }
 
     if (result != E_OK)

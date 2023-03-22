@@ -6,21 +6,20 @@
 static systick_dev_t _systick_dev;
 uint32_t _ticksPerUs; /* tick count for 1us */
 
-void SysTick_Handler(void)
-{
-    uwTick += (uint32_t)uwTickFreq;
-    hal_systick_isr(_systick_dev);
-}
 
 static void _set_systick_freq(uint32_t freq)
 {
-    //don't modify systick_freq for this function.
-    ASSERT(freq == TICK_PER_SECOND);
+    uint32_t ClockFreq;
+    uint32_t TicksNum;
 
-    if (_systick_dev) {
-        _systick_dev->ms_per_isr = 1e3 / TICK_PER_SECOND;
-    }
+    ASSERT(freq > 0);
+    ASSERT(_systick_dev != NULL);
 
+    ClockFreq = SystemCoreClock;
+    TicksNum = ClockFreq / freq;
+
+    _systick_dev->ticks_per_us = ClockFreq / 1e6;
+    _systick_dev->ticks_per_isr = TicksNum;
 }
 
 static err_t systick_configure(systick_dev_t systick, struct systick_configure* cfg)
@@ -33,8 +32,7 @@ static err_t systick_configure(systick_dev_t systick, struct systick_configure* 
 
 static uint32_t systick_read(systick_dev_t systick)
 {
-    extern TIM_HandleTypeDef htim1;
-    return htim1.Instance->CNT * 1000 / htim1.Instance->ARR;
+    return (SysTick->LOAD - SysTick->VAL) / systick->ticks_per_us;
 }
 
 const static struct systick_ops _systick_ops = {

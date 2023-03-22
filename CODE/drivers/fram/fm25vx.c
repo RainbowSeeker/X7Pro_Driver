@@ -6,7 +6,7 @@
 
 #include "fm25vx.h"
 #include "drivers/drv_spi.h"
-#include "driver/io.h"
+#include "drivers/io.h"
 #include "hal/spi/spi.h"
 #include "algo/math/maths.h"
 

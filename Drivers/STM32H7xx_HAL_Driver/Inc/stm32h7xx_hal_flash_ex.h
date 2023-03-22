@@ -744,9 +744,6 @@ typedef struct
   * @}
   */
 #endif /* FLASH_OTPBL_LOCKBL */
-/**
-  * @}
-  */
 
 /* Exported macro ------------------------------------------------------------*/
 /** @defgroup FLASHEx_Exported_Macros FLASH Exported Macros
@@ -759,6 +756,9 @@ typedef struct
   * @retval The FLASH Boot Base Address
   */
 #define __HAL_FLASH_CALC_BOOT_BASE_ADR(__ADDRESS__) ((__ADDRESS__) >> 14U)
+ /**
+  * @}
+  */
 
 #if defined (FLASH_CR_PSIZE)
 /**
@@ -806,9 +806,6 @@ typedef struct
   *         This return value can be a value of @ref FLASHEx_Programming_Delay
   */
 #define __HAL_FLASH_GET_PROGRAM_DELAY()     READ_BIT(FLASH->ACR, FLASH_ACR_WRHIGHFREQ)
- /**
-  * @}
-  */
 
 /* Exported functions --------------------------------------------------------*/
 /** @addtogroup FLASHEx_Exported_Functions
@@ -993,6 +990,10 @@ HAL_StatusTypeDef HAL_FLASHEx_ComputeCRC(FLASH_CRCInitTypeDef *pCRCInit, uint32_
   * @{
   */
 void FLASH_Erase_Sector(uint32_t Sector, uint32_t Banks, uint32_t VoltageRange);
+/**
+  * @}
+  */
+
 /**
   * @}
   */

@@ -65,14 +65,18 @@ enum dma_handler_e
     }
 
 
-#define DEFINE_DMA_IRQ_HANDLER(d, s)  void DMA ## d ## _Stream ## s ## _IRQHandler(void) {\
+#define DEFINE_DMA_IRQ_HANDLER(d, s)  void DMA ## d ## _Stream ## s ## _IRQHandler(void) { \
+                                                                os_interrupt_enter();                           \
                                                                 if (dma_device_table[DMA##d##_STREAM##s##_HANDLER].cb) \
                                                                     dma_device_table[DMA##d##_STREAM##s##_HANDLER].cb(dma_device_table[DMA##d##_STREAM##s##_HANDLER].user_data); \
+                                                                os_interrupt_leave();                               \
                                                             }
 
-#define DEFINE_BDMA_IRQ_HANDLER(ch)  void BDMA ## _Channel ## ch ## _IRQHandler(void) {\
+#define DEFINE_BDMA_IRQ_HANDLER(ch)  void BDMA ## _Channel ## ch ## _IRQHandler(void) { \
+                                                                os_interrupt_enter();                        \
                                                                 if (dma_device_table[BDMA_CHANNEL##ch##_HANDLER].cb) \
                                                                     dma_device_table[BDMA_CHANNEL##ch##_HANDLER].cb(dma_device_table[BDMA_CHANNEL##ch##_HANDLER].user_data); \
+                                                                os_interrupt_leave();                            \
                                                             }
 
 

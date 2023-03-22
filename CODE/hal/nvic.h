@@ -9,6 +9,8 @@
 
 //!!!warining!!!  只有抢占优先级， 无相应优先级
 //prio must be > 5 due to rtos
+#define NVIC_PRIO_OTG_FS            5
+#define NVIC_PRIO_SDMMC             8
 #define NVIC_PRIO_SPI_DMA           6
 #define NVIC_PRIO_UART              14
 #define NVIC_PRIO_UART_DMA          7

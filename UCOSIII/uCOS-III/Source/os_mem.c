@@ -1,35 +1,26 @@
 /*
-************************************************************************************************************************
-*                                                      uC/OS-III
-*                                                 The Real-Time Kernel
+*********************************************************************************************************
+*                                              uC/OS-III
+*                                        The Real-Time Kernel
 *
-*                                  (c) Copyright 2009-2017; Micrium, Inc.; Weston, FL
-*                           All rights reserved.  Protected by international copyright laws.
+*                    Copyright 2009-2022 Silicon Laboratories Inc. www.silabs.com
 *
-*                                             MEMORY PARTITION MANAGEMENT
+*                                 SPDX-License-Identifier: APACHE-2.0
 *
-* File    : OS_MEM.C
-* By      : JJL
-* Version : V3.06.02
+*               This software is subject to an open source license and is distributed by
+*                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+*                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 *
-* LICENSING TERMS:
-* ---------------
-*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or
-*           for peaceful research.  If you plan or intend to use uC/OS-III in a commercial application/
-*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your
-*           application/product.   We provide ALL the source code for your convenience and to help you
-*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use
-*           it commercially without paying a licensing fee.
+*********************************************************************************************************
+*/
+
+/*
+*********************************************************************************************************
+*                                      MEMORY PARTITION MANAGEMENT
 *
-*           Knowledge of the source code may NOT be used to develop a similar product.
-*
-*           Please help us continue to provide the embedded community with the finest software available.
-*           Your honesty is greatly appreciated.
-*
-*           You can find our product's user manual, API reference, release notes and
-*           more information at doc.micrium.com.
-*           You can contact us at www.micrium.com.
-************************************************************************************************************************
+* File    : os_mem.c
+* Version : V3.08.02
+*********************************************************************************************************
 */
 
 #define   MICRIUM_SOURCE
@@ -40,7 +31,7 @@ const  CPU_CHAR  *os_mem__c = "$Id: $";
 #endif
 
 
-#if (OS_CFG_MEM_EN == DEF_ENABLED)
+#if (OS_CFG_MEM_EN > 0u)
 /*
 ************************************************************************************************************************
 *                                               CREATE A MEMORY PARTITION
@@ -71,6 +62,7 @@ const  CPU_CHAR  *os_mem__c = "$Id: $";
 *                            OS_ERR_MEM_INVALID_SIZE        User specified an invalid block size
 *                                                             - must be greater than the size of a pointer
 *                                                             - must be able to hold an integral number of pointers
+*                            OS_ERR_OBJ_CREATED             If the memory partition was already created
 * Returns    : none
 *
 * Note(s)    : none
@@ -84,7 +76,7 @@ void  OSMemCreate (OS_MEM       *p_mem,
                    OS_MEM_SIZE   blk_size,
                    OS_ERR       *p_err)
 {
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     CPU_DATA       align_msk;
 #endif
     OS_MEM_QTY     i;
@@ -103,20 +95,20 @@ void  OSMemCreate (OS_MEM       *p_mem,
 #endif
 
 #ifdef OS_SAFETY_CRITICAL_IEC61508
-    if (OSSafetyCriticalStartFlag == DEF_TRUE) {
+    if (OSSafetyCriticalStartFlag == OS_TRUE) {
        *p_err = OS_ERR_ILLEGAL_CREATE_RUN_TIME;
         return;
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
     if (OSIntNestingCtr > 0u) {                                 /* Not allowed to call from an ISR                      */
        *p_err = OS_ERR_MEM_CREATE_ISR;
         return;
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_addr == (void *)0) {                                  /* Must pass a valid address for the memory part.       */
        *p_err   = OS_ERR_MEM_INVALID_P_ADDR;
         return;
@@ -153,10 +145,17 @@ void  OSMemCreate (OS_MEM       *p_mem,
    *p_link             = (void *)0;                             /* Last memory block points to NULL                     */
 
     CPU_CRITICAL_ENTER();
-#if (OS_OBJ_TYPE_REQ == DEF_ENABLED)
+#if (OS_OBJ_TYPE_REQ > 0u)
+#if (OS_CFG_OBJ_CREATED_CHK_EN > 0u)
+    if (p_mem->Type == OS_OBJ_TYPE_MEM) {
+        CPU_CRITICAL_EXIT();
+        *p_err = OS_ERR_OBJ_CREATED;
+        return;
+    }
+#endif
     p_mem->Type        = OS_OBJ_TYPE_MEM;                       /* Set the type of object                               */
 #endif
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     p_mem->NamePtr     = p_name;                                /* Save name of memory partition                        */
 #else
     (void)p_name;
@@ -167,7 +166,7 @@ void  OSMemCreate (OS_MEM       *p_mem,
     p_mem->NbrMax      = n_blks;
     p_mem->BlkSize     = blk_size;                              /* Store block size of each memory blocks               */
 
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     OS_MemDbgListAdd(p_mem);
     OSMemQty++;
 #endif
@@ -218,7 +217,7 @@ void  *OSMemGet (OS_MEM  *p_mem,
 
     OS_TRACE_MEM_GET_ENTER(p_mem);
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_mem == (OS_MEM *)0) {                                 /* Must point to a valid memory partition               */
         OS_TRACE_MEM_GET_FAILED(p_mem);
         OS_TRACE_MEM_GET_EXIT(OS_ERR_MEM_INVALID_P_MEM);
@@ -227,7 +226,7 @@ void  *OSMemGet (OS_MEM  *p_mem,
     }
 #endif
 
-#if (OS_CFG_OBJ_TYPE_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_OBJ_TYPE_CHK_EN > 0u)
     if (p_mem->Type != OS_OBJ_TYPE_MEM) {                       /* Make sure the memory block was created               */
         OS_TRACE_MEM_GET_EXIT(OS_ERR_OBJ_TYPE);
        *p_err = OS_ERR_OBJ_TYPE;
@@ -297,7 +296,7 @@ void  OSMemPut (OS_MEM  *p_mem,
 
     OS_TRACE_MEM_PUT_ENTER(p_mem, p_blk);
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_mem == (OS_MEM *)0) {                                 /* Must point to a valid memory partition               */
         OS_TRACE_MEM_PUT_FAILED(p_mem);
         OS_TRACE_MEM_PUT_EXIT(OS_ERR_MEM_INVALID_P_MEM);
@@ -312,7 +311,7 @@ void  OSMemPut (OS_MEM  *p_mem,
     }
 #endif
 
-#if (OS_CFG_OBJ_TYPE_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_OBJ_TYPE_CHK_EN > 0u)
     if (p_mem->Type != OS_OBJ_TYPE_MEM) {                       /* Make sure the memory block was created               */
         OS_TRACE_MEM_PUT_EXIT(OS_ERR_OBJ_TYPE);
        *p_err = OS_ERR_OBJ_TYPE;
@@ -353,7 +352,7 @@ void  OSMemPut (OS_MEM  *p_mem,
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
 void  OS_MemDbgListAdd (OS_MEM  *p_mem)
 {
     p_mem->DbgPrevPtr               = (OS_MEM *)0;
@@ -385,7 +384,7 @@ void  OS_MemDbgListAdd (OS_MEM  *p_mem)
 
 void  OS_MemInit (OS_ERR  *p_err)
 {
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     OSMemDbgListPtr = (OS_MEM *)0;
     OSMemQty        = 0u;
 #endif

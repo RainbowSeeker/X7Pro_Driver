@@ -65,7 +65,7 @@ static err_t send_char(uint8_t c)
 {
     uint32_t bytes;
 
-    bytes = device_write(fmtio_dev, osWaitForever, &c, 1);
+    bytes = device_write(fmtio_dev, OS_WAIT_FOREVER, &c, 1);
     
     return (bytes == 1) ? E_OK : E_RROR;
 }
@@ -74,7 +74,7 @@ static err_t send(uint8_t* buff, uint32_t size)
 {
     uint32_t bytes;
 
-    bytes = device_write(fmtio_dev, osWaitForever, buff, size);
+    bytes = device_write(fmtio_dev, OS_WAIT_FOREVER, buff, size);
 
     return (bytes == size) ? E_OK : E_RROR;
 }

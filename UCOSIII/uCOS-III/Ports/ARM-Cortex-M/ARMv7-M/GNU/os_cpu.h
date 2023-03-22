@@ -1,41 +1,31 @@
 /*
 *********************************************************************************************************
-*                                                uC/OS-III
-*                                          The Real-Time Kernel
+*                                              uC/OS-III
+*                                        The Real-Time Kernel
 *
+*                    Copyright 2009-2022 Silicon Laboratories Inc. www.silabs.com
 *
-*                           (c) Copyright 2009-2017; Micrium, Inc.; Weston, FL
-*                    All rights reserved.  Protected by international copyright laws.
+*                                 SPDX-License-Identifier: APACHE-2.0
 *
-*                                              ARMv7-M Port
+*               This software is subject to an open source license and is distributed by
+*                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+*                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 *
-* File      : OS_CPU.H
-* Version   : V3.06.02
-* By        : JJL
-*             JBL
+*********************************************************************************************************
+*/
+
+/*
+*********************************************************************************************************
 *
-* LICENSING TERMS:
-* ---------------
-*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or
-*           for peaceful research.  If you plan or intend to use uC/OS-III in a commercial application/
-*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your
-*           application/product.   We provide ALL the source code for your convenience and to help you
-*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use
-*           it commercially without paying a licensing fee.
+*                                             ARMv7-M Port
 *
-*           Knowledge of the source code may NOT be used to develop a similar product.
-*
-*           Please help us continue to provide the embedded community with the finest software available.
-*           Your honesty is greatly appreciated.
-*
-*           You can find our product's user manual, API reference, release notes and
-*           more information at doc.micrium.com.
-*           You can contact us at www.micrium.com.
-*
-* For       : ARMv7M Cortex-M
+* File      : os_cpu.h
+* Version   : V3.08.02
+*********************************************************************************************************
+* For       : ARMv7-M Cortex-M
 * Mode      : Thumb-2 ISA
 * Toolchain : GNU C Compiler
-*
+*********************************************************************************************************
 * Note(s)   : (1) This port supports the ARM Cortex-M3, Cortex-M4 and Cortex-M7 architectures.
 *             (2) It has been tested with the following Hardware Floating Point Unit.
 *                 (a) Single-precision: FPv4-SP-D16-M and FPv5-SP-D16-M
@@ -70,6 +60,8 @@ extern  "C" {                                    /* See Note #1.                
 /*
 *********************************************************************************************************
 *                                               DEFINES
+* Note(s) : (1) Determines the interrupt programmable priority levels. This is normally specified in the
+*               Microcontroller reference manual. 4-bits gives us 16 programmable priority levels.
 *********************************************************************************************************
 */
 
@@ -77,6 +69,22 @@ extern  "C" {                                    /* See Note #1.                
 #define  OS_CPU_ARM_FP_EN              1u
 #else
 #define  OS_CPU_ARM_FP_EN              0u
+#endif
+
+#ifndef CPU_CFG_KA_IPL_BOUNDARY
+#error  "CPU_CFG_KA_IPL_BOUNDARY         not #define'd in 'cpu_cfg.h'    "
+#else
+#if (CPU_CFG_KA_IPL_BOUNDARY == 0u)
+#error  "CPU_CFG_KA_IPL_BOUNDARY        should be > 0 "
+#endif
+#endif
+
+#ifndef CPU_CFG_NVIC_PRIO_BITS
+#error  "CPU_CFG_NVIC_PRIO_BITS         not #define'd in 'cpu_cfg.h'    "   /* See Note # 1            */
+#else
+#if (CPU_CFG_KA_IPL_BOUNDARY >= (1u << CPU_CFG_NVIC_PRIO_BITS))
+#error  "CPU_CFG_KA_IPL_BOUNDARY        should not be set to higher than max programable priority level "
+#endif
 #endif
 
 
@@ -115,38 +123,10 @@ extern  "C" {                                    /* See Note #1.                
 #define  OS_TS_GET()               (CPU_TS)0u
 #endif
 
-#if (CPU_CFG_TS_32_EN    == DEF_ENABLED) && \
-    (CPU_CFG_TS_TMR_SIZE  < CPU_WORD_SIZE_32)
+#if (CPU_CFG_TS_32_EN    > 0u) && \
+    (CPU_CFG_TS_TMR_SIZE < CPU_WORD_SIZE_32)
                                                             /* CPU_CFG_TS_TMR_SIZE MUST be >= 32-bit (see Note #2b).  */
 #error  "cpu_cfg.h, CPU_CFG_TS_TMR_SIZE MUST be >= CPU_WORD_SIZE_32"
-#endif
-
-
-/*
-*********************************************************************************************************
-*                              OS TICK INTERRUPT PRIORITY CONFIGURATION
-*
-* Note(s) : (1) For systems that don't need any high, real-time priority interrupts; the tick interrupt
-*               should be configured as the highest priority interrupt but won't adversely affect system
-*               operations.
-*
-*           (2) For systems that need one or more high, real-time interrupts; these should be configured
-*               higher than the tick interrupt which MAY delay execution of the tick interrupt.
-*
-*               (a) If the higher priority interrupts do NOT continually consume CPU cycles but only
-*                   occasionally delay tick interrupts, then the real-time interrupts can successfully
-*                   handle their intermittent/periodic events with the system not losing tick interrupts
-*                   but only increasing the jitter.
-*
-*               (b) If the higher priority interrupts consume enough CPU cycles to continually delay the
-*                   tick interrupt, then the CPU/system is most likely over-burdened & can't be expected
-*                   to handle all its interrupts/tasks. The system time reference gets compromised as a
-*                   result of losing tick interrupts.
-*********************************************************************************************************
-*/
-
-#ifndef  OS_CPU_CFG_SYSTICK_PRIO
-#define  OS_CPU_CFG_SYSTICK_PRIO           0u
 #endif
 
 
@@ -166,21 +146,16 @@ OS_CPU_EXT  CPU_STK  *OS_CPU_ExceptStkBase;
 */
 
                                                   /* See OS_CPU_A.ASM                                  */
-void  OSCtxSw           (void);
-void  OSIntCtxSw        (void);
-void  OSStartHighRdy    (void);
+void  OSCtxSw               (void);
+void  OSIntCtxSw            (void);
+void  OSStartHighRdy        (void);
 
                                                   /* See OS_CPU_C.C                                    */
-void  OS_CPU_SysTickInit    (CPU_INT32U  cnts);
-void  OS_CPU_SysTickInitFreq(CPU_INT32U  cpu_freq);
+void  OS_CPU_SysTickInit    (CPU_INT32U   cnts);
+void  OS_CPU_SysTickInitFreq(CPU_INT32U   cpu_freq);
 
-void  OS_CPU_SysTickHandler(void);
-void  OS_CPU_PendSVHandler (void);
-
-#if (OS_CPU_ARM_FP_EN > 0u)
-void  OS_CPU_FP_Reg_Push(CPU_STK  *stkPtr);
-void  OS_CPU_FP_Reg_Pop (CPU_STK  *stkPtr);
-#endif
+void  OS_CPU_SysTickHandler (void);
+void  OS_CPU_PendSVHandler  (void);
 
 
 /*

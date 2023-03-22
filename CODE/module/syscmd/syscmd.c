@@ -76,7 +76,7 @@ char syscmd_getc(void)
     char ch[SERIAL_RB_BUFSZ];
     // struct finsh_shell* shell = finsh_get_shell();
 
-    if (os_sem_take(shell->rx_sem, osWaitForever) != E_OK)
+    if (os_sem_take(shell->rx_sem, OS_WAIT_FOREVER) != E_OK)
         return -1;
 
     device_read(shell->device, 0, &ch, SERIAL_RB_BUFSZ);

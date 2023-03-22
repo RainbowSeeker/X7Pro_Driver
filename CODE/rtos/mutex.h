@@ -7,7 +7,7 @@
 #ifndef X7PRO_DRIVER_MUTEX_H
 #define X7PRO_DRIVER_MUTEX_H
 #include "os_common.h"
-typedef osMutexId mutex_t;
+typedef OS_MUTEX *mutex_t;
 
 
 /**
@@ -17,8 +17,10 @@ typedef osMutexId mutex_t;
  */
 static inline err_t mutex_init(mutex_t *mutex)
 {
-    *mutex = xSemaphoreCreateMutex();
-    return (*mutex != NULL ? E_OK : E_NOMEM);
+    *mutex = calloc(1, sizeof(OS_MUTEX));
+    OSMutexCreate(*mutex, NULL, &os_err);
+//    OSMutexPost(*mutex, OS_OPT_POST_NONE, &os_err);
+    return os_err == 0 ? E_OK : E_NOMEM;
 }
 
 /**
@@ -28,7 +30,9 @@ static inline err_t mutex_init(mutex_t *mutex)
 static inline void mutex_detach(mutex_t mutex)
 {
     //mutex del must be done in thread.
-    ASSERT(osMutexDelete(mutex) == 0);
+    OSMutexDel(mutex, OS_OPT_DEL_ALWAYS, &os_err);
+    ASSERT(os_err == 0);
+    free(mutex);
 }
 
 /**
@@ -38,7 +42,9 @@ static inline void mutex_detach(mutex_t mutex)
 static inline err_t mutex_delete(mutex_t mutex)
 {
     //mutex del must be done in thread.
-    return osMutexDelete(mutex);
+    OSMutexDel(mutex, OS_OPT_DEL_ALWAYS, &os_err);
+    free(mutex);
+    return os_err == 0 ? E_OK : E_RROR;
 }
 
 /**
@@ -49,19 +55,8 @@ static inline err_t mutex_delete(mutex_t mutex)
  */
 static inline err_t mutex_take(mutex_t mutex, size_t millisec)
 {
-    if (os_interrupt_get_nest())
-    {
-        long taskWoken = pdFALSE;
-        if (xSemaphoreTakeFromISR(mutex, &taskWoken) != pdTRUE)
-        {
-            return E_RROR;
-        }
-        portEND_SWITCHING_ISR(taskWoken);
-    }
-    else
-        return xSemaphoreTake(mutex, TICKS_FROM_MS(millisec)) == pdTRUE ? E_OK : E_RROR;
-
-    return E_OK;
+    OSMutexPend(mutex, millisec, os_interrupt_get_nest() > 0 ? OS_OPT_PEND_NON_BLOCKING : OS_OPT_PEND_BLOCKING, NULL, &os_err);
+    return os_err == 0 ? E_OK : E_RROR;
 }
 
 /**
@@ -70,19 +65,8 @@ static inline err_t mutex_take(mutex_t mutex, size_t millisec)
  */
 static inline err_t mutex_release(mutex_t mutex)
 {
-    if (os_interrupt_get_nest())
-    {
-        long taskWoken = pdFALSE;
-        if (xSemaphoreGiveFromISR(mutex, &taskWoken) != pdTRUE)
-        {
-            return E_RROR;
-        }
-        portEND_SWITCHING_ISR(taskWoken);
-    }
-    else
-        return xSemaphoreGive(mutex) == pdTRUE ? E_OK : E_RROR;
-
-    return E_OK;
+    OSMutexPost(mutex, OS_OPT_POST_NONE, &os_err);
+    return os_err == 0 ? E_OK : E_RROR;
 }
 
 #endif //X7PRO_DRIVER_MUTEX_H

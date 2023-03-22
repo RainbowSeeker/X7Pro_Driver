@@ -7,7 +7,8 @@
 #ifndef X7PRO_DRIVER_OBJECT_H
 #define X7PRO_DRIVER_OBJECT_H
 
-#include "os_common.h"
+#include "common_def.h"
+#include "utils/list.h"
 
 
 /**

@@ -5,7 +5,7 @@
 //
 
 #include "rm3100.h"
-#include "driver/io.h"
+#include "drivers/io.h"
 #include "hal/spi/spi.h"
 #include "hal/mag/mag.h"
 #include "drivers/drv_exti.h"

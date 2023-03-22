@@ -1,23 +1,16 @@
 /*
 *********************************************************************************************************
-*                                                uC/CPU
+*                                               uC/CPU
 *                                    CPU CONFIGURATION & PORT LAYER
 *
-*                          (c) Copyright 2004-2017; Micrium, Inc.; Weston, FL
+*                    Copyright 2004-2021 Silicon Laboratories Inc. www.silabs.com
 *
-*               All rights reserved.  Protected by international copyright laws.
+*                                 SPDX-License-Identifier: APACHE-2.0
 *
-*               uC/CPU is provided in source form to registered licensees ONLY.  It is
-*               illegal to distribute this source code to any third party unless you receive
-*               written permission by an authorized Micrium representative.  Knowledge of
-*               the source code may NOT be used to develop a similar product.
+*               This software is subject to an open source license and is distributed by
+*                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+*                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 *
-*               Please help us continue to provide the Embedded community with the finest
-*               software available.  Your honesty is greatly appreciated.
-*
-*               You can find our product's user manual, API reference, release notes and
-*               more information at doc.micrium.com.
-*               You can contact us at www.micrium.com.
 *********************************************************************************************************
 */
 
@@ -26,15 +19,13 @@
 *
 *                                           CORE CPU MODULE
 *
-* Filename      : cpu_core.h
-* Version       : V1.31.02
-* Programmer(s) : SR
-*                 ITJ
+* Filename : cpu_core.h
+* Version  : V1.32.01
 *********************************************************************************************************
-* Note(s)       : (1) Assumes the following versions (or more recent) of software modules are included in
-*                     the project build :
+* Note(s)  : (1) Assumes the following versions (or more recent) of software modules are included in
+*                the project build :
 *
-*                     (a) uC/LIB V1.38.02
+*                (a) uC/LIB V1.38.02
 *********************************************************************************************************
 */
 
@@ -301,8 +292,6 @@ CPU_CORE_EXT  CPU_TS_TMR       CPU_IntDisMeasMax_cnts;          /* ... non-reset
 *
 * Return(s)   : none.
 *
-* Caller(s)   : various.
-*
 * Note(s)     : (1) CPU_SW_EXCEPTION() deadlocks the current code execution -- whether multi-tasked/
 *                   -processed/-threaded or single-threaded -- when the current code execution cannot
 *                   gracefully recover or report a fault or exception condition.
@@ -418,9 +407,7 @@ CPU_CORE_EXT  CPU_TS_TMR       CPU_IntDisMeasMax_cnts;          /* ... non-reset
 *
 * Return(s)   : none.
 *
-* Caller(s)   : #### various.
-*
-* Note(s)     : none.
+ Note(s)     : none.
 *********************************************************************************************************
 */
 
@@ -446,8 +433,6 @@ CPU_CORE_EXT  CPU_TS_TMR       CPU_IntDisMeasMax_cnts;          /* ... non-reset
 *               char_4      4th ASCII character to create generic type value.
 *
 * Return(s)   : 32-bit generic type value.
-*
-* Caller(s)   : various.
 *
 * Note(s)     : (1) (a) Generic type values should be #define'd with large, non-trivial values to trap
 *                       & discard invalid/corrupted objects based on type value.
@@ -664,11 +649,6 @@ void             CPU_StatReset            (void);
 *
 * Return(s)   : none.
 *
-* Caller(s)   : CPU_TS_Init().
-*
-*               This function is an INTERNAL CPU module function & MUST be implemented by application/
-*               BSP function(s) [see Note #1] but MUST NOT be called by application function(s).
-*
 * Note(s)     : (1) CPU_TS_TmrInit() is an application/BSP function that MUST be defined by the developer
 *                   if either of the following CPU features is enabled :
 *
@@ -720,15 +700,6 @@ void  CPU_TS_TmrInit(void);
 * Argument(s) : none.
 *
 * Return(s)   : Timestamp timer count (see Notes #2a & #2b).
-*
-* Caller(s)   : CPU_TS_Init(),
-*               CPU_TS_Get32(),
-*               CPU_TS_Get64(),
-*               CPU_IntDisMeasStart(),
-*               CPU_IntDisMeasStop().
-*
-*               This function is an INTERNAL CPU module function & MUST be implemented by application/
-*               BSP function(s) [see Note #1] but SHOULD NOT be called by application function(s).
 *
 * Note(s)     : (1) CPU_TS_TmrRd() is an application/BSP function that MUST be defined by the developer
 *                   if either of the following CPU features is enabled :
@@ -807,12 +778,6 @@ CPU_TS_TMR  CPU_TS_TmrRd(void);
 * Argument(s) : ts_cnts   CPU timestamp (in timestamp timer counts [see Note #2aA]).
 *
 * Return(s)   : Converted CPU timestamp (in microseconds           [see Note #2aD]).
-*
-* Caller(s)   : Application.
-*
-*               This function is an (optional) CPU module application programming interface (API)
-*               function which MAY be implemented by application/BSP function(s) [see Note #1] &
-*               MAY be called by application function(s).
 *
 * Note(s)     : (1) CPU_TS32_to_uSec()/CPU_TS64_to_uSec() are application/BSP functions that MAY be
 *                   optionally defined by the developer when either of the following CPU features is
@@ -1063,4 +1028,3 @@ CPU_INT64U  CPU_TS64_to_uSec(CPU_TS64  ts_cnts);
 }
 #endif
 #endif                                                          /* End of CPU core module include.                      */
-

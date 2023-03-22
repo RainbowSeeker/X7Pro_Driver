@@ -1,35 +1,26 @@
 /*
-************************************************************************************************************************
-*                                                      uC/OS-III
-*                                                 The Real-Time Kernel
+*********************************************************************************************************
+*                                              uC/OS-III
+*                                        The Real-Time Kernel
 *
-*                                  (c) Copyright 2009-2017; Micrium, Inc.; Weston, FL
-*                           All rights reserved.  Protected by international copyright laws.
+*                    Copyright 2009-2022 Silicon Laboratories Inc. www.silabs.com
 *
-*                                               MESSAGE QUEUE MANAGEMENT
+*                                 SPDX-License-Identifier: APACHE-2.0
 *
-* File    : OS_Q.C
-* By      : JJL
-* Version : V3.06.02
+*               This software is subject to an open source license and is distributed by
+*                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+*                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 *
-* LICENSING TERMS:
-* ---------------
-*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or
-*           for peaceful research.  If you plan or intend to use uC/OS-III in a commercial application/
-*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your
-*           application/product.   We provide ALL the source code for your convenience and to help you
-*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use
-*           it commercially without paying a licensing fee.
+*********************************************************************************************************
+*/
+
+/*
+*********************************************************************************************************
+*                                       MESSAGE QUEUE MANAGEMENT
 *
-*           Knowledge of the source code may NOT be used to develop a similar product.
-*
-*           Please help us continue to provide the embedded community with the finest software available.
-*           Your honesty is greatly appreciated.
-*
-*           You can find our product's user manual, API reference, release notes and
-*           more information at doc.micrium.com.
-*           You can contact us at www.micrium.com.
-************************************************************************************************************************
+* File    : os_q.c
+* Version : V3.08.02
+*********************************************************************************************************
 */
 
 #define  MICRIUM_SOURCE
@@ -40,7 +31,7 @@ const  CPU_CHAR  *os_q__c = "$Id: $";
 #endif
 
 
-#if (OS_CFG_Q_EN == DEF_ENABLED)
+#if (OS_CFG_Q_EN > 0u)
 /*
 ************************************************************************************************************************
 *                                               CREATE A MESSAGE QUEUE
@@ -63,6 +54,7 @@ const  CPU_CHAR  *os_q__c = "$Id: $";
 *                                                               OSSafetyCriticalStart()
 *                              OS_ERR_OBJ_PTR_NULL            If you passed a NULL pointer for 'p_q'
 *                              OS_ERR_Q_SIZE                  If the size you specified is 0
+*                              OS_ERR_OBJ_CREATED             If the message queue was already created
 *
 * Returns    : none
 *
@@ -87,20 +79,20 @@ void  OSQCreate (OS_Q        *p_q,
 #endif
 
 #ifdef OS_SAFETY_CRITICAL_IEC61508
-    if (OSSafetyCriticalStartFlag == DEF_TRUE) {
+    if (OSSafetyCriticalStartFlag == OS_TRUE) {
        *p_err = OS_ERR_ILLEGAL_CREATE_RUN_TIME;
         return;
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
     if (OSIntNestingCtr > 0u) {                                 /* Not allowed to be called from an ISR                 */
        *p_err = OS_ERR_CREATE_ISR;
         return;
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_q == (OS_Q *)0) {                                     /* Validate arguments                                   */
        *p_err = OS_ERR_OBJ_PTR_NULL;
         return;
@@ -112,10 +104,17 @@ void  OSQCreate (OS_Q        *p_q,
 #endif
 
     CPU_CRITICAL_ENTER();
-#if (OS_OBJ_TYPE_REQ == DEF_ENABLED)
+#if (OS_OBJ_TYPE_REQ > 0u)
+#if (OS_CFG_OBJ_CREATED_CHK_EN > 0u)
+    if (p_q->Type == OS_OBJ_TYPE_Q) {
+        CPU_CRITICAL_EXIT();
+        *p_err = OS_ERR_OBJ_CREATED;
+        return;
+    }
+#endif
     p_q->Type    = OS_OBJ_TYPE_Q;                               /* Mark the data structure as a message queue           */
 #endif
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     p_q->NamePtr = p_name;
 #else
     (void)p_name;
@@ -124,7 +123,7 @@ void  OSQCreate (OS_Q        *p_q,
                 max_qty);
     OS_PendListInit(&p_q->PendList);                            /* Initialize the waiting list                          */
 
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     OS_QDbgListAdd(p_q);
     OSQQty++;                                                   /* One more queue created                               */
 #endif
@@ -171,7 +170,7 @@ void  OSQCreate (OS_Q        *p_q,
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_Q_DEL_EN == DEF_ENABLED)
+#if (OS_CFG_Q_DEL_EN > 0u)
 OS_OBJ_QTY  OSQDel (OS_Q    *p_q,
                     OS_OPT   opt,
                     OS_ERR  *p_err)
@@ -193,14 +192,14 @@ OS_OBJ_QTY  OSQDel (OS_Q    *p_q,
     OS_TRACE_Q_DEL_ENTER(p_q, opt);
 
 #ifdef OS_SAFETY_CRITICAL_IEC61508
-    if (OSSafetyCriticalStartFlag == DEF_TRUE) {
+    if (OSSafetyCriticalStartFlag == OS_TRUE) {
         OS_TRACE_Q_DEL_EXIT(OS_ERR_ILLEGAL_DEL_RUN_TIME);
        *p_err = OS_ERR_ILLEGAL_DEL_RUN_TIME;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
     if (OSIntNestingCtr > 0u) {                                 /* Can't delete a message queue from an ISR             */
         OS_TRACE_Q_DEL_EXIT(OS_ERR_DEL_ISR);
        *p_err = OS_ERR_DEL_ISR;
@@ -208,15 +207,15 @@ OS_OBJ_QTY  OSQDel (OS_Q    *p_q,
     }
 #endif
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Is the kernel running?                               */
-    if (OSRunning != OS_STATE_OS_RUNNING) {
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN > 0u)
+    if (OSRunning != OS_STATE_OS_RUNNING) {                     /* Is the kernel running?                               */
         OS_TRACE_Q_DEL_EXIT(OS_ERR_OS_NOT_RUNNING);
        *p_err = OS_ERR_OS_NOT_RUNNING;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_q == (OS_Q *)0) {                                     /* Validate 'p_q'                                       */
         OS_TRACE_Q_DEL_EXIT(OS_ERR_OBJ_PTR_NULL);
        *p_err =  OS_ERR_OBJ_PTR_NULL;
@@ -224,7 +223,7 @@ OS_OBJ_QTY  OSQDel (OS_Q    *p_q,
     }
 #endif
 
-#if (OS_CFG_OBJ_TYPE_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_OBJ_TYPE_CHK_EN > 0u)
     if (p_q->Type != OS_OBJ_TYPE_Q) {                           /* Make sure message queue was created                  */
         OS_TRACE_Q_DEL_EXIT(OS_ERR_OBJ_TYPE);
        *p_err = OS_ERR_OBJ_TYPE;
@@ -238,7 +237,7 @@ OS_OBJ_QTY  OSQDel (OS_Q    *p_q,
     switch (opt) {
         case OS_OPT_DEL_NO_PEND:                                /* Delete message queue only if no task waiting         */
              if (p_pend_list->HeadPtr == (OS_TCB *)0) {
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
                  OS_QDbgListRemove(p_q);
                  OSQQty--;
 #endif
@@ -253,7 +252,7 @@ OS_OBJ_QTY  OSQDel (OS_Q    *p_q,
              break;
 
         case OS_OPT_DEL_ALWAYS:                                 /* Always delete the message queue                      */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
              ts = OS_TS_GET();                                  /* Get local time stamp so all tasks get the same time  */
 #else
              ts = 0u;
@@ -265,7 +264,7 @@ OS_OBJ_QTY  OSQDel (OS_Q    *p_q,
                               OS_STATUS_PEND_DEL);
                  nbr_tasks++;
              }
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
              OS_QDbgListRemove(p_q);
              OSQQty--;
 #endif
@@ -313,7 +312,7 @@ OS_OBJ_QTY  OSQDel (OS_Q    *p_q,
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_Q_FLUSH_EN == DEF_ENABLED)
+#if (OS_CFG_Q_FLUSH_EN > 0u)
 OS_MSG_QTY  OSQFlush (OS_Q    *p_q,
                       OS_ERR  *p_err)
 {
@@ -329,28 +328,28 @@ OS_MSG_QTY  OSQFlush (OS_Q    *p_q,
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
     if (OSIntNestingCtr > 0u) {                                 /* Can't flush a message queue from an ISR              */
        *p_err = OS_ERR_FLUSH_ISR;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Is the kernel running?                               */
-    if (OSRunning != OS_STATE_OS_RUNNING) {
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN > 0u)
+    if (OSRunning != OS_STATE_OS_RUNNING) {                     /* Is the kernel running?                               */
        *p_err = OS_ERR_OS_NOT_RUNNING;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_q == (OS_Q *)0) {                                     /* Validate arguments                                   */
        *p_err = OS_ERR_OBJ_PTR_NULL;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_OBJ_TYPE_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_OBJ_TYPE_CHK_EN > 0u)
     if (p_q->Type != OS_OBJ_TYPE_Q) {                           /* Make sure message queue was created                  */
        *p_err = OS_ERR_OBJ_TYPE;
         return (0u);
@@ -407,6 +406,7 @@ OS_MSG_QTY  OSQFlush (OS_Q    *p_q,
 *                                OS_ERR_STATUS_INVALID     If the pend status has an invalid value
 *                                OS_ERR_TIMEOUT            A message was not received within the specified timeout
 *                                                          would lead to a suspension.
+*                                OS_ERR_TICK_DISABLED      If kernel ticks are disabled and a timeout is specified
 *
 * Returns    : != (void *)0  is a pointer to the message received
 *              == (void *)0  if you received a NULL pointer message or,
@@ -414,7 +414,7 @@ OS_MSG_QTY  OSQFlush (OS_Q    *p_q,
 *                            if 'p_q' is a NULL pointer or,
 *                            if you didn't pass a pointer to a queue.
 *
-* Note(s)    : none
+* Note(s)    : This API 'MUST NOT' be called from a timer callback function.
 ************************************************************************************************************************
 */
 
@@ -438,24 +438,35 @@ void  *OSQPend (OS_Q         *p_q,
 
     OS_TRACE_Q_PEND_ENTER(p_q, timeout, opt, p_msg_size, p_ts);
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
-    if (OSIntNestingCtr > 0u) {                                 /* Not allowed to call from an ISR                      */
+#if (OS_CFG_TICK_EN == 0u)
+    if (timeout != 0u) {
+       *p_err = OS_ERR_TICK_DISABLED;
         OS_TRACE_Q_PEND_FAILED(p_q);
-        OS_TRACE_Q_PEND_EXIT(OS_ERR_PEND_ISR);
-       *p_err = OS_ERR_PEND_ISR;
+        OS_TRACE_Q_PEND_EXIT(OS_ERR_TICK_DISABLED);
         return ((void *)0);
     }
 #endif
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Is the kernel running?                               */
-    if (OSRunning != OS_STATE_OS_RUNNING) {
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
+    if (OSIntNestingCtr > 0u) {                                 /* Not allowed to call from an ISR                      */
+        if ((opt & OS_OPT_PEND_NON_BLOCKING) != OS_OPT_PEND_NON_BLOCKING) {
+            OS_TRACE_Q_PEND_FAILED(p_q);
+            OS_TRACE_Q_PEND_EXIT(OS_ERR_PEND_ISR);
+           *p_err = OS_ERR_PEND_ISR;
+            return ((void *)0);
+        }
+    }
+#endif
+
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN > 0u)
+    if (OSRunning != OS_STATE_OS_RUNNING) {                     /* Is the kernel running?                               */
         OS_TRACE_Q_PEND_EXIT(OS_ERR_OS_NOT_RUNNING);
        *p_err = OS_ERR_OS_NOT_RUNNING;
         return ((void *)0);
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_q == (OS_Q *)0) {                                     /* Validate arguments                                   */
         OS_TRACE_Q_PEND_FAILED(p_q);
         OS_TRACE_Q_PEND_EXIT(OS_ERR_OBJ_PTR_NULL);
@@ -481,7 +492,7 @@ void  *OSQPend (OS_Q         *p_q,
     }
 #endif
 
-#if (OS_CFG_OBJ_TYPE_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_OBJ_TYPE_CHK_EN > 0u)
     if (p_q->Type != OS_OBJ_TYPE_Q) {                           /* Make sure message queue was created                  */
         OS_TRACE_Q_PEND_FAILED(p_q);
         OS_TRACE_Q_PEND_EXIT(OS_ERR_OBJ_TYPE);
@@ -523,6 +534,7 @@ void  *OSQPend (OS_Q         *p_q,
     }
 
     OS_Pend((OS_PEND_OBJ *)((void *)p_q),                       /* Block task pending on Message Queue                  */
+            OSTCBCurPtr,
             OS_TASK_PEND_ON_Q,
             timeout);
     CPU_CRITICAL_EXIT();
@@ -534,7 +546,7 @@ void  *OSQPend (OS_Q         *p_q,
         case OS_STATUS_PEND_OK:                                 /* Extract message from TCB (Put there by Post)         */
              p_void     = OSTCBCurPtr->MsgPtr;
             *p_msg_size = OSTCBCurPtr->MsgSize;
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
              if (p_ts  != (CPU_TS *)0) {
                 *p_ts  =  OSTCBCurPtr->TS;
              }
@@ -546,7 +558,7 @@ void  *OSQPend (OS_Q         *p_q,
         case OS_STATUS_PEND_ABORT:                              /* Indicate that we aborted                             */
              p_void     = (void *)0;
             *p_msg_size =         0u;
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
              if (p_ts  != (CPU_TS *)0) {
                 *p_ts  =  OSTCBCurPtr->TS;
              }
@@ -565,7 +577,7 @@ void  *OSQPend (OS_Q         *p_q,
         case OS_STATUS_PEND_DEL:                                /* Indicate that object pended on has been deleted      */
              p_void     = (void *)0;
             *p_msg_size =         0u;
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
              if (p_ts  != (CPU_TS *)0) {
                 *p_ts  =  OSTCBCurPtr->TS;
              }
@@ -621,7 +633,7 @@ void  *OSQPend (OS_Q         *p_q,
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_Q_PEND_ABORT_EN == DEF_ENABLED)
+#if (OS_CFG_Q_PEND_ABORT_EN > 0u)
 OS_OBJ_QTY  OSQPendAbort (OS_Q    *p_q,
                           OS_OPT   opt,
                           OS_ERR  *p_err)
@@ -640,21 +652,21 @@ OS_OBJ_QTY  OSQPendAbort (OS_Q    *p_q,
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
     if (OSIntNestingCtr > 0u) {                                 /* Not allowed to Pend Abort from an ISR                */
        *p_err =  OS_ERR_PEND_ABORT_ISR;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Is the kernel running?                               */
-    if (OSRunning != OS_STATE_OS_RUNNING) {
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN > 0u)
+    if (OSRunning != OS_STATE_OS_RUNNING) {                     /* Is the kernel running?                               */
        *p_err = OS_ERR_OS_NOT_RUNNING;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_q == (OS_Q *)0) {                                     /* Validate 'p_q'                                       */
        *p_err =  OS_ERR_OBJ_PTR_NULL;
         return (0u);
@@ -672,7 +684,7 @@ OS_OBJ_QTY  OSQPendAbort (OS_Q    *p_q,
     }
 #endif
 
-#if (OS_CFG_OBJ_TYPE_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_OBJ_TYPE_CHK_EN > 0u)
     if (p_q->Type != OS_OBJ_TYPE_Q) {                           /* Make sure queue was created                          */
        *p_err =  OS_ERR_OBJ_TYPE;
         return (0u);
@@ -688,7 +700,7 @@ OS_OBJ_QTY  OSQPendAbort (OS_Q    *p_q,
     }
 
     nbr_tasks = 0u;
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
     ts        = OS_TS_GET();                                    /* Get local time stamp so all tasks get the same time  */
 #else
     ts        = 0u;
@@ -791,15 +803,15 @@ void  OSQPost (OS_Q         *p_q,
 
     OS_TRACE_Q_POST_ENTER(p_q, p_void, msg_size, opt);
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Is the kernel running?                               */
-    if (OSRunning != OS_STATE_OS_RUNNING) {
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN > 0u)
+    if (OSRunning != OS_STATE_OS_RUNNING) {                     /* Is the kernel running?                               */
         OS_TRACE_Q_POST_EXIT(OS_ERR_OS_NOT_RUNNING);
        *p_err = OS_ERR_OS_NOT_RUNNING;
         return;
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_q == (OS_Q *)0) {                                     /* Validate 'p_q'                                       */
         OS_TRACE_Q_POST_FAILED(p_q);
         OS_TRACE_Q_POST_EXIT(OS_ERR_OBJ_PTR_NULL);
@@ -825,7 +837,7 @@ void  OSQPost (OS_Q         *p_q,
     }
 #endif
 
-#if (OS_CFG_OBJ_TYPE_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_OBJ_TYPE_CHK_EN > 0u)
     if (p_q->Type != OS_OBJ_TYPE_Q) {                           /* Make sure message queue was created                  */
         OS_TRACE_Q_POST_FAILED(p_q);
         OS_TRACE_Q_POST_EXIT(OS_ERR_OBJ_TYPE);
@@ -833,7 +845,7 @@ void  OSQPost (OS_Q         *p_q,
         return;
     }
 #endif
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
     ts = OS_TS_GET();                                           /* Get timestamp                                        */
 #else
     ts = 0u;
@@ -904,10 +916,10 @@ void  OSQPost (OS_Q         *p_q,
 void  OS_QClr (OS_Q  *p_q)
 {
     (void)OS_MsgQFreeAll(&p_q->MsgQ);                           /* Return all OS_MSGs to the free list                  */
-#if (OS_OBJ_TYPE_REQ == DEF_ENABLED)
+#if (OS_OBJ_TYPE_REQ > 0u)
     p_q->Type    =  OS_OBJ_TYPE_NONE;                           /* Mark the data structure as a NONE                    */
 #endif
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     p_q->NamePtr = (CPU_CHAR *)((void *)"?Q");
 #endif
     OS_MsgQInit(&p_q->MsgQ,                                     /* Initialize the list of OS_MSGs                       */
@@ -931,7 +943,7 @@ void  OS_QClr (OS_Q  *p_q)
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
 void  OS_QDbgListAdd (OS_Q  *p_q)
 {
     p_q->DbgNamePtr               = (CPU_CHAR *)((void *)" ");

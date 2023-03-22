@@ -1,41 +1,34 @@
 /*
-************************************************************************************************************************
-*                                                      uC/OS-III
-*                                                 The Real-Time Kernel
+*********************************************************************************************************
+*                                              uC/OS-III
+*                                        The Real-Time Kernel
 *
-*                                  (c) Copyright 2009-2017; Micrium, Inc.; Weston, FL
-*                           All rights reserved.  Protected by international copyright laws.
+*                    Copyright 2009-2022 Silicon Laboratories Inc. www.silabs.com
 *
-*                                                  APPLICATION HOOKS
+*                                 SPDX-License-Identifier: APACHE-2.0
 *
-* File    : OS_APP_HOOKS.C
-* By      : JJL
-* Version : V3.06.02
+*               This software is subject to an open source license and is distributed by
+*                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+*                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 *
-* LICENSING TERMS:
-* ---------------
-*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or 
-*           for peaceful research.  If you plan or intend to use uC/OS-III in a commercial application/
-*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your 
-*           application/product.   We provide ALL the source code for your convenience and to help you 
-*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use 
-*           it commercially without paying a licensing fee.
+*********************************************************************************************************
+*/
+
+/*
+*********************************************************************************************************
 *
-*           Knowledge of the source code may NOT be used to develop a similar product.
+*                                           APPLICATION HOOKS
 *
-*           Please help us continue to provide the embedded community with the finest software available.
-*           Your honesty is greatly appreciated.
-*
-*           You can find our product's user manual, API reference, release notes and
-*           more information at doc.micrium.com.
-*           You can contact us at www.micrium.com.
-************************************************************************************************************************
+* Filename : os_app_hooks.c
+* Version  : V3.08.02
+*********************************************************************************************************
 */
 
 #define   MICRIUM_SOURCE
 #include  <os.h>
 #include  "os_app_hooks.h"
-
+#include "stm32h7xx_hal.h"
+#include "thread.h"
 
 /*
 ************************************************************************************************************************
@@ -58,7 +51,7 @@ void  App_OS_SetAllHooks (void)
     CPU_CRITICAL_ENTER();
     OS_AppIdleTaskHookPtr   = App_OS_IdleTaskHook;
 
-#if (OS_CFG_TASK_STK_REDZONE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_STK_REDZONE_EN > 0u)
     OS_AppRedzoneHitHookPtr = App_OS_RedzoneHitHook;
 #endif
 
@@ -99,7 +92,7 @@ void  App_OS_ClrAllHooks (void)
     CPU_CRITICAL_ENTER();
     OS_AppIdleTaskHookPtr   = (OS_APP_HOOK_VOID)0;
 
-#if (OS_CFG_TASK_STK_REDZONE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_STK_REDZONE_EN > 0u)
     OS_AppRedzoneHitHookPtr = (OS_APP_HOOK_TCB)0;
 #endif
 
@@ -133,7 +126,7 @@ void  App_OS_ClrAllHooks (void)
 
 void  App_OS_IdleTaskHook (void)
 {
-
+    os_thread_idle_hook();
 }
 
 /*
@@ -147,7 +140,7 @@ void  App_OS_IdleTaskHook (void)
 * Note(s)    : None.
 ************************************************************************************************************************
 */
-#if (OS_CFG_TASK_STK_REDZONE_EN == DEF_ENABLED)
+#if (OS_CFG_TASK_STK_REDZONE_EN > 0u)
 void  App_OS_RedzoneHitHook (OS_TCB  *p_tcb)
 {
     (void)&p_tcb;
@@ -248,7 +241,7 @@ void  App_OS_TaskReturnHook (OS_TCB  *p_tcb)
 
 void  App_OS_TaskSwHook (void)
 {
-
+    os_scheduler_hook();
 }
 
 

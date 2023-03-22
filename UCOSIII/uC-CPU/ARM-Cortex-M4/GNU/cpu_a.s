@@ -1,34 +1,28 @@
 @********************************************************************************************************
-@                                                uC/CPU
+@                                               uC/CPU
 @                                    CPU CONFIGURATION & PORT LAYER
 @
-@                          (c) Copyright 2004-2017; Micrium, Inc.; Weston, FL
+@                    Copyright 2004-2021 Silicon Laboratories Inc. www.silabs.com
 @
-@               All rights reserved.  Protected by international copyright laws.
+@                                 SPDX-License-Identifier: APACHE-2.0
 @
-@               uC/CPU is provided in source form to registered licensees ONLY.  It is
-@               illegal to distribute this source code to any third party unless you receive
-@               written permission by an authorized Micrium representative.  Knowledge of
-@               the source code may NOT be used to develop a similar product.
+@               This software is subject to an open source license and is distributed by
+@                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+@                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 @
-@               Please help us continue to provide the Embedded community with the finest
-@               software available.  Your honesty is greatly appreciated.
-@
-@               You can find our product's user manual, API reference, release notes and
-@               more information at https://doc.micrium.com.
-@               You can contact us at www.micrium.com.
 @********************************************************************************************************
 
 @********************************************************************************************************
 @
 @                                            CPU PORT FILE
 @
-@                                            ARM-Cortex-M4
+@                                               ARMv7-M
 @                                            GNU C Compiler
 @
-@ Filename      : cpu_a.asm
-@ Version       : V1.31.02
-@ Programmer(s) : JJL
+@ Filename : cpu_a.s
+@ Version  : V1.32.01
+@********************************************************************************************************
+@ Note(s)  : This port supports the ARM Cortex-M3, Cortex-M4 and Cortex-M7 architectures.
 @********************************************************************************************************
 
 
@@ -63,10 +57,10 @@
 @********************************************************************************************************
 @                                    DISABLE and ENABLE INTERRUPTS
 @
-@ Description: Disable/Enable interrupts.
+@ Description : Disable/Enable interrupts.
 @
-@ Prototypes : void  CPU_IntDis(void);
-@              void  CPU_IntEn (void);
+@ Prototypes  : void  CPU_IntDis(void);
+@               void  CPU_IntEn (void);
 @********************************************************************************************************
 
 .thumb_func
@@ -83,12 +77,13 @@ CPU_IntEn:
 @********************************************************************************************************
 @                                      CRITICAL SECTION FUNCTIONS
 @
-@ Description : Disable/Enable interrupts by preserving the state of interrupts.  Generally speaking, the
-@               state of the interrupt disable flag is stored in the local variable 'cpu_sr' & interrupts
-@               are then disabled ('cpu_sr' is allocated in all functions that need to disable interrupts).
-@               The previous interrupt state is restored by copying 'cpu_sr' into the CPU's status register.
+@ Description : Disable/Enable Kernel aware interrupts by preserving the state of BASEPRI.  Generally speaking,
+@               the state of the BASEPRI interrupt exception processing is stored in the local variable
+@               'cpu_sr' & Kernel Aware interrupts are then disabled ('cpu_sr' is allocated in all functions
+@               that need to disable Kernel aware interrupts). The previous BASEPRI interrupt state is restored
+@               by copying 'cpu_sr' into the BASEPRI register.
 @
-@ Prototypes  : CPU_SR  CPU_SR_Save   (void);
+@ Prototypes  : CPU_SR  CPU_SR_Save   (CPU_SR  new_basepri);
 @               void    CPU_SR_Restore(CPU_SR  cpu_sr);
 @
 @ Note(s)     : (1) These functions are used in general like this :
@@ -104,19 +99,60 @@ CPU_IntEn:
 @                           CPU_CRITICAL_EXIT();                /* CPU_SR_Restore(cpu_sr);                  */
 @                               :
 @                       }
+@
+@               (2) Increasing priority using a write to BASEPRI does not take effect immediately.
+@                   (a) IMPLICATION  This erratum means that the instruction after an MSR to boost BASEPRI
+@                       might incorrectly be preempted by an insufficient high priority exception.
+@
+@                   (b) WORKAROUND  The MSR to boost BASEPRI can be replaced by the following code sequence:
+@
+@                       CPSID i
+@                       MSR to BASEPRI
+@                       DSB
+@                       ISB
+@                       CPSIE i
 @********************************************************************************************************
 
 .thumb_func
 CPU_SR_Save:
-        MRS     R0, PRIMASK                     @ Set prio int mask to mask all (except faults)
-        CPSID   I
+        CPSID   I                               @ Cortex-M7 errata notice. See Note #2
+        PUSH   {R1}
+        MRS     R1, BASEPRI
+        MSR     BASEPRI, R0
+        DSB
+        ISB
+        MOV     R0, R1
+        POP    {R1}
+        CPSIE   I
         BX      LR
 
 .thumb_func
-CPU_SR_Restore:                                  @ See Note #2.
-        MSR     PRIMASK, R0
+CPU_SR_Restore:
+        CPSID   I                               @ Cortex-M7 errata notice. See Note #2
+        MSR     BASEPRI, R0
+        DSB
+        ISB
+        CPSIE   I
         BX      LR
 
+@CPU_SR_Save:
+@        CPSID   I                               @ Cortex-M7 errata notice. See Note #2
+@        PUSH   {R1}
+@        MRS     R1, BASEPRI
+@        MSR     BASEPRI, R0
+@        DSB
+@        ISB
+@        MOV     R0, R1
+@        POP    {R1}
+@        CPSIE   I
+@        BX      LR
+@CPU_SR_Restore:
+@        CPSID   I                               @ Cortex-M7 errata notice. See Note #2
+@        MSR     BASEPRI, R0
+@        DSB
+@        ISB
+@        CPSIE   I
+@        BX      LR
 
 @********************************************************************************************************
 @                                         WAIT FOR INTERRUPT
@@ -163,11 +199,6 @@ CPU_WaitForExcept:
 @
 @ Return(s)   : Number of contiguous, most-significant, leading zero bits in 'val'.
 @
-@ Caller(s)   : Application.
-@
-@               This function is an INTERNAL CPU module function but MAY be called by application
-@               function(s).
-@
 @ Note(s)     : (1) (a) Supports 32-bit data value size as configured by 'CPU_DATA' (see 'cpu.h
 @                       CPU WORD CONFIGURATION  Note #1').
 @
@@ -210,11 +241,6 @@ CPU_CntLeadZeros:
 @ Argument(s) : val         Data value to count trailing zero bits.
 @
 @ Return(s)   : Number of contiguous, least-significant, trailing zero bits in 'val'.
-@
-@ Caller(s)   : Application.
-@
-@               This function is an INTERNAL CPU module function but MAY be called by application
-@               function(s).
 @
 @ Note(s)     : (1) (a) Supports 32-bit data value size as configured by 'CPU_DATA' (see 'cpu.h
 @                       CPU WORD CONFIGURATION  Note #1').
@@ -259,10 +285,6 @@ CPU_CntTrailZeros:
 @
 @ Return(s)   : Value with all bits in 'val' reversed (see Note #1).
 @
-@ Caller(s)   : Application.
-@
-@               This function is an INTERNAL CPU module function but MAY be called by application function(s).
-@
 @ Note(s)     : (1) The final, reversed data value for 'val' is such that :
 @
 @                       'val's final bit  0       =  'val's original bit  N
@@ -287,4 +309,3 @@ CPU_RevBits:
 @********************************************************************************************************
 
 .end
-

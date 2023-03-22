@@ -113,7 +113,6 @@ static size_t hal_sd_write(device_t dev, off_t pos, const void *buffer, size_t s
     }
     else
     {
-
         // Flush the D cache to ensure the data to be written is in main memory
         scb_flush_dcache(wp, count * BLOCKSIZE);
         /* write multi sectors */

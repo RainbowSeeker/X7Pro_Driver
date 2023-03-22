@@ -106,9 +106,6 @@
 #ifdef HAL_DMA_MODULE_ENABLED
 
 /* Private types -------------------------------------------------------------*/
-/** @addtogroup DMA_Private_Types
-  * @{
-  */
 typedef struct
 {
   __IO uint32_t ISR;   /*!< DMA interrupt status register */
@@ -121,9 +118,6 @@ typedef struct
   __IO uint32_t ISR;   /*!< BDMA interrupt status register */
   __IO uint32_t IFCR;  /*!< BDMA interrupt flag clear register */
 } BDMA_Base_Registers;
-/**
-  * @}
-  */
 
 /* Private variables ---------------------------------------------------------*/
 /* Private constants ---------------------------------------------------------*/

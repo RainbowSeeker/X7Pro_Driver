@@ -193,7 +193,7 @@ static void output_lock(void)
     /* is in thread context */
     if (os_interrupt_get_nest() == 0)
     {
-        mutex_take(ulog.output_locker, osWaitForever);
+        mutex_take(ulog.output_locker, OS_WAIT_FOREVER);
     }
     else
     {

@@ -86,12 +86,12 @@ static err_t bsp_parse_toml_sysconfig(toml_table_t* root_tab)
 void bsp_post_init()
 {
     /* toml system configure */
-    __toml_root_tab = toml_parse_config_file(SYS_CONFIG_FILE);
-    if (!__toml_root_tab) {
-        /* use default system configuration */
-        __toml_root_tab = toml_parse_config_string(default_conf);
-    }
-    SELF_CHECK(bsp_parse_toml_sysconfig(__toml_root_tab));
+//    __toml_root_tab = toml_parse_config_file(SYS_CONFIG_FILE);
+//    if (!__toml_root_tab) {
+//        /* use default system configuration */
+//        __toml_root_tab = toml_parse_config_string(default_conf);
+//    }
+//    SELF_CHECK(bsp_parse_toml_sysconfig(__toml_root_tab));
 
     /* init rc */
     SELF_CHECK(pilot_cmd_init());
@@ -106,11 +106,11 @@ void bsp_post_init()
     SELF_CHECK(mission_data_init());
 
     /* init actuator */
-    SELF_CHECK(actuator_init());
-
-    /* start device message queue work */
-    SELF_CHECK(devmq_start_work());
-
+//    SELF_CHECK(actuator_init());
+//
+//    /* start device message queue work */
+//    SELF_CHECK(devmq_start_work());
+//
     /* initialize led */
 //    SELF_CHECK(led_control_init());
 

@@ -9,7 +9,7 @@
 
 #include "stm32h743xx.h"
 #include "common.h"
-#include "driver/io.h"
+#include "drivers/io.h"
 
 /* serial configuration */
 #define BAUD_RATE_2400    2400

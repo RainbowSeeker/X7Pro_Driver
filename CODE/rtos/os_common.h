@@ -6,37 +6,54 @@
 
 #ifndef X7PRO_DRIVER_OS_COMMON_H
 #define X7PRO_DRIVER_OS_COMMON_H
-
+#include "errno.h"
 #include "common_def.h"
-#include "cmsis_gcc.h"
-#include "cmsis_os.h"
 #include "utils/list.h"
 #include "object.h"
 #include "system/systime.h"
 
-/* Thread Prority */
-#define VEHICLE_THREAD_PRIORITY     6
-#define FMTIO_THREAD_PRIORITY       4
-#define LOGGER_THREAD_PRIORITY      3
-#define MAVLINK_RX_THREAD_PRIORITY  2
-#define COMM_THREAD_PRIORITY        1
-#define STATUS_THREAD_PRIORITY      0
 
-#define OS_MAX_PRIORITY             7
+#if defined(__CC_ARM)          /* ARM C Compiler */
+#include "cmsis_armcc.h"
+#elif defined(__CLANG_ARM)
+#include "cmsis_armclang.h"
+#elif defined(__GNUC__)
+#include "cmsis_gcc.h"
+#endif
+/* Thread Prority MUST BE !!!UNIQUE!!! */
+#define VEHICLE_THREAD_PRIORITY     2
+#define FMTIO_THREAD_PRIORITY       3
+#define LOGGER_THREAD_PRIORITY      4
+#define MAVLINK_RX_THREAD_PRIORITY  5
+#define COMM_THREAD_PRIORITY        6
+#define STATUS_THREAD_PRIORITY      7
 
-#if OS_MAX_PRIORITY != configMAX_PRIORITIES
-#error "must ensure that 'configMAX_PRIORITIES' equal 'OS_MAX_PRIORITY' "
+#define FINSH_THREAD_PRIORITY       0
+#define GPS_PROBE_THREAD_PRIORITY   10
+#define WQ_HP_THREAD_PRIORITY       1
+#define WQ_LP_THREAD_PRIORITY       19
+#define STARTUP_THREAD_PRIORITY     20
+#define STARTUP_TASK_STK_SIZE       1024
+
+#define OS_MAX_PRIORITY             64
+
+#if OS_MAX_PRIORITY != OS_CFG_PRIO_MAX
+#error "must ensure that 'OS_MAX_PRIORITY' equal 'OS_CFG_PRIO_MAX' "
 #endif
 
 /* note: modify the following micro according to your os */
-#define OS_ENTER_CRITICAL()     vPortEnterCritical()
-#define OS_EXIT_CRITICAL()      vPortExitCritical()
+#define OS_ENTER_CRITICAL()     CPU_CRITICAL_ENTER()
+#define OS_EXIT_CRITICAL()      CPU_CRITICAL_EXIT()
 
-#define MALLOC                  pvPortMalloc
-#define FREE                    vPortFree
-
-#define TICK_PER_SECOND         configTICK_RATE_HZ
+#define TICK_PER_SECOND         OS_CFG_TICK_RATE_HZ
 #define TICKS_FROM_MS(_ms)      ((TICK_PER_SECOND * _ms + 999) / 1000)
+
+#define OS_WAIT_FOREVER         (size_t)(-1)
+/**
+ *
+ * @param OS_TASK_PTR
+ */
+void bsp_os_init(void (*StartupTask)(void *p_arg));
 
 /**
  * os_tick_get
@@ -53,7 +70,7 @@ static inline tick_t os_tick_get(void)
  */
 static inline void os_delay(uint32_t ms)
 {
-    vTaskDelay(TICKS_FROM_MS(ms));
+    OSTimeDly(TICKS_FROM_MS(ms), OS_OPT_TIME_DLY, &os_err);
 }
 
 /**
@@ -63,7 +80,7 @@ static inline void os_delay(uint32_t ms)
  */
 static inline void os_delay_until(uint32_t *init_tick, uint32_t ms)
 {
-    osDelayUntil(init_tick, ms);
+    OSTimeDly(TICKS_FROM_MS(ms), OS_OPT_TIME_DLY, &os_err);
 }
 
 /**
@@ -72,7 +89,7 @@ static inline void os_delay_until(uint32_t *init_tick, uint32_t ms)
  */
 static inline base_t os_hw_interrupt_disable()
 {
-    return portSET_INTERRUPT_MASK_FROM_ISR();
+    return CPU_SR_Save(CPU_CFG_KA_IPL_BOUNDARY << (8u - CPU_CFG_NVIC_PRIO_BITS));
 }
 
 /**
@@ -81,7 +98,7 @@ static inline base_t os_hw_interrupt_disable()
  */
 static inline void os_hw_interrupt_enable(base_t x)
 {
-    portCLEAR_INTERRUPT_MASK_FROM_ISR(x);
+    CPU_SR_Restore(x);
 }
 
 /**
@@ -90,17 +107,21 @@ static inline void os_hw_interrupt_enable(base_t x)
  */
 static inline uint8_t os_interrupt_get_nest(void)
 {
-    return __get_IPSR();
+    return OSIntNestingCtr;
+//    return __get_IPSR();
 }
 
 static inline void os_interrupt_enter(void)
 {
-
+    CPU_SR_ALLOC();
+    CPU_CRITICAL_ENTER();
+    OSIntEnter();                                               /* Tell uC/OS-III that we are starting an ISR           */
+    CPU_CRITICAL_EXIT();
 }
 
 static inline void os_interrupt_leave(void)
 {
-
+    OSIntExit();
 }
 
 

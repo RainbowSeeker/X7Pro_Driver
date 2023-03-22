@@ -67,7 +67,7 @@ size_t mavproxy_dev_read(void* buffer, uint32_t len, int32_t timeout)
             if (completion_wait(&rx_cplt, timeout) != E_OK) {
                 break;
             }
-            if (timeout != osWaitForever) {
+            if (timeout != OS_WAIT_FOREVER) {
                 elapse_time = systime_now_ms() - time_start;
                 timeout -= elapse_time;
                 if (timeout <= 0) {

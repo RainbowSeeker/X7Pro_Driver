@@ -80,7 +80,7 @@ static struct actuator_device act_dev = {
 static err_t io_rx_ind(device_t dev, size_t size)
 {
     /* wakeup thread to handle received data */
-    return os_event_send(fmtio_event, EVENT_FMTIO_RX);
+    return os_event_send(&fmtio_event, EVENT_FMTIO_RX);
 }
 
 static err_t io_actuator_config(IO_ActuatorConfig config)
@@ -317,7 +317,7 @@ err_t send_io_cmd(uint8_t code, void* data, uint16_t len)
         return EBUSY;
     }
 
-    mutex_take(tx_lock, osWaitForever);
+    mutex_take(tx_lock, OS_WAIT_FOREVER);
 
     if (set_io_pkt(io_tx_pkt_ptr, code, data, len) == E_OK) {
         size_t w_size = PKT_SIZE(io_tx_pkt_ptr);
@@ -342,7 +342,7 @@ void fmtio_suspend_comm(uint8_t suspend)
 
     if (suspend == 0) {
         /* wakeup thread to handle TX/RX event */
-        os_event_send(fmtio_event, EVENT_FMTIO_RX);
+        os_event_send(&fmtio_event, EVENT_FMTIO_RX);
     }
 }
 
@@ -374,7 +374,7 @@ void fmtio_loop(void)
 
     while (1) {
         /* wait event happen or timeout */
-        err = os_event_recv(fmtio_event, 10, &recv_set);
+        err = os_event_recv(&fmtio_event, EVENT_FMTIO_RX, 10, &recv_set);
 
         if (err == E_OK) {
             if (recv_set & EVENT_FMTIO_RX) {
@@ -420,7 +420,7 @@ err_t fmtio_init(const char* dev_name)
     ASSERT(fmtio_dev != NULL);
 
     /* create event */
-    SELF_CHECK(os_event_init(&fmtio_event, 10));
+    SELF_CHECK(os_event_init(&fmtio_event));
 
     /* Find best capacity for fmtio device */
     uint16_t oflag = DEVICE_OFLAG_RDWR;

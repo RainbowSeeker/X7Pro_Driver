@@ -518,7 +518,6 @@ static void gps_probe(void *parameter)
 
     os_thread_delete(os_thread_self());
 }
-
 err_t gps_ubx_init(const char* serial_device_name, const char* gps_device_name)
 {
     static char str_buffer[20];
@@ -537,7 +536,7 @@ err_t gps_ubx_init(const char* serial_device_name, const char* gps_device_name)
     /* init ublox decoder */
     ERROR_TRY(init_ubx_decoder(&ubx_decoder, serial_device, ubx_rx_handle));
 
-    if (os_thread_create("gps_probe", gps_probe, str_buffer, 0, 256) == NULL)
+    if (os_thread_create("gps_probe", gps_probe, str_buffer, GPS_PROBE_THREAD_PRIORITY, 256) == NULL)
     {
         return E_RROR;
     }

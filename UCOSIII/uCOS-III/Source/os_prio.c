@@ -1,35 +1,26 @@
 /*
-************************************************************************************************************************
-*                                                      uC/OS-III
-*                                                 The Real-Time Kernel
+*********************************************************************************************************
+*                                              uC/OS-III
+*                                        The Real-Time Kernel
 *
-*                                  (c) Copyright 2009-2017; Micrium, Inc.; Weston, FL
-*                           All rights reserved.  Protected by international copyright laws.
+*                    Copyright 2009-2022 Silicon Laboratories Inc. www.silabs.com
 *
-*                                                 PRIORITY MANAGEMENT
+*                                 SPDX-License-Identifier: APACHE-2.0
 *
-* File    : OS_PRIO.C
-* By      : JJL
-* Version : V3.06.02
+*               This software is subject to an open source license and is distributed by
+*                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+*                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 *
-* LICENSING TERMS:
-* ---------------
-*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or
-*           for peaceful research.  If you plan or intend to use uC/OS-III in a commercial application/
-*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your
-*           application/product.   We provide ALL the source code for your convenience and to help you
-*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use
-*           it commercially without paying a licensing fee.
+*********************************************************************************************************
+*/
+
+/*
+*********************************************************************************************************
+*                                          PRIORITY MANAGEMENT
 *
-*           Knowledge of the source code may NOT be used to develop a similar product.
-*
-*           Please help us continue to provide the embedded community with the finest software available.
-*           Your honesty is greatly appreciated.
-*
-*           You can find our product's user manual, API reference, release notes and
-*           more information at doc.micrium.com.
-*           You can contact us at www.micrium.com.
-************************************************************************************************************************
+* File    : os_prio.c
+* Version : V3.08.02
+*********************************************************************************************************
 */
 
 #define  MICRIUM_SOURCE
@@ -39,10 +30,6 @@
 const  CPU_CHAR  *os_prio__c = "$Id: $";
 #endif
 
-
-CPU_DATA   OSPrioTbl[OS_PRIO_TBL_SIZE];                         /* Declare the array local to this file to allow for  ...*/
-                                                                /* ... optimization.  In other words, this allows the ...*/
-                                                                /* ... table to be located in fast memory                */
 
 /*
 ************************************************************************************************************************
@@ -68,7 +55,7 @@ void  OS_PrioInit (void)
          OSPrioTbl[i] = 0u;
     }
 
-#if (OS_CFG_TASK_IDLE_EN == DEF_DISABLED)
+#if (OS_CFG_TASK_IDLE_EN == 0u)
     OS_PrioInsert ((OS_PRIO)(OS_CFG_PRIO_MAX - 1u));            /* Insert what would be the idle task                   */
 #endif
 }
@@ -90,21 +77,33 @@ void  OS_PrioInit (void)
 
 OS_PRIO  OS_PrioGetHighest (void)
 {
+#if   (OS_CFG_PRIO_MAX <= (CPU_CFG_DATA_SIZE * 8u))             /* Optimize for less than word size nbr of priorities   */
+    return ((OS_PRIO)CPU_CntLeadZeros(OSPrioTbl[0]));
+
+
+#elif (OS_CFG_PRIO_MAX <= (2u * (CPU_CFG_DATA_SIZE * 8u)))      /* Optimize for    2x the word size nbr of priorities   */
+    if (OSPrioTbl[0] == 0u) {
+        return ((OS_PRIO)((OS_PRIO)CPU_CntLeadZeros(OSPrioTbl[1]) + (CPU_CFG_DATA_SIZE * 8u)));
+    } else {
+        return ((OS_PRIO)((OS_PRIO)CPU_CntLeadZeros(OSPrioTbl[0])));
+    }
+
+
+#else
     CPU_DATA  *p_tbl;
     OS_PRIO    prio;
 
 
     prio  = 0u;
     p_tbl = &OSPrioTbl[0];
-#if (OS_CFG_PRIO_MAX > DEF_INT_CPU_NBR_BITS)
     while (*p_tbl == 0u) {                                      /* Search the bitmap table for the highest priority     */
-        prio += (OS_PRIO)DEF_INT_CPU_NBR_BITS;                  /* Compute the step of each CPU_DATA entry              */
+        prio = (OS_PRIO)(prio + (CPU_CFG_DATA_SIZE * 8u));      /* Compute the step of each CPU_DATA entry              */
         p_tbl++;
     }
-#endif
     prio += (OS_PRIO)CPU_CntLeadZeros(*p_tbl);                  /* Find the position of the first bit set at the entry  */
 
     return (prio);
+#endif
 }
 
 /*
@@ -123,20 +122,26 @@ OS_PRIO  OS_PrioGetHighest (void)
 
 void  OS_PrioInsert (OS_PRIO  prio)
 {
-    CPU_DATA  bit;
+#if   (OS_CFG_PRIO_MAX <= (CPU_CFG_DATA_SIZE * 8u))             /* Optimize for less than word size nbr of priorities   */
+    OSPrioTbl[0] |= (CPU_DATA)1u << (((CPU_CFG_DATA_SIZE * 8u) - 1u) - prio);
+
+
+#elif (OS_CFG_PRIO_MAX <= (2u * (CPU_CFG_DATA_SIZE * 8u)))      /* Optimize for    2x the word size nbr of priorities   */
+    if (prio < (CPU_CFG_DATA_SIZE * 8u)) {
+        OSPrioTbl[0] |= (CPU_DATA)1u << (((CPU_CFG_DATA_SIZE * 8u) - 1u) - prio);
+    } else {
+        OSPrioTbl[1] |= (CPU_DATA)1u << (((CPU_CFG_DATA_SIZE * 8u) - 1u) - (prio - (CPU_CFG_DATA_SIZE * 8u)));
+    }
+
+
+#else
     CPU_DATA  bit_nbr;
     OS_PRIO   ix;
 
-#if (OS_CFG_PRIO_MAX > DEF_INT_CPU_NBR_BITS)
-    ix             = prio / (OS_PRIO)DEF_INT_CPU_NBR_BITS;
-    bit_nbr        = (CPU_DATA)prio & (DEF_INT_CPU_NBR_BITS - 1u);
-#else
-    ix             = 0u;
-    bit_nbr        = prio;
+    ix             = (OS_PRIO)(prio /  (CPU_CFG_DATA_SIZE * 8u));
+    bit_nbr        = (CPU_DATA)prio & ((CPU_CFG_DATA_SIZE * 8u) - 1u);
+    OSPrioTbl[ix] |= (CPU_DATA)1u << (((CPU_CFG_DATA_SIZE * 8u) - 1u) - bit_nbr);
 #endif
-    bit            = 1u;
-    bit          <<= (DEF_INT_CPU_NBR_BITS - 1u) - bit_nbr;
-    OSPrioTbl[ix] |= bit;
 }
 
 /*
@@ -155,18 +160,24 @@ void  OS_PrioInsert (OS_PRIO  prio)
 
 void  OS_PrioRemove (OS_PRIO  prio)
 {
-    CPU_DATA  bit;
+#if   (OS_CFG_PRIO_MAX <= (CPU_CFG_DATA_SIZE * 8u))             /* Optimize for less than word size nbr of priorities   */
+    OSPrioTbl[0] &= ~((CPU_DATA)1u << (((CPU_CFG_DATA_SIZE * 8u) - 1u) - prio));
+
+
+#elif (OS_CFG_PRIO_MAX <= (2u * (CPU_CFG_DATA_SIZE * 8u)))      /* Optimize for    2x the word size nbr of priorities   */
+    if (prio < (CPU_CFG_DATA_SIZE * 8u)) {
+        OSPrioTbl[0] &= ~((CPU_DATA)1u << (((CPU_CFG_DATA_SIZE * 8u) - 1u) - prio));
+    } else {
+        OSPrioTbl[1] &= ~((CPU_DATA)1u << (((CPU_CFG_DATA_SIZE * 8u) - 1u) - (prio - (CPU_CFG_DATA_SIZE * 8u))));
+    }
+
+
+#else
     CPU_DATA  bit_nbr;
     OS_PRIO   ix;
 
-#if (OS_CFG_PRIO_MAX > DEF_INT_CPU_NBR_BITS)
-    ix             = prio / (OS_PRIO)DEF_INT_CPU_NBR_BITS;
-    bit_nbr        = (CPU_DATA)prio & (DEF_INT_CPU_NBR_BITS - 1u);
-#else
-    ix             = 0u;
-    bit_nbr        = prio;
+    ix             =   (OS_PRIO)(prio  /   (CPU_CFG_DATA_SIZE * 8u));
+    bit_nbr        =   (CPU_DATA)prio  &  ((CPU_CFG_DATA_SIZE * 8u) - 1u);
+    OSPrioTbl[ix] &= ~((CPU_DATA)  1u << (((CPU_CFG_DATA_SIZE * 8u) - 1u) - bit_nbr));
 #endif
-    bit            = 1u;
-    bit          <<= (DEF_INT_CPU_NBR_BITS - 1u) - bit_nbr;
-    OSPrioTbl[ix] &= ~bit;
 }

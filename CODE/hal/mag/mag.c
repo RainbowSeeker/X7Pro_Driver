@@ -5,7 +5,7 @@
 //
 
 #include "mag.h"
-#include "driver/io.h"
+#include "drivers/io.h"
 #include "drivers/drv_exti.h"
 
 

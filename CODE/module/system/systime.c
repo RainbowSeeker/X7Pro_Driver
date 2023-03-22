@@ -84,11 +84,13 @@ uint64_t systime_now_us(void)
     uint64_t time_now_ms;
     base_t level;
 
-    device_read(systick_dev, SYSTICK_RD_TIME_US, &systick_us, sizeof(uint32_t));
+    if (systick_dev)
+        device_read(systick_dev, SYSTICK_RD_TIME_US, &systick_us, sizeof(uint32_t));
 
     level = os_hw_interrupt_disable();
     /* atomic read */
-    time_now_ms = __systime.msPeriod;
+//    time_now_ms = __systime.msPeriod;
+    time_now_ms = OSTickCtr;
     os_hw_interrupt_enable(level);
 
     return time_now_ms * (uint64_t)1000 + systick_us;
@@ -169,7 +171,7 @@ err_t systime_init(void)
     systick_device = (systick_dev_t)systick_dev;
 
     __systime.msPeriod = 0;
-    __systime.msPerPeriod = systick_device->ms_per_isr;
+    __systime.msPerPeriod = systick_device->ticks_per_isr / systick_device->ticks_per_us / 1e3;
 
     systick_device->systick_isr_cb = systick_isr_cb;
 

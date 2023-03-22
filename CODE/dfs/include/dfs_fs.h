@@ -53,7 +53,7 @@ struct dfs_partition
     uint8_t type;        /* file system type */
     off_t  offset;       /* partition start offset */
     size_t size;         /* partition size */
-    osSemaphoreId lock;
+    os_sem_t lock;
 };
 
 /* mount table */

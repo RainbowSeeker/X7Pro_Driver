@@ -173,7 +173,7 @@ static int finsh_getchar(void)
 
     ASSERT(shell != NULL);
     while (device_read(shell->device, -1, &ch, 1) != 1)
-        os_sem_take(shell->rx_sem, osWaitForever);
+        os_sem_take(shell->rx_sem, OS_WAIT_FOREVER);
 
     return (int)ch;
 #endif
@@ -907,7 +907,7 @@ int finsh_system_init(void)
     }
 
     shell->rx_sem = os_sem_create(1);
-    os_sem_take(shell->rx_sem, osWaitForever);
+    os_sem_take(shell->rx_sem, OS_WAIT_FOREVER);
 
     finsh_set_prompt_mode(1);
 

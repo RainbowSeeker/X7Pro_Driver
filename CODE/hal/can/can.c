@@ -1,6 +1,6 @@
 #include "can.h"
 
-#define can_lock(can)   mutex_take(can->lock, osWaitForever)
+#define can_lock(can)   mutex_take(can->lock, OS_WAIT_FOREVER)
 #define can_unlock(can) mutex_release(can->lock)
 
 static err_t can_init(struct device *dev)
@@ -132,7 +132,7 @@ inline int _can_int_tx(struct can_device *can, const struct can_msg *data, int m
         uint32_t result;
         struct can_sndbxinx_list *tx_tosnd = NULL;
 
-        os_sem_take(tx_fifo->sem, osWaitForever);
+        os_sem_take(tx_fifo->sem, OS_WAIT_FOREVER);
         level = os_hw_interrupt_disable();
         tx_tosnd = list_entry(tx_fifo->freelist.next, struct can_sndbxinx_list, list);
         ASSERT(tx_tosnd != NULL);
@@ -152,7 +152,7 @@ inline int _can_int_tx(struct can_device *can, const struct can_msg *data, int m
         }
 
         can->status.sndchange = 1;
-        completion_wait(&(tx_tosnd->completion), osWaitForever);
+        completion_wait(&(tx_tosnd->completion), OS_WAIT_FOREVER);
 
         level = os_hw_interrupt_disable();
         result = tx_tosnd->result;
@@ -212,7 +212,7 @@ inline int _can_int_tx_priv(struct can_device *can, const struct can_msg *data, 
         {
             os_hw_interrupt_enable(level);
 
-            completion_wait(&(tx_fifo->buffer[no].completion), osWaitForever);
+            completion_wait(&(tx_fifo->buffer[no].completion), OS_WAIT_FOREVER);
             continue;
         }
         tx_fifo->buffer[no].result = CAN_SND_RESULT_WAIT;
@@ -223,7 +223,7 @@ inline int _can_int_tx_priv(struct can_device *can, const struct can_msg *data, 
             continue;
         }
         can->status.sndchange = 1;
-        completion_wait(&(tx_fifo->buffer[no].completion), osWaitForever);
+        completion_wait(&(tx_fifo->buffer[no].completion), OS_WAIT_FOREVER);
 
         result = tx_fifo->buffer[no].result;
         if (result == CAN_SND_RESULT_OK)
@@ -647,11 +647,11 @@ static err_t can_control(struct device *dev,
 /*
  * can timer
  */
-static void cantimeout(void *arg)
+static void cantimeout(void *tmr,void *arg)
 {
     can_t can;
 
-    can = (can_t)os_timer_get_parameter(arg);
+    can = (can_t)arg;
     ASSERT(can);
     device_control((device_t)can, CAN_CMD_GET_STATUS, (void *)&can->status);
 

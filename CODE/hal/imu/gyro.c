@@ -5,7 +5,7 @@
 //
 
 #include "gyro.h"
-#include "driver/io.h"
+#include "drivers/io.h"
 #include "drivers/drv_exti.h"
 
 static err_t hal_gyro_init(struct device* dev)

@@ -99,23 +99,6 @@ CPU_FNCT_VOID  VectorTbl_RAM[INT_VTOR_TBL_SIZE] __attribute__(( aligned (INT_VTO
 *********************************************************************************************************
 */
 
-void  BSP_IntInit (void)
-{
-    CPU_INT16U      int_id;
-    CPU_FNCT_VOID  *p_vect_tbl;
-    CPU_SR_ALLOC();
-
-
-    p_vect_tbl = (CPU_FNCT_VOID *)CPU_REG_NVIC_VTOR;
-    for (int_id = 0u; int_id <= (INT_VTOR_TBL_SIZE - 1u); int_id++) {
-        VectorTbl_RAM[int_id] = p_vect_tbl[int_id];             /* Copy current table into RAM table                    */
-    }
-
-    CPU_CRITICAL_ENTER();
-    CPU_REG_NVIC_VTOR = (CPU_INT32U)&VectorTbl_RAM[0u];         /* See note 1.                                          */
-    CPU_CRITICAL_EXIT();
-}
-
 
 /*
 *********************************************************************************************************

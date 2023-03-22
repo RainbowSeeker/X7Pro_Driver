@@ -8,7 +8,7 @@
 #include "hal/spi/spi.h"
 #include "imu/accel.h"
 #include "imu/gyro.h"
-#include "driver/io.h"
+#include "drivers/io.h"
 #include "sensor/sensor_imu.h"
 #include "drivers/drv_exti.h"
 

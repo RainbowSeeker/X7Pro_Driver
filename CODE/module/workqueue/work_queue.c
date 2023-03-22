@@ -2,7 +2,7 @@
 
 #include "work_queue.h"
 
-#define work_lock(_wq)      mutex_take(_wq->lock, osWaitForever)
+#define work_lock(_wq)      mutex_take(_wq->lock, OS_WAIT_FOREVER)
 #define work_unlock(_wq)    mutex_release(_wq->lock)
 
 static void __swap_item(WorkItem_t* a, WorkItem_t* b)

@@ -49,7 +49,7 @@ static void scheduler_hook(os_thread_t from, os_thread_t to)
 {
     uint64_t time_now;
     cpu_usage_stats* stats = (cpu_usage_stats*)from->user_data;
-    ASSERT(stats != NULL);
+    if (stats == NULL) return;
 
     time_now = systime_now_us();
 

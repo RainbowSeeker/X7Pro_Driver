@@ -7,6 +7,7 @@
 #include "drv_sdio.h"
 #include "hal/sd/sd.h"
 #include "stm32h7xx_ll_sdmmc.h"
+#include "nvic.h"
 
 #define SD_TIMEOUT    5000
 #define EVENT_TX_CPLT 0x00000001
@@ -22,7 +23,7 @@ void HAL_SD_TxCpltCallback(SD_HandleTypeDef *hsd)
 {
     if (hsd == &hsd1)
     {
-        os_event_send(sd0_dev.event, EVENT_TX_CPLT);
+        os_event_send(&sd0_dev.event, EVENT_TX_CPLT);
     }
 }
 
@@ -30,7 +31,7 @@ void HAL_SD_RxCpltCallback(SD_HandleTypeDef *hsd)
 {
     if (hsd == &hsd1)
     {
-        os_event_send(sd0_dev.event, EVENT_RX_CPLT);
+        os_event_send(&sd0_dev.event, EVENT_RX_CPLT);
     }
 }
 
@@ -38,7 +39,7 @@ void HAL_SD_ErrorCallback(SD_HandleTypeDef *hsd)
 {
     if (hsd == &hsd1)
     {
-        os_event_send(sd0_dev.event, EVENT_ERROR);
+        os_event_send(&sd0_dev.event, EVENT_ERROR);
     }
 }
 
@@ -46,7 +47,7 @@ void HAL_SD_AbortCallback(SD_HandleTypeDef *hsd)
 {
     if (hsd == &hsd1)
     {
-        os_event_send(sd0_dev.event, EVENT_ABORT);
+        os_event_send(&sd0_dev.event, EVENT_ABORT);
     }
 }
 
@@ -55,7 +56,11 @@ void HAL_SD_AbortCallback(SD_HandleTypeDef *hsd)
  */
 void SDMMC1_IRQHandler(void)
 {
+    os_interrupt_enter();
+
     HAL_SD_IRQHandler(&hsd1);
+
+    os_interrupt_leave();
 }
 
 void HAL_SD_MspInit(SD_HandleTypeDef *sdHandle)
@@ -106,7 +111,7 @@ void HAL_SD_MspInit(SD_HandleTypeDef *sdHandle)
         HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 
         /* SDMMC1 interrupt Init */
-        HAL_NVIC_SetPriority(SDMMC1_IRQn, 5, 0);
+        HAL_NVIC_SetPriority(SDMMC1_IRQn, NVIC_PRIO_SDMMC, 0);
         HAL_NVIC_EnableIRQ(SDMMC1_IRQn);
         /* USER CODE BEGIN SDMMC1_MspInit 1 */
         /* USER CODE END SDMMC1_MspInit 1 */
@@ -145,7 +150,8 @@ void HAL_SD_MspDeInit(SD_HandleTypeDef *sdHandle)
 
 static err_t sdio_wait_complete(sd_dev_t sd_dev, uint32_t *status)
 {
-    if (os_event_recv(sd_dev->event, osWaitForever, status) != E_OK)
+    if (os_event_recv(&sd_dev->event, 0xffffffff,
+                      SD_TIMEOUT, status) != E_OK)
     {
         /* wait timeout */
         return E_TIMEOUT;
@@ -166,7 +172,7 @@ static err_t init(sd_dev_t sd)
     hsd1.Init.BusWide = SDMMC_BUS_WIDE_4B;
     hsd1.Init.HardwareFlowControl = SDMMC_HARDWARE_FLOW_CONTROL_DISABLE;
     hsd1.Init.ClockDiv = 0;
-    hsd1.Init.TranceiverPresent = SDMMC_TRANSCEIVER_NOT_PRESENT;
+//    hsd1.Init.TranceiverPresent = SDMMC_TRANSCEIVER_NOT_PRESENT;
     if (HAL_SD_Init(&hsd1) != HAL_OK)
     {
         return E_RROR;
@@ -308,7 +314,7 @@ err_t drv_sdio_init(void)
 
     sd0_dev.ops = &dev_ops;
 
-    if (os_event_init(&sd0_dev.event, 10) != E_OK)
+    if (os_event_init(&sd0_dev.event) != E_OK)
     {
         printf("\r\nfail to init sdio event");
         return E_RROR;

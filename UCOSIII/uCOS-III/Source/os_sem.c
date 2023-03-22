@@ -1,35 +1,26 @@
 /*
-************************************************************************************************************************
-*                                                      uC/OS-III
-*                                                 The Real-Time Kernel
+*********************************************************************************************************
+*                                              uC/OS-III
+*                                        The Real-Time Kernel
 *
-*                                  (c) Copyright 2009-2017; Micrium, Inc.; Weston, FL
-*                           All rights reserved.  Protected by international copyright laws.
+*                    Copyright 2009-2022 Silicon Laboratories Inc. www.silabs.com
 *
-*                                                 SEMAPHORE MANAGEMENT
+*                                 SPDX-License-Identifier: APACHE-2.0
 *
-* File    : OS_SEM.C
-* By      : JJL
-* Version : V3.06.02
+*               This software is subject to an open source license and is distributed by
+*                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+*                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 *
-* LICENSING TERMS:
-* ---------------
-*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or
-*           for peaceful research.  If you plan or intend to use uC/OS-III in a commercial application/
-*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your
-*           application/product.   We provide ALL the source code for your convenience and to help you
-*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use
-*           it commercially without paying a licensing fee.
+*********************************************************************************************************
+*/
+
+/*
+*********************************************************************************************************
+*                                         SEMAPHORE MANAGEMENT
 *
-*           Knowledge of the source code may NOT be used to develop a similar product.
-*
-*           Please help us continue to provide the embedded community with the finest software available.
-*           Your honesty is greatly appreciated.
-*
-*           You can find our product's user manual, API reference, release notes and
-*           more information at doc.micrium.com.
-*           You can contact us at www.micrium.com.
-************************************************************************************************************************
+* File    : os_sem.c
+* Version : V3.08.02
+*********************************************************************************************************
 */
 
 #define  MICRIUM_SOURCE
@@ -40,7 +31,7 @@ const  CPU_CHAR  *os_sem__c = "$Id: $";
 #endif
 
 
-#if (OS_CFG_SEM_EN == DEF_ENABLED)
+#if (OS_CFG_SEM_EN > 0u)
 /*
 ************************************************************************************************************************
 *                                                  CREATE A SEMAPHORE
@@ -63,6 +54,7 @@ const  CPU_CHAR  *os_sem__c = "$Id: $";
 *                                OS_ERR_ILLEGAL_CREATE_RUN_TIME If you are trying to create the semaphore after you
 *                                                                 called OSSafetyCriticalStart()
 *                                OS_ERR_OBJ_PTR_NULL            If 'p_sem'  is a NULL pointer
+*                                OS_ERR_OBJ_CREATED             If the semaphore was already created
 *
 * Returns    : none
 *
@@ -86,20 +78,20 @@ void  OSSemCreate (OS_SEM      *p_sem,
 #endif
 
 #ifdef OS_SAFETY_CRITICAL_IEC61508
-    if (OSSafetyCriticalStartFlag == DEF_TRUE) {
+    if (OSSafetyCriticalStartFlag == OS_TRUE) {
        *p_err = OS_ERR_ILLEGAL_CREATE_RUN_TIME;
         return;
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
     if (OSIntNestingCtr > 0u) {                                 /* Not allowed to be called from an ISR                 */
        *p_err = OS_ERR_CREATE_ISR;
         return;
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_sem == (OS_SEM *)0) {                                 /* Validate 'p_sem'                                     */
        *p_err = OS_ERR_OBJ_PTR_NULL;
         return;
@@ -107,21 +99,28 @@ void  OSSemCreate (OS_SEM      *p_sem,
 #endif
 
     CPU_CRITICAL_ENTER();
-#if (OS_OBJ_TYPE_REQ == DEF_ENABLED)
+#if (OS_OBJ_TYPE_REQ > 0u)
+#if (OS_CFG_OBJ_CREATED_CHK_EN > 0u)
+    if (p_sem->Type == OS_OBJ_TYPE_SEM) {
+        CPU_CRITICAL_EXIT();
+        *p_err = OS_ERR_OBJ_CREATED;
+        return;
+    }
+#endif
     p_sem->Type    = OS_OBJ_TYPE_SEM;                           /* Mark the data structure as a semaphore               */
 #endif
     p_sem->Ctr     = cnt;                                       /* Set semaphore value                                  */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
     p_sem->TS      = 0u;
 #endif
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     p_sem->NamePtr = p_name;                                    /* Save the name of the semaphore                       */
 #else
     (void)p_name;
 #endif
     OS_PendListInit(&p_sem->PendList);                          /* Initialize the waiting list                          */
 
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     OS_SemDbgListAdd(p_sem);
     OSSemQty++;
 #endif
@@ -170,7 +169,7 @@ void  OSSemCreate (OS_SEM      *p_sem,
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_SEM_DEL_EN == DEF_ENABLED)
+#if (OS_CFG_SEM_DEL_EN > 0u)
 OS_OBJ_QTY  OSSemDel (OS_SEM  *p_sem,
                       OS_OPT   opt,
                       OS_ERR  *p_err)
@@ -192,14 +191,14 @@ OS_OBJ_QTY  OSSemDel (OS_SEM  *p_sem,
     OS_TRACE_SEM_DEL_ENTER(p_sem, opt);
 
 #ifdef OS_SAFETY_CRITICAL_IEC61508
-    if (OSSafetyCriticalStartFlag == DEF_TRUE) {
+    if (OSSafetyCriticalStartFlag == OS_TRUE) {
         OS_TRACE_SEM_DEL_EXIT(OS_ERR_ILLEGAL_DEL_RUN_TIME);
        *p_err = OS_ERR_ILLEGAL_DEL_RUN_TIME;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
     if (OSIntNestingCtr > 0u) {                                 /* Not allowed to delete a semaphore from an ISR        */
         OS_TRACE_SEM_DEL_EXIT(OS_ERR_DEL_ISR);
        *p_err = OS_ERR_DEL_ISR;
@@ -207,15 +206,15 @@ OS_OBJ_QTY  OSSemDel (OS_SEM  *p_sem,
     }
 #endif
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Is the kernel running?                               */
-    if (OSRunning != OS_STATE_OS_RUNNING) {
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN > 0u)
+    if (OSRunning != OS_STATE_OS_RUNNING) {                     /* Is the kernel running?                               */
         OS_TRACE_SEM_DEL_EXIT(OS_ERR_OS_NOT_RUNNING);
        *p_err = OS_ERR_OS_NOT_RUNNING;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_sem == (OS_SEM *)0) {                                 /* Validate 'p_sem'                                     */
         OS_TRACE_SEM_DEL_EXIT(OS_ERR_OBJ_PTR_NULL);
        *p_err = OS_ERR_OBJ_PTR_NULL;
@@ -223,7 +222,7 @@ OS_OBJ_QTY  OSSemDel (OS_SEM  *p_sem,
     }
 #endif
 
-#if (OS_CFG_OBJ_TYPE_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_OBJ_TYPE_CHK_EN > 0u)
     if (p_sem->Type != OS_OBJ_TYPE_SEM) {                       /* Make sure semaphore was created                      */
         OS_TRACE_SEM_DEL_EXIT(OS_ERR_OBJ_TYPE);
        *p_err = OS_ERR_OBJ_TYPE;
@@ -237,7 +236,7 @@ OS_OBJ_QTY  OSSemDel (OS_SEM  *p_sem,
     switch (opt) {
         case OS_OPT_DEL_NO_PEND:                                /* Delete semaphore only if no task waiting             */
              if (p_pend_list->HeadPtr == (OS_TCB *)0) {
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
                  OS_SemDbgListRemove(p_sem);
                  OSSemQty--;
 #endif
@@ -252,7 +251,7 @@ OS_OBJ_QTY  OSSemDel (OS_SEM  *p_sem,
              break;
 
         case OS_OPT_DEL_ALWAYS:                                 /* Always delete the semaphore                          */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
              ts = OS_TS_GET();                                  /* Get local time stamp so all tasks get the same time  */
 #else
              ts = 0u;
@@ -264,7 +263,7 @@ OS_OBJ_QTY  OSSemDel (OS_SEM  *p_sem,
                               OS_STATUS_PEND_DEL);
                  nbr_tasks++;
              }
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
              OS_SemDbgListRemove(p_sem);
              OSSemQty--;
 #endif
@@ -329,11 +328,12 @@ OS_OBJ_QTY  OSSemDel (OS_SEM  *p_sem,
 *                                OS_ERR_STATUS_INVALID     Pend status is invalid
 *                                OS_ERR_TIMEOUT            The semaphore was not received within the specified
 *                                                          timeout
+*                                OS_ERR_TICK_DISABLED      If kernel ticks are disabled and a timeout is specified
 *
 *
 * Returns    : The current value of the semaphore counter or 0 if not available.
 *
-* Note(s)    : none
+* Note(s)    : This API 'MUST NOT' be called from a timer callback function.
 ************************************************************************************************************************
 */
 
@@ -347,7 +347,7 @@ OS_SEM_CTR  OSSemPend (OS_SEM   *p_sem,
     CPU_SR_ALLOC();
 
 
-#if (OS_CFG_TS_EN == DEF_DISABLED)
+#if (OS_CFG_TS_EN == 0u)
     (void)p_ts;                                                /* Prevent compiler warning for not using 'ts'          */
 #endif
 
@@ -360,24 +360,35 @@ OS_SEM_CTR  OSSemPend (OS_SEM   *p_sem,
 
     OS_TRACE_SEM_PEND_ENTER(p_sem, timeout, opt, p_ts);
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
-    if (OSIntNestingCtr > 0u) {                                 /* Not allowed to call from an ISR                      */
+#if (OS_CFG_TICK_EN == 0u)
+    if (timeout != 0u) {
+       *p_err = OS_ERR_TICK_DISABLED;
         OS_TRACE_SEM_PEND_FAILED(p_sem);
-        OS_TRACE_SEM_PEND_EXIT(OS_ERR_PEND_ISR);
-       *p_err = OS_ERR_PEND_ISR;
+        OS_TRACE_SEM_PEND_EXIT(OS_ERR_TICK_DISABLED);
         return (0u);
     }
 #endif
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Is the kernel running?                               */
-    if (OSRunning != OS_STATE_OS_RUNNING) {
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
+    if (OSIntNestingCtr > 0u) {                                 /* Not allowed to call from an ISR                      */
+        if ((opt & OS_OPT_PEND_NON_BLOCKING) != OS_OPT_PEND_NON_BLOCKING) {
+            OS_TRACE_SEM_PEND_FAILED(p_sem);
+            OS_TRACE_SEM_PEND_EXIT(OS_ERR_PEND_ISR);
+           *p_err = OS_ERR_PEND_ISR;
+            return (0u);
+        }
+    }
+#endif
+
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN > 0u)
+    if (OSRunning != OS_STATE_OS_RUNNING) {                     /* Is the kernel running?                               */
         OS_TRACE_SEM_PEND_EXIT(OS_ERR_OS_NOT_RUNNING);
        *p_err = OS_ERR_OS_NOT_RUNNING;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_sem == (OS_SEM *)0) {                                 /* Validate 'p_sem'                                     */
         OS_TRACE_SEM_PEND_EXIT(OS_ERR_OBJ_PTR_NULL);
        *p_err = OS_ERR_OBJ_PTR_NULL;
@@ -396,7 +407,7 @@ OS_SEM_CTR  OSSemPend (OS_SEM   *p_sem,
     }
 #endif
 
-#if (OS_CFG_OBJ_TYPE_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_OBJ_TYPE_CHK_EN > 0u)
     if (p_sem->Type != OS_OBJ_TYPE_SEM) {                       /* Make sure semaphore was created                      */
         OS_TRACE_SEM_PEND_FAILED(p_sem);
         OS_TRACE_SEM_PEND_EXIT(OS_ERR_OBJ_TYPE);
@@ -409,7 +420,7 @@ OS_SEM_CTR  OSSemPend (OS_SEM   *p_sem,
     CPU_CRITICAL_ENTER();
     if (p_sem->Ctr > 0u) {                                      /* Resource available?                                  */
         p_sem->Ctr--;                                           /* Yes, caller may proceed                              */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
         if (p_ts != (CPU_TS *)0) {
            *p_ts = p_sem->TS;                                   /* get timestamp of last post                           */
         }
@@ -423,7 +434,7 @@ OS_SEM_CTR  OSSemPend (OS_SEM   *p_sem,
     }
 
     if ((opt & OS_OPT_PEND_NON_BLOCKING) != 0u) {               /* Caller wants to block if not available?              */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
         if (p_ts != (CPU_TS *)0) {
            *p_ts = 0u;
         }
@@ -436,7 +447,7 @@ OS_SEM_CTR  OSSemPend (OS_SEM   *p_sem,
         return (ctr);
     } else {                                                    /* Yes                                                  */
         if (OSSchedLockNestingCtr > 0u) {                       /* Can't pend when the scheduler is locked              */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
             if (p_ts != (CPU_TS *)0) {
                *p_ts = 0u;
             }
@@ -450,6 +461,7 @@ OS_SEM_CTR  OSSemPend (OS_SEM   *p_sem,
     }
 
     OS_Pend((OS_PEND_OBJ *)((void *)p_sem),                     /* Block task pending on Semaphore                      */
+            OSTCBCurPtr,
             OS_TASK_PEND_ON_SEM,
             timeout);
     CPU_CRITICAL_EXIT();
@@ -459,7 +471,7 @@ OS_SEM_CTR  OSSemPend (OS_SEM   *p_sem,
     CPU_CRITICAL_ENTER();
     switch (OSTCBCurPtr->PendStatus) {
         case OS_STATUS_PEND_OK:                                 /* We got the semaphore                                 */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
              if (p_ts != (CPU_TS *)0) {
                 *p_ts = OSTCBCurPtr->TS;
              }
@@ -469,7 +481,7 @@ OS_SEM_CTR  OSSemPend (OS_SEM   *p_sem,
              break;
 
         case OS_STATUS_PEND_ABORT:                              /* Indicate that we aborted                             */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
              if (p_ts != (CPU_TS *)0) {
                 *p_ts = OSTCBCurPtr->TS;
              }
@@ -479,7 +491,7 @@ OS_SEM_CTR  OSSemPend (OS_SEM   *p_sem,
              break;
 
         case OS_STATUS_PEND_TIMEOUT:                            /* Indicate that we didn't get semaphore within timeout */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
              if (p_ts != (CPU_TS *)0) {
                 *p_ts = 0u;
              }
@@ -489,7 +501,7 @@ OS_SEM_CTR  OSSemPend (OS_SEM   *p_sem,
              break;
 
         case OS_STATUS_PEND_DEL:                                /* Indicate that object pended on has been deleted      */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
              if (p_ts != (CPU_TS *)0) {
                 *p_ts = OSTCBCurPtr->TS;
              }
@@ -546,7 +558,7 @@ OS_SEM_CTR  OSSemPend (OS_SEM   *p_sem,
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_SEM_PEND_ABORT_EN == DEF_ENABLED)
+#if (OS_CFG_SEM_PEND_ABORT_EN > 0u)
 OS_OBJ_QTY  OSSemPendAbort (OS_SEM  *p_sem,
                             OS_OPT   opt,
                             OS_ERR  *p_err)
@@ -565,21 +577,21 @@ OS_OBJ_QTY  OSSemPendAbort (OS_SEM  *p_sem,
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
     if (OSIntNestingCtr > 0u) {                                 /* Not allowed to Pend Abort from an ISR                */
        *p_err =  OS_ERR_PEND_ABORT_ISR;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Is the kernel running?                               */
-    if (OSRunning != OS_STATE_OS_RUNNING) {
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN > 0u)
+    if (OSRunning != OS_STATE_OS_RUNNING) {                     /* Is the kernel running?                               */
        *p_err = OS_ERR_OS_NOT_RUNNING;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_sem == (OS_SEM *)0) {                                 /* Validate 'p_sem'                                     */
        *p_err =  OS_ERR_OBJ_PTR_NULL;
         return (0u);
@@ -597,7 +609,7 @@ OS_OBJ_QTY  OSSemPendAbort (OS_SEM  *p_sem,
     }
 #endif
 
-#if (OS_CFG_OBJ_TYPE_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_OBJ_TYPE_CHK_EN > 0u)
     if (p_sem->Type != OS_OBJ_TYPE_SEM) {                       /* Make sure semaphore was created                      */
        *p_err =  OS_ERR_OBJ_TYPE;
         return (0u);
@@ -613,7 +625,7 @@ OS_OBJ_QTY  OSSemPendAbort (OS_SEM  *p_sem,
     }
 
     nbr_tasks = 0u;
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
     ts        = OS_TS_GET();                                    /* Get local time stamp so all tasks get the same time  */
 #else
     ts        = 0u;
@@ -656,7 +668,6 @@ OS_OBJ_QTY  OSSemPendAbort (OS_SEM  *p_sem,
 *
 *                           OS_OPT_POST_NO_SCHED     Do not call the scheduler
 *
-*                           Note(s): 1) OS_OPT_POST_NO_SCHED can be added with one of the other options.
 *
 *              p_err    is a pointer to a variable that will contain an error code returned by this function.
 *
@@ -669,7 +680,7 @@ OS_OBJ_QTY  OSSemPendAbort (OS_SEM  *p_sem,
 *
 * Returns    : The current value of the semaphore counter or 0 upon error.
 *
-* Note(s)    : none
+* Note(s)    : 1) OS_OPT_POST_NO_SCHED can be added with one of the other options.
 ************************************************************************************************************************
 */
 
@@ -694,16 +705,16 @@ OS_SEM_CTR  OSSemPost (OS_SEM  *p_sem,
 
     OS_TRACE_SEM_POST_ENTER(p_sem, opt);
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Is the kernel running?                               */
-    if (OSRunning != OS_STATE_OS_RUNNING) {
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN > 0u)
+    if (OSRunning != OS_STATE_OS_RUNNING) {                     /* Is the kernel running?                               */
         OS_TRACE_SEM_POST_EXIT(OS_ERR_OS_NOT_RUNNING);
        *p_err = OS_ERR_OS_NOT_RUNNING;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
-    if (p_sem == (OS_SEM *)0) {                                    /* Validate 'p_sem'                                     */
+#if (OS_CFG_ARG_CHK_EN > 0u)
+    if (p_sem == (OS_SEM *)0) {                                 /* Validate 'p_sem'                                     */
         OS_TRACE_SEM_POST_FAILED(p_sem);
         OS_TRACE_SEM_POST_EXIT(OS_ERR_OBJ_PTR_NULL);
        *p_err  = OS_ERR_OBJ_PTR_NULL;
@@ -724,7 +735,7 @@ OS_SEM_CTR  OSSemPost (OS_SEM  *p_sem,
     }
 #endif
 
-#if (OS_CFG_OBJ_TYPE_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_OBJ_TYPE_CHK_EN > 0u)
     if (p_sem->Type != OS_OBJ_TYPE_SEM) {                       /* Make sure semaphore was created                      */
         OS_TRACE_SEM_POST_FAILED(p_sem);
         OS_TRACE_SEM_POST_EXIT(OS_ERR_OBJ_TYPE);
@@ -732,7 +743,7 @@ OS_SEM_CTR  OSSemPost (OS_SEM  *p_sem,
         return (0u);
     }
 #endif
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
     ts = OS_TS_GET();                                           /* Get timestamp                                        */
 #else
     ts = 0u;
@@ -750,7 +761,7 @@ OS_SEM_CTR  OSSemPost (OS_SEM  *p_sem,
         }
         p_sem->Ctr++;                                           /* No                                                   */
         ctr       = p_sem->Ctr;
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
         p_sem->TS = ts;                                         /* Save timestamp in semaphore control block            */
 #endif
         CPU_CRITICAL_EXIT();
@@ -811,7 +822,7 @@ OS_SEM_CTR  OSSemPost (OS_SEM  *p_sem,
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_SEM_SET_EN == DEF_ENABLED)
+#if (OS_CFG_SEM_SET_EN > 0u)
 void  OSSemSet (OS_SEM      *p_sem,
                 OS_SEM_CTR   cnt,
                 OS_ERR      *p_err)
@@ -827,21 +838,21 @@ void  OSSemSet (OS_SEM      *p_sem,
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
     if (OSIntNestingCtr > 0u) {                                 /* Can't call this function from an ISR                 */
        *p_err = OS_ERR_SET_ISR;
         return;
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_sem == (OS_SEM *)0) {                                 /* Validate 'p_sem'                                     */
        *p_err = OS_ERR_OBJ_PTR_NULL;
         return;
     }
 #endif
 
-#if (OS_CFG_OBJ_TYPE_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_OBJ_TYPE_CHK_EN > 0u)
     if (p_sem->Type != OS_OBJ_TYPE_SEM) {                       /* Make sure semaphore was created                      */
        *p_err = OS_ERR_OBJ_TYPE;
         return;
@@ -883,14 +894,14 @@ void  OSSemSet (OS_SEM      *p_sem,
 
 void  OS_SemClr (OS_SEM  *p_sem)
 {
-#if (OS_OBJ_TYPE_REQ == DEF_ENABLED)
+#if (OS_OBJ_TYPE_REQ > 0u)
     p_sem->Type    = OS_OBJ_TYPE_NONE;                          /* Mark the data structure as a NONE                    */
 #endif
     p_sem->Ctr     = 0u;                                        /* Set semaphore value                                  */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
     p_sem->TS      = 0u;                                        /* Clear the time stamp                                 */
 #endif
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     p_sem->NamePtr = (CPU_CHAR *)((void *)"?SEM");
 #endif
     OS_PendListInit(&p_sem->PendList);                          /* Initialize the waiting list                          */
@@ -911,7 +922,7 @@ void  OS_SemClr (OS_SEM  *p_sem)
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
 void  OS_SemDbgListAdd (OS_SEM  *p_sem)
 {
     p_sem->DbgNamePtr               = (CPU_CHAR *)((void *)" ");

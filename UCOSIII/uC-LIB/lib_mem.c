@@ -1,24 +1,16 @@
 /*
 *********************************************************************************************************
-*                                                uC/LIB
-*                                        CUSTOM LIBRARY MODULES
+*                                               uC/LIB
+*                                       Custom Library Modules
 *
-*                         (c) Copyright 2004-2015; Micrium, Inc.; Weston, FL
+*                    Copyright 2004-2021 Silicon Laboratories Inc. www.silabs.com
 *
-*                  All rights reserved.  Protected by international copyright laws.
+*                                 SPDX-License-Identifier: APACHE-2.0
 *
-*                  uC/LIB is provided in source form to registered licensees ONLY.  It is
-*                  illegal to distribute this source code to any third party unless you receive
-*                  written permission by an authorized Micrium representative.  Knowledge of
-*                  the source code may NOT be used to develop a similar product.
+*               This software is subject to an open source license and is distributed by
+*                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+*                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 *
-*                  Please help us continue to provide the Embedded community with the finest
-*                  software available.  Your honesty is greatly appreciated.
-*
-*                  You can find our product's user manual, API reference, release notes and
-*                  more information at: doc.micrium.com
-*
-*                  You can contact us at: www.micrium.com
 *********************************************************************************************************
 */
 
@@ -27,31 +19,25 @@
 *
 *                                     STANDARD MEMORY OPERATIONS
 *
-* Filename      : lib_mem.c
-* Version       : V1.38.02
-* Programmer(s) : ITJ
-*                 FGK
-*                 JFD
-*                 FBJ
-*                 EJ
+* Filename : lib_mem.c
+* Version  : V1.39.01
 *********************************************************************************************************
-* Note(s)       : (1) NO compiler-supplied standard library functions are used in library or product software.
+* Note(s)  : (1) NO compiler-supplied standard library functions are used in library or product software.
 *
-*                     (a) ALL standard library functions are implemented in the custom library modules :
+*                (a) ALL standard library functions are implemented in the custom library modules :
 *
-*                         (1) \<Custom Library Directory>\lib_*.*
+*                    (1) \<Custom Library Directory>\lib_*.*
 *
-*                         (2) \<Custom Library Directory>\Ports\<cpu>\<compiler>\lib*_a.*
+*                    (2) \<Custom Library Directory>\Ports\<cpu>\<compiler>\lib*_a.*
 *
-*                               where
-*                                       <Custom Library Directory>      directory path for custom library software
-*                                       <cpu>                           directory name for specific processor (CPU)
-*                                       <compiler>                      directory name for specific compiler
+*                          where
+*                                  <Custom Library Directory>      directory path for custom library software
+*                                  <cpu>                           directory name for specific processor (CPU)
+*                                  <compiler>                      directory name for specific compiler
 *
-*                     (b) Product-specific library functions are implemented in individual products.
+*                (b) Product-specific library functions are implemented in individual products.
 *********************************************************************************************************
 */
-
 
 /*
 *********************************************************************************************************
@@ -922,7 +908,8 @@ void  Mem_SegCreate (const  CPU_CHAR    *p_name,
 #endif
 
     CPU_CRITICAL_ENTER();
-#if (LIB_MEM_CFG_ARG_CHK_EXT_EN == DEF_ENABLED)
+#if (LIB_MEM_CFG_ARG_CHK_EXT_EN == DEF_ENABLED) && \
+    (LIB_MEM_CFG_HEAP_SIZE       > 0u)
     (void)Mem_SegOverlapChkCritical(seg_base_addr,              /* Chk for overlap.                                     */
                                     size,
                                     p_err);
@@ -1329,6 +1316,7 @@ void  *Mem_SegAllocHW (const  CPU_CHAR    *p_name,
 *                                   LIB_MEM_ERR_INVALID_BLK_SIZE        Invalid block size specified.
 *                                   LIB_MEM_ERR_INVALID_SEG_SIZE        Invalid segment size.
 *                                   LIB_MEM_ERR_HEAP_EMPTY              No more memory available on heap.
+*                                   LIB_MEM_ERR_ADDR_OVF                Memory allocation exceeds address space.
 *
 *                                   ---------------RETURNED BY Mem_SegOverlapChkCritical()----------------
 *                                   LIB_MEM_ERR_INVALID_SEG_EXISTS      Segment already exists.
@@ -1368,6 +1356,7 @@ void  Mem_PoolCreate (MEM_POOL          *p_pool,
     MEM_SEG           *p_seg;
     void              *p_pool_mem;
     CPU_SIZE_T         pool_size;
+    CPU_SIZE_T         tbl_size;
     CPU_SIZE_T         blk_size_align;
     CPU_ADDR           pool_addr_end;
     MEM_POOL_BLK_QTY   blk_ix;
@@ -1466,11 +1455,18 @@ void  Mem_PoolCreate (MEM_POOL          *p_pool,
         CPU_CRITICAL_EXIT();
     }
 
-
                                                                 /* ---------------- ALLOC MEM FOR POOL ---------------- */
                                                                 /* Calc blk size with align.                            */
     blk_size_align =  MATH_ROUND_INC_UP_PWR2(blk_size, blk_align);
     pool_size      =  blk_size_align * blk_nbr;                 /* Calc required size for pool.                         */
+    tbl_size       =  blk_nbr * sizeof(void *);                 /* Calc required size for free block table.             */
+
+                                                                /* Detect integer overflows in the size calculations.   */
+    if ((blk_size_align >  (DEF_INT_CPU_U_MAX_VAL / blk_nbr       )) ||
+        (blk_nbr        >  (DEF_INT_CPU_U_MAX_VAL / sizeof(void *)))) {
+       *p_err = LIB_MEM_ERR_ADDR_OVF;
+        return;
+    }
 
                                                                 /* Alloc mem for pool.                                  */
     p_pool_mem = (void *)Mem_SegAllocInternal("Unnamed static pool",
@@ -1487,7 +1483,7 @@ void  Mem_PoolCreate (MEM_POOL          *p_pool,
                                                                 /* ------------ ALLOC MEM FOR FREE BLK TBL ------------ */
     p_pool->BlkFreeTbl = (void **)Mem_SegAllocInternal("Unnamed static pool free blk tbl",
                                                        &Mem_SegHeap,
-                                                        blk_nbr * sizeof(void *),
+                                                        tbl_size,
                                                         sizeof(CPU_ALIGN),
                                                         LIB_MEM_PADDING_ALIGN_NONE,
                                                         p_bytes_reqd,
@@ -1835,6 +1831,7 @@ MEM_POOL_BLK_QTY  Mem_PoolBlkGetNbrAvail (MEM_POOL  *p_pool,
 *                                   LIB_MEM_ERR_INVALID_MEM_SIZE    Invalid memory block size specified.
 *                                   LIB_MEM_ERR_NULL_PTR            Error or segment data pointer NULL.
 *                                   LIB_MEM_ERR_SEG_OVF             Allocation would overflow memory segment.
+*                                   LIB_MEM_ERR_ADDR_OVF            Memory allocation exceeds address space.
 *
 * Return(s)   : None.
 *
@@ -1907,6 +1904,7 @@ void  Mem_DynPoolCreate (const  CPU_CHAR      *p_name,
 *                                   LIB_MEM_ERR_INVALID_MEM_SIZE    Invalid memory block size specified.
 *                                   LIB_MEM_ERR_NULL_PTR            Error or segment data pointer NULL.
 *                                   LIB_MEM_ERR_SEG_OVF             Allocation would overflow memory segment.
+*                                   LIB_MEM_ERR_ADDR_OVF            Memory allocation exceeds address space.
 *
 * Return(s)   : None.
 *
@@ -2037,6 +2035,9 @@ void  *Mem_DynPoolBlkGet (MEM_DYN_POOL  *p_pool,
                                  DEF_NULL,
                                  p_err);
     if (*p_err != LIB_MEM_ERR_NONE) {
+        if (p_pool->BlkQtyMax != LIB_MEM_BLK_QTY_UNLIMITED) {
+            p_pool->BlkAllocCnt--;
+        }
         return (DEF_NULL);
     }
 
@@ -2406,6 +2407,8 @@ static  MEM_SEG  *Mem_SegOverlapChkCritical (CPU_ADDR     seg_base_addr,
                    ((seg_base_addr <= seg_chk_start) && (seg_new_end   >= seg_chk_start))) {
            *p_err = LIB_MEM_ERR_INVALID_SEG_OVERLAP;
             return (p_seg_chk);
+        } else {
+                                                                /* Empty Else Statement                                 */
         }
 
         p_seg_chk = p_seg_chk->NextPtr;
@@ -2696,6 +2699,7 @@ static  void  Mem_SegAllocTrackCritical (const  CPU_CHAR    *p_name,
 *                                   LIB_MEM_ERR_INVALID_BLK_SIZE    Invalid requested block size.
 *                                   LIB_MEM_ERR_INVALID_BLK_NBR     Invalid requested block quantity max.
 *                                   LIB_MEM_ERR_NULL_PTR            Pool data pointer NULL.
+*                                   LIB_MEM_ERR_ADDR_OVF            Memory allocation exceeds address space.
 *
 *                                   ------------------RETURNED BY Mem_SegAllocInternal()-------------------
 *                                   LIB_MEM_ERR_INVALID_MEM_ALIGN   Invalid memory block alignment requested.
@@ -2724,6 +2728,7 @@ static  void  Mem_DynPoolCreateInternal (const  CPU_CHAR      *p_name,
                                                 LIB_ERR       *p_err)
 {
     CPU_INT08U  *p_blks          = DEF_NULL;
+    CPU_SIZE_T   seg_size;
     CPU_SIZE_T   blk_size_align;
     CPU_SIZE_T   blk_align_worst = DEF_MAX(blk_align, blk_padding_align);
 
@@ -2765,9 +2770,17 @@ static  void  Mem_DynPoolCreateInternal (const  CPU_CHAR      *p_name,
 
     if (blk_qty_init != 0u) {                                   /* Alloc init blks.                                     */
         CPU_SIZE_T  i;
+
+        seg_size = blk_size_align * blk_qty_init;               /* Calc required size for pool.                         */
+                                                                /* Detect integer overflow in the seg_size calculation. */
+        if (blk_size_align > (DEF_INT_CPU_U_MAX_VAL / blk_qty_init)) {
+           *p_err = LIB_MEM_ERR_ADDR_OVF;
+            return;
+        }
+
         p_blks = (CPU_INT08U *)Mem_SegAllocInternal(p_name,
                                                     p_seg,
-                                                    blk_size_align * blk_qty_init,
+                                                    seg_size,
                                                     DEF_MAX(blk_align, sizeof(void *)),
                                                     LIB_MEM_PADDING_ALIGN_NONE,
                                                     DEF_NULL,

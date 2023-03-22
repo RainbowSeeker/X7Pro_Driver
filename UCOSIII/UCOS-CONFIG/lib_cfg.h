@@ -9,12 +9,6 @@
 *               part, or may be used as a reference only. This file can be modified as
 *               required to meet the end-product requirements.
 *
-*               Please help us continue to provide the Embedded community with the finest
-*               software available.  Your honesty is greatly appreciated.
-*
-*               You can find our product's user manual, API reference, release notes and
-*               more information at https://doc.micrium.com.
-*               You can contact us at www.micrium.com.
 *********************************************************************************************************
 */
 
@@ -23,11 +17,12 @@
 *
 *                                  CUSTOM LIBRARY CONFIGURATION FILE
 *
+*                                              TEMPLATE
+*
 * Filename : lib_cfg.h
-* Version  : V1.38.02.00
+* Version  : V1.39.01
 *********************************************************************************************************
 */
-
 
 /*
 *********************************************************************************************************
@@ -112,7 +107,7 @@
                                                                 /* Heap memory size (in bytes).                         */
                                                                 /* Configure the desired size of the heap memory. ...   */
                                                                 /* ... Set to 0 to disable heap allocation features.    */
-#define  LIB_MEM_CFG_HEAP_SIZE             (0 * 1024u)
+#define  LIB_MEM_CFG_HEAP_SIZE                  2*1024u
 
 
                                                                 /* Heap memory padding alignment (in bytes).            */
@@ -165,4 +160,3 @@
 */
 
 #endif                                                          /* End of lib cfg module include.                       */
-

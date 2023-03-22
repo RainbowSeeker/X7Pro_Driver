@@ -1,144 +1,123 @@
 /*
-*****************************************************************************
+******************************************************************************
 **
-**  File        : stm32_ram_h743.ld
+**  File        : LinkerScript.ld (debug in RAM dedicated)
 **
-**  Abstract    : Linker script for STM32H743xI Device with
-**                512K AXI-RAM mapped onto AXI bus on D1 domain
-**                128K SRAM1 mapped on D2 domain
-**                128K SRAM2 mapped on D2 domain
-**                 32K SRAM3 mapped on D2 domain
-**                 64K SRAM4 mapped on D3 domain
-**                 64K ITCM
-**                128K DTCM
+**  Author      : STM32CubeIDE
 **
-*****************************************************************************
-*/
-
-/* Entry Point */
-ENTRY(Reset_Handler)
-
-/*
-0x00000000 to 0x0000FFFF   64K ITCM
-0x20000000 to 0x2001FFFF  128K DTCM
-0x24000000 to 0x2407FFFF  512K AXI SRAM, D1 domain, main RAM
-0x30000000 to 0x3001FFFF  128K SRAM1, D2 domain
-0x30020000 to 0x3003FFFF  128K SRAM2, D2 domain
-0x30040000 to 0x30047FFF   32K SRAM3, D2 domain, unused
-0x38000000 to 0x3800FFFF   64K SRAM4, D3 domain, unused
-0x38800000 to 0x38800FFF    4K BACKUP SRAM, Backup domain, unused
-
-0x08000000 to 0x081FFFFF 2048K full flash,
-0x08000000 to 0x0801FFFF  128K isr vector, startup code,
-0x08020000 to 0x0803FFFF  128K config,                  // FLASH_Sector_1
-0x08040000 to 0x081FFFFF 1792K firmware,
-*/
-
-/* Specify the memory areas */
-MEMORY
-{
-    ITCM_RAM (rwx)    : ORIGIN = 0x00000000, LENGTH = 64K
-    DTCM_RAM (rwx)    : ORIGIN = 0x20000000, LENGTH = 128K
-    RAM (rwx)         : ORIGIN = 0x24000000, LENGTH = 512K
-
-    D2_RAM (rwx)      : ORIGIN = 0x30000000, LENGTH = 256K /* SRAM1 + SRAM2 */
-
-    MEMORY_B1 (rx)    : ORIGIN = 0x60000000, LENGTH = 0K
-}
-
-REGION_ALIAS("STACKRAM", DTCM_RAM)
-REGION_ALIAS("FASTRAM", DTCM_RAM)
-
-/* INCLUDE "stm32_flash_f7_split.ld" */
-/*
-*****************************************************************************
+**  Abstract    : Linker script for STM32H7 series
+**                512Kbytes RAM_EXEC and 544Kbytes RAM
 **
-**  File        : stm32_flash_f7_split.ld
+**                Set heap size, stack size and stack location according
+**                to application requirements.
 **
-**  Abstract    : Common linker script for STM32 devices.
+**                Set memory bank area and size if external memory is used.
+**
+**  Target      : STMicroelectronics STM32
+**
+**  Distribution: The file is distributed as is, without any warranty
+**                of any kind.
 **
 *****************************************************************************
+** @attention
+**
+** Copyright (c) 2022 STMicroelectronics.
+** All rights reserved.
+**
+** This software is licensed under terms that can be found in the LICENSE file
+** in the root directory of this software component.
+** If no LICENSE file comes with this software, it is provided AS-IS.
+**
+****************************************************************************
 */
 
 /* Entry Point */
 ENTRY(Reset_Handler)
 
 /* Highest address of the user mode stack */
-_estack = ORIGIN(STACKRAM) + LENGTH(STACKRAM) - 8; /* Reserve 2 x 4bytes for info across reset */
-
+_estack = ORIGIN(DTCMRAM) + LENGTH(DTCMRAM);    /* end of RAM */
 /* Generate a link error if heap and stack don't fit into RAM */
-_Min_Heap_Size = 0;      /* required amount of heap  */
-_Min_Stack_Size = 0x800; /* required amount of stack */
+_Min_Heap_Size = 0x2000 ;      /* required amount of heap  */
+_Min_Stack_Size = 0x2000 ; /* required amount of stack */
+
+/* Specify the memory areas */
+MEMORY
+{
+  RAM_EXEC (xrw)  : ORIGIN = 0x24000000, LENGTH = 512K
+  DTCMRAM (xrw)   : ORIGIN = 0x20000000, LENGTH = 128K
+  RAM_D2 (xrw)    : ORIGIN = 0x30000000, LENGTH = 288K
+  RAM_D3 (xrw)    : ORIGIN = 0x38000000, LENGTH = 64K
+  ITCMRAM (xrw)   : ORIGIN = 0x00000000, LENGTH = 64K
+}
 
 /* Define output sections */
 SECTIONS
 {
-  /* The startup code goes first into FLASH */
+  /* The startup code goes first into RAM_EXEC */
   .isr_vector :
   {
-    . = ALIGN(512);
-    PROVIDE (isr_vector_table_base = .);
+    . = ALIGN(4);
     KEEP(*(.isr_vector)) /* Startup code */
     . = ALIGN(4);
-  } >RAM
+  } >RAM_EXEC
 
-  /* The program code and other data goes into FLASH */
+  /* The program code and other data goes into RAM_EXEC */
   .text :
   {
     . = ALIGN(4);
     *(.text)           /* .text sections (code) */
     *(.text*)          /* .text* sections (code) */
-    *(.rodata)         /* .rodata sections (constants, strings, etc.) */
-    *(.rodata*)        /* .rodata* sections (constants, strings, etc.) */
     *(.glue_7)         /* glue arm to thumb code */
     *(.glue_7t)        /* glue thumb to arm code */
     *(.eh_frame)
+    *(.RamFunc)        /* .RamFunc sections */
+    *(.RamFunc*)       /* .RamFunc* sections */
 
     KEEP (*(.init))
     KEEP (*(.fini))
 
     . = ALIGN(4);
     _etext = .;        /* define a global symbols at end of code */
-  } >RAM
+  } >RAM_EXEC
 
-  /* Critical program code goes into ITCM RAM */
-  /* Copy specific fast-executing code to ITCM RAM */
-  tcm_code = LOADADDR(.tcm_code);
-  .tcm_code :
+  /* Constant data goes into RAM_EXEC */
+  .rodata :
   {
     . = ALIGN(4);
-    tcm_code_start = .;
-    *(.tcm_code)
-    *(.tcm_code*)
+    *(.rodata)         /* .rodata sections (constants, strings, etc.) */
+    *(.rodata*)        /* .rodata* sections (constants, strings, etc.) */
     . = ALIGN(4);
-    tcm_code_end = .;
-  } >ITCM_RAM
+  } >RAM_EXEC
 
-  .ARM.extab   :
-  {
-    *(.ARM.extab* .gnu.linkonce.armextab.*)
-  } >RAM
-
-  .ARM :
-  {
+  .ARM.extab   : { *(.ARM.extab* .gnu.linkonce.armextab.*) } >RAM_EXEC
+  .ARM : {
     __exidx_start = .;
-    *(.ARM.exidx*) __exidx_end = .;
-  } >RAM
+    *(.ARM.exidx*)
+    __exidx_end = .;
+  } >RAM_EXEC
 
-  .pg_registry :
+  .preinit_array     :
   {
-    PROVIDE_HIDDEN (__pg_registry_start = .);
-    KEEP (*(.pg_registry))
-    KEEP (*(SORT(.pg_registry.*)))
-    PROVIDE_HIDDEN (__pg_registry_end = .);
-  } >RAM
+    PROVIDE_HIDDEN (__preinit_array_start = .);
+    KEEP (*(.preinit_array*))
+    PROVIDE_HIDDEN (__preinit_array_end = .);
+  } >RAM_EXEC
 
-  .pg_resetdata :
+  .init_array :
   {
-    PROVIDE_HIDDEN (__pg_resetdata_start = .);
-    KEEP (*(.pg_resetdata))
-    PROVIDE_HIDDEN (__pg_resetdata_end = .);
-  } >RAM
+    PROVIDE_HIDDEN (__init_array_start = .);
+    KEEP (*(SORT(.init_array.*)))
+    KEEP (*(.init_array*))
+    PROVIDE_HIDDEN (__init_array_end = .);
+  } >RAM_EXEC
+
+  .fini_array :
+  {
+    PROVIDE_HIDDEN (__fini_array_start = .);
+    KEEP (*(SORT(.fini_array.*)))
+    KEEP (*(.fini_array*))
+    PROVIDE_HIDDEN (__fini_array_end = .);
+  } >RAM_EXEC
 
   /* used by the startup to initialize data */
   _sidata = LOADADDR(.data);
@@ -153,160 +132,34 @@ SECTIONS
 
     . = ALIGN(4);
     _edata = .;        /* define a global symbol at data end */
-  } >DTCM_RAM
+  } >DTCMRAM AT> RAM_EXEC
 
   /* Uninitialized data section */
   . = ALIGN(4);
-  .bss (NOLOAD) :
+  .bss :
   {
-    /* This is used by the startup in order to initialize the .bss secion */
+    /* This is used by the startup in order to initialize the .bss section */
     _sbss = .;         /* define a global symbol at bss start */
     __bss_start__ = _sbss;
     *(.bss)
-    *(SORT_BY_ALIGNMENT(.bss*))
+    *(.bss*)
     *(COMMON)
 
     . = ALIGN(4);
     _ebss = .;         /* define a global symbol at bss end */
     __bss_end__ = _ebss;
-  } >DTCM_RAM
-
-  /* Uninitialized data section */
-  . = ALIGN(4);
-  .sram2 (NOLOAD) :
-  {
-    /* This is used by the startup in order to initialize the .sram2 secion */
-    _ssram2 = .;         /* define a global symbol at sram2 start */
-    __sram2_start__ = _ssram2;
-    *(.sram2)
-    *(SORT_BY_ALIGNMENT(.sram2*))
-
-    . = ALIGN(4);
-    _esram2 = .;         /* define a global symbol at sram2 end */
-    __sram2_end__ = _esram2;
-  } >DTCM_RAM
-
-  /* used during startup to initialized fastram_data */
-  _sfastram_idata = LOADADDR(.fastram_data);
-
-  /* Initialized FAST_DATA section for unsuspecting developers */
-  .fastram_data :
-  {
-    . = ALIGN(4);
-    _sfastram_data = .;        /* create a global symbol at data start */
-    *(.fastram_data)           /* .data sections */
-    *(.fastram_data*)          /* .data* sections */
-
-    . = ALIGN(4);
-    _efastram_data = .;        /* define a global symbol at data end */
-  } >FASTRAM
-
-  . = ALIGN(4);
-  .fastram_bss (NOLOAD) :
-  {
-    _sfastram_bss = .;
-    __fastram_bss_start__ = _sfastram_bss;
-    *(.fastram_bss)
-    *(SORT_BY_ALIGNMENT(.fastram_bss*))
-
-    . = ALIGN(4);
-    _efastram_bss = .;
-    __fastram_bss_end__ = _efastram_bss;
-  } >FASTRAM
-
-  /* used during startup to initialized dmaram_data */
-  _sdmaram_idata = LOADADDR(.dmaram_data);
-
-  . = ALIGN(32);
-  .dmaram_data :
-  {
-    PROVIDE(dmaram_start = .);
-    _sdmaram = .;
-    _dmaram_start__ = _sdmaram;
-    _sdmaram_data = .;        /* create a global symbol at data start */
-    *(.dmaram_data)           /* .data sections */
-    *(.dmaram_data*)          /* .data* sections */
-    . = ALIGN(32);
-    _edmaram_data = .;        /* define a global symbol at data end */
-  } >RAM
-
-  . = ALIGN(32);
-  .dmaram_bss (NOLOAD) :
-  {
-    _sdmaram_bss = .;
-    __dmaram_bss_start__ = _sdmaram_bss;
-    *(.dmaram_bss)
-    *(SORT_BY_ALIGNMENT(.dmaram_bss*))
-    . = ALIGN(32);
-    _edmaram_bss = .;
-    __dmaram_bss_end__ = _edmaram_bss;
-  } >RAM
-
-  . = ALIGN(32);
-  .DMA_RAM (NOLOAD) :
-  {
-    KEEP(*(.DMA_RAM))
-    PROVIDE(dmaram_end = .);
-    _edmaram = .;
-    _dmaram_end__ = _edmaram;
-  } >RAM
-
-  .DMA_RW_D2:
-  {
-    . = ALIGN(32);
-    PROVIDE(dmarw_start = .);
-    _sdmarw = .;
-    _dmarw_start__ = _sdmarw;
-    KEEP(*(.DMA_RW))
-    PROVIDE(dmarw_end = .);
-    _edmarw = .;
-    _dmarw_end__ = _edmarw;
-  } >D2_RAM
-
-  .DMA_RW_AXI (NOLOAD) :
-  {
-    . = ALIGN(32);
-    PROVIDE(dmarwaxi_start = .);
-    _sdmarwaxi = .;
-    _dmarwaxi_start__ = _sdmarwaxi;
-    KEEP(*(.DMA_RW_AXI))
-    PROVIDE(dmarwaxi_end = .);
-    _edmarwaxi = .;
-    _dmarwaxi_end__ = _edmarwaxi;
-  } >RAM
-
-  .persistent_data (NOLOAD) :
-  {
-    __persistent_data_start__ = .;
-    *(.persistent_data)
-    . = ALIGN(4);
-    __persistent_data_end__ = .;
-  } >RAM
-
+  } >DTCMRAM
 
   /* User_heap_stack section, used to check that there is enough RAM left */
-  _heap_stack_end = ORIGIN(STACKRAM)+LENGTH(STACKRAM) - 8; /* 8 bytes to allow for alignment */
-  _heap_stack_begin = _heap_stack_end - _Min_Stack_Size  - _Min_Heap_Size;
-  . = _heap_stack_begin;
   ._user_heap_stack :
   {
-    . = ALIGN(4);
+    . = ALIGN(8);
     PROVIDE ( end = . );
     PROVIDE ( _end = . );
     . = . + _Min_Heap_Size;
     . = . + _Min_Stack_Size;
-    . = ALIGN(4);
-  } >STACKRAM = 0xa5
-
-  /* MEMORY_bank1 section, code must be located here explicitly            */
-  /* Example: extern int foo(void) __attribute__ ((section (".mb1text"))); */
-  .memory_b1_text :
-  {
-    *(.mb1text)        /* .mb1text sections (code) */
-    *(.mb1text*)       /* .mb1text* sections (code)  */
-    *(.mb1rodata)      /* read-only data (constants) */
-    *(.mb1rodata*)
-  } >MEMORY_B1
+    . = ALIGN(8);
+  } >DTCMRAM
 
   /* Remove information from the standard libraries */
   /DISCARD/ :

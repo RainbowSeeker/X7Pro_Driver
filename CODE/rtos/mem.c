@@ -6,16 +6,19 @@
 
 #include "mem.h"
 #include "common.h"
+#include "lib_mem.h"
 
-static inline void *_malloc(size_t size)
-{
-    return MALLOC(size);
-}
+static LIB_ERR mem_err;
 
-static inline void _free(void *mem)
-{
-    FREE(mem);
-}
+//static inline void *_malloc(size_t size)
+//{
+//
+//}
+//
+//static inline void _free(void *mem)
+//{
+//
+//}
 
 void *_calloc(size_t count, size_t size)
 {
@@ -270,8 +273,8 @@ int32_t _memcmp(const void *cs, const void *ct, size_t count)
 
 
 #include <sys/types.h>
-void *malloc(size_t) __attribute__((weak, alias("_malloc")));
-void free(void *) __attribute__((weak, alias("_free")));
+//void *malloc(size_t) __attribute__((weak, alias("_malloc")));
+//void free(void *) __attribute__((weak, alias("_free")));
 void *calloc(size_t, size_t) __attribute__((weak, alias("_calloc")));
 void *realloc(void *, size_t) __attribute__((weak, alias("_realloc")));
 
@@ -283,16 +286,16 @@ int   memcmp(const void *, const void *, size_t) __attribute__((weak, alias("_me
 #ifdef RT_USING_FINSH
 #include <finsh.h>
 
-static size_t mem_size = configTOTAL_HEAP_SIZE;
+//static size_t mem_size = configTOTAL_HEAP_SIZE;
 static size_t used_mem, max_mem;
 
 void list_mem(void)
 {
-    HeapStats_t stat;
-    vPortGetHeapStats(&stat);
+//    HeapStats_t stat;
+//    vPortGetHeapStats(&stat);
 
-    printf("total memory: %d\n", mem_size);
-    printf("used memory : %d\n", mem_size - stat.xAvailableHeapSpaceInBytes);
-    printf("maximum allocated memory: %d\n", mem_size - stat.xMinimumEverFreeBytesRemaining);
+//    printf("total memory: %d\n", mem_size);
+//    printf("used memory : %d\n", mem_size - stat.xAvailableHeapSpaceInBytes);
+//    printf("maximum allocated memory: %d\n", mem_size - stat.xMinimumEverFreeBytesRemaining);
 }
 #endif

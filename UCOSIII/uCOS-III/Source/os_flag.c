@@ -1,35 +1,26 @@
 /*
-************************************************************************************************************************
-*                                                      uC/OS-III
-*                                                 The Real-Time Kernel
+*********************************************************************************************************
+*                                              uC/OS-III
+*                                        The Real-Time Kernel
 *
-*                                  (c) Copyright 2009-2017; Micrium, Inc.; Weston, FL
-*                           All rights reserved.  Protected by international copyright laws.
+*                    Copyright 2009-2022 Silicon Laboratories Inc. www.silabs.com
 *
-*                                                EVENT FLAG MANAGEMENT
+*                                 SPDX-License-Identifier: APACHE-2.0
 *
-* File    : OS_FLAG.C
-* By      : JJL
-* Version : V3.06.02
+*               This software is subject to an open source license and is distributed by
+*                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+*                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 *
-* LICENSING TERMS:
-* ---------------
-*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or
-*           for peaceful research.  If you plan or intend to use uC/OS-III in a commercial application/
-*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your
-*           application/product.   We provide ALL the source code for your convenience and to help you
-*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use
-*           it commercially without paying a licensing fee.
+*********************************************************************************************************
+*/
+
+/*
+*********************************************************************************************************
+*                                         EVENT FLAG MANAGEMENT
 *
-*           Knowledge of the source code may NOT be used to develop a similar product.
-*
-*           Please help us continue to provide the embedded community with the finest software available.
-*           Your honesty is greatly appreciated.
-*
-*           You can find our product's user manual, API reference, release notes and
-*           more information at doc.micrium.com.
-*           You can contact us at www.micrium.com.
-************************************************************************************************************************
+* File    : os_flag.c
+* Version : V3.08.02
+*********************************************************************************************************
 */
 
 #define  MICRIUM_SOURCE
@@ -40,7 +31,7 @@ const  CPU_CHAR  *os_flag__c = "$Id: $";
 #endif
 
 
-#if (OS_CFG_FLAG_EN == DEF_ENABLED)
+#if (OS_CFG_FLAG_EN > 0u)
 
 /*
 ************************************************************************************************************************
@@ -61,6 +52,7 @@ const  CPU_CHAR  *os_flag__c = "$Id: $";
 *                                 OS_ERR_ILLEGAL_CREATE_RUN_TIME If you are trying to create the Event Flag after you
 *                                                                   called OSSafetyCriticalStart().
 *                                 OS_ERR_OBJ_PTR_NULL            If 'p_grp' is a NULL pointer
+*                                 OS_ERR_OBJ_CREATED             If the event flag was already created
 *
 * Returns    : none
 ************************************************************************************************************************
@@ -82,20 +74,20 @@ void  OSFlagCreate (OS_FLAG_GRP  *p_grp,
 #endif
 
 #ifdef OS_SAFETY_CRITICAL_IEC61508
-    if (OSSafetyCriticalStartFlag == DEF_TRUE) {
+    if (OSSafetyCriticalStartFlag == OS_TRUE) {
        *p_err = OS_ERR_ILLEGAL_CREATE_RUN_TIME;
         return;
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
     if (OSIntNestingCtr > 0u) {                                 /* See if called from ISR ...                           */
        *p_err = OS_ERR_CREATE_ISR;                              /* ... can't CREATE from an ISR                         */
         return;
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_grp == (OS_FLAG_GRP *)0) {                            /* Validate 'p_grp'                                     */
        *p_err = OS_ERR_OBJ_PTR_NULL;
         return;
@@ -103,21 +95,28 @@ void  OSFlagCreate (OS_FLAG_GRP  *p_grp,
 #endif
 
     CPU_CRITICAL_ENTER();
-#if (OS_OBJ_TYPE_REQ == DEF_ENABLED)
+#if (OS_OBJ_TYPE_REQ > 0u)
+#if (OS_CFG_OBJ_CREATED_CHK_EN > 0u)
+    if (p_grp->Type == OS_OBJ_TYPE_FLAG) {
+        CPU_CRITICAL_EXIT();
+        *p_err = OS_ERR_OBJ_CREATED;
+        return;
+    }
+#endif
     p_grp->Type    = OS_OBJ_TYPE_FLAG;                          /* Set to event flag group type                         */
 #endif
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     p_grp->NamePtr = p_name;
 #else
     (void)p_name;
 #endif
     p_grp->Flags   = flags;                                     /* Set to desired initial value                         */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
     p_grp->TS      = 0u;
 #endif
     OS_PendListInit(&p_grp->PendList);
 
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     OS_FlagDbgListAdd(p_grp);
     OSFlagQty++;
 #endif
@@ -163,7 +162,7 @@ void  OSFlagCreate (OS_FLAG_GRP  *p_grp,
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_FLAG_DEL_EN == DEF_ENABLED)
+#if (OS_CFG_FLAG_DEL_EN > 0u)
 OS_OBJ_QTY  OSFlagDel (OS_FLAG_GRP  *p_grp,
                        OS_OPT        opt,
                        OS_ERR       *p_err)
@@ -185,14 +184,14 @@ OS_OBJ_QTY  OSFlagDel (OS_FLAG_GRP  *p_grp,
     OS_TRACE_FLAG_DEL_ENTER(p_grp, opt);
 
 #ifdef OS_SAFETY_CRITICAL_IEC61508
-    if (OSSafetyCriticalStartFlag == DEF_TRUE) {
+    if (OSSafetyCriticalStartFlag == OS_TRUE) {
         OS_TRACE_FLAG_DEL_EXIT(OS_ERR_ILLEGAL_DEL_RUN_TIME);
        *p_err = OS_ERR_ILLEGAL_DEL_RUN_TIME;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
     if (OSIntNestingCtr > 0u) {                                 /* See if called from ISR ...                           */
        *p_err = OS_ERR_DEL_ISR;                                 /* ... can't DELETE from an ISR                         */
         OS_TRACE_FLAG_DEL_EXIT(OS_ERR_DEL_ISR);
@@ -200,15 +199,15 @@ OS_OBJ_QTY  OSFlagDel (OS_FLAG_GRP  *p_grp,
     }
 #endif
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Is the kernel running?.                              */
-    if (OSRunning != OS_STATE_OS_RUNNING) {
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN > 0u)
+    if (OSRunning != OS_STATE_OS_RUNNING) {                     /* Is the kernel running?                               */
         OS_TRACE_FLAG_DEL_EXIT(OS_ERR_OS_NOT_RUNNING);
        *p_err = OS_ERR_OS_NOT_RUNNING;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_grp == (OS_FLAG_GRP *)0) {                            /* Validate 'p_grp'                                     */
         OS_TRACE_FLAG_DEL_EXIT(OS_ERR_OBJ_PTR_NULL);
        *p_err  = OS_ERR_OBJ_PTR_NULL;
@@ -216,7 +215,7 @@ OS_OBJ_QTY  OSFlagDel (OS_FLAG_GRP  *p_grp,
     }
 #endif
 
-#if (OS_CFG_OBJ_TYPE_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_OBJ_TYPE_CHK_EN > 0u)
     if (p_grp->Type != OS_OBJ_TYPE_FLAG) {                      /* Validate event group object                          */
         OS_TRACE_FLAG_DEL_EXIT(OS_ERR_OBJ_TYPE);
        *p_err = OS_ERR_OBJ_TYPE;
@@ -229,7 +228,7 @@ OS_OBJ_QTY  OSFlagDel (OS_FLAG_GRP  *p_grp,
     switch (opt) {
         case OS_OPT_DEL_NO_PEND:                                /* Delete group if no task waiting                      */
              if (p_pend_list->HeadPtr == (OS_TCB *)0) {
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
                  OS_FlagDbgListRemove(p_grp);
                  OSFlagQty--;
 #endif
@@ -246,7 +245,7 @@ OS_OBJ_QTY  OSFlagDel (OS_FLAG_GRP  *p_grp,
              break;
 
         case OS_OPT_DEL_ALWAYS:                                 /* Always delete the event flag group                   */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
              ts = OS_TS_GET();                                  /* Get local time stamp so all tasks get the same time  */
 #else
              ts = 0u;
@@ -258,7 +257,7 @@ OS_OBJ_QTY  OSFlagDel (OS_FLAG_GRP  *p_grp,
                               OS_STATUS_PEND_DEL);
                  nbr_tasks++;
              }
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
              OS_FlagDbgListRemove(p_grp);
              OSFlagQty--;
 #endif
@@ -340,11 +339,12 @@ OS_OBJ_QTY  OSFlagDel (OS_FLAG_GRP  *p_grp,
 *                                OS_ERR_SCHED_LOCKED        If you called this function when the scheduler is locked
 *                                OS_ERR_STATUS_INVALID      If the pend status has an invalid value
 *                                OS_ERR_TIMEOUT             The bit(s) have not been set in the specified 'timeout'
+*                                OS_ERR_TICK_DISABLED       If kernel ticks are disabled and a timeout is specified
 *
 * Returns    : The flags in the event flag group that made the task ready or, 0 if a timeout or an error
 *              occurred.
 *
-* Note(s)    : none
+* Note(s)    : This API 'MUST NOT' be called from a timer callback function.
 ************************************************************************************************************************
 */
 
@@ -370,24 +370,35 @@ OS_FLAGS  OSFlagPend (OS_FLAG_GRP  *p_grp,
 
     OS_TRACE_FLAG_PEND_ENTER(p_grp, flags, timeout, opt, p_ts);
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
-    if (OSIntNestingCtr > 0u) {                                 /* See if called from ISR ...                           */
-       *p_err = OS_ERR_PEND_ISR;                                /* ... can't PEND from an ISR                           */
+#if (OS_CFG_TICK_EN == 0u)
+    if (timeout != 0u) {
+       *p_err = OS_ERR_TICK_DISABLED;
         OS_TRACE_FLAG_PEND_FAILED(p_grp);
-        OS_TRACE_FLAG_PEND_EXIT(OS_ERR_PEND_ISR);
+        OS_TRACE_FLAG_PEND_EXIT(OS_ERR_TICK_DISABLED);
         return ((OS_FLAGS)0);
     }
 #endif
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Is the kernel running?                               */
-    if (OSRunning != OS_STATE_OS_RUNNING) {
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
+    if (OSIntNestingCtr > 0u) {                                 /* See if called from ISR ...                           */
+        if ((opt & OS_OPT_PEND_NON_BLOCKING) != OS_OPT_PEND_NON_BLOCKING) {
+           *p_err = OS_ERR_PEND_ISR;                            /* ... can't PEND from an ISR                           */
+            OS_TRACE_FLAG_PEND_FAILED(p_grp);
+            OS_TRACE_FLAG_PEND_EXIT(OS_ERR_PEND_ISR);
+            return ((OS_FLAGS)0);
+        }
+    }
+#endif
+
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN > 0u)
+    if (OSRunning != OS_STATE_OS_RUNNING) {                     /* Is the kernel running?                               */
         OS_TRACE_FLAG_PEND_EXIT(OS_ERR_OS_NOT_RUNNING);
        *p_err = OS_ERR_OS_NOT_RUNNING;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_grp == (OS_FLAG_GRP *)0) {                            /* Validate 'p_grp'                                     */
         OS_TRACE_FLAG_PEND_FAILED(p_grp);
         OS_TRACE_FLAG_PEND_EXIT(OS_ERR_OBJ_PTR_NULL);
@@ -421,7 +432,7 @@ OS_FLAGS  OSFlagPend (OS_FLAG_GRP  *p_grp,
     }
 #endif
 
-#if (OS_CFG_OBJ_TYPE_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_OBJ_TYPE_CHK_EN > 0u)
     if (p_grp->Type != OS_OBJ_TYPE_FLAG) {                      /* Validate that we are pointing at an event flag       */
         OS_TRACE_FLAG_PEND_FAILED(p_grp);
         OS_TRACE_FLAG_PEND_EXIT(OS_ERR_OBJ_TYPE);
@@ -431,9 +442,9 @@ OS_FLAGS  OSFlagPend (OS_FLAG_GRP  *p_grp,
 #endif
 
     if ((opt & OS_OPT_PEND_FLAG_CONSUME) != 0u) {               /* See if we need to consume the flags                  */
-        consume = DEF_TRUE;
+        consume = OS_TRUE;
     } else {
-        consume = DEF_FALSE;
+        consume = OS_FALSE;
     }
 
     if (p_ts != (CPU_TS *)0) {
@@ -446,11 +457,11 @@ OS_FLAGS  OSFlagPend (OS_FLAG_GRP  *p_grp,
         case OS_OPT_PEND_FLAG_SET_ALL:                          /* See if all required flags are set                    */
              flags_rdy = (p_grp->Flags & flags);                /* Extract only the bits we want                        */
              if (flags_rdy == flags) {                          /* Must match ALL the bits that we want                 */
-                 if (consume == DEF_TRUE) {                     /* See if we need to consume the flags                  */
+                 if (consume == OS_TRUE) {                      /* See if we need to consume the flags                  */
                      p_grp->Flags &= ~flags_rdy;                /* Clear ONLY the flags that we wanted                  */
                  }
                  OSTCBCurPtr->FlagsRdy = flags_rdy;             /* Save flags that were ready                           */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
                  if (p_ts != (CPU_TS *)0) {
                     *p_ts = p_grp->TS;
                  }
@@ -488,11 +499,11 @@ OS_FLAGS  OSFlagPend (OS_FLAG_GRP  *p_grp,
         case OS_OPT_PEND_FLAG_SET_ANY:
              flags_rdy = (p_grp->Flags & flags);                /* Extract only the bits we want                        */
              if (flags_rdy != 0u) {                             /* See if any flag set                                  */
-                 if (consume == DEF_TRUE) {                     /* See if we need to consume the flags                  */
+                 if (consume == OS_TRUE) {                      /* See if we need to consume the flags                  */
                      p_grp->Flags &= ~flags_rdy;                /* Clear ONLY the flags that we got                     */
                  }
                  OSTCBCurPtr->FlagsRdy = flags_rdy;             /* Save flags that were ready                           */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
                  if (p_ts != (CPU_TS *)0) {
                     *p_ts  = p_grp->TS;
                  }
@@ -525,15 +536,15 @@ OS_FLAGS  OSFlagPend (OS_FLAG_GRP  *p_grp,
              }
              break;
 
-#if (OS_CFG_FLAG_MODE_CLR_EN == DEF_ENABLED)
+#if (OS_CFG_FLAG_MODE_CLR_EN > 0u)
         case OS_OPT_PEND_FLAG_CLR_ALL:                          /* See if all required flags are cleared                */
              flags_rdy = (OS_FLAGS)(~p_grp->Flags & flags);     /* Extract only the bits we want                        */
              if (flags_rdy == flags) {                          /* Must match ALL the bits that we want                 */
-                 if (consume == DEF_TRUE) {                     /* See if we need to consume the flags                  */
+                 if (consume == OS_TRUE) {                      /* See if we need to consume the flags                  */
                      p_grp->Flags |= flags_rdy;                 /* Set ONLY the flags that we wanted                    */
                  }
                  OSTCBCurPtr->FlagsRdy = flags_rdy;             /* Save flags that were ready                           */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
                  if (p_ts != (CPU_TS *)0) {
                     *p_ts  = p_grp->TS;
                  }
@@ -569,11 +580,11 @@ OS_FLAGS  OSFlagPend (OS_FLAG_GRP  *p_grp,
         case OS_OPT_PEND_FLAG_CLR_ANY:
              flags_rdy = (~p_grp->Flags & flags);               /* Extract only the bits we want                        */
              if (flags_rdy != 0u) {                             /* See if any flag cleared                              */
-                 if (consume == DEF_TRUE) {                     /* See if we need to consume the flags                  */
+                 if (consume == OS_TRUE) {                      /* See if we need to consume the flags                  */
                      p_grp->Flags |= flags_rdy;                 /* Set ONLY the flags that we got                       */
                  }
                  OSTCBCurPtr->FlagsRdy = flags_rdy;             /* Save flags that were ready                           */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
                  if (p_ts != (CPU_TS *)0) {
                     *p_ts  = p_grp->TS;
                  }
@@ -622,7 +633,7 @@ OS_FLAGS  OSFlagPend (OS_FLAG_GRP  *p_grp,
     CPU_CRITICAL_ENTER();
     switch (OSTCBCurPtr->PendStatus) {
         case OS_STATUS_PEND_OK:                                 /* We got the event flags                               */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
              if (p_ts != (CPU_TS *)0) {
                 *p_ts = OSTCBCurPtr->TS;
              }
@@ -632,7 +643,7 @@ OS_FLAGS  OSFlagPend (OS_FLAG_GRP  *p_grp,
              break;
 
         case OS_STATUS_PEND_ABORT:                              /* Indicate that we aborted                             */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
              if (p_ts != (CPU_TS *)0) {
                 *p_ts = OSTCBCurPtr->TS;
              }
@@ -652,7 +663,7 @@ OS_FLAGS  OSFlagPend (OS_FLAG_GRP  *p_grp,
              break;
 
         case OS_STATUS_PEND_DEL:                                /* Indicate that object pended on has been deleted      */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
              if (p_ts != (CPU_TS *)0) {
                 *p_ts = OSTCBCurPtr->TS;
              }
@@ -674,14 +685,14 @@ OS_FLAGS  OSFlagPend (OS_FLAG_GRP  *p_grp,
     }
 
     flags_rdy = OSTCBCurPtr->FlagsRdy;
-    if (consume == DEF_TRUE) {                                  /* See if we need to consume the flags                  */
+    if (consume == OS_TRUE) {                                   /* See if we need to consume the flags                  */
         switch (mode) {
             case OS_OPT_PEND_FLAG_SET_ALL:
             case OS_OPT_PEND_FLAG_SET_ANY:                      /* Clear ONLY the flags we got                          */
                  p_grp->Flags &= ~flags_rdy;
                  break;
 
-#if (OS_CFG_FLAG_MODE_CLR_EN == DEF_ENABLED)
+#if (OS_CFG_FLAG_MODE_CLR_EN > 0u)
             case OS_OPT_PEND_FLAG_CLR_ALL:
             case OS_OPT_PEND_FLAG_CLR_ANY:                      /* Set   ONLY the flags we got                          */
                  p_grp->Flags |=  flags_rdy;
@@ -737,7 +748,7 @@ OS_FLAGS  OSFlagPend (OS_FLAG_GRP  *p_grp,
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_FLAG_PEND_ABORT_EN == DEF_ENABLED)
+#if (OS_CFG_FLAG_PEND_ABORT_EN > 0u)
 OS_OBJ_QTY  OSFlagPendAbort (OS_FLAG_GRP  *p_grp,
                              OS_OPT        opt,
                              OS_ERR       *p_err)
@@ -756,21 +767,21 @@ OS_OBJ_QTY  OSFlagPendAbort (OS_FLAG_GRP  *p_grp,
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
     if (OSIntNestingCtr > 0u) {                                 /* Not allowed to Pend Abort from an ISR                */
        *p_err = OS_ERR_PEND_ABORT_ISR;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Is the kernel running?                               */
-    if (OSRunning != OS_STATE_OS_RUNNING) {
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN > 0u)
+    if (OSRunning != OS_STATE_OS_RUNNING) {                     /* Is the kernel running?                               */
        *p_err = OS_ERR_OS_NOT_RUNNING;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_grp == (OS_FLAG_GRP *)0) {                            /* Validate 'p_grp'                                     */
        *p_err  =  OS_ERR_OBJ_PTR_NULL;
         return (0u);
@@ -788,7 +799,7 @@ OS_OBJ_QTY  OSFlagPendAbort (OS_FLAG_GRP  *p_grp,
     }
 #endif
 
-#if (OS_CFG_OBJ_TYPE_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_OBJ_TYPE_CHK_EN > 0u)
     if (p_grp->Type != OS_OBJ_TYPE_FLAG) {                      /* Make sure event flag group was created               */
        *p_err = OS_ERR_OBJ_TYPE;
         return (0u);
@@ -804,7 +815,7 @@ OS_OBJ_QTY  OSFlagPendAbort (OS_FLAG_GRP  *p_grp,
     }
 
     nbr_tasks = 0u;
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
     ts        = OS_TS_GET();                                    /* Get local time stamp so all tasks get the same time  */
 #else
     ts        = 0u;
@@ -864,14 +875,14 @@ OS_FLAGS  OSFlagPendGetFlagsRdy (OS_ERR  *p_err)
     }
 #endif
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Is the kernel running?                               */
-    if (OSRunning != OS_STATE_OS_RUNNING) {
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN > 0u)
+    if (OSRunning != OS_STATE_OS_RUNNING) {                     /* Is the kernel running?                               */
        *p_err = OS_ERR_OS_NOT_RUNNING;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_CALLED_FROM_ISR_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
     if (OSIntNestingCtr > 0u) {                                 /* See if called from ISR ...                           */
        *p_err = OS_ERR_PEND_ISR;                                /* ... can't get from an ISR                            */
         return (0u);
@@ -953,15 +964,15 @@ OS_FLAGS  OSFlagPost (OS_FLAG_GRP  *p_grp,
 
     OS_TRACE_FLAG_POST_ENTER(p_grp, flags, opt);
 
-#if (OS_CFG_INVALID_OS_CALLS_CHK_EN == DEF_ENABLED)             /* Is the kernel running?                               */
-    if (OSRunning != OS_STATE_OS_RUNNING) {
+#if (OS_CFG_INVALID_OS_CALLS_CHK_EN > 0u)
+    if (OSRunning != OS_STATE_OS_RUNNING) {                     /* Is the kernel running?                               */
         OS_TRACE_FLAG_POST_EXIT(OS_ERR_OS_NOT_RUNNING);
        *p_err = OS_ERR_OS_NOT_RUNNING;
         return (0u);
     }
 #endif
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (p_grp == (OS_FLAG_GRP *)0) {                            /* Validate 'p_grp'                                     */
         OS_TRACE_FLAG_POST_FAILED(p_grp);
         OS_TRACE_FLAG_POST_EXIT(OS_ERR_OBJ_PTR_NULL);
@@ -970,7 +981,7 @@ OS_FLAGS  OSFlagPost (OS_FLAG_GRP  *p_grp,
     }
 #endif
 
-#if (OS_CFG_OBJ_TYPE_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_OBJ_TYPE_CHK_EN > 0u)
     if (p_grp->Type != OS_OBJ_TYPE_FLAG) {                      /* Make sure we are pointing to an event flag grp       */
         OS_TRACE_FLAG_POST_FAILED(p_grp);
         OS_TRACE_FLAG_POST_EXIT(OS_ERR_OBJ_TYPE);
@@ -979,7 +990,7 @@ OS_FLAGS  OSFlagPost (OS_FLAG_GRP  *p_grp,
     }
 #endif
 
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
     ts = OS_TS_GET();                                           /* Get timestamp                                        */
 #else
     ts = 0u;
@@ -1005,7 +1016,7 @@ OS_FLAGS  OSFlagPost (OS_FLAG_GRP  *p_grp,
              OS_TRACE_FLAG_POST_EXIT(*p_err);
              return (0u);
     }
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
     p_grp->TS   = ts;
 #endif
     p_pend_list = &p_grp->PendList;
@@ -1039,7 +1050,7 @@ OS_FLAGS  OSFlagPost (OS_FLAG_GRP  *p_grp,
                  }
                  break;
 
-#if (OS_CFG_FLAG_MODE_CLR_EN == DEF_ENABLED)
+#if (OS_CFG_FLAG_MODE_CLR_EN > 0u)
             case OS_OPT_PEND_FLAG_CLR_ALL:                      /* See if all req. flags are set for current node       */
                  flags_rdy = (OS_FLAGS)(~p_grp->Flags & p_tcb->FlagsPend);
                  if (flags_rdy == p_tcb->FlagsPend) {
@@ -1126,6 +1137,7 @@ void  OS_FlagBlock (OS_FLAG_GRP  *p_grp,
     OSTCBCurPtr->FlagsRdy  = 0u;
 
     OS_Pend((OS_PEND_OBJ *)((void *)p_grp),
+             OSTCBCurPtr,
              OS_TASK_PEND_ON_FLAG,
              timeout);
 }
@@ -1152,10 +1164,10 @@ void  OS_FlagClr (OS_FLAG_GRP  *p_grp)
     OS_PEND_LIST  *p_pend_list;
 
 
-#if (OS_OBJ_TYPE_REQ == DEF_ENABLED)
+#if (OS_OBJ_TYPE_REQ > 0u)
     p_grp->Type             = OS_OBJ_TYPE_NONE;
 #endif
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     p_grp->NamePtr          = (CPU_CHAR *)((void *)"?FLAG");    /* Unknown name                                         */
 #endif
     p_grp->Flags            =  0u;
@@ -1179,7 +1191,7 @@ void  OS_FlagClr (OS_FLAG_GRP  *p_grp)
 ************************************************************************************************************************
 */
 
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
 void  OS_FlagDbgListAdd (OS_FLAG_GRP  *p_grp)
 {
     p_grp->DbgNamePtr                = (CPU_CHAR *)((void *)" ");
@@ -1248,20 +1260,20 @@ void   OS_FlagTaskRdy (OS_TCB    *p_tcb,
                        OS_FLAGS   flags_rdy,
                        CPU_TS     ts)
 {
-#if (OS_CFG_TS_EN == DEF_DISABLED)
+#if (OS_CFG_TS_EN == 0u)
     (void)ts;                                                   /* Prevent compiler warning for not using 'ts'          */
 #endif
 
     p_tcb->FlagsRdy   = flags_rdy;
     p_tcb->PendStatus = OS_STATUS_PEND_OK;                      /* Clear pend status                                    */
     p_tcb->PendOn     = OS_TASK_PEND_ON_NOTHING;                /* Indicate no longer pending                           */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
     p_tcb->TS         = ts;
 #endif
     switch (p_tcb->TaskState) {
         case OS_TASK_STATE_PEND:
         case OS_TASK_STATE_PEND_TIMEOUT:
-#if (OS_CFG_TASK_TICK_EN == DEF_ENABLED)
+#if (OS_CFG_TICK_EN > 0u)
              if (p_tcb->TaskState == OS_TASK_STATE_PEND_TIMEOUT) {
                  OS_TickListRemove(p_tcb);                      /* Remove from tick list                                */
              }
@@ -1272,6 +1284,11 @@ void   OS_FlagTaskRdy (OS_TCB    *p_tcb,
 
         case OS_TASK_STATE_PEND_SUSPENDED:
         case OS_TASK_STATE_PEND_TIMEOUT_SUSPENDED:
+#if (OS_CFG_TICK_EN > 0u)
+             if (p_tcb->TaskState == OS_TASK_STATE_PEND_TIMEOUT_SUSPENDED) {
+                 OS_TickListRemove(p_tcb);                      /* Remove from tick list                                */
+             }
+#endif
              p_tcb->TaskState = OS_TASK_STATE_SUSPENDED;
              break;
 

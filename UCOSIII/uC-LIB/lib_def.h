@@ -1,24 +1,16 @@
 /*
 *********************************************************************************************************
-*                                                uC/LIB
-*                                        CUSTOM LIBRARY MODULES
+*                                               uC/LIB
+*                                       Custom Library Modules
 *
-*                         (c) Copyright 2004-2015; Micrium, Inc.; Weston, FL
+*                    Copyright 2004-2021 Silicon Laboratories Inc. www.silabs.com
 *
-*                  All rights reserved.  Protected by international copyright laws.
+*                                 SPDX-License-Identifier: APACHE-2.0
 *
-*                  uC/LIB is provided in source form to registered licensees ONLY.  It is
-*                  illegal to distribute this source code to any third party unless you receive
-*                  written permission by an authorized Micrium representative.  Knowledge of
-*                  the source code may NOT be used to develop a similar product.
+*               This software is subject to an open source license and is distributed by
+*                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+*                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 *
-*                  Please help us continue to provide the Embedded community with the finest
-*                  software available.  Your honesty is greatly appreciated.
-*
-*                  You can find our product's user manual, API reference, release notes and
-*                  more information at: doc.micrium.com
-*
-*                  You can contact us at: www.micrium.com
 *********************************************************************************************************
 */
 
@@ -27,35 +19,31 @@
 *
 *                                     CORE CUSTOM LIBRARY MODULE
 *
-* Filename      : lib_def.h
-* Version       : V1.38.02
-* Programmer(s) : ITJ
-*                 FBJ
-*                 JFD
+* Filename : lib_def.h
+* Version  : V1.39.01
 *********************************************************************************************************
-* Note(s)       : (1) Assumes the following versions (or more recent) of software modules are included in
-*                     the project build :
+* Note(s)  : (1) Assumes the following versions (or more recent) of software modules are included in
+*                the project build :
 *
-*                     (a) uC/CPU V1.29.00
+*                (a) uC/CPU V1.29.00
 *
 *
-*                 (2) NO compiler-supplied standard library functions are used in library or product software.
+*            (2) NO compiler-supplied standard library functions are used in library or product software.
 *
-*                     (a) ALL standard library functions are implemented in the custom library modules :
+*                (a) ALL standard library functions are implemented in the custom library modules :
 *
-*                         (1) \<Custom Library Directory>\lib_*.*
+*                    (1) \<Custom Library Directory>\lib_*.*
 *
-*                         (2) \<Custom Library Directory>\Ports\<cpu>\<compiler>\lib*_a.*
+*                    (2) \<Custom Library Directory>\Ports\<cpu>\<compiler>\lib*_a.*
 *
-*                               where
-*                                       <Custom Library Directory>      directory path for custom library software
-*                                       <cpu>                           directory name for specific processor (CPU)
-*                                       <compiler>                      directory name for specific compiler
+*                          where
+*                                  <Custom Library Directory>      directory path for custom library software
+*                                  <cpu>                           directory name for specific processor (CPU)
+*                                  <compiler>                      directory name for specific compiler
 *
-*                     (b) Product-specific library functions are implemented in individual products.
+*                (b) Product-specific library functions are implemented in individual products.
 *********************************************************************************************************
 */
-
 
 /*
 *********************************************************************************************************
@@ -97,7 +85,7 @@
 *********************************************************************************************************
 */
 
-#define  LIB_VERSION                                   13802u   /* See Note #1.                                         */
+#define  LIB_VERSION                                   13901u   /* See Note #1.                                         */
 
 
 /*
@@ -490,8 +478,9 @@ typedef enum lib_err {
 
     LIB_MEM_ERR_HEAP_EMPTY                  =     10210u,       /* Heap seg empty; i.e. NO avail mem in heap.           */
     LIB_MEM_ERR_HEAP_OVF                    =     10211u,       /* Heap seg ovf;   i.e. req'd mem ovfs rem mem in heap. */
-    LIB_MEM_ERR_HEAP_NOT_FOUND              =     10215u        /* Heap seg NOT found.                                  */
+    LIB_MEM_ERR_HEAP_NOT_FOUND              =     10215u,       /* Heap seg NOT found.                                  */
 
+    LIB_MEM_ERR_ADDR_OVF                    =     10300u        /* Memory allocation exceeds address space.             */
 } LIB_ERR;
 
 
@@ -800,13 +789,13 @@ typedef enum lib_err {
 *********************************************************************************************************
 */
 
-#define  DEF_BIT_CLR_08(val, mask)                     (CPU_INT08U)((val) = (((CPU_INT08U)val) & (~((CPU_INT08U)mask))))
+#define  DEF_BIT_CLR_08(val, mask)                     ((val) = (CPU_INT08U)(((CPU_INT08U)(val)) & (CPU_INT08U)(~((CPU_INT08U)(mask)))))
 
-#define  DEF_BIT_CLR_16(val, mask)                     (CPU_INT16U)((val) = (((CPU_INT16U)val) & (~((CPU_INT16U)mask))))
+#define  DEF_BIT_CLR_16(val, mask)                     ((val) = (CPU_INT16U)(((CPU_INT16U)(val)) & (CPU_INT16U)(~((CPU_INT16U)(mask)))))
 
-#define  DEF_BIT_CLR_32(val, mask)                     (CPU_INT32U)((val) = (((CPU_INT32U)val) & (~((CPU_INT32U)mask))))
+#define  DEF_BIT_CLR_32(val, mask)                     ((val) = (CPU_INT32U)(((CPU_INT32U)(val)) & (CPU_INT32U)(~((CPU_INT32U)(mask)))))
 
-#define  DEF_BIT_CLR_64(val, mask)                     (CPU_INT64U)((val) = (((CPU_INT64U)val) & (~((CPU_INT64U)mask))))
+#define  DEF_BIT_CLR_64(val, mask)                     ((val) = (CPU_INT64U)(((CPU_INT64U)(val)) & (CPU_INT64U)(~((CPU_INT64U)(mask)))))
 
 
 /*
@@ -829,28 +818,28 @@ typedef enum lib_err {
 
 #if     (CPU_CFG_DATA_SIZE_MAX == CPU_WORD_SIZE_08)
 
-#define  DEF_BIT_CLR(val, mask)                 ((sizeof(val) == CPU_WORD_SIZE_08) ? DEF_BIT_CLR_08(val, mask) : 0)
+#define  DEF_BIT_CLR(val, mask)                 ((sizeof((val)) == CPU_WORD_SIZE_08) ? DEF_BIT_CLR_08((val), (mask)) : 0)
 
 
 #elif   (CPU_CFG_DATA_SIZE_MAX == CPU_WORD_SIZE_16)
 
-#define  DEF_BIT_CLR(val, mask)                 ((sizeof(val) == CPU_WORD_SIZE_08) ? DEF_BIT_CLR_08(val, mask) :   \
-                                                ((sizeof(val) == CPU_WORD_SIZE_16) ? DEF_BIT_CLR_16(val, mask) : 0))
+#define  DEF_BIT_CLR(val, mask)                 ((sizeof((val)) == CPU_WORD_SIZE_08) ? DEF_BIT_CLR_08((val), (mask)) :   \
+                                                ((sizeof((val)) == CPU_WORD_SIZE_16) ? DEF_BIT_CLR_16((val), (mask)) : 0))
 
 
 #elif   (CPU_CFG_DATA_SIZE_MAX == CPU_WORD_SIZE_32)
 
-#define  DEF_BIT_CLR(val, mask)                 ((sizeof(val) == CPU_WORD_SIZE_08) ? DEF_BIT_CLR_08(val, mask) :    \
-                                                ((sizeof(val) == CPU_WORD_SIZE_16) ? DEF_BIT_CLR_16(val, mask) :    \
-                                                ((sizeof(val) == CPU_WORD_SIZE_32) ? DEF_BIT_CLR_32(val, mask) : 0)))
+#define  DEF_BIT_CLR(val, mask)                 ((sizeof((val)) == CPU_WORD_SIZE_08) ? DEF_BIT_CLR_08((val), (mask)) :    \
+                                                ((sizeof((val)) == CPU_WORD_SIZE_16) ? DEF_BIT_CLR_16((val), (mask)) :    \
+                                                ((sizeof((val)) == CPU_WORD_SIZE_32) ? DEF_BIT_CLR_32((val), (mask)) : 0)))
 
 
 #elif   (CPU_CFG_DATA_SIZE_MAX == CPU_WORD_SIZE_64)
 
-#define  DEF_BIT_CLR(val, mask)                 ((sizeof(val) == CPU_WORD_SIZE_08) ? DEF_BIT_CLR_08(val, mask) :     \
-                                                ((sizeof(val) == CPU_WORD_SIZE_16) ? DEF_BIT_CLR_16(val, mask) :     \
-                                                ((sizeof(val) == CPU_WORD_SIZE_32) ? DEF_BIT_CLR_32(val, mask) :     \
-                                                ((sizeof(val) == CPU_WORD_SIZE_64) ? DEF_BIT_CLR_64(val, mask) : 0))))
+#define  DEF_BIT_CLR(val, mask)                 ((sizeof((val)) == CPU_WORD_SIZE_08) ? DEF_BIT_CLR_08((val), (mask)) :     \
+                                                ((sizeof((val)) == CPU_WORD_SIZE_16) ? DEF_BIT_CLR_16((val), (mask)) :     \
+                                                ((sizeof((val)) == CPU_WORD_SIZE_32) ? DEF_BIT_CLR_32((val), (mask)) :     \
+                                                ((sizeof((val)) == CPU_WORD_SIZE_64) ? DEF_BIT_CLR_64((val), (mask)) : 0))))
 
 #else
 
@@ -1369,4 +1358,3 @@ typedef enum lib_err {
 */
 
 #endif                                                          /* End of lib def module include.                       */
-

@@ -74,7 +74,7 @@ struct spi_bus
 {
     struct device parent;
     const struct spi_ops *ops;
-    mutex_t lock;
+    os_sem_t lock;
     struct spi_device *owner;
 };
 

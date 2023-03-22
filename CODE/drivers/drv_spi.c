@@ -8,7 +8,7 @@
 #include "hal/spi/spi.h"
 #include "hal/dma/dma.h"
 #include "stm32h7xx.h"
-#include "driver/io.h"
+#include "io.h"
 #include "board_config.h"
 #include "drv_dma.h"
 #include "nvic.h"
@@ -358,8 +358,8 @@ static void spi_dma_callback(uint32_t user_data) {
 
     device_close(&bus->dma_tx->parent);
     device_close(&bus->dma_rx->parent);
-    /* unlock mutex */
-    mutex_release(device->bus->lock);
+    /* unlock sem */
+    os_sem_release(device->bus->lock);
 }
 
 static err_t stm32_spi_verify_name(const char *name, int *idx) {

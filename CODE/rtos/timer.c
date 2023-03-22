@@ -7,12 +7,13 @@
 #include "timer.h"
 
 os_timer_t os_timer_create(const char *name,
-                           void (*timeout)(void *),
+                           void (*timeout)(void *p_tmr, void *p_arg),
                            void *parameter,
                            tick_t period,
                            uint8_t type)
 {
-    os_timer_t timer = malloc(sizeof(struct timer));
+    os_timer_t timer = calloc(1, sizeof(struct timer));
+
     if (timer == NULL)
     {
         printf("\r\nno mem");
@@ -22,10 +23,13 @@ os_timer_t os_timer_create(const char *name,
     object_init(&timer->parent, Object_Class_Timer, name);
     timer->period = TICKS_FROM_MS(period);
 
-    timer->tid = xTimerCreate(name,
-                              timer->period,
-                              type == TIMER_TYPE_PERIODIC,
-                              (void *) parameter,
-                              (TimerCallbackFunction_t)timeout);
+    OSTmrCreate(&timer->tid,
+                name,
+                timer->period,
+                timer->period,
+                type == TIMER_TYPE_PERIODIC ? OS_OPT_TMR_PERIODIC : OS_OPT_TMR_ONE_SHOT,
+                timeout,
+                parameter,
+                &os_err);
     return timer;
 }

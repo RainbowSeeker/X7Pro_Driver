@@ -3,7 +3,7 @@
 #include <common.h>
 
 #include "hal/actuator/actuator.h"
-#include "driver/pwm.h"
+#include "pwm.h"
 
 #define MAX_PWM_OUT_CHAN      6             // AUX Out has 6 pwm channel
 

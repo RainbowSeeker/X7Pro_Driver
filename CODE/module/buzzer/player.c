@@ -247,7 +247,7 @@ static void player_entry(void* parameter)
             player->audio->close();
 
             /* 等待播放的信号量 */
-            os_sem_take(player->sem_play, osWaitForever);
+            os_sem_take(player->sem_play, OS_WAIT_FOREVER);
 
             /* 开始播放时打开音频设备*/
             player->audio->open();
@@ -291,11 +291,11 @@ int player_start(player_t player)
     }
 
     /* 创建动态线程 */
-    player->play_thread = os_thread_create("player",
-                                           player_entry,
-                                           player,
-                                           20,
-                                           512);
+//    player->play_thread = os_thread_create("player",
+//                                           player_entry,
+//                                           player,
+//                                           20,
+//                                           512);
 
     if (player->play_thread != NULL) {
 //        rt_thread_startup(player->play_thread);

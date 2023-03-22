@@ -1,35 +1,26 @@
 /*
-************************************************************************************************************************
-*                                                      uC/OS-III
-*                                                 The Real-Time Kernel
+*********************************************************************************************************
+*                                              uC/OS-III
+*                                        The Real-Time Kernel
 *
-*                                  (c) Copyright 2009-2017; Micrium, Inc.; Weston, FL
-*                           All rights reserved.  Protected by international copyright laws.
+*                    Copyright 2009-2022 Silicon Laboratories Inc. www.silabs.com
 *
-*                                              MESSAGE HANDLING SERVICES
+*                                 SPDX-License-Identifier: APACHE-2.0
 *
-* File    : OS_MSG.C
-* By      : JJL
-* Version : V3.06.02
+*               This software is subject to an open source license and is distributed by
+*                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+*                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 *
-* LICENSING TERMS:
-* ---------------
-*           uC/OS-III is provided in source form for FREE short-term evaluation, for educational use or
-*           for peaceful research.  If you plan or intend to use uC/OS-III in a commercial application/
-*           product then, you need to contact Micrium to properly license uC/OS-III for its use in your
-*           application/product.   We provide ALL the source code for your convenience and to help you
-*           experience uC/OS-III.  The fact that the source is provided does NOT mean that you can use
-*           it commercially without paying a licensing fee.
+*********************************************************************************************************
+*/
+
+/*
+*********************************************************************************************************
+*                                       MESSAGE HANDLING SERVICES
 *
-*           Knowledge of the source code may NOT be used to develop a similar product.
-*
-*           Please help us continue to provide the embedded community with the finest software available.
-*           Your honesty is greatly appreciated.
-*
-*           You can find our product's user manual, API reference, release notes and
-*           more information at doc.micrium.com.
-*           You can contact us at www.micrium.com.
-************************************************************************************************************************
+* File    : os_msg.c
+* Version : V3.08.02
+*********************************************************************************************************
 */
 
 #define  MICRIUM_SOURCE
@@ -40,7 +31,7 @@ const  CPU_CHAR  *os_msg__c = "$Id: $";
 #endif
 
 
-#if (OS_MSG_EN == DEF_ENABLED)
+#if (OS_MSG_EN > 0u)
 
 /*
 ************************************************************************************************************************
@@ -68,7 +59,7 @@ void  OS_MsgPoolInit (OS_ERR  *p_err)
     OS_MSG_QTY   loops;
 
 
-#if (OS_CFG_ARG_CHK_EN == DEF_ENABLED)
+#if (OS_CFG_ARG_CHK_EN > 0u)
     if (OSCfg_MsgPoolBasePtr == (OS_MSG *)0) {
        *p_err = OS_ERR_MSG_POOL_NULL_PTR;
         return;
@@ -87,7 +78,7 @@ void  OS_MsgPoolInit (OS_ERR  *p_err)
         p_msg1->NextPtr = p_msg2;
         p_msg1->MsgPtr  = (void *)0;
         p_msg1->MsgSize =         0u;
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
         p_msg1->MsgTS   =         0u;
 #endif
         p_msg1++;
@@ -96,14 +87,14 @@ void  OS_MsgPoolInit (OS_ERR  *p_err)
     p_msg1->NextPtr = (OS_MSG *)0;                              /* Last OS_MSG                                          */
     p_msg1->MsgPtr  = (void   *)0;
     p_msg1->MsgSize =           0u;
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
     p_msg1->MsgTS   =           0u;
 #endif
 
     OSMsgPool.NextPtr    = OSCfg_MsgPoolBasePtr;
     OSMsgPool.NbrFree    = OSCfg_MsgPoolSize;
     OSMsgPool.NbrUsed    = 0u;
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     OSMsgPool.NbrUsedMax = 0u;
 #endif
    *p_err                = OS_ERR_NONE;
@@ -140,7 +131,7 @@ OS_MSG_QTY  OS_MsgQFreeAll (OS_MSG_Q  *p_msg_q)
         OSMsgPool.NbrUsed      -= p_msg_q->NbrEntries;          /* Update statistics for free list of messages          */
         OSMsgPool.NbrFree      += p_msg_q->NbrEntries;
         p_msg_q->NbrEntries     =           0u;                 /* Flush the message queue                              */
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
         p_msg_q->NbrEntriesMax  =           0u;
 #endif
         p_msg_q->InPtr          = (OS_MSG *)0;
@@ -172,7 +163,7 @@ void  OS_MsgQInit (OS_MSG_Q    *p_msg_q,
 {
     p_msg_q->NbrEntriesSize = size;
     p_msg_q->NbrEntries     =           0u;
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     p_msg_q->NbrEntriesMax  =           0u;
 #endif
     p_msg_q->InPtr          = (OS_MSG *)0;
@@ -213,13 +204,13 @@ void  *OS_MsgQGet (OS_MSG_Q     *p_msg_q,
     void    *p_void;
 
 
-#if (OS_CFG_TS_EN == DEF_DISABLED)
+#if (OS_CFG_TS_EN == 0u)
     (void)p_ts;                                                 /* Prevent compiler warning for not using 'ts'          */
 #endif
 
     if (p_msg_q->NbrEntries == 0u) {                            /* Is the queue empty?                                  */
        *p_msg_size = 0u;                                        /* Yes                                                  */
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
         if (p_ts != (CPU_TS *)0) {
            *p_ts = 0u;
         }
@@ -231,7 +222,7 @@ void  *OS_MsgQGet (OS_MSG_Q     *p_msg_q,
     p_msg           = p_msg_q->OutPtr;                          /* No, get the next message to extract from the queue   */
     p_void          = p_msg->MsgPtr;
    *p_msg_size      = p_msg->MsgSize;
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
     if (p_ts != (CPU_TS *)0) {
        *p_ts = p_msg->MsgTS;
     }
@@ -299,7 +290,7 @@ void  OS_MsgQPut (OS_MSG_Q     *p_msg_q,
     OS_MSG  *p_msg_in;
 
 
-#if (OS_CFG_TS_EN == DEF_DISABLED)
+#if (OS_CFG_TS_EN == 0u)
     (void)ts;                                                   /* Prevent compiler warning for not using 'ts'          */
 #endif
 
@@ -318,7 +309,7 @@ void  OS_MsgQPut (OS_MSG_Q     *p_msg_q,
     OSMsgPool.NbrFree--;
     OSMsgPool.NbrUsed++;
 
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     if (OSMsgPool.NbrUsedMax < OSMsgPool.NbrUsed) {
         OSMsgPool.NbrUsedMax = OSMsgPool.NbrUsed;
     }
@@ -342,7 +333,7 @@ void  OS_MsgQPut (OS_MSG_Q     *p_msg_q,
         p_msg_q->NbrEntries++;
     }
 
-#if (OS_CFG_DBG_EN == DEF_ENABLED)
+#if (OS_CFG_DBG_EN > 0u)
     if (p_msg_q->NbrEntriesMax < p_msg_q->NbrEntries) {
         p_msg_q->NbrEntriesMax = p_msg_q->NbrEntries;
     }
@@ -350,7 +341,7 @@ void  OS_MsgQPut (OS_MSG_Q     *p_msg_q,
 
     p_msg->MsgPtr  = p_void;                                    /* Deposit message in the message queue entry           */
     p_msg->MsgSize = msg_size;
-#if (OS_CFG_TS_EN == DEF_ENABLED)
+#if (OS_CFG_TS_EN > 0u)
     p_msg->MsgTS   = ts;
 #endif
    *p_err          = OS_ERR_NONE;

@@ -8,7 +8,6 @@
 #define X7PRO_DRIVER_COMMON_H
 
 #include "common_def.h"
-#include "cmsis_os.h"
 #include "drivers/cache.h"
 #include "utils/list.h"
 #include "module_common.h"

@@ -1,24 +1,16 @@
 /*
 *********************************************************************************************************
-*                                                uC/LIB
-*                                        CUSTOM LIBRARY MODULES
+*                                               uC/LIB
+*                                       Custom Library Modules
 *
-*                         (c) Copyright 2004-2015; Micrium, Inc.; Weston, FL
+*                    Copyright 2004-2021 Silicon Laboratories Inc. www.silabs.com
 *
-*                  All rights reserved.  Protected by international copyright laws.
+*                                 SPDX-License-Identifier: APACHE-2.0
 *
-*                  uC/LIB is provided in source form to registered licensees ONLY.  It is
-*                  illegal to distribute this source code to any third party unless you receive
-*                  written permission by an authorized Micrium representative.  Knowledge of
-*                  the source code may NOT be used to develop a similar product.
+*               This software is subject to an open source license and is distributed by
+*                Silicon Laboratories Inc. pursuant to the terms of the Apache License,
+*                    Version 2.0 available at www.apache.org/licenses/LICENSE-2.0.
 *
-*                  Please help us continue to provide the Embedded community with the finest
-*                  software available.  Your honesty is greatly appreciated.
-*
-*                  You can find our product's user manual, API reference, release notes and
-*                  more information at: doc.micrium.com
-*
-*                  You can contact us at: www.micrium.com
 *********************************************************************************************************
 */
 
@@ -27,40 +19,36 @@
 *
 *                                       ASCII STRING MANAGEMENT
 *
-* Filename      : lib_str.c
-* Version       : V1.38.02
-* Programmer(s) : ITJ
-*                 BAN
-*                 JDH
+* Filename  : lib_str.c
+* Version   : V1.39.01
 *********************************************************************************************************
-* Note(s)       : (1) NO compiler-supplied standard library functions are used in library or product software.
+* Note(s)   : (1) NO compiler-supplied standard library functions are used in library or product software.
 *
-*                     (a) ALL standard library functions are implemented in the custom library modules :
+*                 (a) ALL standard library functions are implemented in the custom library modules :
 *
-*                         (1) \<Custom Library Directory>\lib_*.*
+*                     (1) \<Custom Library Directory>\lib_*.*
 *
-*                         (2) \<Custom Library Directory>\Ports\<cpu>\<compiler>\lib*_a.*
+*                     (2) \<Custom Library Directory>\Ports\<cpu>\<compiler>\lib*_a.*
 *
-*                               where
-*                                       <Custom Library Directory>      directory path for custom library software
-*                                       <cpu>                           directory name for specific processor (CPU)
-*                                       <compiler>                      directory name for specific compiler
+*                           where
+*                                   <Custom Library Directory>      directory path for custom library software
+*                                   <cpu>                           directory name for specific processor (CPU)
+*                                   <compiler>                      directory name for specific compiler
 *
-*                     (b) Product-specific library functions are implemented in individual products.
+*                 (b) Product-specific library functions are implemented in individual products.
 *
 *********************************************************************************************************
-* Notice(s)     : (1) The Institute of Electrical and Electronics Engineers and The Open Group, have given
-*                     us permission to reprint portions of their documentation.  Portions of this text are
-*                     reprinted and reproduced in electronic form from the IEEE Std 1003.1, 2004 Edition,
-*                     Standard for Information Technology -- Portable Operating System Interface (POSIX),
-*                     The Open Group Base Specifications Issue 6, Copyright (C) 2001-2004 by the Institute
-*                     of Electrical and Electronics Engineers, Inc and The Open Group.  In the event of any
-*                     discrepancy between these versions and the original IEEE and The Open Group Standard,
-*                     the original IEEE and The Open Group Standard is the referee document.  The original
-*                     Standard can be obtained online at http://www.opengroup.org/unix/online.html.
+* Notice(s) : (1) The Institute of Electrical and Electronics Engineers and The Open Group, have given
+*                 us permission to reprint portions of their documentation.  Portions of this text are
+*                 reprinted and reproduced in electronic form from the IEEE Std 1003.1, 2004 Edition,
+*                 Standard for Information Technology -- Portable Operating System Interface (POSIX),
+*                 The Open Group Base Specifications Issue 6, Copyright (C) 2001-2004 by the Institute
+*                 of Electrical and Electronics Engineers, Inc and The Open Group.  In the event of any
+*                 discrepancy between these versions and the original IEEE and The Open Group Standard,
+*                 the original IEEE and The Open Group Standard is the referee document.  The original
+*                 Standard can be obtained online at http://www.opengroup.org/unix/online.html.
 *********************************************************************************************************
 */
-
 
 /*
 *********************************************************************************************************
@@ -3508,6 +3496,8 @@ static  CPU_CHAR  *Str_FmtNbr_Int32 (CPU_INT32U    nbr,
             if (lead_char_dig == DEF_YES) {                     /* If lead char non-0 nbr base dig (see Note #3a2A), ...*/
                 fmt_valid = DEF_NO;                             /* ... fmt valid str               (see Note #6e).      */
             }
+        } else {
+                                                                /* Empty Else Statement                                 */
         }
     }
 
@@ -3592,6 +3582,8 @@ static  CPU_CHAR  *Str_FmtNbr_Int32 (CPU_INT32U    nbr,
 
             } else if (lead_char != (CPU_CHAR)'\0') {           /* ... else if avail,                           ...     */
                *pstr_fmt-- = lead_char;                         /* ... fmt lead char.                                   */
+            } else {
+                                                                /* Empty Else Statement                                 */
             }
 
         } else {                                                /* Else fmt '?' for invalid str (see Note #7).          */
@@ -3860,13 +3852,13 @@ static  CPU_INT32U  Str_ParseNbr_Int32 (const  CPU_CHAR      *pstr,
                                                                 /* --------------- VALIDATE PARSE ARGS ---------------- */
     if (pstr_next == (CPU_CHAR **) 0) {                         /* If NOT avail, ...                                    */
         pstr_next  = (CPU_CHAR **)&pstr_parse_unused;           /* ... re-cfg NULL rtn ptr to unused local var.         */
-       (void)&pstr_parse_unused;                                /* Prevent possible 'variable unused' warning.          */
+       (void)pstr_parse_unused;                                 /* Prevent possible 'variable unused' warning.          */
     }
    *pstr_next = (CPU_CHAR *)pstr;                               /* Init rtn str for err (see Note #5).                  */
 
     if (pnbr_neg == (CPU_BOOLEAN *) 0) {                        /* If NOT avail, ...                                    */
         pnbr_neg  = (CPU_BOOLEAN *)&nbr_neg_unused;             /* ... re-cfg NULL rtn ptr to unused local var.         */
-       (void)&nbr_neg_unused;                                   /* Prevent possible 'variable unused' warning.          */
+       (void)nbr_neg_unused;                                    /* Prevent possible 'variable unused' warning.          */
     }
    *pnbr_neg = DEF_NO;                                          /* Init nbr neg for err (see Note #5).                  */
 
@@ -4036,4 +4028,3 @@ static  CPU_INT32U  Str_ParseNbr_Int32 (const  CPU_CHAR      *pstr,
 
     return (nbr);
 }
-
