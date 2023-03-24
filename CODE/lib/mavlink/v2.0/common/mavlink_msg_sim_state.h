@@ -125,7 +125,7 @@ typedef struct __mavlink_sim_state_t {
  * @param vd [m/s] True velocity in down direction in earth-fixed NED frame
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sim_state_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_sim_state_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                   float q1, float q2, float q3, float q4, float roll, float pitch, float yaw, float xacc, float yacc, float zacc, float xgyro, float ygyro, float zgyro, float lat, float lon, float alt, float std_dev_horz, float std_dev_vert, float vn, float ve, float vd)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -213,7 +213,7 @@ static inline uint16_t mavlink_msg_sim_state_pack(uint8_t system_id, uint8_t com
  * @param vd [m/s] True velocity in down direction in earth-fixed NED frame
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_sim_state_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_sim_state_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                        mavlink_message_t* msg,
                                                        float q1, float q2, float q3, float q4, float roll, float pitch, float yaw, float xacc, float yacc, float zacc, float xgyro, float ygyro, float zgyro, float lat, float lon, float alt, float std_dev_horz, float std_dev_vert, float vn, float ve, float vd)
 {
@@ -281,7 +281,7 @@ static inline uint16_t mavlink_msg_sim_state_pack_chan(uint8_t system_id, uint8_
  * @param msg The MAVLink message to compress the data into
  * @param sim_state C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sim_state_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_sim_state_t* sim_state)
+__STATIC_INLINE uint16_t mavlink_msg_sim_state_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_sim_state_t* sim_state)
 {
     return mavlink_msg_sim_state_pack(system_id, component_id, msg, sim_state->q1, sim_state->q2, sim_state->q3, sim_state->q4, sim_state->roll, sim_state->pitch, sim_state->yaw, sim_state->xacc, sim_state->yacc, sim_state->zacc, sim_state->xgyro, sim_state->ygyro, sim_state->zgyro, sim_state->lat, sim_state->lon, sim_state->alt, sim_state->std_dev_horz, sim_state->std_dev_vert, sim_state->vn, sim_state->ve, sim_state->vd);
 }
@@ -295,7 +295,7 @@ static inline uint16_t mavlink_msg_sim_state_encode(uint8_t system_id, uint8_t c
  * @param msg The MAVLink message to compress the data into
  * @param sim_state C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_sim_state_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sim_state_t* sim_state)
+__STATIC_INLINE uint16_t mavlink_msg_sim_state_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_sim_state_t* sim_state)
 {
     return mavlink_msg_sim_state_pack_chan(system_id, component_id, chan, msg, sim_state->q1, sim_state->q2, sim_state->q3, sim_state->q4, sim_state->roll, sim_state->pitch, sim_state->yaw, sim_state->xacc, sim_state->yacc, sim_state->zacc, sim_state->xgyro, sim_state->ygyro, sim_state->zgyro, sim_state->lat, sim_state->lon, sim_state->alt, sim_state->std_dev_horz, sim_state->std_dev_vert, sim_state->vn, sim_state->ve, sim_state->vd);
 }
@@ -328,7 +328,7 @@ static inline uint16_t mavlink_msg_sim_state_encode_chan(uint8_t system_id, uint
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_sim_state_send(mavlink_channel_t chan, float q1, float q2, float q3, float q4, float roll, float pitch, float yaw, float xacc, float yacc, float zacc, float xgyro, float ygyro, float zgyro, float lat, float lon, float alt, float std_dev_horz, float std_dev_vert, float vn, float ve, float vd)
+__STATIC_INLINE void mavlink_msg_sim_state_send(mavlink_channel_t chan, float q1, float q2, float q3, float q4, float roll, float pitch, float yaw, float xacc, float yacc, float zacc, float xgyro, float ygyro, float zgyro, float lat, float lon, float alt, float std_dev_horz, float std_dev_vert, float vn, float ve, float vd)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SIM_STATE_LEN];
@@ -388,7 +388,7 @@ static inline void mavlink_msg_sim_state_send(mavlink_channel_t chan, float q1, 
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_sim_state_send_struct(mavlink_channel_t chan, const mavlink_sim_state_t* sim_state)
+__STATIC_INLINE void mavlink_msg_sim_state_send_struct(mavlink_channel_t chan, const mavlink_sim_state_t* sim_state)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_sim_state_send(chan, sim_state->q1, sim_state->q2, sim_state->q3, sim_state->q4, sim_state->roll, sim_state->pitch, sim_state->yaw, sim_state->xacc, sim_state->yacc, sim_state->zacc, sim_state->xgyro, sim_state->ygyro, sim_state->zgyro, sim_state->lat, sim_state->lon, sim_state->alt, sim_state->std_dev_horz, sim_state->std_dev_vert, sim_state->vn, sim_state->ve, sim_state->vd);
@@ -405,7 +405,7 @@ static inline void mavlink_msg_sim_state_send_struct(mavlink_channel_t chan, con
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_sim_state_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, float q1, float q2, float q3, float q4, float roll, float pitch, float yaw, float xacc, float yacc, float zacc, float xgyro, float ygyro, float zgyro, float lat, float lon, float alt, float std_dev_horz, float std_dev_vert, float vn, float ve, float vd)
+__STATIC_INLINE void mavlink_msg_sim_state_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, float q1, float q2, float q3, float q4, float roll, float pitch, float yaw, float xacc, float yacc, float zacc, float xgyro, float ygyro, float zgyro, float lat, float lon, float alt, float std_dev_horz, float std_dev_vert, float vn, float ve, float vd)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -470,7 +470,7 @@ static inline void mavlink_msg_sim_state_send_buf(mavlink_message_t* msgbuf, mav
  *
  * @return  True attitude quaternion component 1, w (1 in null-rotation)
  */
-static inline float mavlink_msg_sim_state_get_q1(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_q1(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 0);
 }
@@ -480,7 +480,7 @@ static inline float mavlink_msg_sim_state_get_q1(const mavlink_message_t* msg)
  *
  * @return  True attitude quaternion component 2, x (0 in null-rotation)
  */
-static inline float mavlink_msg_sim_state_get_q2(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_q2(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 4);
 }
@@ -490,7 +490,7 @@ static inline float mavlink_msg_sim_state_get_q2(const mavlink_message_t* msg)
  *
  * @return  True attitude quaternion component 3, y (0 in null-rotation)
  */
-static inline float mavlink_msg_sim_state_get_q3(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_q3(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 8);
 }
@@ -500,7 +500,7 @@ static inline float mavlink_msg_sim_state_get_q3(const mavlink_message_t* msg)
  *
  * @return  True attitude quaternion component 4, z (0 in null-rotation)
  */
-static inline float mavlink_msg_sim_state_get_q4(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_q4(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -510,7 +510,7 @@ static inline float mavlink_msg_sim_state_get_q4(const mavlink_message_t* msg)
  *
  * @return  Attitude roll expressed as Euler angles, not recommended except for human-readable outputs
  */
-static inline float mavlink_msg_sim_state_get_roll(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_roll(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -520,7 +520,7 @@ static inline float mavlink_msg_sim_state_get_roll(const mavlink_message_t* msg)
  *
  * @return  Attitude pitch expressed as Euler angles, not recommended except for human-readable outputs
  */
-static inline float mavlink_msg_sim_state_get_pitch(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_pitch(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 20);
 }
@@ -530,7 +530,7 @@ static inline float mavlink_msg_sim_state_get_pitch(const mavlink_message_t* msg
  *
  * @return  Attitude yaw expressed as Euler angles, not recommended except for human-readable outputs
  */
-static inline float mavlink_msg_sim_state_get_yaw(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_yaw(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 24);
 }
@@ -540,7 +540,7 @@ static inline float mavlink_msg_sim_state_get_yaw(const mavlink_message_t* msg)
  *
  * @return [m/s/s] X acceleration
  */
-static inline float mavlink_msg_sim_state_get_xacc(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_xacc(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 28);
 }
@@ -550,7 +550,7 @@ static inline float mavlink_msg_sim_state_get_xacc(const mavlink_message_t* msg)
  *
  * @return [m/s/s] Y acceleration
  */
-static inline float mavlink_msg_sim_state_get_yacc(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_yacc(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 32);
 }
@@ -560,7 +560,7 @@ static inline float mavlink_msg_sim_state_get_yacc(const mavlink_message_t* msg)
  *
  * @return [m/s/s] Z acceleration
  */
-static inline float mavlink_msg_sim_state_get_zacc(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_zacc(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 36);
 }
@@ -570,7 +570,7 @@ static inline float mavlink_msg_sim_state_get_zacc(const mavlink_message_t* msg)
  *
  * @return [rad/s] Angular speed around X axis
  */
-static inline float mavlink_msg_sim_state_get_xgyro(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_xgyro(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 40);
 }
@@ -580,7 +580,7 @@ static inline float mavlink_msg_sim_state_get_xgyro(const mavlink_message_t* msg
  *
  * @return [rad/s] Angular speed around Y axis
  */
-static inline float mavlink_msg_sim_state_get_ygyro(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_ygyro(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 44);
 }
@@ -590,7 +590,7 @@ static inline float mavlink_msg_sim_state_get_ygyro(const mavlink_message_t* msg
  *
  * @return [rad/s] Angular speed around Z axis
  */
-static inline float mavlink_msg_sim_state_get_zgyro(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_zgyro(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 48);
 }
@@ -600,7 +600,7 @@ static inline float mavlink_msg_sim_state_get_zgyro(const mavlink_message_t* msg
  *
  * @return [deg] Latitude
  */
-static inline float mavlink_msg_sim_state_get_lat(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_lat(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 52);
 }
@@ -610,7 +610,7 @@ static inline float mavlink_msg_sim_state_get_lat(const mavlink_message_t* msg)
  *
  * @return [deg] Longitude
  */
-static inline float mavlink_msg_sim_state_get_lon(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_lon(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 56);
 }
@@ -620,7 +620,7 @@ static inline float mavlink_msg_sim_state_get_lon(const mavlink_message_t* msg)
  *
  * @return [m] Altitude
  */
-static inline float mavlink_msg_sim_state_get_alt(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_alt(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 60);
 }
@@ -630,7 +630,7 @@ static inline float mavlink_msg_sim_state_get_alt(const mavlink_message_t* msg)
  *
  * @return  Horizontal position standard deviation
  */
-static inline float mavlink_msg_sim_state_get_std_dev_horz(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_std_dev_horz(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 64);
 }
@@ -640,7 +640,7 @@ static inline float mavlink_msg_sim_state_get_std_dev_horz(const mavlink_message
  *
  * @return  Vertical position standard deviation
  */
-static inline float mavlink_msg_sim_state_get_std_dev_vert(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_std_dev_vert(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 68);
 }
@@ -650,7 +650,7 @@ static inline float mavlink_msg_sim_state_get_std_dev_vert(const mavlink_message
  *
  * @return [m/s] True velocity in north direction in earth-fixed NED frame
  */
-static inline float mavlink_msg_sim_state_get_vn(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_vn(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 72);
 }
@@ -660,7 +660,7 @@ static inline float mavlink_msg_sim_state_get_vn(const mavlink_message_t* msg)
  *
  * @return [m/s] True velocity in east direction in earth-fixed NED frame
  */
-static inline float mavlink_msg_sim_state_get_ve(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_ve(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 76);
 }
@@ -670,7 +670,7 @@ static inline float mavlink_msg_sim_state_get_ve(const mavlink_message_t* msg)
  *
  * @return [m/s] True velocity in down direction in earth-fixed NED frame
  */
-static inline float mavlink_msg_sim_state_get_vd(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_sim_state_get_vd(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 80);
 }
@@ -681,7 +681,7 @@ static inline float mavlink_msg_sim_state_get_vd(const mavlink_message_t* msg)
  * @param msg The message to decode
  * @param sim_state C-struct to decode the message contents into
  */
-static inline void mavlink_msg_sim_state_decode(const mavlink_message_t* msg, mavlink_sim_state_t* sim_state)
+__STATIC_INLINE void mavlink_msg_sim_state_decode(const mavlink_message_t* msg, mavlink_sim_state_t* sim_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     sim_state->q1 = mavlink_msg_sim_state_get_q1(msg);

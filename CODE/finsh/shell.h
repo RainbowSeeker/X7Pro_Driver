@@ -60,7 +60,7 @@ enum input_stat
 };
 struct finsh_shell
 {
-    os_sem_t rx_sem;
+    struct sem rx_sem;
 
     enum input_stat stat;
 

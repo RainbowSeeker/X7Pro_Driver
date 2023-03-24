@@ -6,19 +6,55 @@
 
 #ifndef X7PRO_DRIVER_COMMON_DEF_H
 #define X7PRO_DRIVER_COMMON_DEF_H
-#include "lib/printf/printf.h"
-#include "rtdebug.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
-#include <sys/errno.h>
 
-typedef signed   char           int8_t;      /**<  8bit integer type */
-typedef signed   short          int16_t;     /**< 16bit integer type */
-typedef unsigned char           uint8_t;     /**<  8bit unsigned integer type */
-typedef unsigned short          uint16_t;    /**< 16bit unsigned integer type */
+#if defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+#define __CLANG_ARM
+#endif
+
+#if defined(__CC_ARM)          /* ARM C Compiler */
+#include "cmsis_armcc.h"
+#include <rt_sys.h>
+#include <errno.h>
+
+#define	O_RDONLY	0		/* +1 == FREAD */
+#define	O_WRONLY	1		/* +1 == FWRITE */
+#define	O_RDWR		2		/* +1 == FREAD|FWRITE */
+#define	O_APPEND	_FAPPEND
+#define	O_CREAT		_FCREAT
+#define	O_TRUNC		_FTRUNC
+#define	O_EXCL		_FEXCL
+#define O_SYNC		_FSYNC
+#define	_FOPEN		(-1)	/* from sys/file.h, kernel use only */
+#define	_FREAD		0x0001	/* read enabled */
+#define	_FWRITE		0x0002	/* write enabled */
+#define	_FAPPEND	0x0008	/* append (writes guaranteed at the end) */
+#define	_FMARK		0x0010	/* internal; mark during gc() */
+#define	_FDEFER		0x0020	/* internal; defer for next gc pass */
+#define	_FASYNC		0x0040	/* signal pgrp when data ready */
+#define	_FSHLOCK	0x0080	/* BSD flock() shared lock present */
+#define	_FEXLOCK	0x0100	/* BSD flock() exclusive lock present */
+#define	_FCREAT		0x0200	/* open with file create */
+#define	_FTRUNC		0x0400	/* open with truncation */
+#define	_FEXCL		0x0800	/* error on open if file exists */
+#define	_FNBIO		0x1000	/* non blocking I/O (sys5 style) */
+#define	_FSYNC		0x2000	/* do all writes synchronously */
+#define	_FNONBLOCK	0x4000	/* non blocking I/O (POSIX style) */
+#define	_FNDELAY	_FNONBLOCK	/* non blocking I/O (4.2 style) */
+#define	_FNOCTTY	0x8000	/* don't assign a ctty on this open */
+
+typedef uint32_t mode_t;
+#elif defined(__GNUC__)
+#include "cmsis_gcc.h"
+#include <sys/errno.h>
+#include <sys/stat.h>
+#include <sys/fcntl.h>
+#endif
 
 typedef _Bool                   bool_t;      /**< boolean type */
 typedef long                    base_t;      /**< Nbit CPU related date type */
@@ -50,38 +86,30 @@ typedef base_t                  off_t;       /**< Type for offset */
 
 #define TICK_MAX                     UINT32_MAX   /**< Maxium number of tick */
 
-/* maximum value of ipc type */
-#define SEM_VALUE_MAX                UINT16_MAX   /**< Maxium number of semaphore .value */
-#define MUTEX_VALUE_MAX              UINT16_MAX   /**< Maxium number of mutex .value */
-#define MUTEX_HOLD_MAX               UINT8_MAX    /**< Maxium number of mutex .hold */
-#define MB_ENTRY_MAX                 UINT16_MAX   /**< Maxium number of mailbox .entry */
-#define MQ_ENTRY_MAX                 UINT16_MAX   /**< Maxium number of message queue .entry */
-
-#if defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
-#define __CLANG_ARM
-#endif
-
 /* Compiler Related Definitions */
 #if defined(__CC_ARM) || defined(__CLANG_ARM)           /* ARM Compiler */
-#include <stdarg.h>
+    #include <stdarg.h>
     #define SECTION(x)                  __attribute__((section(x)))
-    #define __UNUSED                  __attribute__((unused))
-    #define __USED                    __attribute__((used))
-    #define __ALIGN(n)                __attribute__((aligned(n)))
-    #define __WEAK                    __attribute__((weak))
-    #define static inline               static inline
+    #define __UNUSED                    __attribute__((unused))
+    #define __USED                      __attribute__((used))
+    #define __ALIGN(n)                  __attribute__((aligned(n)))
+    #define __WEAK                      __attribute__((weak))
+    #define static_inline               static __inline
 #elif defined (__GNUC__)                /* GNU GCC Compiler */
-#include <stdarg.h>
-#define SECTION(x)                      __attribute__((section(x)))
-#define __UNUSED                        __attribute__((unused))
-#define __USED                          __attribute__((used))
-#define __ALIGN(n)                      __attribute__((aligned(n)))
-#define __WEAK                          __attribute__((weak))
-#define static_inline                   static inline
-#else
-#error not supported tool chain
-#endif
+    /* the version of GNU GCC must be greater than 4.x */
+    typedef __builtin_va_list           __gnuc_va_list;
+    typedef __gnuc_va_list              va_list;
+    #define va_start(v,l)               __builtin_va_start(v,l)
+    #define va_end(v)                   __builtin_va_end(v)
+    #define va_arg(v,l)                 __builtin_va_arg(v,l)
 
+    #define SECTION(x)                  __attribute__((section(x)))
+    #define __UNUSED                    __attribute__((unused))
+    #define __USED                      __attribute__((used))
+    #define __ALIGN(n)                  __attribute__((aligned(n)))
+    #define __WEAK                      __attribute__((weak))
+    #define static_inline               static __inline
+#endif
 
 #define ALIGN_SIZE                   4
 /**
@@ -133,6 +161,11 @@ typedef base_t                  off_t;       /**< Type for offset */
 #define CONTACT_(x,y) x ## y
 #define CONTACT(x, y) CONTACT_(x, y)
 #endif
+
+
+#define OBJECT_HOOK_CALL(func, argv) \
+    do { if ((func) != NULL) func argv; } while (0)
+
 enum err_status
 {
     E_OK = 0,         /**< There is no error */

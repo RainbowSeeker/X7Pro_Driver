@@ -6,6 +6,29 @@
 
 #include "timer.h"
 
+err_t os_timer_init(os_timer_t timer,
+                           const char *name,
+                           void (*timeout)(void *p_tmr, void *p_arg),
+                           void *parameter,
+                           tick_t period,
+                           uint8_t type)
+{
+    ASSERT(timer);
+
+    object_init(&timer->parent, Object_Class_Timer, name);
+    timer->period = TICKS_FROM_MS(period);
+
+    OSTmrCreate(&timer->tid,
+                (CPU_CHAR *)name,
+                timer->period,
+                timer->period,
+                (type & TIMER_TYPE_PERIODIC) ? OS_OPT_TMR_PERIODIC : OS_OPT_TMR_ONE_SHOT,
+                timeout,
+                parameter,
+                &os_err);
+    return os_err == 0 ? E_OK : E_RROR;
+}
+
 os_timer_t os_timer_create(const char *name,
                            void (*timeout)(void *p_tmr, void *p_arg),
                            void *parameter,
@@ -13,23 +36,12 @@ os_timer_t os_timer_create(const char *name,
                            uint8_t type)
 {
     os_timer_t timer = calloc(1, sizeof(struct timer));
-
-    if (timer == NULL)
+    ASSERT(timer);
+    if (os_timer_init(timer, name, timeout, parameter, period, type) != E_OK)
     {
-        printf("\r\nno mem");
+        os_set_errno(-E_EMPTY);
         return NULL;
     }
 
-    object_init(&timer->parent, Object_Class_Timer, name);
-    timer->period = TICKS_FROM_MS(period);
-
-    OSTmrCreate(&timer->tid,
-                name,
-                timer->period,
-                timer->period,
-                type == TIMER_TYPE_PERIODIC ? OS_OPT_TMR_PERIODIC : OS_OPT_TMR_ONE_SHOT,
-                timeout,
-                parameter,
-                &os_err);
     return timer;
 }

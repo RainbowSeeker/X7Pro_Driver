@@ -7,6 +7,15 @@
 #ifndef _RTDEBUG_H
 #define _RTDEBUG_H
 
+#include "common_def.h"
+
+#define DEBUG_LOG(type, message)                                              \
+do                                                                            \
+{                                                                             \
+    if (type)                                                                 \
+        printf message;                                                       \
+}                                                                             \
+while (0)
 
 #define ASSERT(expr)    \
 if(!(expr))             \
@@ -18,24 +27,24 @@ if(!(expr))             \
  * 断言错误处理
  * @param string
  */
-static inline void assert_failed(const char *ex_string, const char *func, const char *file, size_t line)
+__STATIC_INLINE void assert_failed(const char *ex_string, const char *func, const char *file, size_t line)
 {
     printf("\r\n(%s) assertion failed at function:%s, in file:%s, line:%d\r\n", ex_string, func, file, line);
     while(1);
 }
 
 
-#define RT_DEBUG_NOT_IN_INTERRUPT                                             \
+#define DEBUG_NOT_IN_INTERRUPT                                             \
 do                                                                            \
 {                                                                             \
-    base_t _level;                                                          \
-    _level = os_hw_interrupt_disable();                                        \
+    base_t level;                                                          \
+    level = os_hw_interrupt_disable();                                        \
     if (os_interrupt_get_nest() != 0)                                         \
     {                                                                         \
         printf("Function[%s] shall not be used in ISR\n", __FUNCTION__);  \
         ASSERT(0)                                                          \
     }                                                                         \
-    os_hw_interrupt_enable(_level);                                            \
+    os_hw_interrupt_enable(level);                                            \
 }                                                                             \
 while (0)
 
@@ -43,7 +52,7 @@ while (0)
  *     1) the scheduler has been started
  *     2) not in interrupt context.
  */
-#define RT_DEBUG_IN_THREAD_CONTEXT                                            \
+#define DEBUG_IN_THREAD_CONTEXT                                            \
 do                                                                            \
 {                                                                             \
     base_t level;                                                          \
@@ -54,7 +63,7 @@ do                                                                            \
                    __FUNCTION__);                                             \
         ASSERT(0)                                                          \
     }                                                                         \
-    RT_DEBUG_NOT_IN_INTERRUPT;                                                \
+    DEBUG_NOT_IN_INTERRUPT;                                                \
     os_hw_interrupt_enable(level);                                            \
 }                                                                             \
 while (0)
@@ -65,7 +74,7 @@ while (0)
  *     2) not in interrupt context.
  *     3) scheduler is not locked.
  */
-#define RT_DEBUG_SCHEDULER_AVAILABLE(need_check)                              \
+#define DEBUG_SCHEDULER_AVAILABLE(need_check)                              \
 do                                                                            \
 {                                                                             \
     if (need_check)                                                           \
@@ -78,7 +87,7 @@ do                                                                            \
                     __FUNCTION__);                                            \
             ASSERT(0)                                                      \
         }                                                                     \
-        RT_DEBUG_IN_THREAD_CONTEXT;                                           \
+        DEBUG_IN_THREAD_CONTEXT;                                           \
         os_hw_interrupt_enable(level);                                        \
     }                                                                         \
 }                                                                             \

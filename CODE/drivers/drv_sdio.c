@@ -314,7 +314,7 @@ err_t drv_sdio_init(void)
 
     sd0_dev.ops = &dev_ops;
 
-    if (os_event_init(&sd0_dev.event) != E_OK)
+    if (os_event_init(&sd0_dev.event, "sdio") != E_OK)
     {
         printf("\r\nfail to init sdio event");
         return E_RROR;

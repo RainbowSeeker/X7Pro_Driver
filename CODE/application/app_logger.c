@@ -5,7 +5,6 @@
 //
 #include "common.h"
 #include "module_common.h"
-#include "module/file_manager/file_manager.h"
 #include "logger.h"
 
 
@@ -16,7 +15,7 @@
 #define EVENT_MLOG_UPDATE (1 << 0)
 #define EVENT_ULOG_UPDATE (1 << 1)
 
-static os_event_t _log_event;
+static struct event _log_event;
 
 #ifdef ENABLE_ULOG_CONSOLE_BACKEND
 
@@ -79,7 +78,7 @@ void App_Logger_Main(void *argument)
     err_t err;
     uint32_t recv_set = 0;
 
-    if (os_event_init(&_log_event) != E_OK)
+    if (os_event_init(&_log_event, "logger") != E_OK)
     {
         printf("log event create fail\n");
         return;

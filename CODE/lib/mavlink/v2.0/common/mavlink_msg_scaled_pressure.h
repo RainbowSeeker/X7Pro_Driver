@@ -61,7 +61,7 @@ typedef struct __mavlink_scaled_pressure_t {
  * @param temperature_press_diff [cdegC] Differential pressure temperature (UINT16_MAX, if not available)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_scaled_pressure_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_scaled_pressure_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                         uint32_t time_boot_ms, float press_abs, float press_diff, int16_t temperature, int16_t temperature_press_diff)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -101,7 +101,7 @@ static inline uint16_t mavlink_msg_scaled_pressure_pack(uint8_t system_id, uint8
  * @param temperature_press_diff [cdegC] Differential pressure temperature (UINT16_MAX, if not available)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_scaled_pressure_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_scaled_pressure_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                              mavlink_message_t* msg,
                                                              uint32_t time_boot_ms, float press_abs, float press_diff, int16_t temperature, int16_t temperature_press_diff)
 {
@@ -137,7 +137,7 @@ static inline uint16_t mavlink_msg_scaled_pressure_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param scaled_pressure C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_scaled_pressure_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_scaled_pressure_t* scaled_pressure)
+__STATIC_INLINE uint16_t mavlink_msg_scaled_pressure_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_scaled_pressure_t* scaled_pressure)
 {
     return mavlink_msg_scaled_pressure_pack(system_id, component_id, msg, scaled_pressure->time_boot_ms, scaled_pressure->press_abs, scaled_pressure->press_diff, scaled_pressure->temperature, scaled_pressure->temperature_press_diff);
 }
@@ -151,7 +151,7 @@ static inline uint16_t mavlink_msg_scaled_pressure_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param scaled_pressure C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_scaled_pressure_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_scaled_pressure_t* scaled_pressure)
+__STATIC_INLINE uint16_t mavlink_msg_scaled_pressure_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_scaled_pressure_t* scaled_pressure)
 {
     return mavlink_msg_scaled_pressure_pack_chan(system_id, component_id, chan, msg, scaled_pressure->time_boot_ms, scaled_pressure->press_abs, scaled_pressure->press_diff, scaled_pressure->temperature, scaled_pressure->temperature_press_diff);
 }
@@ -168,7 +168,7 @@ static inline uint16_t mavlink_msg_scaled_pressure_encode_chan(uint8_t system_id
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_scaled_pressure_send(mavlink_channel_t chan, uint32_t time_boot_ms, float press_abs, float press_diff, int16_t temperature, int16_t temperature_press_diff)
+__STATIC_INLINE void mavlink_msg_scaled_pressure_send(mavlink_channel_t chan, uint32_t time_boot_ms, float press_abs, float press_diff, int16_t temperature, int16_t temperature_press_diff)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SCALED_PRESSURE_LEN];
@@ -196,7 +196,7 @@ static inline void mavlink_msg_scaled_pressure_send(mavlink_channel_t chan, uint
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_scaled_pressure_send_struct(mavlink_channel_t chan, const mavlink_scaled_pressure_t* scaled_pressure)
+__STATIC_INLINE void mavlink_msg_scaled_pressure_send_struct(mavlink_channel_t chan, const mavlink_scaled_pressure_t* scaled_pressure)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_scaled_pressure_send(chan, scaled_pressure->time_boot_ms, scaled_pressure->press_abs, scaled_pressure->press_diff, scaled_pressure->temperature, scaled_pressure->temperature_press_diff);
@@ -213,7 +213,7 @@ static inline void mavlink_msg_scaled_pressure_send_struct(mavlink_channel_t cha
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_scaled_pressure_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, float press_abs, float press_diff, int16_t temperature, int16_t temperature_press_diff)
+__STATIC_INLINE void mavlink_msg_scaled_pressure_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, float press_abs, float press_diff, int16_t temperature, int16_t temperature_press_diff)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -246,7 +246,7 @@ static inline void mavlink_msg_scaled_pressure_send_buf(mavlink_message_t* msgbu
  *
  * @return [ms] Timestamp (time since system boot).
  */
-static inline uint32_t mavlink_msg_scaled_pressure_get_time_boot_ms(const mavlink_message_t* msg)
+__STATIC_INLINE uint32_t mavlink_msg_scaled_pressure_get_time_boot_ms(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 0);
 }
@@ -256,7 +256,7 @@ static inline uint32_t mavlink_msg_scaled_pressure_get_time_boot_ms(const mavlin
  *
  * @return [hPa] Absolute pressure
  */
-static inline float mavlink_msg_scaled_pressure_get_press_abs(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_scaled_pressure_get_press_abs(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 4);
 }
@@ -266,7 +266,7 @@ static inline float mavlink_msg_scaled_pressure_get_press_abs(const mavlink_mess
  *
  * @return [hPa] Differential pressure 1
  */
-static inline float mavlink_msg_scaled_pressure_get_press_diff(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_scaled_pressure_get_press_diff(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 8);
 }
@@ -276,7 +276,7 @@ static inline float mavlink_msg_scaled_pressure_get_press_diff(const mavlink_mes
  *
  * @return [cdegC] Absolute pressure temperature
  */
-static inline int16_t mavlink_msg_scaled_pressure_get_temperature(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_scaled_pressure_get_temperature(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 12);
 }
@@ -286,7 +286,7 @@ static inline int16_t mavlink_msg_scaled_pressure_get_temperature(const mavlink_
  *
  * @return [cdegC] Differential pressure temperature (UINT16_MAX, if not available)
  */
-static inline int16_t mavlink_msg_scaled_pressure_get_temperature_press_diff(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_scaled_pressure_get_temperature_press_diff(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 14);
 }
@@ -297,7 +297,7 @@ static inline int16_t mavlink_msg_scaled_pressure_get_temperature_press_diff(con
  * @param msg The message to decode
  * @param scaled_pressure C-struct to decode the message contents into
  */
-static inline void mavlink_msg_scaled_pressure_decode(const mavlink_message_t* msg, mavlink_scaled_pressure_t* scaled_pressure)
+__STATIC_INLINE void mavlink_msg_scaled_pressure_decode(const mavlink_message_t* msg, mavlink_scaled_pressure_t* scaled_pressure)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     scaled_pressure->time_boot_ms = mavlink_msg_scaled_pressure_get_time_boot_ms(msg);

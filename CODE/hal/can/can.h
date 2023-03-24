@@ -182,7 +182,7 @@ struct can_device
     struct can_status status;
 
     uint32_t timerinitflag;
-    os_timer_t timer;
+    struct timer timer;
 
 
     struct can_status_ind_type status_indicate;
@@ -192,7 +192,7 @@ struct can_device
 #ifdef RT_CAN_USING_BUS_HOOK
     can_bus_hook bus_hook;
 #endif /*RT_CAN_USING_BUS_HOOK*/
-    os_mutex_t lock;
+    struct mutex lock;
     void *can_rx;
     void *can_tx;
 };
@@ -257,7 +257,7 @@ struct can_sndbxinx_list
 struct can_tx_fifo
 {
     struct can_sndbxinx_list *buffer;
-    os_sem_t sem;
+    struct sem sem;
     struct list_node freelist;
 };
 

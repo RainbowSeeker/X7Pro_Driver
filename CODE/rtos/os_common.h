@@ -6,20 +6,13 @@
 
 #ifndef X7PRO_DRIVER_OS_COMMON_H
 #define X7PRO_DRIVER_OS_COMMON_H
-#include "errno.h"
+#include "rtdebug.h"
+#include "os_errno.h"
 #include "common_def.h"
 #include "utils/list.h"
 #include "object.h"
 #include "system/systime.h"
 
-
-#if defined(__CC_ARM)          /* ARM C Compiler */
-#include "cmsis_armcc.h"
-#elif defined(__CLANG_ARM)
-#include "cmsis_armclang.h"
-#elif defined(__GNUC__)
-#include "cmsis_gcc.h"
-#endif
 /* Thread Prority MUST BE !!!UNIQUE!!! */
 #define VEHICLE_THREAD_PRIORITY     2
 #define FMTIO_THREAD_PRIORITY       3
@@ -42,13 +35,15 @@
 #endif
 
 /* note: modify the following micro according to your os */
-#define OS_ENTER_CRITICAL()     CPU_CRITICAL_ENTER()
+#define OS_ENTER_CRITICAL()     CPU_SR_ALLOC();CPU_CRITICAL_ENTER()
 #define OS_EXIT_CRITICAL()      CPU_CRITICAL_EXIT()
 
 #define TICK_PER_SECOND         OS_CFG_TICK_RATE_HZ
 #define TICKS_FROM_MS(_ms)      ((TICK_PER_SECOND * _ms + 999) / 1000)
 
-#define OS_WAIT_FOREVER         (size_t)(-1)
+#define OS_WAITING_FOREVER      (size_t)(-1)
+
+int __ffs(int value);
 /**
  *
  * @param OS_TASK_PTR
@@ -59,7 +54,7 @@ void bsp_os_init(void (*StartupTask)(void *p_arg));
  * os_tick_get
  * @return
  */
-static inline tick_t os_tick_get(void)
+__STATIC_INLINE tick_t os_tick_get(void)
 {
     return systime_now_ms();
 }
@@ -68,7 +63,7 @@ static inline tick_t os_tick_get(void)
  * os_delay
  * @param ms
  */
-static inline void os_delay(uint32_t ms)
+__STATIC_INLINE void os_delay(uint32_t ms)
 {
     OSTimeDly(TICKS_FROM_MS(ms), OS_OPT_TIME_DLY, &os_err);
 }
@@ -78,7 +73,7 @@ static inline void os_delay(uint32_t ms)
  * @param init_tick
  * @param ms
  */
-static inline void os_delay_until(uint32_t *init_tick, uint32_t ms)
+__STATIC_INLINE void os_delay_until(uint32_t *init_tick, uint32_t ms)
 {
     OSTimeDly(TICKS_FROM_MS(ms), OS_OPT_TIME_DLY, &os_err);
 }
@@ -87,7 +82,7 @@ static inline void os_delay_until(uint32_t *init_tick, uint32_t ms)
  * os_hw_interrupt_disable
  * @return
  */
-static inline base_t os_hw_interrupt_disable()
+__STATIC_INLINE base_t os_hw_interrupt_disable(void)
 {
     return CPU_SR_Save(CPU_CFG_KA_IPL_BOUNDARY << (8u - CPU_CFG_NVIC_PRIO_BITS));
 }
@@ -96,7 +91,7 @@ static inline base_t os_hw_interrupt_disable()
  * os_hw_interrupt_enable
  * @param x
  */
-static inline void os_hw_interrupt_enable(base_t x)
+__STATIC_INLINE void os_hw_interrupt_enable(base_t x)
 {
     CPU_SR_Restore(x);
 }
@@ -105,13 +100,13 @@ static inline void os_hw_interrupt_enable(base_t x)
  * os_interrupt_get_nest
  * @return
  */
-static inline uint8_t os_interrupt_get_nest(void)
+__STATIC_INLINE uint8_t os_interrupt_get_nest(void)
 {
     return OSIntNestingCtr;
 //    return __get_IPSR();
 }
 
-static inline void os_interrupt_enter(void)
+__STATIC_INLINE void os_interrupt_enter(void)
 {
     CPU_SR_ALLOC();
     CPU_CRITICAL_ENTER();
@@ -119,7 +114,7 @@ static inline void os_interrupt_enter(void)
     CPU_CRITICAL_EXIT();
 }
 
-static inline void os_interrupt_leave(void)
+__STATIC_INLINE void os_interrupt_leave(void)
 {
     OSIntExit();
 }

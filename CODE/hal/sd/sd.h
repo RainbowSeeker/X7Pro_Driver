@@ -10,7 +10,7 @@ extern "C" {
 struct sd_device {
     struct device parent;
     const struct sd_ops* ops;
-    os_event_t event;
+    struct event event;
 };
 typedef struct sd_device* sd_dev_t;
 

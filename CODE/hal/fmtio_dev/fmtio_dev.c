@@ -136,7 +136,7 @@ err_t hal_fmtio_dev_register(device_t io_dev, const char* name, uint32_t flag, v
     completion_init(&rx_cplt);
 
     /* write lock */
-    tx_lock = os_sem_create(1);
+    tx_lock = os_sem_create("io_tx_lock", 1);
     ASSERT(tx_lock != NULL);
 
     /* set tx/rx callback functions */

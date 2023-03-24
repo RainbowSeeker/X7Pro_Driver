@@ -2,8 +2,8 @@
 
 #include "work_queue.h"
 
-#define work_lock(_wq)      os_mutex_take(_wq->lock, OS_WAIT_FOREVER)
-#define work_unlock(_wq)    os_mutex_release(_wq->lock)
+#define work_lock(_wq)      os_sem_take(_wq->lock, OS_WAITING_FOREVER)
+#define work_unlock(_wq)    os_sem_release(_wq->lock)
 
 static void __swap_item(WorkItem_t* a, WorkItem_t* b)
 {
@@ -197,7 +197,7 @@ err_t workqueue_delete(WorkQueue_t work_queue)
         return E_RROR;
     }
 
-    if (os_mutex_delete(work_queue->lock) != E_OK) {
+    if (os_sem_delete(work_queue->lock) != E_OK) {
         return E_RROR;
     }
 
@@ -234,7 +234,7 @@ WorkQueue_t workqueue_create(const char* name, uint8_t size, uint16_t stack_size
     work_queue->size = 0;
 
 
-    os_mutex_init(&work_queue->lock);
+    work_queue->lock = os_sem_create(name, 1);
     if (work_queue->lock == NULL) {
         goto _exit;
     }

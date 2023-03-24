@@ -53,7 +53,7 @@ typedef struct __mavlink_debug_t {
  * @param value  DEBUG value
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_debug_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_debug_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                               uint32_t time_boot_ms, uint8_t ind, float value)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -87,7 +87,7 @@ static inline uint16_t mavlink_msg_debug_pack(uint8_t system_id, uint8_t compone
  * @param value  DEBUG value
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_debug_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_debug_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                    mavlink_message_t* msg,
                                                    uint32_t time_boot_ms, uint8_t ind, float value)
 {
@@ -119,7 +119,7 @@ static inline uint16_t mavlink_msg_debug_pack_chan(uint8_t system_id, uint8_t co
  * @param msg The MAVLink message to compress the data into
  * @param debug C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_debug_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_debug_t* debug)
+__STATIC_INLINE uint16_t mavlink_msg_debug_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_debug_t* debug)
 {
     return mavlink_msg_debug_pack(system_id, component_id, msg, debug->time_boot_ms, debug->ind, debug->value);
 }
@@ -133,7 +133,7 @@ static inline uint16_t mavlink_msg_debug_encode(uint8_t system_id, uint8_t compo
  * @param msg The MAVLink message to compress the data into
  * @param debug C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_debug_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_debug_t* debug)
+__STATIC_INLINE uint16_t mavlink_msg_debug_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_debug_t* debug)
 {
     return mavlink_msg_debug_pack_chan(system_id, component_id, chan, msg, debug->time_boot_ms, debug->ind, debug->value);
 }
@@ -148,7 +148,7 @@ static inline uint16_t mavlink_msg_debug_encode_chan(uint8_t system_id, uint8_t 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_debug_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t ind, float value)
+__STATIC_INLINE void mavlink_msg_debug_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t ind, float value)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_DEBUG_LEN];
@@ -172,7 +172,7 @@ static inline void mavlink_msg_debug_send(mavlink_channel_t chan, uint32_t time_
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_debug_send_struct(mavlink_channel_t chan, const mavlink_debug_t* debug)
+__STATIC_INLINE void mavlink_msg_debug_send_struct(mavlink_channel_t chan, const mavlink_debug_t* debug)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_debug_send(chan, debug->time_boot_ms, debug->ind, debug->value);
@@ -189,7 +189,7 @@ static inline void mavlink_msg_debug_send_struct(mavlink_channel_t chan, const m
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_debug_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t ind, float value)
+__STATIC_INLINE void mavlink_msg_debug_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t ind, float value)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -218,7 +218,7 @@ static inline void mavlink_msg_debug_send_buf(mavlink_message_t* msgbuf, mavlink
  *
  * @return [ms] Timestamp (time since system boot).
  */
-static inline uint32_t mavlink_msg_debug_get_time_boot_ms(const mavlink_message_t* msg)
+__STATIC_INLINE uint32_t mavlink_msg_debug_get_time_boot_ms(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 0);
 }
@@ -228,7 +228,7 @@ static inline uint32_t mavlink_msg_debug_get_time_boot_ms(const mavlink_message_
  *
  * @return  index of debug variable
  */
-static inline uint8_t mavlink_msg_debug_get_ind(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_debug_get_ind(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 8);
 }
@@ -238,7 +238,7 @@ static inline uint8_t mavlink_msg_debug_get_ind(const mavlink_message_t* msg)
  *
  * @return  DEBUG value
  */
-static inline float mavlink_msg_debug_get_value(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_debug_get_value(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 4);
 }
@@ -249,7 +249,7 @@ static inline float mavlink_msg_debug_get_value(const mavlink_message_t* msg)
  * @param msg The message to decode
  * @param debug C-struct to decode the message contents into
  */
-static inline void mavlink_msg_debug_decode(const mavlink_message_t* msg, mavlink_debug_t* debug)
+__STATIC_INLINE void mavlink_msg_debug_decode(const mavlink_message_t* msg, mavlink_debug_t* debug)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     debug->time_boot_ms = mavlink_msg_debug_get_time_boot_ms(msg);

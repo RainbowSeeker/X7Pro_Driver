@@ -59,7 +59,7 @@ typedef struct __mavlink_param_request_read_t {
  * @param param_index  Parameter index. Send -1 to use the param ID field as identifier (else the param id will be ignored)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_param_request_read_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_param_request_read_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                            uint8_t target_system, uint8_t target_component, const char* param_id, int16_t param_index)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -94,7 +94,7 @@ static inline uint16_t mavlink_msg_param_request_read_pack(uint8_t system_id, ui
  * @param param_index  Parameter index. Send -1 to use the param ID field as identifier (else the param id will be ignored)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_param_request_read_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_param_request_read_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                 mavlink_message_t* msg,
                                                                 uint8_t target_system, uint8_t target_component, const char* param_id, int16_t param_index)
 {
@@ -126,7 +126,7 @@ static inline uint16_t mavlink_msg_param_request_read_pack_chan(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param param_request_read C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_param_request_read_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_param_request_read_t* param_request_read)
+__STATIC_INLINE uint16_t mavlink_msg_param_request_read_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_param_request_read_t* param_request_read)
 {
     return mavlink_msg_param_request_read_pack(system_id, component_id, msg, param_request_read->target_system, param_request_read->target_component, param_request_read->param_id, param_request_read->param_index);
 }
@@ -140,7 +140,7 @@ static inline uint16_t mavlink_msg_param_request_read_encode(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param param_request_read C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_param_request_read_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_param_request_read_t* param_request_read)
+__STATIC_INLINE uint16_t mavlink_msg_param_request_read_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_param_request_read_t* param_request_read)
 {
     return mavlink_msg_param_request_read_pack_chan(system_id, component_id, chan, msg, param_request_read->target_system, param_request_read->target_component, param_request_read->param_id, param_request_read->param_index);
 }
@@ -156,7 +156,7 @@ static inline uint16_t mavlink_msg_param_request_read_encode_chan(uint8_t system
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_param_request_read_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const char* param_id, int16_t param_index)
+__STATIC_INLINE void mavlink_msg_param_request_read_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const char* param_id, int16_t param_index)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_PARAM_REQUEST_READ_LEN];
@@ -180,7 +180,7 @@ static inline void mavlink_msg_param_request_read_send(mavlink_channel_t chan, u
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_param_request_read_send_struct(mavlink_channel_t chan, const mavlink_param_request_read_t* param_request_read)
+__STATIC_INLINE void mavlink_msg_param_request_read_send_struct(mavlink_channel_t chan, const mavlink_param_request_read_t* param_request_read)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_param_request_read_send(chan, param_request_read->target_system, param_request_read->target_component, param_request_read->param_id, param_request_read->param_index);
@@ -197,7 +197,7 @@ static inline void mavlink_msg_param_request_read_send_struct(mavlink_channel_t 
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_param_request_read_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const char* param_id, int16_t param_index)
+__STATIC_INLINE void mavlink_msg_param_request_read_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const char* param_id, int16_t param_index)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -226,7 +226,7 @@ static inline void mavlink_msg_param_request_read_send_buf(mavlink_message_t* ms
  *
  * @return  System ID
  */
-static inline uint8_t mavlink_msg_param_request_read_get_target_system(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_param_request_read_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 2);
 }
@@ -236,7 +236,7 @@ static inline uint8_t mavlink_msg_param_request_read_get_target_system(const mav
  *
  * @return  Component ID
  */
-static inline uint8_t mavlink_msg_param_request_read_get_target_component(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_param_request_read_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 3);
 }
@@ -246,7 +246,7 @@ static inline uint8_t mavlink_msg_param_request_read_get_target_component(const 
  *
  * @return  Onboard parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string
  */
-static inline uint16_t mavlink_msg_param_request_read_get_param_id(const mavlink_message_t* msg, char* param_id)
+__STATIC_INLINE uint16_t mavlink_msg_param_request_read_get_param_id(const mavlink_message_t* msg, char* param_id)
 {
     return _MAV_RETURN_char_array(msg, param_id, 16, 4);
 }
@@ -256,7 +256,7 @@ static inline uint16_t mavlink_msg_param_request_read_get_param_id(const mavlink
  *
  * @return  Parameter index. Send -1 to use the param ID field as identifier (else the param id will be ignored)
  */
-static inline int16_t mavlink_msg_param_request_read_get_param_index(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_param_request_read_get_param_index(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 0);
 }
@@ -267,7 +267,7 @@ static inline int16_t mavlink_msg_param_request_read_get_param_index(const mavli
  * @param msg The message to decode
  * @param param_request_read C-struct to decode the message contents into
  */
-static inline void mavlink_msg_param_request_read_decode(const mavlink_message_t* msg, mavlink_param_request_read_t* param_request_read)
+__STATIC_INLINE void mavlink_msg_param_request_read_decode(const mavlink_message_t* msg, mavlink_param_request_read_t* param_request_read)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     param_request_read->param_index = mavlink_msg_param_request_read_get_param_index(msg);

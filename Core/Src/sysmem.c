@@ -21,7 +21,7 @@
  */
 
 /* Includes */
-#include <errno.h>
+#include <os_errno.h>
 #include <stdint.h>
 
 /**

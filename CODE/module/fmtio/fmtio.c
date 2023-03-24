@@ -29,7 +29,7 @@ static struct IOPacket io_tx_pkt;
 static struct IOPacket io_rx_pkt;
 static struct IOPacket* io_tx_pkt_ptr = &io_tx_pkt;
 static device_t fmtio_dev;
-static os_event_t fmtio_event;
+static struct event fmtio_event;
 static os_mutex_t tx_lock;
 static rc_data_t rc_data;
 static uint8_t rc_updated;
@@ -160,11 +160,22 @@ static err_t handle_rx_packet(void)
     }
 
     while (device_read(fmtio_dev, 0, &c, 1)) {
-        if (io_parse_char(&io_rx_pkt, c) == E_OK) {
-            /* handle rx pkg locally */
-            ret = local_rx_handler(&io_rx_pkt);
-        }
+//        if (io_parse_char(&io_rx_pkt, c) == E_OK) {
+//            /* handle rx pkg locally */
+//            ret = local_rx_handler(&io_rx_pkt);
+//        }
         sbus_putc(c);
+        {
+            static struct IOPacket pkt = {.len = 32};
+            static uint16_t rc_count = 0;
+            static bool sbus_failsafe, sbus_frame_drop;
+
+            if (sbus_input((uint16_t *)pkt.data, &rc_count, &sbus_failsafe, &sbus_frame_drop,
+                           16))
+            {
+                handle_rc_pkt(&pkt);
+            }
+        }
     }
 
     return ret;
@@ -314,10 +325,10 @@ err_t send_io_cmd(uint8_t code, void* data, uint16_t len)
     err_t ret = ERROR;
 
     if (io_comm_suspend) {
-        return EBUSY;
+        return E_BUSY;
     }
 
-    os_mutex_take(tx_lock, OS_WAIT_FOREVER);
+    os_mutex_take(tx_lock, OS_WAITING_FOREVER);
 
     if (set_io_pkt(io_tx_pkt_ptr, code, data, len) == E_OK) {
         size_t w_size = PKT_SIZE(io_tx_pkt_ptr);
@@ -364,12 +375,9 @@ void fmtio_loop(void)
 {
     err_t err;
     uint32_t recv_set = 0;
-    uint32_t last_recv_time = 0;
-    uint32_t now = 0;
     /* try to re-configure io at the beginning, this is needed in case that fmu's configuration has changed
      * and then reboot. */
-    io_default_config();
-
+//    io_default_config();
     sbus_init();
 
     while (1) {
@@ -384,21 +392,6 @@ void fmtio_loop(void)
             handle_rx_packet();
         } else {
             console_printf("fmtio event err:%d\n", err);
-        }
-
-        now = systime_now_ms();
-        if (now > last_recv_time + 10)
-        {
-            struct IOPacket pkt = {.len = 32};
-            uint16_t rc_count = 0;
-            bool sbus_failsafe, sbus_frame_drop;
-
-            if (sbus_input((uint16_t *)pkt.data, &rc_count, &sbus_failsafe, &sbus_frame_drop,
-                                           16))
-            {
-                handle_rc_pkt(&pkt);
-            }
-            last_recv_time = now;
         }
     }
 }
@@ -420,7 +413,7 @@ err_t fmtio_init(const char* dev_name)
     ASSERT(fmtio_dev != NULL);
 
     /* create event */
-    SELF_CHECK(os_event_init(&fmtio_event));
+    SELF_CHECK(os_event_init(&fmtio_event, "fmtio"));
 
     /* Find best capacity for fmtio device */
     uint16_t oflag = DEVICE_OFLAG_RDWR;
@@ -437,7 +430,7 @@ err_t fmtio_init(const char* dev_name)
     SELF_CHECK(device_set_rx_indicate(fmtio_dev, io_rx_ind));
 
     /* init io tx lock */
-    os_mutex_init(&tx_lock);
+    tx_lock = os_mutex_create("io_tx");
     ASSERT(tx_lock != NULL);
 
     /* init io packet */

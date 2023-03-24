@@ -79,7 +79,7 @@ typedef struct __mavlink_attitude_quaternion_t {
  * @param repr_offset_q  Rotation offset by which the attitude quaternion and angular speed vector should be rotated for user display (quaternion with [w, x, y, z] order, zero-rotation is [1, 0, 0, 0], send [0, 0, 0, 0] if field not supported). This field is intended for systems in which the reference attitude may change during flight. For example, tailsitters VTOLs rotate their reference attitude by 90 degrees between hover mode and fixed wing mode, thus repr_offset_q is equal to [1, 0, 0, 0] in hover mode and equal to [0.7071, 0, 0.7071, 0] in fixed wing mode.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_attitude_quaternion_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_attitude_quaternion_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                             uint32_t time_boot_ms, float q1, float q2, float q3, float q4, float rollspeed, float pitchspeed, float yawspeed, const float* repr_offset_q)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -129,7 +129,7 @@ static inline uint16_t mavlink_msg_attitude_quaternion_pack(uint8_t system_id, u
  * @param repr_offset_q  Rotation offset by which the attitude quaternion and angular speed vector should be rotated for user display (quaternion with [w, x, y, z] order, zero-rotation is [1, 0, 0, 0], send [0, 0, 0, 0] if field not supported). This field is intended for systems in which the reference attitude may change during flight. For example, tailsitters VTOLs rotate their reference attitude by 90 degrees between hover mode and fixed wing mode, thus repr_offset_q is equal to [1, 0, 0, 0] in hover mode and equal to [0.7071, 0, 0.7071, 0] in fixed wing mode.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_attitude_quaternion_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_attitude_quaternion_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                  mavlink_message_t* msg,
                                                                  uint32_t time_boot_ms, float q1, float q2, float q3, float q4, float rollspeed, float pitchspeed, float yawspeed, const float* repr_offset_q)
 {
@@ -171,7 +171,7 @@ static inline uint16_t mavlink_msg_attitude_quaternion_pack_chan(uint8_t system_
  * @param msg The MAVLink message to compress the data into
  * @param attitude_quaternion C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_attitude_quaternion_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_attitude_quaternion_t* attitude_quaternion)
+__STATIC_INLINE uint16_t mavlink_msg_attitude_quaternion_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_attitude_quaternion_t* attitude_quaternion)
 {
     return mavlink_msg_attitude_quaternion_pack(system_id, component_id, msg, attitude_quaternion->time_boot_ms, attitude_quaternion->q1, attitude_quaternion->q2, attitude_quaternion->q3, attitude_quaternion->q4, attitude_quaternion->rollspeed, attitude_quaternion->pitchspeed, attitude_quaternion->yawspeed, attitude_quaternion->repr_offset_q);
 }
@@ -185,7 +185,7 @@ static inline uint16_t mavlink_msg_attitude_quaternion_encode(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param attitude_quaternion C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_attitude_quaternion_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_attitude_quaternion_t* attitude_quaternion)
+__STATIC_INLINE uint16_t mavlink_msg_attitude_quaternion_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_attitude_quaternion_t* attitude_quaternion)
 {
     return mavlink_msg_attitude_quaternion_pack_chan(system_id, component_id, chan, msg, attitude_quaternion->time_boot_ms, attitude_quaternion->q1, attitude_quaternion->q2, attitude_quaternion->q3, attitude_quaternion->q4, attitude_quaternion->rollspeed, attitude_quaternion->pitchspeed, attitude_quaternion->yawspeed, attitude_quaternion->repr_offset_q);
 }
@@ -206,7 +206,7 @@ static inline uint16_t mavlink_msg_attitude_quaternion_encode_chan(uint8_t syste
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_attitude_quaternion_send(mavlink_channel_t chan, uint32_t time_boot_ms, float q1, float q2, float q3, float q4, float rollspeed, float pitchspeed, float yawspeed, const float* repr_offset_q)
+__STATIC_INLINE void mavlink_msg_attitude_quaternion_send(mavlink_channel_t chan, uint32_t time_boot_ms, float q1, float q2, float q3, float q4, float rollspeed, float pitchspeed, float yawspeed, const float* repr_offset_q)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ATTITUDE_QUATERNION_LEN];
@@ -240,7 +240,7 @@ static inline void mavlink_msg_attitude_quaternion_send(mavlink_channel_t chan, 
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_attitude_quaternion_send_struct(mavlink_channel_t chan, const mavlink_attitude_quaternion_t* attitude_quaternion)
+__STATIC_INLINE void mavlink_msg_attitude_quaternion_send_struct(mavlink_channel_t chan, const mavlink_attitude_quaternion_t* attitude_quaternion)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_attitude_quaternion_send(chan, attitude_quaternion->time_boot_ms, attitude_quaternion->q1, attitude_quaternion->q2, attitude_quaternion->q3, attitude_quaternion->q4, attitude_quaternion->rollspeed, attitude_quaternion->pitchspeed, attitude_quaternion->yawspeed, attitude_quaternion->repr_offset_q);
@@ -257,7 +257,7 @@ static inline void mavlink_msg_attitude_quaternion_send_struct(mavlink_channel_t
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_attitude_quaternion_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, float q1, float q2, float q3, float q4, float rollspeed, float pitchspeed, float yawspeed, const float* repr_offset_q)
+__STATIC_INLINE void mavlink_msg_attitude_quaternion_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, float q1, float q2, float q3, float q4, float rollspeed, float pitchspeed, float yawspeed, const float* repr_offset_q)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -296,7 +296,7 @@ static inline void mavlink_msg_attitude_quaternion_send_buf(mavlink_message_t* m
  *
  * @return [ms] Timestamp (time since system boot).
  */
-static inline uint32_t mavlink_msg_attitude_quaternion_get_time_boot_ms(const mavlink_message_t* msg)
+__STATIC_INLINE uint32_t mavlink_msg_attitude_quaternion_get_time_boot_ms(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 0);
 }
@@ -306,7 +306,7 @@ static inline uint32_t mavlink_msg_attitude_quaternion_get_time_boot_ms(const ma
  *
  * @return  Quaternion component 1, w (1 in null-rotation)
  */
-static inline float mavlink_msg_attitude_quaternion_get_q1(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_attitude_quaternion_get_q1(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 4);
 }
@@ -316,7 +316,7 @@ static inline float mavlink_msg_attitude_quaternion_get_q1(const mavlink_message
  *
  * @return  Quaternion component 2, x (0 in null-rotation)
  */
-static inline float mavlink_msg_attitude_quaternion_get_q2(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_attitude_quaternion_get_q2(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 8);
 }
@@ -326,7 +326,7 @@ static inline float mavlink_msg_attitude_quaternion_get_q2(const mavlink_message
  *
  * @return  Quaternion component 3, y (0 in null-rotation)
  */
-static inline float mavlink_msg_attitude_quaternion_get_q3(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_attitude_quaternion_get_q3(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -336,7 +336,7 @@ static inline float mavlink_msg_attitude_quaternion_get_q3(const mavlink_message
  *
  * @return  Quaternion component 4, z (0 in null-rotation)
  */
-static inline float mavlink_msg_attitude_quaternion_get_q4(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_attitude_quaternion_get_q4(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -346,7 +346,7 @@ static inline float mavlink_msg_attitude_quaternion_get_q4(const mavlink_message
  *
  * @return [rad/s] Roll angular speed
  */
-static inline float mavlink_msg_attitude_quaternion_get_rollspeed(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_attitude_quaternion_get_rollspeed(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 20);
 }
@@ -356,7 +356,7 @@ static inline float mavlink_msg_attitude_quaternion_get_rollspeed(const mavlink_
  *
  * @return [rad/s] Pitch angular speed
  */
-static inline float mavlink_msg_attitude_quaternion_get_pitchspeed(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_attitude_quaternion_get_pitchspeed(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 24);
 }
@@ -366,7 +366,7 @@ static inline float mavlink_msg_attitude_quaternion_get_pitchspeed(const mavlink
  *
  * @return [rad/s] Yaw angular speed
  */
-static inline float mavlink_msg_attitude_quaternion_get_yawspeed(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_attitude_quaternion_get_yawspeed(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 28);
 }
@@ -376,7 +376,7 @@ static inline float mavlink_msg_attitude_quaternion_get_yawspeed(const mavlink_m
  *
  * @return  Rotation offset by which the attitude quaternion and angular speed vector should be rotated for user display (quaternion with [w, x, y, z] order, zero-rotation is [1, 0, 0, 0], send [0, 0, 0, 0] if field not supported). This field is intended for systems in which the reference attitude may change during flight. For example, tailsitters VTOLs rotate their reference attitude by 90 degrees between hover mode and fixed wing mode, thus repr_offset_q is equal to [1, 0, 0, 0] in hover mode and equal to [0.7071, 0, 0.7071, 0] in fixed wing mode.
  */
-static inline uint16_t mavlink_msg_attitude_quaternion_get_repr_offset_q(const mavlink_message_t* msg, float* repr_offset_q)
+__STATIC_INLINE uint16_t mavlink_msg_attitude_quaternion_get_repr_offset_q(const mavlink_message_t* msg, float* repr_offset_q)
 {
     return _MAV_RETURN_float_array(msg, repr_offset_q, 4, 32);
 }
@@ -387,7 +387,7 @@ static inline uint16_t mavlink_msg_attitude_quaternion_get_repr_offset_q(const m
  * @param msg The message to decode
  * @param attitude_quaternion C-struct to decode the message contents into
  */
-static inline void mavlink_msg_attitude_quaternion_decode(const mavlink_message_t* msg, mavlink_attitude_quaternion_t* attitude_quaternion)
+__STATIC_INLINE void mavlink_msg_attitude_quaternion_decode(const mavlink_message_t* msg, mavlink_attitude_quaternion_t* attitude_quaternion)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     attitude_quaternion->time_boot_ms = mavlink_msg_attitude_quaternion_get_time_boot_ms(msg);

@@ -68,7 +68,7 @@ typedef struct __mavlink_att_pos_mocap_t {
  * @param covariance  Row-major representation of a pose 6x6 cross-covariance matrix upper right triangle (states: x, y, z, roll, pitch, yaw; first six entries are the first ROW, next five entries are the second ROW, etc.). If unknown, assign NaN value to first element in the array.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_att_pos_mocap_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_att_pos_mocap_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                       uint64_t time_usec, const float* q, float x, float y, float z, const float* covariance)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -109,7 +109,7 @@ static inline uint16_t mavlink_msg_att_pos_mocap_pack(uint8_t system_id, uint8_t
  * @param covariance  Row-major representation of a pose 6x6 cross-covariance matrix upper right triangle (states: x, y, z, roll, pitch, yaw; first six entries are the first ROW, next five entries are the second ROW, etc.). If unknown, assign NaN value to first element in the array.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_att_pos_mocap_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_att_pos_mocap_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                            mavlink_message_t* msg,
                                                            uint64_t time_usec, const float* q, float x, float y, float z, const float* covariance)
 {
@@ -145,7 +145,7 @@ static inline uint16_t mavlink_msg_att_pos_mocap_pack_chan(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param att_pos_mocap C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_att_pos_mocap_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_att_pos_mocap_t* att_pos_mocap)
+__STATIC_INLINE uint16_t mavlink_msg_att_pos_mocap_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_att_pos_mocap_t* att_pos_mocap)
 {
     return mavlink_msg_att_pos_mocap_pack(system_id, component_id, msg, att_pos_mocap->time_usec, att_pos_mocap->q, att_pos_mocap->x, att_pos_mocap->y, att_pos_mocap->z, att_pos_mocap->covariance);
 }
@@ -159,7 +159,7 @@ static inline uint16_t mavlink_msg_att_pos_mocap_encode(uint8_t system_id, uint8
  * @param msg The MAVLink message to compress the data into
  * @param att_pos_mocap C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_att_pos_mocap_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_att_pos_mocap_t* att_pos_mocap)
+__STATIC_INLINE uint16_t mavlink_msg_att_pos_mocap_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_att_pos_mocap_t* att_pos_mocap)
 {
     return mavlink_msg_att_pos_mocap_pack_chan(system_id, component_id, chan, msg, att_pos_mocap->time_usec, att_pos_mocap->q, att_pos_mocap->x, att_pos_mocap->y, att_pos_mocap->z, att_pos_mocap->covariance);
 }
@@ -177,7 +177,7 @@ static inline uint16_t mavlink_msg_att_pos_mocap_encode_chan(uint8_t system_id, 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_att_pos_mocap_send(mavlink_channel_t chan, uint64_t time_usec, const float* q, float x, float y, float z, const float* covariance)
+__STATIC_INLINE void mavlink_msg_att_pos_mocap_send(mavlink_channel_t chan, uint64_t time_usec, const float* q, float x, float y, float z, const float* covariance)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ATT_POS_MOCAP_LEN];
@@ -205,7 +205,7 @@ static inline void mavlink_msg_att_pos_mocap_send(mavlink_channel_t chan, uint64
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_att_pos_mocap_send_struct(mavlink_channel_t chan, const mavlink_att_pos_mocap_t* att_pos_mocap)
+__STATIC_INLINE void mavlink_msg_att_pos_mocap_send_struct(mavlink_channel_t chan, const mavlink_att_pos_mocap_t* att_pos_mocap)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_att_pos_mocap_send(chan, att_pos_mocap->time_usec, att_pos_mocap->q, att_pos_mocap->x, att_pos_mocap->y, att_pos_mocap->z, att_pos_mocap->covariance);
@@ -222,7 +222,7 @@ static inline void mavlink_msg_att_pos_mocap_send_struct(mavlink_channel_t chan,
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_att_pos_mocap_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, const float* q, float x, float y, float z, const float* covariance)
+__STATIC_INLINE void mavlink_msg_att_pos_mocap_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, const float* q, float x, float y, float z, const float* covariance)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -255,7 +255,7 @@ static inline void mavlink_msg_att_pos_mocap_send_buf(mavlink_message_t* msgbuf,
  *
  * @return [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  */
-static inline uint64_t mavlink_msg_att_pos_mocap_get_time_usec(const mavlink_message_t* msg)
+__STATIC_INLINE uint64_t mavlink_msg_att_pos_mocap_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 0);
 }
@@ -265,7 +265,7 @@ static inline uint64_t mavlink_msg_att_pos_mocap_get_time_usec(const mavlink_mes
  *
  * @return  Attitude quaternion (w, x, y, z order, zero-rotation is 1, 0, 0, 0)
  */
-static inline uint16_t mavlink_msg_att_pos_mocap_get_q(const mavlink_message_t* msg, float* q)
+__STATIC_INLINE uint16_t mavlink_msg_att_pos_mocap_get_q(const mavlink_message_t* msg, float* q)
 {
     return _MAV_RETURN_float_array(msg, q, 4, 8);
 }
@@ -275,7 +275,7 @@ static inline uint16_t mavlink_msg_att_pos_mocap_get_q(const mavlink_message_t* 
  *
  * @return [m] X position (NED)
  */
-static inline float mavlink_msg_att_pos_mocap_get_x(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_att_pos_mocap_get_x(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 24);
 }
@@ -285,7 +285,7 @@ static inline float mavlink_msg_att_pos_mocap_get_x(const mavlink_message_t* msg
  *
  * @return [m] Y position (NED)
  */
-static inline float mavlink_msg_att_pos_mocap_get_y(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_att_pos_mocap_get_y(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 28);
 }
@@ -295,7 +295,7 @@ static inline float mavlink_msg_att_pos_mocap_get_y(const mavlink_message_t* msg
  *
  * @return [m] Z position (NED)
  */
-static inline float mavlink_msg_att_pos_mocap_get_z(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_att_pos_mocap_get_z(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 32);
 }
@@ -305,7 +305,7 @@ static inline float mavlink_msg_att_pos_mocap_get_z(const mavlink_message_t* msg
  *
  * @return  Row-major representation of a pose 6x6 cross-covariance matrix upper right triangle (states: x, y, z, roll, pitch, yaw; first six entries are the first ROW, next five entries are the second ROW, etc.). If unknown, assign NaN value to first element in the array.
  */
-static inline uint16_t mavlink_msg_att_pos_mocap_get_covariance(const mavlink_message_t* msg, float* covariance)
+__STATIC_INLINE uint16_t mavlink_msg_att_pos_mocap_get_covariance(const mavlink_message_t* msg, float* covariance)
 {
     return _MAV_RETURN_float_array(msg, covariance, 21, 36);
 }
@@ -316,7 +316,7 @@ static inline uint16_t mavlink_msg_att_pos_mocap_get_covariance(const mavlink_me
  * @param msg The message to decode
  * @param att_pos_mocap C-struct to decode the message contents into
  */
-static inline void mavlink_msg_att_pos_mocap_decode(const mavlink_message_t* msg, mavlink_att_pos_mocap_t* att_pos_mocap)
+__STATIC_INLINE void mavlink_msg_att_pos_mocap_decode(const mavlink_message_t* msg, mavlink_att_pos_mocap_t* att_pos_mocap)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     att_pos_mocap->time_usec = mavlink_msg_att_pos_mocap_get_time_usec(msg);

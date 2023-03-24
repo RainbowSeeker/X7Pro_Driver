@@ -68,7 +68,7 @@ typedef struct __mavlink_component_information_t {
  * @param translation_uri  The translations for strings within the metadata file. If null the either do not exist or may be included in the metadata file itself. The translations specified here supercede any which may be in the metadata file itself. The uri format is the same as component_metadata_uri . Files are in Json Translation spec format. Empty string indicates no tranlsation file.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_component_information_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_component_information_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                               uint32_t time_boot_ms, uint32_t metadata_type, uint32_t metadata_uid, const char* metadata_uri, uint32_t translation_uid, const char* translation_uri)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -109,7 +109,7 @@ static inline uint16_t mavlink_msg_component_information_pack(uint8_t system_id,
  * @param translation_uri  The translations for strings within the metadata file. If null the either do not exist or may be included in the metadata file itself. The translations specified here supercede any which may be in the metadata file itself. The uri format is the same as component_metadata_uri . Files are in Json Translation spec format. Empty string indicates no tranlsation file.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_component_information_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_component_information_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                    mavlink_message_t* msg,
                                                                    uint32_t time_boot_ms, uint32_t metadata_type, uint32_t metadata_uid, const char* metadata_uri, uint32_t translation_uid, const char* translation_uri)
 {
@@ -145,7 +145,7 @@ static inline uint16_t mavlink_msg_component_information_pack_chan(uint8_t syste
  * @param msg The MAVLink message to compress the data into
  * @param component_information C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_component_information_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_component_information_t* component_information)
+__STATIC_INLINE uint16_t mavlink_msg_component_information_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_component_information_t* component_information)
 {
     return mavlink_msg_component_information_pack(system_id, component_id, msg, component_information->time_boot_ms, component_information->metadata_type, component_information->metadata_uid, component_information->metadata_uri, component_information->translation_uid, component_information->translation_uri);
 }
@@ -159,7 +159,7 @@ static inline uint16_t mavlink_msg_component_information_encode(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param component_information C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_component_information_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_component_information_t* component_information)
+__STATIC_INLINE uint16_t mavlink_msg_component_information_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_component_information_t* component_information)
 {
     return mavlink_msg_component_information_pack_chan(system_id, component_id, chan, msg, component_information->time_boot_ms, component_information->metadata_type, component_information->metadata_uid, component_information->metadata_uri, component_information->translation_uid, component_information->translation_uri);
 }
@@ -177,7 +177,7 @@ static inline uint16_t mavlink_msg_component_information_encode_chan(uint8_t sys
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_component_information_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint32_t metadata_type, uint32_t metadata_uid, const char* metadata_uri, uint32_t translation_uid, const char* translation_uri)
+__STATIC_INLINE void mavlink_msg_component_information_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint32_t metadata_type, uint32_t metadata_uid, const char* metadata_uri, uint32_t translation_uid, const char* translation_uri)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_COMPONENT_INFORMATION_LEN];
@@ -205,7 +205,7 @@ static inline void mavlink_msg_component_information_send(mavlink_channel_t chan
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_component_information_send_struct(mavlink_channel_t chan, const mavlink_component_information_t* component_information)
+__STATIC_INLINE void mavlink_msg_component_information_send_struct(mavlink_channel_t chan, const mavlink_component_information_t* component_information)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_component_information_send(chan, component_information->time_boot_ms, component_information->metadata_type, component_information->metadata_uid, component_information->metadata_uri, component_information->translation_uid, component_information->translation_uri);
@@ -222,7 +222,7 @@ static inline void mavlink_msg_component_information_send_struct(mavlink_channel
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_component_information_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, uint32_t metadata_type, uint32_t metadata_uid, const char* metadata_uri, uint32_t translation_uid, const char* translation_uri)
+__STATIC_INLINE void mavlink_msg_component_information_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, uint32_t metadata_type, uint32_t metadata_uid, const char* metadata_uri, uint32_t translation_uid, const char* translation_uri)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -255,7 +255,7 @@ static inline void mavlink_msg_component_information_send_buf(mavlink_message_t*
  *
  * @return [ms] Timestamp (time since system boot).
  */
-static inline uint32_t mavlink_msg_component_information_get_time_boot_ms(const mavlink_message_t* msg)
+__STATIC_INLINE uint32_t mavlink_msg_component_information_get_time_boot_ms(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 0);
 }
@@ -265,7 +265,7 @@ static inline uint32_t mavlink_msg_component_information_get_time_boot_ms(const 
  *
  * @return  The type of metadata being requested.
  */
-static inline uint32_t mavlink_msg_component_information_get_metadata_type(const mavlink_message_t* msg)
+__STATIC_INLINE uint32_t mavlink_msg_component_information_get_metadata_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 4);
 }
@@ -275,7 +275,7 @@ static inline uint32_t mavlink_msg_component_information_get_metadata_type(const
  *
  * @return  Unique uid for this metadata which a gcs can use for created cached metadata and understanding whether it's cache it up to date or whether it needs to download new data.
  */
-static inline uint32_t mavlink_msg_component_information_get_metadata_uid(const mavlink_message_t* msg)
+__STATIC_INLINE uint32_t mavlink_msg_component_information_get_metadata_uid(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 8);
 }
@@ -285,7 +285,7 @@ static inline uint32_t mavlink_msg_component_information_get_metadata_uid(const 
  *
  * @return  Component definition URI. If prefix mavlinkftp:// file is downloaded from vehicle over mavlink ftp protocol. If prefix http[s]:// file is downloaded over internet. Files are json format. They can end in .gz to indicate file is in gzip format.
  */
-static inline uint16_t mavlink_msg_component_information_get_metadata_uri(const mavlink_message_t* msg, char* metadata_uri)
+__STATIC_INLINE uint16_t mavlink_msg_component_information_get_metadata_uri(const mavlink_message_t* msg, char* metadata_uri)
 {
     return _MAV_RETURN_char_array(msg, metadata_uri, 70, 16);
 }
@@ -295,7 +295,7 @@ static inline uint16_t mavlink_msg_component_information_get_metadata_uri(const 
  *
  * @return  Unique uid for the translation file associated with the metadata.
  */
-static inline uint32_t mavlink_msg_component_information_get_translation_uid(const mavlink_message_t* msg)
+__STATIC_INLINE uint32_t mavlink_msg_component_information_get_translation_uid(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 12);
 }
@@ -305,7 +305,7 @@ static inline uint32_t mavlink_msg_component_information_get_translation_uid(con
  *
  * @return  The translations for strings within the metadata file. If null the either do not exist or may be included in the metadata file itself. The translations specified here supercede any which may be in the metadata file itself. The uri format is the same as component_metadata_uri . Files are in Json Translation spec format. Empty string indicates no tranlsation file.
  */
-static inline uint16_t mavlink_msg_component_information_get_translation_uri(const mavlink_message_t* msg, char* translation_uri)
+__STATIC_INLINE uint16_t mavlink_msg_component_information_get_translation_uri(const mavlink_message_t* msg, char* translation_uri)
 {
     return _MAV_RETURN_char_array(msg, translation_uri, 70, 86);
 }
@@ -316,7 +316,7 @@ static inline uint16_t mavlink_msg_component_information_get_translation_uri(con
  * @param msg The message to decode
  * @param component_information C-struct to decode the message contents into
  */
-static inline void mavlink_msg_component_information_decode(const mavlink_message_t* msg, mavlink_component_information_t* component_information)
+__STATIC_INLINE void mavlink_msg_component_information_decode(const mavlink_message_t* msg, mavlink_component_information_t* component_information)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     component_information->time_boot_ms = mavlink_msg_component_information_get_time_boot_ms(msg);

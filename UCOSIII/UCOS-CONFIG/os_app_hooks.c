@@ -182,7 +182,7 @@ void  App_OS_StatTaskHook (void)
 
 void  App_OS_TaskCreateHook (OS_TCB  *p_tcb)
 {
-    (void)p_tcb;
+    os_thread_create_hook(os_thread_find(p_tcb->NamePtr));
 }
 
 
@@ -241,7 +241,8 @@ void  App_OS_TaskReturnHook (OS_TCB  *p_tcb)
 
 void  App_OS_TaskSwHook (void)
 {
-    os_scheduler_hook();
+    os_scheduler_hook(os_thread_find(OSTCBCurPtr->NamePtr),
+                      os_thread_find(OSTCBHighRdyPtr->NamePtr));
 }
 
 

@@ -77,7 +77,7 @@ typedef struct __mavlink_storage_information_t {
  * @param write_speed [MiB/s] Write speed.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_storage_information_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_storage_information_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                             uint32_t time_boot_ms, uint8_t storage_id, uint8_t storage_count, uint8_t status, float total_capacity, float used_capacity, float available_capacity, float read_speed, float write_speed)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -129,7 +129,7 @@ static inline uint16_t mavlink_msg_storage_information_pack(uint8_t system_id, u
  * @param write_speed [MiB/s] Write speed.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_storage_information_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_storage_information_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                  mavlink_message_t* msg,
                                                                  uint32_t time_boot_ms, uint8_t storage_id, uint8_t storage_count, uint8_t status, float total_capacity, float used_capacity, float available_capacity, float read_speed, float write_speed)
 {
@@ -173,7 +173,7 @@ static inline uint16_t mavlink_msg_storage_information_pack_chan(uint8_t system_
  * @param msg The MAVLink message to compress the data into
  * @param storage_information C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_storage_information_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_storage_information_t* storage_information)
+__STATIC_INLINE uint16_t mavlink_msg_storage_information_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_storage_information_t* storage_information)
 {
     return mavlink_msg_storage_information_pack(system_id, component_id, msg, storage_information->time_boot_ms, storage_information->storage_id, storage_information->storage_count, storage_information->status, storage_information->total_capacity, storage_information->used_capacity, storage_information->available_capacity, storage_information->read_speed, storage_information->write_speed);
 }
@@ -187,7 +187,7 @@ static inline uint16_t mavlink_msg_storage_information_encode(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param storage_information C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_storage_information_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_storage_information_t* storage_information)
+__STATIC_INLINE uint16_t mavlink_msg_storage_information_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_storage_information_t* storage_information)
 {
     return mavlink_msg_storage_information_pack_chan(system_id, component_id, chan, msg, storage_information->time_boot_ms, storage_information->storage_id, storage_information->storage_count, storage_information->status, storage_information->total_capacity, storage_information->used_capacity, storage_information->available_capacity, storage_information->read_speed, storage_information->write_speed);
 }
@@ -208,7 +208,7 @@ static inline uint16_t mavlink_msg_storage_information_encode_chan(uint8_t syste
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_storage_information_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t storage_id, uint8_t storage_count, uint8_t status, float total_capacity, float used_capacity, float available_capacity, float read_speed, float write_speed)
+__STATIC_INLINE void mavlink_msg_storage_information_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t storage_id, uint8_t storage_count, uint8_t status, float total_capacity, float used_capacity, float available_capacity, float read_speed, float write_speed)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_STORAGE_INFORMATION_LEN];
@@ -244,7 +244,7 @@ static inline void mavlink_msg_storage_information_send(mavlink_channel_t chan, 
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_storage_information_send_struct(mavlink_channel_t chan, const mavlink_storage_information_t* storage_information)
+__STATIC_INLINE void mavlink_msg_storage_information_send_struct(mavlink_channel_t chan, const mavlink_storage_information_t* storage_information)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_storage_information_send(chan, storage_information->time_boot_ms, storage_information->storage_id, storage_information->storage_count, storage_information->status, storage_information->total_capacity, storage_information->used_capacity, storage_information->available_capacity, storage_information->read_speed, storage_information->write_speed);
@@ -261,7 +261,7 @@ static inline void mavlink_msg_storage_information_send_struct(mavlink_channel_t
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_storage_information_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t storage_id, uint8_t storage_count, uint8_t status, float total_capacity, float used_capacity, float available_capacity, float read_speed, float write_speed)
+__STATIC_INLINE void mavlink_msg_storage_information_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t storage_id, uint8_t storage_count, uint8_t status, float total_capacity, float used_capacity, float available_capacity, float read_speed, float write_speed)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -302,7 +302,7 @@ static inline void mavlink_msg_storage_information_send_buf(mavlink_message_t* m
  *
  * @return [ms] Timestamp (time since system boot).
  */
-static inline uint32_t mavlink_msg_storage_information_get_time_boot_ms(const mavlink_message_t* msg)
+__STATIC_INLINE uint32_t mavlink_msg_storage_information_get_time_boot_ms(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 0);
 }
@@ -312,7 +312,7 @@ static inline uint32_t mavlink_msg_storage_information_get_time_boot_ms(const ma
  *
  * @return  Storage ID (1 for first, 2 for second, etc.)
  */
-static inline uint8_t mavlink_msg_storage_information_get_storage_id(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_storage_information_get_storage_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 24);
 }
@@ -322,7 +322,7 @@ static inline uint8_t mavlink_msg_storage_information_get_storage_id(const mavli
  *
  * @return  Number of storage devices
  */
-static inline uint8_t mavlink_msg_storage_information_get_storage_count(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_storage_information_get_storage_count(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 25);
 }
@@ -332,7 +332,7 @@ static inline uint8_t mavlink_msg_storage_information_get_storage_count(const ma
  *
  * @return  Status of storage
  */
-static inline uint8_t mavlink_msg_storage_information_get_status(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_storage_information_get_status(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 26);
 }
@@ -342,7 +342,7 @@ static inline uint8_t mavlink_msg_storage_information_get_status(const mavlink_m
  *
  * @return [MiB] Total capacity. If storage is not ready (STORAGE_STATUS_READY) value will be ignored.
  */
-static inline float mavlink_msg_storage_information_get_total_capacity(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_storage_information_get_total_capacity(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 4);
 }
@@ -352,7 +352,7 @@ static inline float mavlink_msg_storage_information_get_total_capacity(const mav
  *
  * @return [MiB] Used capacity. If storage is not ready (STORAGE_STATUS_READY) value will be ignored.
  */
-static inline float mavlink_msg_storage_information_get_used_capacity(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_storage_information_get_used_capacity(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 8);
 }
@@ -362,7 +362,7 @@ static inline float mavlink_msg_storage_information_get_used_capacity(const mavl
  *
  * @return [MiB] Available storage capacity. If storage is not ready (STORAGE_STATUS_READY) value will be ignored.
  */
-static inline float mavlink_msg_storage_information_get_available_capacity(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_storage_information_get_available_capacity(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -372,7 +372,7 @@ static inline float mavlink_msg_storage_information_get_available_capacity(const
  *
  * @return [MiB/s] Read speed.
  */
-static inline float mavlink_msg_storage_information_get_read_speed(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_storage_information_get_read_speed(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -382,7 +382,7 @@ static inline float mavlink_msg_storage_information_get_read_speed(const mavlink
  *
  * @return [MiB/s] Write speed.
  */
-static inline float mavlink_msg_storage_information_get_write_speed(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_storage_information_get_write_speed(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 20);
 }
@@ -393,7 +393,7 @@ static inline float mavlink_msg_storage_information_get_write_speed(const mavlin
  * @param msg The message to decode
  * @param storage_information C-struct to decode the message contents into
  */
-static inline void mavlink_msg_storage_information_decode(const mavlink_message_t* msg, mavlink_storage_information_t* storage_information)
+__STATIC_INLINE void mavlink_msg_storage_information_decode(const mavlink_message_t* msg, mavlink_storage_information_t* storage_information)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     storage_information->time_boot_ms = mavlink_msg_storage_information_get_time_boot_ms(msg);

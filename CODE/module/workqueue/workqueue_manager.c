@@ -22,10 +22,10 @@ WorkQueue_t workqueue_find(const char* name)
 
 err_t workqueue_manager_init(void)
 {
-    wq_list[0] = workqueue_create("wq:lp_work", 5, 512, WQ_LP_THREAD_PRIORITY);
+    wq_list[0] = workqueue_create("wq:lp_work", 5, 256, WQ_LP_THREAD_PRIORITY);
     ASSERT(wq_list[0] != NULL);
 
-    wq_list[1] = workqueue_create("wq:hp_work", 5, 512, WQ_HP_THREAD_PRIORITY);
+    wq_list[1] = workqueue_create("wq:hp_work", 5, 256, WQ_HP_THREAD_PRIORITY);
     ASSERT(wq_list[1] != NULL);
 
     return E_OK;

@@ -124,7 +124,7 @@ typedef struct {
 } out_fct_wrap_type;
 
 // internal buffer output
-static inline void _out_buffer(char character, void* buffer, size_t idx, size_t maxlen)
+__STATIC_INLINE void _out_buffer(char character, void* buffer, size_t idx, size_t maxlen)
 {
     if (idx < maxlen) {
         ((char*)buffer)[idx] = character;
@@ -132,7 +132,7 @@ static inline void _out_buffer(char character, void* buffer, size_t idx, size_t 
 }
 
 // internal null output
-static inline void _out_null(char character, void* buffer, size_t idx, size_t maxlen)
+__STATIC_INLINE void _out_null(char character, void* buffer, size_t idx, size_t maxlen)
 {
     (void)character;
     (void)buffer;
@@ -141,7 +141,7 @@ static inline void _out_null(char character, void* buffer, size_t idx, size_t ma
 }
 
 // internal _putchar wrapper
-static inline void _out_char(char character, void* buffer, size_t idx, size_t maxlen)
+__STATIC_INLINE void _out_char(char character, void* buffer, size_t idx, size_t maxlen)
 {
     (void)buffer;
     (void)idx;
@@ -152,7 +152,7 @@ static inline void _out_char(char character, void* buffer, size_t idx, size_t ma
 }
 
 // internal output function wrapper
-static inline void _out_fct(char character, void* buffer, size_t idx, size_t maxlen)
+__STATIC_INLINE void _out_fct(char character, void* buffer, size_t idx, size_t maxlen)
 {
     (void)idx;
     (void)maxlen;
@@ -164,7 +164,7 @@ static inline void _out_fct(char character, void* buffer, size_t idx, size_t max
 
 // internal secure strlen
 // \return The length of the string (excluding the terminating 0) limited by 'maxsize'
-static inline unsigned int _strnlen_s(const char* str, size_t maxsize)
+__STATIC_INLINE unsigned int _strnlen_s(const char* str, size_t maxsize)
 {
     const char* s;
     for (s = str; *s && maxsize--; ++s)
@@ -174,7 +174,7 @@ static inline unsigned int _strnlen_s(const char* str, size_t maxsize)
 
 // internal test if char is a digit (0-9)
 // \return true if char is a digit
-static inline bool _is_digit(char ch)
+__STATIC_INLINE bool _is_digit(char ch)
 {
     return (ch >= '0') && (ch <= '9');
 }

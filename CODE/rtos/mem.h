@@ -13,19 +13,15 @@
 #define IS_SRAM4(p)     (((uint32_t)p & 0xffff0000) == 0x38000000)
 
 
-extern uint8_t _dmaram_start__;
-extern uint8_t _dmaram_end__;
-
-extern uint8_t _dmaramd3_start__;
-extern uint8_t _dmaramd3_end__;
-
 #define DMA_DATA                    __attribute__ ((section(".data"), aligned(32)))
 #define STATIC_DMA_DATA_AUTO        static DMA_DATA
 
-#define DMA_INIT_DATA                    __attribute__ ((section(".bss"), aligned(32)))
-#define STATIC_DMA_INIT_DATA_AUTO        static DMA_INIT_DATA
+#define HEAP_DATA                    __attribute__ ((section("._user_heap_stack"), aligned(32)))
+#define STATIC_HEAP_DATA_AUTO        static HEAP_DATA
 
 #define BDMA_DATA                    __attribute__ ((section(".d3_data"), aligned(32)))
 #define STATIC_BDMA_DATA_AUTO        static BDMA_DATA
+
+void system_heap_init(void *begin_addr, void *end_addr);
 
 #endif //X7PRO_DRIVER_MEM_H

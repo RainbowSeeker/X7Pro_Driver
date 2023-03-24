@@ -6,9 +6,13 @@
 #include <common.h>
 
 #include <time.h>
+
+#ifndef __CC_ARM
 #include <sys/errno.h>
 #include <sys/stat.h>
 #include <sys/fcntl.h>
+#endif
+
 
 #ifndef DFS_FILESYSTEMS_MAX
 #define DFS_FILESYSTEMS_MAX     2

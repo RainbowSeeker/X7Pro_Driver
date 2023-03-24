@@ -86,7 +86,7 @@ err_t hal_adc_register(adc_dev_t adc_dev, const char* name, uint32_t flag, void*
     device->control = NULL;
     device->user_data = data;
 
-    os_mutex_init(&adc_dev->lock);
+    adc_dev->lock = os_mutex_create(name);
     ASSERT(adc_dev->lock != NULL);
 
     /* register a character device */

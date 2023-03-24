@@ -61,7 +61,7 @@ typedef struct __mavlink_mission_write_partial_list_t {
  * @param mission_type  Mission type.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_mission_write_partial_list_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_mission_write_partial_list_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                                    uint8_t target_system, uint8_t target_component, int16_t start_index, int16_t end_index, uint8_t mission_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -101,7 +101,7 @@ static inline uint16_t mavlink_msg_mission_write_partial_list_pack(uint8_t syste
  * @param mission_type  Mission type.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_mission_write_partial_list_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_mission_write_partial_list_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                         mavlink_message_t* msg,
                                                                         uint8_t target_system, uint8_t target_component, int16_t start_index, int16_t end_index, uint8_t mission_type)
 {
@@ -137,7 +137,7 @@ static inline uint16_t mavlink_msg_mission_write_partial_list_pack_chan(uint8_t 
  * @param msg The MAVLink message to compress the data into
  * @param mission_write_partial_list C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_mission_write_partial_list_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_mission_write_partial_list_t* mission_write_partial_list)
+__STATIC_INLINE uint16_t mavlink_msg_mission_write_partial_list_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_mission_write_partial_list_t* mission_write_partial_list)
 {
     return mavlink_msg_mission_write_partial_list_pack(system_id, component_id, msg, mission_write_partial_list->target_system, mission_write_partial_list->target_component, mission_write_partial_list->start_index, mission_write_partial_list->end_index, mission_write_partial_list->mission_type);
 }
@@ -151,7 +151,7 @@ static inline uint16_t mavlink_msg_mission_write_partial_list_encode(uint8_t sys
  * @param msg The MAVLink message to compress the data into
  * @param mission_write_partial_list C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_mission_write_partial_list_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_mission_write_partial_list_t* mission_write_partial_list)
+__STATIC_INLINE uint16_t mavlink_msg_mission_write_partial_list_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_mission_write_partial_list_t* mission_write_partial_list)
 {
     return mavlink_msg_mission_write_partial_list_pack_chan(system_id, component_id, chan, msg, mission_write_partial_list->target_system, mission_write_partial_list->target_component, mission_write_partial_list->start_index, mission_write_partial_list->end_index, mission_write_partial_list->mission_type);
 }
@@ -168,7 +168,7 @@ static inline uint16_t mavlink_msg_mission_write_partial_list_encode_chan(uint8_
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_mission_write_partial_list_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, int16_t start_index, int16_t end_index, uint8_t mission_type)
+__STATIC_INLINE void mavlink_msg_mission_write_partial_list_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, int16_t start_index, int16_t end_index, uint8_t mission_type)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_MISSION_WRITE_PARTIAL_LIST_LEN];
@@ -196,7 +196,7 @@ static inline void mavlink_msg_mission_write_partial_list_send(mavlink_channel_t
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_mission_write_partial_list_send_struct(mavlink_channel_t chan, const mavlink_mission_write_partial_list_t* mission_write_partial_list)
+__STATIC_INLINE void mavlink_msg_mission_write_partial_list_send_struct(mavlink_channel_t chan, const mavlink_mission_write_partial_list_t* mission_write_partial_list)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_mission_write_partial_list_send(chan, mission_write_partial_list->target_system, mission_write_partial_list->target_component, mission_write_partial_list->start_index, mission_write_partial_list->end_index, mission_write_partial_list->mission_type);
@@ -213,7 +213,7 @@ static inline void mavlink_msg_mission_write_partial_list_send_struct(mavlink_ch
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_mission_write_partial_list_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, int16_t start_index, int16_t end_index, uint8_t mission_type)
+__STATIC_INLINE void mavlink_msg_mission_write_partial_list_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, int16_t start_index, int16_t end_index, uint8_t mission_type)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -246,7 +246,7 @@ static inline void mavlink_msg_mission_write_partial_list_send_buf(mavlink_messa
  *
  * @return  System ID
  */
-static inline uint8_t mavlink_msg_mission_write_partial_list_get_target_system(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_mission_write_partial_list_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 4);
 }
@@ -256,7 +256,7 @@ static inline uint8_t mavlink_msg_mission_write_partial_list_get_target_system(c
  *
  * @return  Component ID
  */
-static inline uint8_t mavlink_msg_mission_write_partial_list_get_target_component(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_mission_write_partial_list_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 5);
 }
@@ -266,7 +266,7 @@ static inline uint8_t mavlink_msg_mission_write_partial_list_get_target_componen
  *
  * @return  Start index. Must be smaller / equal to the largest index of the current onboard list.
  */
-static inline int16_t mavlink_msg_mission_write_partial_list_get_start_index(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_mission_write_partial_list_get_start_index(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 0);
 }
@@ -276,7 +276,7 @@ static inline int16_t mavlink_msg_mission_write_partial_list_get_start_index(con
  *
  * @return  End index, equal or greater than start index.
  */
-static inline int16_t mavlink_msg_mission_write_partial_list_get_end_index(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_mission_write_partial_list_get_end_index(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 2);
 }
@@ -286,7 +286,7 @@ static inline int16_t mavlink_msg_mission_write_partial_list_get_end_index(const
  *
  * @return  Mission type.
  */
-static inline uint8_t mavlink_msg_mission_write_partial_list_get_mission_type(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_mission_write_partial_list_get_mission_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 6);
 }
@@ -297,7 +297,7 @@ static inline uint8_t mavlink_msg_mission_write_partial_list_get_mission_type(co
  * @param msg The message to decode
  * @param mission_write_partial_list C-struct to decode the message contents into
  */
-static inline void mavlink_msg_mission_write_partial_list_decode(const mavlink_message_t* msg, mavlink_mission_write_partial_list_t* mission_write_partial_list)
+__STATIC_INLINE void mavlink_msg_mission_write_partial_list_decode(const mavlink_message_t* msg, mavlink_mission_write_partial_list_t* mission_write_partial_list)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mission_write_partial_list->start_index = mavlink_msg_mission_write_partial_list_get_start_index(msg);

@@ -74,7 +74,7 @@ struct spi_bus
 {
     struct device parent;
     const struct spi_ops *ops;
-    os_sem_t lock;
+    struct sem lock;
     struct spi_device *owner;
 };
 
@@ -182,21 +182,21 @@ size_t spi_transfer(struct spi_device *device,
 struct spi_message *spi_transfer_message(struct spi_device *device,
                                          struct spi_message *message);
 
-static inline err_t spi_recv(struct spi_device *device,
+__STATIC_INLINE err_t spi_recv(struct spi_device *device,
                               void *recv_buf,
                               size_t length)
 {
     return spi_transfer(device, NULL, recv_buf, length);
 }
 
-static inline err_t spi_send(struct spi_device *device,
+__STATIC_INLINE err_t spi_send(struct spi_device *device,
                               void *send_buf,
                               size_t length)
 {
     return spi_transfer(device, send_buf, NULL, length);
 }
 
-static inline uint8_t spi_sendrecv8(struct spi_device *device,
+__STATIC_INLINE uint8_t spi_sendrecv8(struct spi_device *device,
                                     uint8_t data)
 {
     uint8_t value;
@@ -206,7 +206,7 @@ static inline uint8_t spi_sendrecv8(struct spi_device *device,
     return value;
 }
 
-static inline uint16_t spi_sendrecv16(struct spi_device *device,
+__STATIC_INLINE uint16_t spi_sendrecv16(struct spi_device *device,
                                       uint16_t data)
 {
     uint16_t value;
@@ -219,7 +219,7 @@ static inline uint16_t spi_sendrecv16(struct spi_device *device,
 #define SPI_DIR_READ  0x80
 #define SPI_DIR_WRITE 0x00
 
-static inline err_t spi_write_reg8(device_t spi_device, uint8_t reg, uint8_t val)
+__STATIC_INLINE err_t spi_write_reg8(device_t spi_device, uint8_t reg, uint8_t val)
 {
     uint8_t buffer[2];
 
@@ -229,12 +229,12 @@ static inline err_t spi_write_reg8(device_t spi_device, uint8_t reg, uint8_t val
     return (2 == spi_transfer((struct spi_device *) spi_device, buffer, NULL, 2)) ? E_OK : E_RROR;
 }
 
-static inline err_t spi_read_reg8(device_t spi_device, uint8_t reg, uint8_t *buffer)
+__STATIC_INLINE err_t spi_read_reg8(device_t spi_device, uint8_t reg, uint8_t *buffer)
 {
     return spi_send_then_recv((struct spi_device *) spi_device, (void *) &reg, 1, (void *) buffer, 1);
 }
 
-static inline err_t spi_read_reg8_msk(device_t spi_device, uint8_t reg, uint8_t *buffer)
+__STATIC_INLINE err_t spi_read_reg8_msk(device_t spi_device, uint8_t reg, uint8_t *buffer)
 {
     uint8_t reg_addr;
 
@@ -243,12 +243,12 @@ static inline err_t spi_read_reg8_msk(device_t spi_device, uint8_t reg, uint8_t 
     return spi_send_then_recv((struct spi_device *) spi_device, (void *) &reg_addr, 1, (void *) buffer, 1);
 }
 
-static inline err_t spi_read_multi_reg8(device_t spi_device, uint8_t reg, uint8_t *buffer, uint8_t len)
+__STATIC_INLINE err_t spi_read_multi_reg8(device_t spi_device, uint8_t reg, uint8_t *buffer, uint8_t len)
 {
     return spi_send_then_recv((struct spi_device *) spi_device, (void *) &reg, 1, (void *) buffer, len);
 }
 
-static inline err_t spi_read_multi_reg8_msk(device_t spi_device, uint8_t reg, uint8_t *buffer, uint8_t len)
+__STATIC_INLINE err_t spi_read_multi_reg8_msk(device_t spi_device, uint8_t reg, uint8_t *buffer, uint8_t len)
 {
     uint8_t reg_addr;
 
@@ -257,14 +257,14 @@ static inline err_t spi_read_multi_reg8_msk(device_t spi_device, uint8_t reg, ui
     return spi_send_then_recv((struct spi_device *) spi_device, (void *) &reg_addr, 1, (void *) buffer, len);
 }
 
-static inline err_t spi_read_bank_reg8(device_t spi_device, uint8_t bank_reg, uint8_t bank, uint8_t reg, uint8_t *buffer)
+__STATIC_INLINE err_t spi_read_bank_reg8(device_t spi_device, uint8_t bank_reg, uint8_t bank, uint8_t reg, uint8_t *buffer)
 {
     spi_write_reg8(spi_device, bank_reg, bank);
 
     return spi_read_reg8_msk(spi_device, reg, buffer);
 }
 
-static inline err_t spi_read_bank_multi_reg8(device_t spi_device, uint8_t bank_reg, uint8_t bank, uint8_t reg, uint8_t *buffer,
+__STATIC_INLINE err_t spi_read_bank_multi_reg8(device_t spi_device, uint8_t bank_reg, uint8_t bank, uint8_t reg, uint8_t *buffer,
                          uint8_t len)
 {
     spi_write_reg8(spi_device, bank_reg, bank);
@@ -272,14 +272,14 @@ static inline err_t spi_read_bank_multi_reg8(device_t spi_device, uint8_t bank_r
     return spi_read_multi_reg8_msk(spi_device, reg, buffer, len);
 }
 
-static inline err_t spi_write_bank_reg8(device_t spi_device, uint8_t bank_reg, uint8_t bank, uint8_t reg, uint8_t val)
+__STATIC_INLINE err_t spi_write_bank_reg8(device_t spi_device, uint8_t bank_reg, uint8_t bank, uint8_t reg, uint8_t val)
 {
     spi_write_reg8(spi_device, bank_reg, bank);
 
     return spi_write_reg8(spi_device, reg, val);
 }
 
-static inline err_t spi_wait(device_t device)
+__STATIC_INLINE err_t spi_wait(device_t device)
 {
     return spi_take_bus((struct spi_device *)device)
             || spi_release_bus((struct spi_device *)device);

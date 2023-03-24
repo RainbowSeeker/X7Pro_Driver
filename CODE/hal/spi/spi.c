@@ -7,8 +7,8 @@
 #include "spi.h"
 #include "dma/dma.h"
 
-#define spi_lock(_bus)          os_sem_take(_bus->lock, OS_WAIT_FOREVER)
-#define spi_unlock(_bus)        os_sem_release(_bus->lock)
+#define spi_lock(_bus)          os_sem_take(&(_bus->lock), OS_WAITING_FOREVER)
+#define spi_unlock(_bus)        os_sem_release(&(_bus->lock))
 
 static err_t spi_bus_init(struct spi_bus *bus, const char *name)
 {
@@ -43,8 +43,8 @@ err_t spi_bus_register(struct spi_bus *bus,
     if (result != E_OK)
         return result;
 
-    /* initialize os_mutex lock */
-    bus->lock = os_sem_create(1);
+    /* initialize lock */
+    os_sem_init(&(bus->lock), name, 1);
     /* set ops */
     bus->ops = ops;
     /* initialize owner */
@@ -265,7 +265,7 @@ struct spi_message *spi_transfer_message(struct spi_device *device,
 
     if (result != E_OK)
     {
-        os_set_errno(-EBUSY);
+        os_set_errno(-E_BUSY);
 
         return message;
     }
@@ -300,8 +300,8 @@ err_t spi_take_bus(struct spi_device *device)
 
     if (result != E_OK)
     {
-        os_set_errno(-EBUSY);
-        return -EBUSY;
+        os_set_errno(-E_BUSY);
+        return -E_BUSY;
     }
 
     return result;

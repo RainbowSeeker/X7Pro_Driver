@@ -11,6 +11,21 @@
 // Board Information
 #define TARGET_NAME  "CUAV V7Pro"
 
+
+#if defined(__CC_ARM) || defined(__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+/* the size of heap is defined in startup.s, the address can be found in .map file */
+extern int __heap_base;
+extern int __heap_limit;
+    #define SYSTEM_FREE_MEM_BEGIN (&__heap_base)
+    #define SYSTEM_FREE_MEM_END   (&__heap_limit)
+#else
+extern uint8_t _end; /* Symbol defined in the linker script */
+extern uint8_t _estack; /* Symbol defined in the linker script */
+extern uint32_t _Min_Stack_Size; /* Symbol defined in the linker script */
+    #define SYSTEM_FREE_MEM_BEGIN (&_end)
+    #define SYSTEM_FREE_MEM_END   (&_estack - (uint32_t)&_Min_Stack_Size)
+#endif
+
 // clang-format off
 static char* default_conf = STRING(
 target = "CUAV V7Pro"\n
@@ -25,7 +40,7 @@ target = "CUAV V7Pro"\n
         name = "mav_console"\n
         auto-switch = true\n
 [mavproxy]\n
-[[mavproxy.devices]]\n
+[mavproxy.device]\n
         type = "usb"\n
         name = "usbd0"\n
         auto-switch = true\n

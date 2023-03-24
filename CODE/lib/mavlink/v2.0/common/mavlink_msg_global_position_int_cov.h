@@ -83,7 +83,7 @@ typedef struct __mavlink_global_position_int_cov_t {
  * @param covariance  Row-major representation of a 6x6 position and velocity 6x6 cross-covariance matrix (states: lat, lon, alt, vx, vy, vz; first six entries are the first ROW, next six entries are the second row, etc.). If unknown, assign NaN value to first element in the array.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_global_position_int_cov_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_global_position_int_cov_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                                 uint64_t time_usec, uint8_t estimator_type, int32_t lat, int32_t lon, int32_t alt, int32_t relative_alt, float vx, float vy, float vz, const float* covariance)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -136,7 +136,7 @@ static inline uint16_t mavlink_msg_global_position_int_cov_pack(uint8_t system_i
  * @param covariance  Row-major representation of a 6x6 position and velocity 6x6 cross-covariance matrix (states: lat, lon, alt, vx, vy, vz; first six entries are the first ROW, next six entries are the second row, etc.). If unknown, assign NaN value to first element in the array.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_global_position_int_cov_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_global_position_int_cov_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                      mavlink_message_t* msg,
                                                                      uint64_t time_usec, uint8_t estimator_type, int32_t lat, int32_t lon, int32_t alt, int32_t relative_alt, float vx, float vy, float vz, const float* covariance)
 {
@@ -180,7 +180,7 @@ static inline uint16_t mavlink_msg_global_position_int_cov_pack_chan(uint8_t sys
  * @param msg The MAVLink message to compress the data into
  * @param global_position_int_cov C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_global_position_int_cov_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_global_position_int_cov_t* global_position_int_cov)
+__STATIC_INLINE uint16_t mavlink_msg_global_position_int_cov_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_global_position_int_cov_t* global_position_int_cov)
 {
     return mavlink_msg_global_position_int_cov_pack(system_id, component_id, msg, global_position_int_cov->time_usec, global_position_int_cov->estimator_type, global_position_int_cov->lat, global_position_int_cov->lon, global_position_int_cov->alt, global_position_int_cov->relative_alt, global_position_int_cov->vx, global_position_int_cov->vy, global_position_int_cov->vz, global_position_int_cov->covariance);
 }
@@ -194,7 +194,7 @@ static inline uint16_t mavlink_msg_global_position_int_cov_encode(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param global_position_int_cov C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_global_position_int_cov_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_global_position_int_cov_t* global_position_int_cov)
+__STATIC_INLINE uint16_t mavlink_msg_global_position_int_cov_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_global_position_int_cov_t* global_position_int_cov)
 {
     return mavlink_msg_global_position_int_cov_pack_chan(system_id, component_id, chan, msg, global_position_int_cov->time_usec, global_position_int_cov->estimator_type, global_position_int_cov->lat, global_position_int_cov->lon, global_position_int_cov->alt, global_position_int_cov->relative_alt, global_position_int_cov->vx, global_position_int_cov->vy, global_position_int_cov->vz, global_position_int_cov->covariance);
 }
@@ -216,7 +216,7 @@ static inline uint16_t mavlink_msg_global_position_int_cov_encode_chan(uint8_t s
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_global_position_int_cov_send(mavlink_channel_t chan, uint64_t time_usec, uint8_t estimator_type, int32_t lat, int32_t lon, int32_t alt, int32_t relative_alt, float vx, float vy, float vz, const float* covariance)
+__STATIC_INLINE void mavlink_msg_global_position_int_cov_send(mavlink_channel_t chan, uint64_t time_usec, uint8_t estimator_type, int32_t lat, int32_t lon, int32_t alt, int32_t relative_alt, float vx, float vy, float vz, const float* covariance)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GLOBAL_POSITION_INT_COV_LEN];
@@ -252,7 +252,7 @@ static inline void mavlink_msg_global_position_int_cov_send(mavlink_channel_t ch
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_global_position_int_cov_send_struct(mavlink_channel_t chan, const mavlink_global_position_int_cov_t* global_position_int_cov)
+__STATIC_INLINE void mavlink_msg_global_position_int_cov_send_struct(mavlink_channel_t chan, const mavlink_global_position_int_cov_t* global_position_int_cov)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_global_position_int_cov_send(chan, global_position_int_cov->time_usec, global_position_int_cov->estimator_type, global_position_int_cov->lat, global_position_int_cov->lon, global_position_int_cov->alt, global_position_int_cov->relative_alt, global_position_int_cov->vx, global_position_int_cov->vy, global_position_int_cov->vz, global_position_int_cov->covariance);
@@ -269,7 +269,7 @@ static inline void mavlink_msg_global_position_int_cov_send_struct(mavlink_chann
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_global_position_int_cov_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, uint8_t estimator_type, int32_t lat, int32_t lon, int32_t alt, int32_t relative_alt, float vx, float vy, float vz, const float* covariance)
+__STATIC_INLINE void mavlink_msg_global_position_int_cov_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, uint8_t estimator_type, int32_t lat, int32_t lon, int32_t alt, int32_t relative_alt, float vx, float vy, float vz, const float* covariance)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -310,7 +310,7 @@ static inline void mavlink_msg_global_position_int_cov_send_buf(mavlink_message_
  *
  * @return [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  */
-static inline uint64_t mavlink_msg_global_position_int_cov_get_time_usec(const mavlink_message_t* msg)
+__STATIC_INLINE uint64_t mavlink_msg_global_position_int_cov_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 0);
 }
@@ -320,7 +320,7 @@ static inline uint64_t mavlink_msg_global_position_int_cov_get_time_usec(const m
  *
  * @return  Class id of the estimator this estimate originated from.
  */
-static inline uint8_t mavlink_msg_global_position_int_cov_get_estimator_type(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_global_position_int_cov_get_estimator_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 180);
 }
@@ -330,7 +330,7 @@ static inline uint8_t mavlink_msg_global_position_int_cov_get_estimator_type(con
  *
  * @return [degE7] Latitude
  */
-static inline int32_t mavlink_msg_global_position_int_cov_get_lat(const mavlink_message_t* msg)
+__STATIC_INLINE int32_t mavlink_msg_global_position_int_cov_get_lat(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 8);
 }
@@ -340,7 +340,7 @@ static inline int32_t mavlink_msg_global_position_int_cov_get_lat(const mavlink_
  *
  * @return [degE7] Longitude
  */
-static inline int32_t mavlink_msg_global_position_int_cov_get_lon(const mavlink_message_t* msg)
+__STATIC_INLINE int32_t mavlink_msg_global_position_int_cov_get_lon(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 12);
 }
@@ -350,7 +350,7 @@ static inline int32_t mavlink_msg_global_position_int_cov_get_lon(const mavlink_
  *
  * @return [mm] Altitude in meters above MSL
  */
-static inline int32_t mavlink_msg_global_position_int_cov_get_alt(const mavlink_message_t* msg)
+__STATIC_INLINE int32_t mavlink_msg_global_position_int_cov_get_alt(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 16);
 }
@@ -360,7 +360,7 @@ static inline int32_t mavlink_msg_global_position_int_cov_get_alt(const mavlink_
  *
  * @return [mm] Altitude above ground
  */
-static inline int32_t mavlink_msg_global_position_int_cov_get_relative_alt(const mavlink_message_t* msg)
+__STATIC_INLINE int32_t mavlink_msg_global_position_int_cov_get_relative_alt(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 20);
 }
@@ -370,7 +370,7 @@ static inline int32_t mavlink_msg_global_position_int_cov_get_relative_alt(const
  *
  * @return [m/s] Ground X Speed (Latitude)
  */
-static inline float mavlink_msg_global_position_int_cov_get_vx(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_global_position_int_cov_get_vx(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 24);
 }
@@ -380,7 +380,7 @@ static inline float mavlink_msg_global_position_int_cov_get_vx(const mavlink_mes
  *
  * @return [m/s] Ground Y Speed (Longitude)
  */
-static inline float mavlink_msg_global_position_int_cov_get_vy(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_global_position_int_cov_get_vy(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 28);
 }
@@ -390,7 +390,7 @@ static inline float mavlink_msg_global_position_int_cov_get_vy(const mavlink_mes
  *
  * @return [m/s] Ground Z Speed (Altitude)
  */
-static inline float mavlink_msg_global_position_int_cov_get_vz(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_global_position_int_cov_get_vz(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 32);
 }
@@ -400,7 +400,7 @@ static inline float mavlink_msg_global_position_int_cov_get_vz(const mavlink_mes
  *
  * @return  Row-major representation of a 6x6 position and velocity 6x6 cross-covariance matrix (states: lat, lon, alt, vx, vy, vz; first six entries are the first ROW, next six entries are the second row, etc.). If unknown, assign NaN value to first element in the array.
  */
-static inline uint16_t mavlink_msg_global_position_int_cov_get_covariance(const mavlink_message_t* msg, float* covariance)
+__STATIC_INLINE uint16_t mavlink_msg_global_position_int_cov_get_covariance(const mavlink_message_t* msg, float* covariance)
 {
     return _MAV_RETURN_float_array(msg, covariance, 36, 36);
 }
@@ -411,7 +411,7 @@ static inline uint16_t mavlink_msg_global_position_int_cov_get_covariance(const 
  * @param msg The message to decode
  * @param global_position_int_cov C-struct to decode the message contents into
  */
-static inline void mavlink_msg_global_position_int_cov_decode(const mavlink_message_t* msg, mavlink_global_position_int_cov_t* global_position_int_cov)
+__STATIC_INLINE void mavlink_msg_global_position_int_cov_decode(const mavlink_message_t* msg, mavlink_global_position_int_cov_t* global_position_int_cov)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     global_position_int_cov->time_usec = mavlink_msg_global_position_int_cov_get_time_usec(msg);

@@ -52,7 +52,7 @@ static uint32_t spi_cal_prescaler(uint16_t divisor) {
             LL_SPI_BAUDRATEPRESCALER_DIV128,
             LL_SPI_BAUDRATEPRESCALER_DIV256,
     };
-    int prescalerIndex = ffs(divisor) - 2; // prescaler begins at "/2"
+    int prescalerIndex = __ffs(divisor) - 2; // prescaler begins at "/2"
 
     return baudRatePrescaler[prescalerIndex];
 }
@@ -358,8 +358,8 @@ static void spi_dma_callback(uint32_t user_data) {
 
     device_close(&bus->dma_tx->parent);
     device_close(&bus->dma_rx->parent);
-    /* unlock sem */
-    os_sem_release(device->bus->lock);
+    /* unlock lock */
+    spi_release_bus(device);
 }
 
 static err_t stm32_spi_verify_name(const char *name, int *idx) {

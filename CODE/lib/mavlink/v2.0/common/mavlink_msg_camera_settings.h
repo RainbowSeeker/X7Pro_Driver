@@ -59,7 +59,7 @@ mavlink_camera_settings_t;
  * @param focusLevel  Current focus level (0.0 to 100.0, NaN if not known)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_camera_settings_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_camera_settings_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                         uint32_t time_boot_ms, uint8_t mode_id, float zoomLevel, float focusLevel)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -96,7 +96,7 @@ static inline uint16_t mavlink_msg_camera_settings_pack(uint8_t system_id, uint8
  * @param focusLevel  Current focus level (0.0 to 100.0, NaN if not known)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_camera_settings_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_camera_settings_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                              mavlink_message_t* msg,
                                                              uint32_t time_boot_ms, uint8_t mode_id, float zoomLevel, float focusLevel)
 {
@@ -130,7 +130,7 @@ static inline uint16_t mavlink_msg_camera_settings_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param camera_settings C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_camera_settings_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_camera_settings_t* camera_settings)
+__STATIC_INLINE uint16_t mavlink_msg_camera_settings_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_camera_settings_t* camera_settings)
 {
     return mavlink_msg_camera_settings_pack(system_id, component_id, msg, camera_settings->time_boot_ms, camera_settings->mode_id, camera_settings->zoomLevel, camera_settings->focusLevel);
 }
@@ -144,7 +144,7 @@ static inline uint16_t mavlink_msg_camera_settings_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param camera_settings C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_camera_settings_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_camera_settings_t* camera_settings)
+__STATIC_INLINE uint16_t mavlink_msg_camera_settings_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_camera_settings_t* camera_settings)
 {
     return mavlink_msg_camera_settings_pack_chan(system_id, component_id, chan, msg, camera_settings->time_boot_ms, camera_settings->mode_id, camera_settings->zoomLevel, camera_settings->focusLevel);
 }
@@ -160,7 +160,7 @@ static inline uint16_t mavlink_msg_camera_settings_encode_chan(uint8_t system_id
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_camera_settings_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t mode_id, float zoomLevel, float focusLevel)
+__STATIC_INLINE void mavlink_msg_camera_settings_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t mode_id, float zoomLevel, float focusLevel)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_CAMERA_SETTINGS_LEN];
@@ -186,7 +186,7 @@ static inline void mavlink_msg_camera_settings_send(mavlink_channel_t chan, uint
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_camera_settings_send_struct(mavlink_channel_t chan, const mavlink_camera_settings_t* camera_settings)
+__STATIC_INLINE void mavlink_msg_camera_settings_send_struct(mavlink_channel_t chan, const mavlink_camera_settings_t* camera_settings)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_camera_settings_send(chan, camera_settings->time_boot_ms, camera_settings->mode_id, camera_settings->zoomLevel, camera_settings->focusLevel);
@@ -203,7 +203,7 @@ static inline void mavlink_msg_camera_settings_send_struct(mavlink_channel_t cha
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_camera_settings_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t mode_id, float zoomLevel, float focusLevel)
+__STATIC_INLINE void mavlink_msg_camera_settings_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t mode_id, float zoomLevel, float focusLevel)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -234,7 +234,7 @@ static inline void mavlink_msg_camera_settings_send_buf(mavlink_message_t* msgbu
  *
  * @return [ms] Timestamp (time since system boot).
  */
-static inline uint32_t mavlink_msg_camera_settings_get_time_boot_ms(const mavlink_message_t* msg)
+__STATIC_INLINE uint32_t mavlink_msg_camera_settings_get_time_boot_ms(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 0);
 }
@@ -244,7 +244,7 @@ static inline uint32_t mavlink_msg_camera_settings_get_time_boot_ms(const mavlin
  *
  * @return  Camera mode
  */
-static inline uint8_t mavlink_msg_camera_settings_get_mode_id(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_camera_settings_get_mode_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 4);
 }
@@ -254,7 +254,7 @@ static inline uint8_t mavlink_msg_camera_settings_get_mode_id(const mavlink_mess
  *
  * @return  Current zoom level (0.0 to 100.0, NaN if not known)
  */
-static inline float mavlink_msg_camera_settings_get_zoomLevel(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_camera_settings_get_zoomLevel(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 5);
 }
@@ -264,7 +264,7 @@ static inline float mavlink_msg_camera_settings_get_zoomLevel(const mavlink_mess
  *
  * @return  Current focus level (0.0 to 100.0, NaN if not known)
  */
-static inline float mavlink_msg_camera_settings_get_focusLevel(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_camera_settings_get_focusLevel(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 9);
 }
@@ -275,7 +275,7 @@ static inline float mavlink_msg_camera_settings_get_focusLevel(const mavlink_mes
  * @param msg The message to decode
  * @param camera_settings C-struct to decode the message contents into
  */
-static inline void mavlink_msg_camera_settings_decode(const mavlink_message_t* msg, mavlink_camera_settings_t* camera_settings)
+__STATIC_INLINE void mavlink_msg_camera_settings_decode(const mavlink_message_t* msg, mavlink_camera_settings_t* camera_settings)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     camera_settings->time_boot_ms = mavlink_msg_camera_settings_get_time_boot_ms(msg);

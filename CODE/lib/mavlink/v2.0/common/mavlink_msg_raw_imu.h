@@ -91,7 +91,7 @@ mavlink_raw_imu_t;
  * @param temperature [cdegC] Temperature, 0: IMU does not provide temperature values. If the IMU is at 0C it must send 1 (0.01C).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_raw_imu_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_raw_imu_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                 uint64_t time_usec, int16_t xacc, int16_t yacc, int16_t zacc, int16_t xgyro, int16_t ygyro, int16_t zgyro, int16_t xmag, int16_t ymag, int16_t zmag, uint8_t id, int16_t temperature)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -152,7 +152,7 @@ static inline uint16_t mavlink_msg_raw_imu_pack(uint8_t system_id, uint8_t compo
  * @param temperature [cdegC] Temperature, 0: IMU does not provide temperature values. If the IMU is at 0C it must send 1 (0.01C).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_raw_imu_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_raw_imu_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                      mavlink_message_t* msg,
                                                      uint64_t time_usec, int16_t xacc, int16_t yacc, int16_t zacc, int16_t xgyro, int16_t ygyro, int16_t zgyro, int16_t xmag, int16_t ymag, int16_t zmag, uint8_t id, int16_t temperature)
 {
@@ -202,7 +202,7 @@ static inline uint16_t mavlink_msg_raw_imu_pack_chan(uint8_t system_id, uint8_t 
  * @param msg The MAVLink message to compress the data into
  * @param raw_imu C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_raw_imu_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_raw_imu_t* raw_imu)
+__STATIC_INLINE uint16_t mavlink_msg_raw_imu_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_raw_imu_t* raw_imu)
 {
     return mavlink_msg_raw_imu_pack(system_id, component_id, msg, raw_imu->time_usec, raw_imu->xacc, raw_imu->yacc, raw_imu->zacc, raw_imu->xgyro, raw_imu->ygyro, raw_imu->zgyro, raw_imu->xmag, raw_imu->ymag, raw_imu->zmag, raw_imu->id, raw_imu->temperature);
 }
@@ -216,7 +216,7 @@ static inline uint16_t mavlink_msg_raw_imu_encode(uint8_t system_id, uint8_t com
  * @param msg The MAVLink message to compress the data into
  * @param raw_imu C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_raw_imu_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_raw_imu_t* raw_imu)
+__STATIC_INLINE uint16_t mavlink_msg_raw_imu_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_raw_imu_t* raw_imu)
 {
     return mavlink_msg_raw_imu_pack_chan(system_id, component_id, chan, msg, raw_imu->time_usec, raw_imu->xacc, raw_imu->yacc, raw_imu->zacc, raw_imu->xgyro, raw_imu->ygyro, raw_imu->zgyro, raw_imu->xmag, raw_imu->ymag, raw_imu->zmag, raw_imu->id, raw_imu->temperature);
 }
@@ -240,7 +240,7 @@ static inline uint16_t mavlink_msg_raw_imu_encode_chan(uint8_t system_id, uint8_
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_raw_imu_send(mavlink_channel_t chan, uint64_t time_usec, int16_t xacc, int16_t yacc, int16_t zacc, int16_t xgyro, int16_t ygyro, int16_t zgyro, int16_t xmag, int16_t ymag, int16_t zmag, uint8_t id, int16_t temperature)
+__STATIC_INLINE void mavlink_msg_raw_imu_send(mavlink_channel_t chan, uint64_t time_usec, int16_t xacc, int16_t yacc, int16_t zacc, int16_t xgyro, int16_t ygyro, int16_t zgyro, int16_t xmag, int16_t ymag, int16_t zmag, uint8_t id, int16_t temperature)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_RAW_IMU_LEN];
@@ -282,7 +282,7 @@ static inline void mavlink_msg_raw_imu_send(mavlink_channel_t chan, uint64_t tim
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_raw_imu_send_struct(mavlink_channel_t chan, const mavlink_raw_imu_t* raw_imu)
+__STATIC_INLINE void mavlink_msg_raw_imu_send_struct(mavlink_channel_t chan, const mavlink_raw_imu_t* raw_imu)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_raw_imu_send(chan, raw_imu->time_usec, raw_imu->xacc, raw_imu->yacc, raw_imu->zacc, raw_imu->xgyro, raw_imu->ygyro, raw_imu->zgyro, raw_imu->xmag, raw_imu->ymag, raw_imu->zmag, raw_imu->id, raw_imu->temperature);
@@ -299,7 +299,7 @@ static inline void mavlink_msg_raw_imu_send_struct(mavlink_channel_t chan, const
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_raw_imu_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, int16_t xacc, int16_t yacc, int16_t zacc, int16_t xgyro, int16_t ygyro, int16_t zgyro, int16_t xmag, int16_t ymag, int16_t zmag, uint8_t id, int16_t temperature)
+__STATIC_INLINE void mavlink_msg_raw_imu_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, int16_t xacc, int16_t yacc, int16_t zacc, int16_t xgyro, int16_t ygyro, int16_t zgyro, int16_t xmag, int16_t ymag, int16_t zmag, uint8_t id, int16_t temperature)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -346,7 +346,7 @@ static inline void mavlink_msg_raw_imu_send_buf(mavlink_message_t* msgbuf, mavli
  *
  * @return [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  */
-static inline uint64_t mavlink_msg_raw_imu_get_time_usec(const mavlink_message_t* msg)
+__STATIC_INLINE uint64_t mavlink_msg_raw_imu_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 0);
 }
@@ -356,7 +356,7 @@ static inline uint64_t mavlink_msg_raw_imu_get_time_usec(const mavlink_message_t
  *
  * @return  X acceleration (raw)
  */
-static inline int16_t mavlink_msg_raw_imu_get_xacc(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_raw_imu_get_xacc(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 8);
 }
@@ -366,7 +366,7 @@ static inline int16_t mavlink_msg_raw_imu_get_xacc(const mavlink_message_t* msg)
  *
  * @return  Y acceleration (raw)
  */
-static inline int16_t mavlink_msg_raw_imu_get_yacc(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_raw_imu_get_yacc(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 10);
 }
@@ -376,7 +376,7 @@ static inline int16_t mavlink_msg_raw_imu_get_yacc(const mavlink_message_t* msg)
  *
  * @return  Z acceleration (raw)
  */
-static inline int16_t mavlink_msg_raw_imu_get_zacc(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_raw_imu_get_zacc(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 12);
 }
@@ -386,7 +386,7 @@ static inline int16_t mavlink_msg_raw_imu_get_zacc(const mavlink_message_t* msg)
  *
  * @return  Angular speed around X axis (raw)
  */
-static inline int16_t mavlink_msg_raw_imu_get_xgyro(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_raw_imu_get_xgyro(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 14);
 }
@@ -396,7 +396,7 @@ static inline int16_t mavlink_msg_raw_imu_get_xgyro(const mavlink_message_t* msg
  *
  * @return  Angular speed around Y axis (raw)
  */
-static inline int16_t mavlink_msg_raw_imu_get_ygyro(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_raw_imu_get_ygyro(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 16);
 }
@@ -406,7 +406,7 @@ static inline int16_t mavlink_msg_raw_imu_get_ygyro(const mavlink_message_t* msg
  *
  * @return  Angular speed around Z axis (raw)
  */
-static inline int16_t mavlink_msg_raw_imu_get_zgyro(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_raw_imu_get_zgyro(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 18);
 }
@@ -416,7 +416,7 @@ static inline int16_t mavlink_msg_raw_imu_get_zgyro(const mavlink_message_t* msg
  *
  * @return  X Magnetic field (raw)
  */
-static inline int16_t mavlink_msg_raw_imu_get_xmag(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_raw_imu_get_xmag(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 20);
 }
@@ -426,7 +426,7 @@ static inline int16_t mavlink_msg_raw_imu_get_xmag(const mavlink_message_t* msg)
  *
  * @return  Y Magnetic field (raw)
  */
-static inline int16_t mavlink_msg_raw_imu_get_ymag(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_raw_imu_get_ymag(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 22);
 }
@@ -436,7 +436,7 @@ static inline int16_t mavlink_msg_raw_imu_get_ymag(const mavlink_message_t* msg)
  *
  * @return  Z Magnetic field (raw)
  */
-static inline int16_t mavlink_msg_raw_imu_get_zmag(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_raw_imu_get_zmag(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 24);
 }
@@ -446,7 +446,7 @@ static inline int16_t mavlink_msg_raw_imu_get_zmag(const mavlink_message_t* msg)
  *
  * @return  Id. Ids are numbered from 0 and map to IMUs numbered from 1 (e.g. IMU1 will have a message with id=0)
  */
-static inline uint8_t mavlink_msg_raw_imu_get_id(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_raw_imu_get_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 26);
 }
@@ -456,7 +456,7 @@ static inline uint8_t mavlink_msg_raw_imu_get_id(const mavlink_message_t* msg)
  *
  * @return [cdegC] Temperature, 0: IMU does not provide temperature values. If the IMU is at 0C it must send 1 (0.01C).
  */
-static inline int16_t mavlink_msg_raw_imu_get_temperature(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_raw_imu_get_temperature(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 27);
 }
@@ -467,7 +467,7 @@ static inline int16_t mavlink_msg_raw_imu_get_temperature(const mavlink_message_
  * @param msg The message to decode
  * @param raw_imu C-struct to decode the message contents into
  */
-static inline void mavlink_msg_raw_imu_decode(const mavlink_message_t* msg, mavlink_raw_imu_t* raw_imu)
+__STATIC_INLINE void mavlink_msg_raw_imu_decode(const mavlink_message_t* msg, mavlink_raw_imu_t* raw_imu)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     raw_imu->time_usec = mavlink_msg_raw_imu_get_time_usec(msg);

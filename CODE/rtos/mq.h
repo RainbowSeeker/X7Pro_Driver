@@ -7,11 +7,12 @@
 #ifndef X7PRO_DRIVER_MQ_H
 #define X7PRO_DRIVER_MQ_H
 #include "os_common.h"
+#include "algo/math/maths.h"
 
 struct messagequeue
 {
     struct object parent;
-    OS_MSG_Q qid;
+    OS_Q   qid;
     size_t msg_size;
     size_t max_msgs;
 };
@@ -26,17 +27,17 @@ typedef struct messagequeue *os_mq_t;
  * @param max_msgs the maximum number of message in queue
  * @return the created message queue, NULL on error happen
  */
-static inline os_mq_t os_mq_create(const char *name,
+__STATIC_INLINE os_mq_t os_mq_create(const char *name,
                                    size_t   msg_size,
                                    size_t   max_msgs)
 {
     os_mq_t mq = (os_mq_t ) malloc(sizeof(struct messagequeue));
-
+    ASSERT(mq);
     object_init(&mq->parent, Object_Class_MessageQueue, name);
     mq->msg_size = msg_size;
     mq->max_msgs = max_msgs;
-    OS_MsgQInit(&mq->qid, max_msgs);
-    return mq;
+    OSQCreate(&mq->qid, (CPU_CHAR *)name, max_msgs, &os_err);
+    return os_err == 0 ? mq : NULL;
 }
 
 /**
@@ -46,7 +47,7 @@ static inline os_mq_t os_mq_create(const char *name,
  * @param size
  * @return
  */
-static inline err_t os_mq_send(os_mq_t mq, const void *buffer, size_t size)
+__STATIC_INLINE err_t os_mq_send(os_mq_t mq, const void *buffer, size_t size)
 {
     ASSERT(mq);
     ASSERT(size <= mq->msg_size);
@@ -61,27 +62,32 @@ static inline err_t os_mq_send(os_mq_t mq, const void *buffer, size_t size)
 //    {
 //        buf_to = (void *)buffer;
 //    }
-
-    OS_MsgQPut(&mq->qid, buffer, size, OS_OPT_POST_FIFO, 0, &os_err);
+    OSQPost(&mq->qid,
+            (void *)buffer,
+            size,
+            OS_OPT_POST_FIFO,
+            &os_err);
 
 //    if (size != mq->msg_size) free(buf_to);
     return os_err == 0 ? E_OK : E_RROR;
 }
 
 
-static inline err_t os_mq_recv(os_mq_t mq, void *buffer, size_t size, uint32_t timeout)
+__STATIC_INLINE err_t os_mq_recv(os_mq_t mq, void *buffer, size_t size, uint32_t timeout)
 {
     size_t size_g;
+    ASSERT(mq);
+    void *recv_ptr = OSQPend(&mq->qid,
+                                timeout,
+                                os_interrupt_get_nest() > 0 ? OS_OPT_PEND_NON_BLOCKING : OS_OPT_PEND_BLOCKING,
+                                &size_g,
+                                0,
+                                &os_err);
 
-    while (timeout--)
+    if (recv_ptr)
     {
-        void *recv_ptr = OS_MsgQGet(&mq->qid, &size_g, NULL, &os_err);
-        if (size_g)
-        {
-            memcpy(buffer, recv_ptr, size_g);
-            return E_OK;
-        }
-        os_delay(1);
+        memcpy(buffer, recv_ptr, MIN(size, size_g));
+        return E_OK;
     }
     return E_RROR;
 }

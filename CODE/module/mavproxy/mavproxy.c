@@ -40,8 +40,8 @@ typedef struct {
     MAV_ImmediateMsg_Queue imm_mq;
     MAV_PeriodMsg_Queue period_mq;
     os_sem_t tx_lock;
-    os_timer_t timer;
-    os_event_t event;
+    struct timer timer;
+    struct event event;
     uint8_t chan;
     uint8_t new_chan;
     uint8_t* tx_buffer;
@@ -150,10 +150,10 @@ err_t mavproxy_send_immediate_msg(const mavlink_message_t* msg, bool sync)
         size_t size;
 
         /* make sure only one thread can access tx buffer at mean time. */
-        os_sem_take(mav_handle.tx_lock, OS_WAIT_FOREVER);
+        os_sem_take(mav_handle.tx_lock, OS_WAITING_FOREVER);
 
         len = mavlink_msg_to_send_buffer(mav_handle.tx_buffer, msg);
-        size = mavproxy_dev_write(mav_handle.tx_buffer, len, OS_WAIT_FOREVER);
+        size = mavproxy_dev_write(mav_handle.tx_buffer, len, OS_WAITING_FOREVER);
 
         os_sem_release(mav_handle.tx_lock);
 
@@ -244,7 +244,7 @@ void mavproxy_loop(void)
     while (1) {
         /* wait event occur */
         res = os_event_recv(&mav_handle.event, EVENT_MAVPROXY_UPDATE | EVENT_MAVCONSOLE_TIMEOUT | EVENT_SEND_ALL_PARAM,
-                            OS_WAIT_FOREVER, &recv_set);
+                            OS_WAITING_FOREVER, &recv_set);
 
         if (res == E_OK) {
             /* switch mavproxy channel if needed */
@@ -297,7 +297,7 @@ err_t mavproxy_init(void)
     mavlink_console_init();
 
     /* create tx lock */
-    mav_handle.tx_lock = os_sem_create(1);
+    mav_handle.tx_lock = os_sem_create("mav_tx_lock", 1);
 
     /* malloc buffer space */
     mav_handle.tx_buffer = (uint8_t*)malloc(MAVPROXY_BUFFER_SIZE);
@@ -307,15 +307,14 @@ err_t mavproxy_init(void)
     }
 
     /* create event */
-    os_event_init(&mav_handle.event);
+    os_event_init(&mav_handle.event, "mavproxy");
 
-    //TODO: fix this
     /* register parameter modify callback */
-//    register_param_modify_callback(on_param_modify);
+    register_param_modify_callback(on_param_modify);
 
     /* register timer event to periodly wakeup itself */
-    mav_handle.timer = os_timer_create("mavproxy", mavproxy_timer_update, NULL, MAVPROXY_INTERVAL, TIMER_TYPE_PERIODIC);
-    os_timer_start(mav_handle.timer);
+    os_timer_init(&mav_handle.timer, "mavproxy", mavproxy_timer_update, NULL, MAVPROXY_INTERVAL, TIMER_TYPE_PERIODIC);
+    os_timer_start(&mav_handle.timer);
 
     return E_OK;
 }

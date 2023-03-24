@@ -92,7 +92,7 @@ int dfs_file_open(struct dfs_fd *fd, const char *path, int flags)
         free(fd->path);
         fd->path = NULL;
 
-        return -ENOSYS;
+        return -E_NOSYS;
     }
 
     if ((result = fd->fops->open(fd)) < 0)
@@ -181,7 +181,7 @@ int dfs_file_ioctl(struct dfs_fd *fd, int cmd, void *args)
     if (fd->fops->ioctl != NULL)
         return fd->fops->ioctl(fd, cmd, args);
 
-    return -ENOSYS;
+    return -E_NOSYS;
 }
 
 /**
@@ -202,7 +202,7 @@ int dfs_file_read(struct dfs_fd *fd, void *buf, size_t len)
         return -EINVAL;
 
     if (fd->fops->read == NULL)
-        return -ENOSYS;
+        return -E_NOSYS;
 
     if ((result = fd->fops->read(fd, buf, len)) < 0)
         fd->flags |= DFS_F_EOF;
@@ -228,7 +228,7 @@ int dfs_file_getdents(struct dfs_fd *fd, struct dirent *dirp, size_t nbytes)
     if (fd->fops->getdents != NULL)
         return fd->fops->getdents(fd, dirp, nbytes);
 
-    return -ENOSYS;
+    return -E_NOSYS;
 }
 
 /**
@@ -261,7 +261,7 @@ int dfs_file_unlink(const char *path)
     /* Check whether file is already open */
     if (fd_is_open(fullpath) == 0)
     {
-        result = EBUSY;
+        result = E_BUSY;
         goto __exit;
     }
 
@@ -277,7 +277,7 @@ int dfs_file_unlink(const char *path)
         else
             result = fs->ops->unlink(fs, fullpath);
     }
-    else result = -ENOSYS;
+    else result = -E_NOSYS;
 
 __exit:
     free(fullpath);
@@ -299,7 +299,7 @@ int dfs_file_write(struct dfs_fd *fd, const void *buf, size_t len)
         return -EINVAL;
 
     if (fd->fops->write == NULL)
-        return -ENOSYS;
+        return -E_NOSYS;
 
     return fd->fops->write(fd, buf, len);
 }
@@ -317,7 +317,7 @@ int dfs_file_flush(struct dfs_fd *fd)
         return -EINVAL;
 
     if (fd->fops->flush == NULL)
-        return -ENOSYS;
+        return -E_NOSYS;
 
     return fd->fops->flush(fd);
 }
@@ -338,7 +338,7 @@ int dfs_file_lseek(struct dfs_fd *fd, off_t offset)
         return -EINVAL;
 
     if (fd->fops->lseek == NULL)
-        return -ENOSYS;
+        return -E_NOSYS;
 
     result = fd->fops->lseek(fd, offset);
 
@@ -402,7 +402,7 @@ int dfs_file_stat(const char *path, struct stat *buf)
             free(fullpath);
             LOG_E("the filesystem didn't implement this function");
 
-            return -ENOSYS;
+            return -E_NOSYS;
         }
 
         /* get the real file path and get file stat */
@@ -456,7 +456,7 @@ int dfs_file_rename(const char *oldpath, const char *newpath)
     {
         if (oldfs->ops->rename == NULL)
         {
-            result = -ENOSYS;
+            result = -E_NOSYS;
         }
         else
         {
@@ -500,7 +500,7 @@ int dfs_file_ftruncate(struct dfs_fd *fd, off_t length)
         return -EINVAL;
 
     if (fd->fops->ioctl == NULL)
-        return -ENOSYS;
+        return -E_NOSYS;
 
     result = fd->fops->ioctl(fd, RT_FIOFTRUNCATE, (void*)&length);
 

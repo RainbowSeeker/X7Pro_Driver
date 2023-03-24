@@ -26,21 +26,19 @@ void application_create(void *p_arg)
     OSSchedRoundRobinCfg(DEF_ENABLED,5,&os_err);
 #endif
 
+
     bsp_init();
 
-    OS_ENTER_CRITICAL();
+    os_thread_create("app_vehicle", App_Vehicle_Main, NULL, VEHICLE_THREAD_PRIORITY, 512);
 
-    os_thread_create("app_vehicle", App_Vehicle_Main, NULL, VEHICLE_THREAD_PRIORITY, 2 * 1024);
+    os_thread_create("app_logger", App_Logger_Main, NULL, LOGGER_THREAD_PRIORITY, 512);
 
-    os_thread_create("app_logger", App_Logger_Main, NULL, LOGGER_THREAD_PRIORITY, 1024);
+    os_thread_create("app_comm", App_Comm_Main, NULL, COMM_THREAD_PRIORITY, 512);
 
-//    os_thread_create("app_comm", App_Comm_Main, NULL, COMM_THREAD_PRIORITY, 1 * 1024);
-//
-//    os_thread_create("app_status", App_Status_Main, NULL, STATUS_THREAD_PRIORITY, 1 * 1024);
-//
-//    os_thread_create("app_io", App_IO_Main, NULL, FMTIO_THREAD_PRIORITY, 1 * 1024);
+    os_thread_create("app_status", App_Status_Main, NULL, STATUS_THREAD_PRIORITY, 512);
 
-    OS_EXIT_CRITICAL();
+    os_thread_create("app_io", App_IO_Main, NULL, FMTIO_THREAD_PRIORITY, 512);
+
     os_thread_delete(os_thread_self());
 }
 

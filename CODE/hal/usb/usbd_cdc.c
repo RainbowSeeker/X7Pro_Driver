@@ -16,7 +16,7 @@ static err_t hal_usbd_cdc_init(device_t device)
         return E_NOMEM;
     }
 
-    os_mutex_init(&usbd->tx_lock);
+    usbd->tx_lock = os_mutex_create("usbd_tx");
     if (usbd->tx_lock == NULL) {
         return E_NOMEM;
     }

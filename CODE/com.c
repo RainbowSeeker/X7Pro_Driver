@@ -26,7 +26,7 @@
 //void UART_HandleMsg(void)
 //{
 //#if USE_FREERTOS
-//    osStatus res = osSemaphoreWait(uart1Sem, OS_WAIT_FOREVER);
+//    osStatus res = osSemaphoreWait(uart1Sem, OS_WAITING_FOREVER);
 //    if (res == osOK)            //successfully reveiced a Byte
 //    {
 //#endif

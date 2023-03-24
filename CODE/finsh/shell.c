@@ -173,7 +173,7 @@ static int finsh_getchar(void)
 
     ASSERT(shell != NULL);
     while (device_read(shell->device, -1, &ch, 1) != 1)
-        os_sem_take(shell->rx_sem, OS_WAIT_FOREVER);
+        os_sem_take(&shell->rx_sem, OS_WAITING_FOREVER);
 
     return (int)ch;
 #endif
@@ -185,7 +185,7 @@ static err_t finsh_rx_ind(device_t dev, size_t size)
     ASSERT(shell != NULL);
 
     /* release semaphore to let finsh thread rx data */
-    os_sem_release(shell->rx_sem);
+    os_sem_release(&shell->rx_sem);
 
     return E_OK;
 }
@@ -906,8 +906,7 @@ int finsh_system_init(void)
         return -1;
     }
 
-    shell->rx_sem = os_sem_create(1);
-    os_sem_take(shell->rx_sem, OS_WAIT_FOREVER);
+    os_sem_init(&(shell->rx_sem), "shrx", 0);
 
     finsh_set_prompt_mode(1);
 

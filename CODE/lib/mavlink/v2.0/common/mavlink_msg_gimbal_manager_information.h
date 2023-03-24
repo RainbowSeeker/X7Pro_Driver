@@ -77,7 +77,7 @@ typedef struct __mavlink_gimbal_manager_information_t {
  * @param pan_rate_max [rad/s] Minimum pan/yaw angular rate (positive: to the right, negative: to the left)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_gimbal_manager_information_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_gimbal_manager_information_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                                    uint32_t time_boot_ms, uint32_t cap_flags, uint8_t gimbal_device_id, float tilt_max, float tilt_min, float tilt_rate_max, float pan_max, float pan_min, float pan_rate_max)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -129,7 +129,7 @@ static inline uint16_t mavlink_msg_gimbal_manager_information_pack(uint8_t syste
  * @param pan_rate_max [rad/s] Minimum pan/yaw angular rate (positive: to the right, negative: to the left)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_gimbal_manager_information_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_gimbal_manager_information_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                         mavlink_message_t* msg,
                                                                         uint32_t time_boot_ms, uint32_t cap_flags, uint8_t gimbal_device_id, float tilt_max, float tilt_min, float tilt_rate_max, float pan_max, float pan_min, float pan_rate_max)
 {
@@ -173,7 +173,7 @@ static inline uint16_t mavlink_msg_gimbal_manager_information_pack_chan(uint8_t 
  * @param msg The MAVLink message to compress the data into
  * @param gimbal_manager_information C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_gimbal_manager_information_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_gimbal_manager_information_t* gimbal_manager_information)
+__STATIC_INLINE uint16_t mavlink_msg_gimbal_manager_information_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_gimbal_manager_information_t* gimbal_manager_information)
 {
     return mavlink_msg_gimbal_manager_information_pack(system_id, component_id, msg, gimbal_manager_information->time_boot_ms, gimbal_manager_information->cap_flags, gimbal_manager_information->gimbal_device_id, gimbal_manager_information->tilt_max, gimbal_manager_information->tilt_min, gimbal_manager_information->tilt_rate_max, gimbal_manager_information->pan_max, gimbal_manager_information->pan_min, gimbal_manager_information->pan_rate_max);
 }
@@ -187,7 +187,7 @@ static inline uint16_t mavlink_msg_gimbal_manager_information_encode(uint8_t sys
  * @param msg The MAVLink message to compress the data into
  * @param gimbal_manager_information C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_gimbal_manager_information_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_gimbal_manager_information_t* gimbal_manager_information)
+__STATIC_INLINE uint16_t mavlink_msg_gimbal_manager_information_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_gimbal_manager_information_t* gimbal_manager_information)
 {
     return mavlink_msg_gimbal_manager_information_pack_chan(system_id, component_id, chan, msg, gimbal_manager_information->time_boot_ms, gimbal_manager_information->cap_flags, gimbal_manager_information->gimbal_device_id, gimbal_manager_information->tilt_max, gimbal_manager_information->tilt_min, gimbal_manager_information->tilt_rate_max, gimbal_manager_information->pan_max, gimbal_manager_information->pan_min, gimbal_manager_information->pan_rate_max);
 }
@@ -208,7 +208,7 @@ static inline uint16_t mavlink_msg_gimbal_manager_information_encode_chan(uint8_
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_gimbal_manager_information_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint32_t cap_flags, uint8_t gimbal_device_id, float tilt_max, float tilt_min, float tilt_rate_max, float pan_max, float pan_min, float pan_rate_max)
+__STATIC_INLINE void mavlink_msg_gimbal_manager_information_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint32_t cap_flags, uint8_t gimbal_device_id, float tilt_max, float tilt_min, float tilt_rate_max, float pan_max, float pan_min, float pan_rate_max)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GIMBAL_MANAGER_INFORMATION_LEN];
@@ -244,7 +244,7 @@ static inline void mavlink_msg_gimbal_manager_information_send(mavlink_channel_t
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_gimbal_manager_information_send_struct(mavlink_channel_t chan, const mavlink_gimbal_manager_information_t* gimbal_manager_information)
+__STATIC_INLINE void mavlink_msg_gimbal_manager_information_send_struct(mavlink_channel_t chan, const mavlink_gimbal_manager_information_t* gimbal_manager_information)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_gimbal_manager_information_send(chan, gimbal_manager_information->time_boot_ms, gimbal_manager_information->cap_flags, gimbal_manager_information->gimbal_device_id, gimbal_manager_information->tilt_max, gimbal_manager_information->tilt_min, gimbal_manager_information->tilt_rate_max, gimbal_manager_information->pan_max, gimbal_manager_information->pan_min, gimbal_manager_information->pan_rate_max);
@@ -261,7 +261,7 @@ static inline void mavlink_msg_gimbal_manager_information_send_struct(mavlink_ch
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_gimbal_manager_information_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, uint32_t cap_flags, uint8_t gimbal_device_id, float tilt_max, float tilt_min, float tilt_rate_max, float pan_max, float pan_min, float pan_rate_max)
+__STATIC_INLINE void mavlink_msg_gimbal_manager_information_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, uint32_t cap_flags, uint8_t gimbal_device_id, float tilt_max, float tilt_min, float tilt_rate_max, float pan_max, float pan_min, float pan_rate_max)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -302,7 +302,7 @@ static inline void mavlink_msg_gimbal_manager_information_send_buf(mavlink_messa
  *
  * @return [ms] Timestamp (time since system boot).
  */
-static inline uint32_t mavlink_msg_gimbal_manager_information_get_time_boot_ms(const mavlink_message_t* msg)
+__STATIC_INLINE uint32_t mavlink_msg_gimbal_manager_information_get_time_boot_ms(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 0);
 }
@@ -312,7 +312,7 @@ static inline uint32_t mavlink_msg_gimbal_manager_information_get_time_boot_ms(c
  *
  * @return  Bitmap of gimbal capability flags.
  */
-static inline uint32_t mavlink_msg_gimbal_manager_information_get_cap_flags(const mavlink_message_t* msg)
+__STATIC_INLINE uint32_t mavlink_msg_gimbal_manager_information_get_cap_flags(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 4);
 }
@@ -322,7 +322,7 @@ static inline uint32_t mavlink_msg_gimbal_manager_information_get_cap_flags(cons
  *
  * @return  Gimbal device ID that this gimbal manager is responsible for.
  */
-static inline uint8_t mavlink_msg_gimbal_manager_information_get_gimbal_device_id(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_gimbal_manager_information_get_gimbal_device_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 32);
 }
@@ -332,7 +332,7 @@ static inline uint8_t mavlink_msg_gimbal_manager_information_get_gimbal_device_i
  *
  * @return [rad] Maximum tilt/pitch angle (positive: up, negative: down)
  */
-static inline float mavlink_msg_gimbal_manager_information_get_tilt_max(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_gimbal_manager_information_get_tilt_max(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 8);
 }
@@ -342,7 +342,7 @@ static inline float mavlink_msg_gimbal_manager_information_get_tilt_max(const ma
  *
  * @return [rad] Minimum tilt/pitch angle (positive: up, negative: down)
  */
-static inline float mavlink_msg_gimbal_manager_information_get_tilt_min(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_gimbal_manager_information_get_tilt_min(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -352,7 +352,7 @@ static inline float mavlink_msg_gimbal_manager_information_get_tilt_min(const ma
  *
  * @return [rad/s] Maximum tilt/pitch angular rate (positive: up, negative: down)
  */
-static inline float mavlink_msg_gimbal_manager_information_get_tilt_rate_max(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_gimbal_manager_information_get_tilt_rate_max(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -362,7 +362,7 @@ static inline float mavlink_msg_gimbal_manager_information_get_tilt_rate_max(con
  *
  * @return [rad] Maximum pan/yaw angle (positive: to the right, negative: to the left)
  */
-static inline float mavlink_msg_gimbal_manager_information_get_pan_max(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_gimbal_manager_information_get_pan_max(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 20);
 }
@@ -372,7 +372,7 @@ static inline float mavlink_msg_gimbal_manager_information_get_pan_max(const mav
  *
  * @return [rad] Minimum pan/yaw angle (positive: to the right, negative: to the left)
  */
-static inline float mavlink_msg_gimbal_manager_information_get_pan_min(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_gimbal_manager_information_get_pan_min(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 24);
 }
@@ -382,7 +382,7 @@ static inline float mavlink_msg_gimbal_manager_information_get_pan_min(const mav
  *
  * @return [rad/s] Minimum pan/yaw angular rate (positive: to the right, negative: to the left)
  */
-static inline float mavlink_msg_gimbal_manager_information_get_pan_rate_max(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_gimbal_manager_information_get_pan_rate_max(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 28);
 }
@@ -393,7 +393,7 @@ static inline float mavlink_msg_gimbal_manager_information_get_pan_rate_max(cons
  * @param msg The message to decode
  * @param gimbal_manager_information C-struct to decode the message contents into
  */
-static inline void mavlink_msg_gimbal_manager_information_decode(const mavlink_message_t* msg, mavlink_gimbal_manager_information_t* gimbal_manager_information)
+__STATIC_INLINE void mavlink_msg_gimbal_manager_information_decode(const mavlink_message_t* msg, mavlink_gimbal_manager_information_t* gimbal_manager_information)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     gimbal_manager_information->time_boot_ms = mavlink_msg_gimbal_manager_information_get_time_boot_ms(msg);

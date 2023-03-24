@@ -489,7 +489,7 @@ int dfs_elm_ioctl(struct dfs_fd *file, int cmd, void *args)
             return elm_result_to_dfs(result);
         }
     }
-    return -ENOSYS;
+    return -E_NOSYS;
 }
 
 int dfs_elm_read(struct dfs_fd *file, void *buf, size_t len)
@@ -963,7 +963,7 @@ int elm_init(void)
     os_mutex_t mutex;
 
     snprintf(name, sizeof(name), "fat%d", drv);
-    os_mutex_init(&mutex);
+    mutex = os_mutex_create(name);
     if (mutex != NULL)
     {
         *m = mutex;

@@ -19,18 +19,18 @@
 #define RAD2DEG(u) ((u)*180.0f / PI)
 #define DEG2RAD(u) ((u)*PI / 180.0f)
 
-static inline uint16_t swap_u16(uint16_t num)
+__STATIC_INLINE uint16_t swap_u16(uint16_t num)
 {
     return __builtin_bswap16(num);
 }
 
-static inline int16_t swap_i16(int16_t num)
+__STATIC_INLINE int16_t swap_i16(int16_t num)
 {
     return __builtin_bswap16(num);
 }
 
 
-static inline float constrainf(float amt, float low, float high)
+__STATIC_INLINE float constrainf(float amt, float low, float high)
 {
     if (amt < low)
         return low;
@@ -40,9 +40,9 @@ static inline float constrainf(float amt, float low, float high)
         return amt;
 }
 
-static inline int16_t cmp16(uint16_t a, uint16_t b) { return (int16_t)(a-b); }
-static inline int32_t cmp32(uint32_t a, uint32_t b) { return (int32_t)(a-b); }
+__STATIC_INLINE int16_t cmp16(uint16_t a, uint16_t b) { return (int16_t)(a-b); }
+__STATIC_INLINE int32_t cmp32(uint32_t a, uint32_t b) { return (int32_t)(a-b); }
 
-static inline uint32_t llog2(uint32_t n) { return 31 - __builtin_clz(n | 1); }
+__STATIC_INLINE uint32_t llog2(uint32_t n) { return 31 - __builtin_clz(n | 1); }
 
 #endif //_SWAP_H

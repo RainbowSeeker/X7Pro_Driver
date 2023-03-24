@@ -8,26 +8,64 @@
 #define X7PRO_DRIVER_SEMAPHORE_H
 #include "os_common.h"
 
-typedef OS_SEM *os_sem_t;
+struct sem
+{
+    OS_SEM id;
+};
+typedef struct sem *os_sem_t;
+
+
+/**
+ * os_sem_init
+ * @param sem
+ * @param name
+ * @param value the initial value of semaphore
+ * @return
+ */
+__STATIC_INLINE err_t os_sem_init(os_sem_t sem, const char *name, size_t value)
+{
+    ASSERT(sem);
+    OSSemCreate(&sem->id, (CPU_CHAR *)name, value, &os_err);
+    return os_err == 0 ? E_OK : E_RROR;
+}
 
 /**
  * os_sem_create
- * @param sem
- * @param millisec
+ * @param name
+ * @param value the initial value of semaphore
  * @return
  */
-static inline os_sem_t os_sem_create(size_t count)
+__STATIC_INLINE os_sem_t os_sem_create(const char *name, size_t value)
 {
-    os_sem_t sem = calloc(1, sizeof(OS_SEM));
-    OSSemCreate(sem, NULL, count, &os_err);
+    os_sem_t sem = calloc(1, sizeof(struct sem));
+    ASSERT(sem);
+    OSSemCreate(&sem->id, (CPU_CHAR *)name, value, &os_err);
     return os_err == 0 ? sem : NULL;
 }
 
-static inline err_t os_sem_delete(os_sem_t sem)
+
+__STATIC_INLINE err_t os_sem_detach(os_sem_t sem)
 {
-    OSSemDel(sem, OS_OPT_DEL_ALWAYS, &os_err);
-    free(sem);
+    ASSERT(sem);
+    OSSemDel(&sem->id, OS_OPT_DEL_ALWAYS, &os_err);
     return os_err == 0 ? E_OK : E_RROR;
+}
+
+/**
+ *
+ * @param sem
+ * @return
+ */
+__STATIC_INLINE err_t os_sem_delete(os_sem_t sem)
+{
+    ASSERT(sem);
+    OSSemDel(&sem->id, OS_OPT_DEL_ALWAYS, &os_err);
+    if (os_err == 0)
+    {
+        free(sem);
+        return E_OK;
+    }
+    return E_RROR;
 }
 
 /**
@@ -36,16 +74,16 @@ static inline err_t os_sem_delete(os_sem_t sem)
  * @param millisec
  * @return
  */
-static inline err_t os_sem_take(os_sem_t sem, size_t millisec)
+__STATIC_INLINE err_t os_sem_take(os_sem_t sem, size_t millisec)
 {
-    OSSemPend(sem, millisec, os_interrupt_get_nest() > 0 ? OS_OPT_PEND_NON_BLOCKING : OS_OPT_PEND_BLOCKING, NULL, &os_err);
+    ASSERT(sem);
+    OSSemPend(&sem->id, millisec, (os_interrupt_get_nest() > 0 || millisec == 0 )? OS_OPT_PEND_NON_BLOCKING : OS_OPT_PEND_BLOCKING, NULL, &os_err);
     return os_err == 0 ? E_OK : E_RROR;
 }
 
-static inline err_t os_sem_trytake(os_sem_t sem)
+__STATIC_INLINE err_t os_sem_trytake(os_sem_t sem)
 {
-    OSSemPend(sem, 0, OS_OPT_PEND_NON_BLOCKING, NULL, &os_err);
-    return os_err == 0 ? E_OK : E_RROR;
+    return os_sem_take(sem, 0);
 }
 
 /**
@@ -53,9 +91,10 @@ static inline err_t os_sem_trytake(os_sem_t sem)
  * @param sem
  * @return
  */
-static inline err_t os_sem_release(os_sem_t sem)
+__STATIC_INLINE err_t os_sem_release(os_sem_t sem)
 {
-    OSSemPost(sem, OS_OPT_POST_1, &os_err);
+    ASSERT(sem);
+    OSSemPost(&sem->id, OS_OPT_POST_1, &os_err);
     return os_err == 0 ? E_OK : E_RROR;
 }
 

@@ -43,7 +43,7 @@
 
                                                                 /* -------------------- IDLE TASK --------------------- */
                                                                 /* Stack size (number of CPU_STK elements)              */
-#define  OS_CFG_IDLE_TASK_STK_SIZE                        64u
+#define  OS_CFG_IDLE_TASK_STK_SIZE                        256
 
 
                                                                 /* ------------------ STATISTIC TASK ------------------ */
@@ -74,7 +74,7 @@
                                                                 /* It will determine the period of a timer tick.        */
                                                                 /* We recommend setting it to OS_CFG_TICK_RATE_HZ       */
                                                                 /* for new projects.                                    */
-#define  OS_CFG_TMR_TASK_RATE_HZ                          10u
+#define  OS_CFG_TMR_TASK_RATE_HZ                          OS_CFG_TICK_RATE_HZ
 
 
 #endif

@@ -1,7 +1,7 @@
 #include "uMCN.h"
 
 static McnList __mcn_list = { .hub = NULL, .next = NULL };
-static os_timer_t timer_mcn_freq_est;
+static struct timer timer_mcn_freq_est;
 
 /**
  * @brief Topic publish frequency estimator entry
@@ -440,13 +440,8 @@ err_t mcn_publish(McnHub_t hub, const void* data)
  */
 err_t mcn_init(void)
 {
-    timer_mcn_freq_est = os_timer_create("mcn_freq_est",
-                                         mcn_freq_est_entry,
-                                         NULL,
-                                         1000,
-                                         TIMER_TYPE_PERIODIC);
-
-    ERROR_TRY(os_timer_start(timer_mcn_freq_est));
+    os_timer_init(&timer_mcn_freq_est, "mcn_freq_est", mcn_freq_est_entry, NULL, 1000, TIMER_TYPE_PERIODIC);
+    ERROR_TRY(os_timer_start(&timer_mcn_freq_est));
 
     return E_OK;
 }

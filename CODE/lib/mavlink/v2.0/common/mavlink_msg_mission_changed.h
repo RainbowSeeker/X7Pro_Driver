@@ -61,7 +61,7 @@ typedef struct __mavlink_mission_changed_t {
  * @param mission_type  Mission type.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_mission_changed_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_mission_changed_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                         int16_t start_index, int16_t end_index, uint8_t origin_sysid, uint8_t origin_compid, uint8_t mission_type)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -101,7 +101,7 @@ static inline uint16_t mavlink_msg_mission_changed_pack(uint8_t system_id, uint8
  * @param mission_type  Mission type.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_mission_changed_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_mission_changed_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                              mavlink_message_t* msg,
                                                              int16_t start_index, int16_t end_index, uint8_t origin_sysid, uint8_t origin_compid, uint8_t mission_type)
 {
@@ -137,7 +137,7 @@ static inline uint16_t mavlink_msg_mission_changed_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param mission_changed C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_mission_changed_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_mission_changed_t* mission_changed)
+__STATIC_INLINE uint16_t mavlink_msg_mission_changed_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_mission_changed_t* mission_changed)
 {
     return mavlink_msg_mission_changed_pack(system_id, component_id, msg, mission_changed->start_index, mission_changed->end_index, mission_changed->origin_sysid, mission_changed->origin_compid, mission_changed->mission_type);
 }
@@ -151,7 +151,7 @@ static inline uint16_t mavlink_msg_mission_changed_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param mission_changed C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_mission_changed_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_mission_changed_t* mission_changed)
+__STATIC_INLINE uint16_t mavlink_msg_mission_changed_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_mission_changed_t* mission_changed)
 {
     return mavlink_msg_mission_changed_pack_chan(system_id, component_id, chan, msg, mission_changed->start_index, mission_changed->end_index, mission_changed->origin_sysid, mission_changed->origin_compid, mission_changed->mission_type);
 }
@@ -168,7 +168,7 @@ static inline uint16_t mavlink_msg_mission_changed_encode_chan(uint8_t system_id
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_mission_changed_send(mavlink_channel_t chan, int16_t start_index, int16_t end_index, uint8_t origin_sysid, uint8_t origin_compid, uint8_t mission_type)
+__STATIC_INLINE void mavlink_msg_mission_changed_send(mavlink_channel_t chan, int16_t start_index, int16_t end_index, uint8_t origin_sysid, uint8_t origin_compid, uint8_t mission_type)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_MISSION_CHANGED_LEN];
@@ -196,7 +196,7 @@ static inline void mavlink_msg_mission_changed_send(mavlink_channel_t chan, int1
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_mission_changed_send_struct(mavlink_channel_t chan, const mavlink_mission_changed_t* mission_changed)
+__STATIC_INLINE void mavlink_msg_mission_changed_send_struct(mavlink_channel_t chan, const mavlink_mission_changed_t* mission_changed)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_mission_changed_send(chan, mission_changed->start_index, mission_changed->end_index, mission_changed->origin_sysid, mission_changed->origin_compid, mission_changed->mission_type);
@@ -213,7 +213,7 @@ static inline void mavlink_msg_mission_changed_send_struct(mavlink_channel_t cha
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_mission_changed_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, int16_t start_index, int16_t end_index, uint8_t origin_sysid, uint8_t origin_compid, uint8_t mission_type)
+__STATIC_INLINE void mavlink_msg_mission_changed_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, int16_t start_index, int16_t end_index, uint8_t origin_sysid, uint8_t origin_compid, uint8_t mission_type)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -246,7 +246,7 @@ static inline void mavlink_msg_mission_changed_send_buf(mavlink_message_t* msgbu
  *
  * @return  Start index for partial mission change (-1 for all items).
  */
-static inline int16_t mavlink_msg_mission_changed_get_start_index(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_mission_changed_get_start_index(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 0);
 }
@@ -256,7 +256,7 @@ static inline int16_t mavlink_msg_mission_changed_get_start_index(const mavlink_
  *
  * @return  End index of a partial mission change. -1 is a synonym for the last mission item (i.e. selects all items from start_index). Ignore field if start_index=-1.
  */
-static inline int16_t mavlink_msg_mission_changed_get_end_index(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_mission_changed_get_end_index(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 2);
 }
@@ -266,7 +266,7 @@ static inline int16_t mavlink_msg_mission_changed_get_end_index(const mavlink_me
  *
  * @return  System ID of the author of the new mission.
  */
-static inline uint8_t mavlink_msg_mission_changed_get_origin_sysid(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_mission_changed_get_origin_sysid(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 4);
 }
@@ -276,7 +276,7 @@ static inline uint8_t mavlink_msg_mission_changed_get_origin_sysid(const mavlink
  *
  * @return  Compnent ID of the author of the new mission.
  */
-static inline uint8_t mavlink_msg_mission_changed_get_origin_compid(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_mission_changed_get_origin_compid(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 5);
 }
@@ -286,7 +286,7 @@ static inline uint8_t mavlink_msg_mission_changed_get_origin_compid(const mavlin
  *
  * @return  Mission type.
  */
-static inline uint8_t mavlink_msg_mission_changed_get_mission_type(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_mission_changed_get_mission_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 6);
 }
@@ -297,7 +297,7 @@ static inline uint8_t mavlink_msg_mission_changed_get_mission_type(const mavlink
  * @param msg The message to decode
  * @param mission_changed C-struct to decode the message contents into
  */
-static inline void mavlink_msg_mission_changed_decode(const mavlink_message_t* msg, mavlink_mission_changed_t* mission_changed)
+__STATIC_INLINE void mavlink_msg_mission_changed_decode(const mavlink_message_t* msg, mavlink_mission_changed_t* mission_changed)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mission_changed->start_index = mavlink_msg_mission_changed_get_start_index(msg);

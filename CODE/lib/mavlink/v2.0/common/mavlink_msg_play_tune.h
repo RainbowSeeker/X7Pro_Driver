@@ -60,7 +60,7 @@ typedef struct __mavlink_play_tune_t {
  * @param tune2  tune extension (appended to tune)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_play_tune_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_play_tune_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                   uint8_t target_system, uint8_t target_component, const char* tune, const char* tune2)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -95,7 +95,7 @@ static inline uint16_t mavlink_msg_play_tune_pack(uint8_t system_id, uint8_t com
  * @param tune2  tune extension (appended to tune)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_play_tune_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_play_tune_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                        mavlink_message_t* msg,
                                                        uint8_t target_system, uint8_t target_component, const char* tune, const char* tune2)
 {
@@ -127,7 +127,7 @@ static inline uint16_t mavlink_msg_play_tune_pack_chan(uint8_t system_id, uint8_
  * @param msg The MAVLink message to compress the data into
  * @param play_tune C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_play_tune_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_play_tune_t* play_tune)
+__STATIC_INLINE uint16_t mavlink_msg_play_tune_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_play_tune_t* play_tune)
 {
     return mavlink_msg_play_tune_pack(system_id, component_id, msg, play_tune->target_system, play_tune->target_component, play_tune->tune, play_tune->tune2);
 }
@@ -141,7 +141,7 @@ static inline uint16_t mavlink_msg_play_tune_encode(uint8_t system_id, uint8_t c
  * @param msg The MAVLink message to compress the data into
  * @param play_tune C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_play_tune_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_play_tune_t* play_tune)
+__STATIC_INLINE uint16_t mavlink_msg_play_tune_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_play_tune_t* play_tune)
 {
     return mavlink_msg_play_tune_pack_chan(system_id, component_id, chan, msg, play_tune->target_system, play_tune->target_component, play_tune->tune, play_tune->tune2);
 }
@@ -157,7 +157,7 @@ static inline uint16_t mavlink_msg_play_tune_encode_chan(uint8_t system_id, uint
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_play_tune_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const char* tune, const char* tune2)
+__STATIC_INLINE void mavlink_msg_play_tune_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const char* tune, const char* tune2)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_PLAY_TUNE_LEN];
@@ -181,7 +181,7 @@ static inline void mavlink_msg_play_tune_send(mavlink_channel_t chan, uint8_t ta
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_play_tune_send_struct(mavlink_channel_t chan, const mavlink_play_tune_t* play_tune)
+__STATIC_INLINE void mavlink_msg_play_tune_send_struct(mavlink_channel_t chan, const mavlink_play_tune_t* play_tune)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_play_tune_send(chan, play_tune->target_system, play_tune->target_component, play_tune->tune, play_tune->tune2);
@@ -198,7 +198,7 @@ static inline void mavlink_msg_play_tune_send_struct(mavlink_channel_t chan, con
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_play_tune_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const char* tune, const char* tune2)
+__STATIC_INLINE void mavlink_msg_play_tune_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const char* tune, const char* tune2)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -227,7 +227,7 @@ static inline void mavlink_msg_play_tune_send_buf(mavlink_message_t* msgbuf, mav
  *
  * @return  System ID
  */
-static inline uint8_t mavlink_msg_play_tune_get_target_system(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_play_tune_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 0);
 }
@@ -237,7 +237,7 @@ static inline uint8_t mavlink_msg_play_tune_get_target_system(const mavlink_mess
  *
  * @return  Component ID
  */
-static inline uint8_t mavlink_msg_play_tune_get_target_component(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_play_tune_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 1);
 }
@@ -247,7 +247,7 @@ static inline uint8_t mavlink_msg_play_tune_get_target_component(const mavlink_m
  *
  * @return  tune in board specific format
  */
-static inline uint16_t mavlink_msg_play_tune_get_tune(const mavlink_message_t* msg, char* tune)
+__STATIC_INLINE uint16_t mavlink_msg_play_tune_get_tune(const mavlink_message_t* msg, char* tune)
 {
     return _MAV_RETURN_char_array(msg, tune, 30, 2);
 }
@@ -257,7 +257,7 @@ static inline uint16_t mavlink_msg_play_tune_get_tune(const mavlink_message_t* m
  *
  * @return  tune extension (appended to tune)
  */
-static inline uint16_t mavlink_msg_play_tune_get_tune2(const mavlink_message_t* msg, char* tune2)
+__STATIC_INLINE uint16_t mavlink_msg_play_tune_get_tune2(const mavlink_message_t* msg, char* tune2)
 {
     return _MAV_RETURN_char_array(msg, tune2, 200, 32);
 }
@@ -268,7 +268,7 @@ static inline uint16_t mavlink_msg_play_tune_get_tune2(const mavlink_message_t* 
  * @param msg The message to decode
  * @param play_tune C-struct to decode the message contents into
  */
-static inline void mavlink_msg_play_tune_decode(const mavlink_message_t* msg, mavlink_play_tune_t* play_tune)
+__STATIC_INLINE void mavlink_msg_play_tune_decode(const mavlink_message_t* msg, mavlink_play_tune_t* play_tune)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     play_tune->target_system = mavlink_msg_play_tune_get_target_system(msg);

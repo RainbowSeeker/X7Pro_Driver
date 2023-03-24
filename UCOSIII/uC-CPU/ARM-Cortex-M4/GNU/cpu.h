@@ -305,11 +305,8 @@ typedef  CPU_INT32U                 CPU_SR;                     /* Defines   CPU
 #define  CPU_SR_ALLOC()
 #endif
                                                                 /* Save CPU current BASEPRI priority lvl for exception. */
-//#define  CPU_INT_DIS()         do { cpu_sr = CPU_SR_Save(CPU_CFG_KA_IPL_BOUNDARY << (8u - CPU_CFG_NVIC_PRIO_BITS));} while (0)
-//#define  CPU_INT_EN()          do { CPU_SR_Restore(cpu_sr); } while (0) /* Restore CPU BASEPRI priority level.          */
-
-#define  CPU_INT_DIS()         do { portEnterCritical();} while (0)
-#define  CPU_INT_EN()          do { portExitCritical(); } while (0) /* Restore CPU BASEPRI priority level.          */
+#define  CPU_INT_DIS()         do { cpu_sr = CPU_SR_Save(CPU_CFG_KA_IPL_BOUNDARY << (8u - CPU_CFG_NVIC_PRIO_BITS));} while (0)
+#define  CPU_INT_EN()          do { CPU_SR_Restore(cpu_sr); } while (0) /* Restore CPU BASEPRI priority level.          */
 
 #ifdef   CPU_CFG_INT_DIS_MEAS_EN
                                                                         /* Disable interrupts, ...                      */
@@ -322,13 +319,9 @@ typedef  CPU_INT32U                 CPU_SR;                     /* Defines   CPU
                                     CPU_INT_EN();          }  while (0)
 
 #else
-extern void portEnterCritical( void );
-extern void portExitCritical( void );
 
-#define  CPU_CRITICAL_ENTER()       portEnterCritical()
-#define  CPU_CRITICAL_EXIT()        portExitCritical()
-//#define  CPU_CRITICAL_ENTER()  do { CPU_INT_DIS(); } while (0)          /* Disable   interrupts.                        */
-//#define  CPU_CRITICAL_EXIT()   do { CPU_INT_EN();  } while (0)          /* Re-enable interrupts.                        */
+#define  CPU_CRITICAL_ENTER()  do { CPU_INT_DIS(); } while (0)          /* Disable   interrupts.                        */
+#define  CPU_CRITICAL_EXIT()   do { CPU_INT_EN();  } while (0)          /* Re-enable interrupts.                        */
 
 #endif
 

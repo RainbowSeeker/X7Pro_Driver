@@ -8,7 +8,6 @@
 #include "drivers/drv_uart.h"
 #include "module/ipc/uMCN.h"
 
-#include "file_manager/file_manager.h"
 #include "drivers/imu/icm20689.h"
 #include "workqueue/workqueue_manager.h"
 #include "drivers/drv_spi.h"
@@ -29,6 +28,7 @@
 #include "drivers/drv_pwm.h"
 #include "drivers/drv_adc.h"
 #include "drivers/usbd/drv_usbd_cdc.h"
+#include "file_manager/file_manager.h"
 
 
 static const struct dfs_mount_tbl mnt_table[] = {
@@ -38,6 +38,8 @@ static const struct dfs_mount_tbl mnt_table[] = {
 
 void bsp_hw_init(void)
 {
+    system_heap_init((void*)SYSTEM_FREE_MEM_BEGIN, (void*)SYSTEM_FREE_MEM_END);
+
     //ALARM
     io_init(PE5, CS_CONFIG);
     io_set(PE5, IO_LOW);
@@ -111,7 +113,7 @@ void bsp_init(void)
 
     SELF_CHECK(drv_icm42688_init("gyro2", "accel2"));
 
-//    SELF_CHECK(drv_ms5611_init("baro0"));
+    SELF_CHECK(drv_ms5611_init("baro0"));
 
     SELF_CHECK(drv_rm3100_init("mag0"));
 
@@ -124,7 +126,7 @@ void bsp_init(void)
     SELF_CHECK(register_sensor_imu("gyro1", "accel1", 1));
     SELF_CHECK(register_sensor_imu("gyro2", "accel2", 2));
     SELF_CHECK(register_sensor_mag("mag0", 0));
-//    SELF_CHECK(register_sensor_barometer("baro0"));
+    SELF_CHECK(register_sensor_barometer("baro0"));
 
     SELF_CHECK(mavproxy_init());
 

@@ -19,6 +19,7 @@ struct timer
 };
 typedef struct timer *os_timer_t;
 
+
 /**
  * This function will initialize a timer, normally this function is used to
  * initialize a static timer object.
@@ -29,6 +30,23 @@ typedef struct timer *os_timer_t;
  * @param parameter the parameter of timeout function
  * @param period the tick of timer
  * @param type the type of timer
+ */
+err_t os_timer_init(os_timer_t timer,
+                    const char *name,
+                    void (*timeout)(void *p_tmr, void *p_arg),
+                    void *parameter,
+                    tick_t period,
+                    uint8_t type);
+
+
+/**
+ *
+ * @param name
+ * @param timeout
+ * @param parameter
+ * @param period
+ * @param type
+ * @return
  */
 os_timer_t os_timer_create(const char *name,
                            void (*timeout)(void *p_tmr, void *p_arg),
@@ -41,9 +59,10 @@ os_timer_t os_timer_create(const char *name,
  * @param timer
  * @return
  */
-static inline err_t os_timer_start(os_timer_t timer)
+__STATIC_INLINE err_t os_timer_start(os_timer_t timer)
 {
-//    OSTmrStart(&timer->tid, &os_err);
+    ASSERT(timer);
+    OSTmrStart(&timer->tid, &os_err);
     return os_err == 0 ? E_OK : E_RROR;
 }
 
@@ -52,8 +71,9 @@ static inline err_t os_timer_start(os_timer_t timer)
  * @param timer
  * @return
  */
-static inline err_t os_timer_stop(os_timer_t timer)
+__STATIC_INLINE err_t os_timer_stop(os_timer_t timer)
 {
+    ASSERT(timer);
     OSTmrStop(&timer->tid, OS_OPT_TMR_NONE, NULL, &os_err);
     return os_err == 0 ? E_OK : E_RROR;
 }

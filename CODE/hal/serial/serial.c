@@ -4,7 +4,7 @@
 /*
  * Serial poll routines
  */
-inline int _serial_poll_rx(struct serial_device* serial, uint8_t* data, int length)
+__STATIC_INLINE int _serial_poll_rx(struct serial_device* serial, uint8_t* data, int length)
 {
     int ch;
     int size;
@@ -37,7 +37,7 @@ inline int _serial_poll_rx(struct serial_device* serial, uint8_t* data, int leng
     return rx_length;
 }
 
-inline int _serial_poll_tx(struct serial_device* serial, const uint8_t* data, int length)
+__STATIC_INLINE int _serial_poll_tx(struct serial_device* serial, const uint8_t* data, int length)
 {
     int size;
     ASSERT(serial != NULL);
@@ -70,7 +70,7 @@ inline int _serial_poll_tx(struct serial_device* serial, const uint8_t* data, in
 /*
  * Serial interrupt routines
  */
-inline int _serial_int_rx(struct serial_device* serial, uint8_t* data, int length)
+__STATIC_INLINE int _serial_int_rx(struct serial_device* serial, uint8_t* data, int length)
 {
     int size;
     struct serial_rx_fifo* rx_fifo;
@@ -131,7 +131,7 @@ inline int _serial_int_rx(struct serial_device* serial, uint8_t* data, int lengt
 //
 //    while (length) {
 //        if (serial->ops->putc(serial, *(char*)data) == -1) {
-//            completion_wait(&(tx->completion), OS_WAIT_FOREVER);
+//            completion_wait(&(tx->completion), OS_WAITING_FOREVER);
 //            continue;
 //        }
 //
@@ -243,7 +243,7 @@ static void _dma_recv_update_put_index(struct serial_device* serial, size_t len)
 /*
  * Serial DMA routines
  */
-inline int _serial_dma_rx(struct serial_device* serial, uint8_t* data, int length)
+__STATIC_INLINE int _serial_dma_rx(struct serial_device* serial, uint8_t* data, int length)
 {
     base_t level;
 
@@ -275,7 +275,7 @@ inline int _serial_dma_rx(struct serial_device* serial, uint8_t* data, int lengt
     return recv_len;
 }
 
-inline int _serial_dma_tx(struct serial_device* serial, const uint8_t* data, int length)
+__STATIC_INLINE int _serial_dma_tx(struct serial_device* serial, const uint8_t* data, int length)
 {
     /* make a DMA transfer */
     serial->ops->dma_transmit(serial, (uint8_t*)data, length, SERIAL_DMA_TX);
@@ -412,13 +412,13 @@ static err_t hal_serial_open(struct device* dev, uint16_t oflag)
 
     /* check device flag with the open flag */
     if ((oflag & DEVICE_FLAG_INT_RX) && !(dev->flag & DEVICE_FLAG_INT_RX))
-        return -EIO;
+        return -E_IO;
 
     if ((oflag & DEVICE_FLAG_DMA_RX) && !(dev->flag & DEVICE_FLAG_DMA_RX))
-        return -EIO;
+        return -E_IO;
 
     if ((oflag & DEVICE_FLAG_DMA_TX) && !(dev->flag & DEVICE_FLAG_DMA_TX))
-        return -EIO;
+        return -E_IO;
 
     /* get open flags */
     dev->open_flag = oflag;
@@ -471,7 +471,7 @@ static err_t hal_serial_close(struct device* dev)
 
     /* this device has more reference count */
     if (dev->ref_count > 1)
-        return EBUSY;
+        return E_BUSY;
 
     /* configure low level device, disable ineterrupts and dma*/
     serial->ops->control(serial, DEVICE_CTRL_SUSPEND, NULL);
@@ -586,7 +586,7 @@ static err_t hal_serial_control(struct device* dev,
 
                 if (pconfig->bufsz != serial->config.bufsz && serial->parent.ref_count) {
                     /*can not change buffer size*/
-                    return EBUSY;
+                    return E_BUSY;
                 }
 
                 /* set serial configure */

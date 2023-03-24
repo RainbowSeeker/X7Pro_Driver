@@ -256,7 +256,7 @@ int dfs_mount(const char   *device_name,
     /* check if there is mount implementation */
     if ((*ops == NULL) || ((*ops)->mount == NULL))
     {
-        os_set_errno(-ENOSYS);
+        os_set_errno(-E_NOSYS);
         return -1;
     }
 
@@ -459,7 +459,7 @@ int dfs_mkfs(const char *fs_name, const char *device_name)
         if (ops->mkfs == NULL)
         {
             LOG_E("The file system (%s) mkfs function was not implement", fs_name);
-            os_set_errno(-ENOSYS);
+            os_set_errno(-E_NOSYS);
             return -1;
         }
 

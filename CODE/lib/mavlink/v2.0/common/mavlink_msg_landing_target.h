@@ -101,7 +101,7 @@ mavlink_landing_target_t;
  * @param position_valid  Boolean indicating whether the position fields (x, y, z, q, type) contain valid target position information (valid: 1, invalid: 0). Default is 0 (invalid).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_landing_target_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_landing_target_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                        uint64_t time_usec, uint8_t target_num, uint8_t frame, float angle_x, float angle_y, float distance, float size_x, float size_y, float x, float y, float z, const float* q, uint8_t type, uint8_t position_valid)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -166,7 +166,7 @@ static inline uint16_t mavlink_msg_landing_target_pack(uint8_t system_id, uint8_
  * @param position_valid  Boolean indicating whether the position fields (x, y, z, q, type) contain valid target position information (valid: 1, invalid: 0). Default is 0 (invalid).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_landing_target_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_landing_target_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                             mavlink_message_t* msg,
                                                             uint64_t time_usec, uint8_t target_num, uint8_t frame, float angle_x, float angle_y, float distance, float size_x, float size_y, float x, float y, float z, const float* q, uint8_t type, uint8_t position_valid)
 {
@@ -218,7 +218,7 @@ static inline uint16_t mavlink_msg_landing_target_pack_chan(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param landing_target C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_landing_target_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_landing_target_t* landing_target)
+__STATIC_INLINE uint16_t mavlink_msg_landing_target_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_landing_target_t* landing_target)
 {
     return mavlink_msg_landing_target_pack(system_id, component_id, msg, landing_target->time_usec, landing_target->target_num, landing_target->frame, landing_target->angle_x, landing_target->angle_y, landing_target->distance, landing_target->size_x, landing_target->size_y, landing_target->x, landing_target->y, landing_target->z, landing_target->q, landing_target->type, landing_target->position_valid);
 }
@@ -232,7 +232,7 @@ static inline uint16_t mavlink_msg_landing_target_encode(uint8_t system_id, uint
  * @param msg The MAVLink message to compress the data into
  * @param landing_target C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_landing_target_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_landing_target_t* landing_target)
+__STATIC_INLINE uint16_t mavlink_msg_landing_target_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_landing_target_t* landing_target)
 {
     return mavlink_msg_landing_target_pack_chan(system_id, component_id, chan, msg, landing_target->time_usec, landing_target->target_num, landing_target->frame, landing_target->angle_x, landing_target->angle_y, landing_target->distance, landing_target->size_x, landing_target->size_y, landing_target->x, landing_target->y, landing_target->z, landing_target->q, landing_target->type, landing_target->position_valid);
 }
@@ -258,7 +258,7 @@ static inline uint16_t mavlink_msg_landing_target_encode_chan(uint8_t system_id,
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_landing_target_send(mavlink_channel_t chan, uint64_t time_usec, uint8_t target_num, uint8_t frame, float angle_x, float angle_y, float distance, float size_x, float size_y, float x, float y, float z, const float* q, uint8_t type, uint8_t position_valid)
+__STATIC_INLINE void mavlink_msg_landing_target_send(mavlink_channel_t chan, uint64_t time_usec, uint8_t target_num, uint8_t frame, float angle_x, float angle_y, float distance, float size_x, float size_y, float x, float y, float z, const float* q, uint8_t type, uint8_t position_valid)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_LANDING_TARGET_LEN];
@@ -302,7 +302,7 @@ static inline void mavlink_msg_landing_target_send(mavlink_channel_t chan, uint6
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_landing_target_send_struct(mavlink_channel_t chan, const mavlink_landing_target_t* landing_target)
+__STATIC_INLINE void mavlink_msg_landing_target_send_struct(mavlink_channel_t chan, const mavlink_landing_target_t* landing_target)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_landing_target_send(chan, landing_target->time_usec, landing_target->target_num, landing_target->frame, landing_target->angle_x, landing_target->angle_y, landing_target->distance, landing_target->size_x, landing_target->size_y, landing_target->x, landing_target->y, landing_target->z, landing_target->q, landing_target->type, landing_target->position_valid);
@@ -319,7 +319,7 @@ static inline void mavlink_msg_landing_target_send_struct(mavlink_channel_t chan
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_landing_target_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, uint8_t target_num, uint8_t frame, float angle_x, float angle_y, float distance, float size_x, float size_y, float x, float y, float z, const float* q, uint8_t type, uint8_t position_valid)
+__STATIC_INLINE void mavlink_msg_landing_target_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, uint8_t target_num, uint8_t frame, float angle_x, float angle_y, float distance, float size_x, float size_y, float x, float y, float z, const float* q, uint8_t type, uint8_t position_valid)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -368,7 +368,7 @@ static inline void mavlink_msg_landing_target_send_buf(mavlink_message_t* msgbuf
  *
  * @return [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  */
-static inline uint64_t mavlink_msg_landing_target_get_time_usec(const mavlink_message_t* msg)
+__STATIC_INLINE uint64_t mavlink_msg_landing_target_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 0);
 }
@@ -378,7 +378,7 @@ static inline uint64_t mavlink_msg_landing_target_get_time_usec(const mavlink_me
  *
  * @return  The ID of the target if multiple targets are present
  */
-static inline uint8_t mavlink_msg_landing_target_get_target_num(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_landing_target_get_target_num(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 28);
 }
@@ -388,7 +388,7 @@ static inline uint8_t mavlink_msg_landing_target_get_target_num(const mavlink_me
  *
  * @return  Coordinate frame used for following fields.
  */
-static inline uint8_t mavlink_msg_landing_target_get_frame(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_landing_target_get_frame(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 29);
 }
@@ -398,7 +398,7 @@ static inline uint8_t mavlink_msg_landing_target_get_frame(const mavlink_message
  *
  * @return [rad] X-axis angular offset of the target from the center of the image
  */
-static inline float mavlink_msg_landing_target_get_angle_x(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_landing_target_get_angle_x(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 8);
 }
@@ -408,7 +408,7 @@ static inline float mavlink_msg_landing_target_get_angle_x(const mavlink_message
  *
  * @return [rad] Y-axis angular offset of the target from the center of the image
  */
-static inline float mavlink_msg_landing_target_get_angle_y(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_landing_target_get_angle_y(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -418,7 +418,7 @@ static inline float mavlink_msg_landing_target_get_angle_y(const mavlink_message
  *
  * @return [m] Distance to the target from the vehicle
  */
-static inline float mavlink_msg_landing_target_get_distance(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_landing_target_get_distance(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -428,7 +428,7 @@ static inline float mavlink_msg_landing_target_get_distance(const mavlink_messag
  *
  * @return [rad] Size of target along x-axis
  */
-static inline float mavlink_msg_landing_target_get_size_x(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_landing_target_get_size_x(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 20);
 }
@@ -438,7 +438,7 @@ static inline float mavlink_msg_landing_target_get_size_x(const mavlink_message_
  *
  * @return [rad] Size of target along y-axis
  */
-static inline float mavlink_msg_landing_target_get_size_y(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_landing_target_get_size_y(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 24);
 }
@@ -448,7 +448,7 @@ static inline float mavlink_msg_landing_target_get_size_y(const mavlink_message_
  *
  * @return [m] X Position of the landing target in MAV_FRAME
  */
-static inline float mavlink_msg_landing_target_get_x(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_landing_target_get_x(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 30);
 }
@@ -458,7 +458,7 @@ static inline float mavlink_msg_landing_target_get_x(const mavlink_message_t* ms
  *
  * @return [m] Y Position of the landing target in MAV_FRAME
  */
-static inline float mavlink_msg_landing_target_get_y(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_landing_target_get_y(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 34);
 }
@@ -468,7 +468,7 @@ static inline float mavlink_msg_landing_target_get_y(const mavlink_message_t* ms
  *
  * @return [m] Z Position of the landing target in MAV_FRAME
  */
-static inline float mavlink_msg_landing_target_get_z(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_landing_target_get_z(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 38);
 }
@@ -478,7 +478,7 @@ static inline float mavlink_msg_landing_target_get_z(const mavlink_message_t* ms
  *
  * @return  Quaternion of landing target orientation (w, x, y, z order, zero-rotation is 1, 0, 0, 0)
  */
-static inline uint16_t mavlink_msg_landing_target_get_q(const mavlink_message_t* msg, float* q)
+__STATIC_INLINE uint16_t mavlink_msg_landing_target_get_q(const mavlink_message_t* msg, float* q)
 {
     return _MAV_RETURN_float_array(msg, q, 4, 42);
 }
@@ -488,7 +488,7 @@ static inline uint16_t mavlink_msg_landing_target_get_q(const mavlink_message_t*
  *
  * @return  Type of landing target
  */
-static inline uint8_t mavlink_msg_landing_target_get_type(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_landing_target_get_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 58);
 }
@@ -498,7 +498,7 @@ static inline uint8_t mavlink_msg_landing_target_get_type(const mavlink_message_
  *
  * @return  Boolean indicating whether the position fields (x, y, z, q, type) contain valid target position information (valid: 1, invalid: 0). Default is 0 (invalid).
  */
-static inline uint8_t mavlink_msg_landing_target_get_position_valid(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_landing_target_get_position_valid(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 59);
 }
@@ -509,7 +509,7 @@ static inline uint8_t mavlink_msg_landing_target_get_position_valid(const mavlin
  * @param msg The message to decode
  * @param landing_target C-struct to decode the message contents into
  */
-static inline void mavlink_msg_landing_target_decode(const mavlink_message_t* msg, mavlink_landing_target_t* landing_target)
+__STATIC_INLINE void mavlink_msg_landing_target_decode(const mavlink_message_t* msg, mavlink_landing_target_t* landing_target)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     landing_target->time_usec = mavlink_msg_landing_target_get_time_usec(msg);

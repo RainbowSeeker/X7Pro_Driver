@@ -8,7 +8,11 @@
 #define X7PRO_DRIVER_EVENT_H
 #include "os_common.h"
 
-typedef OS_FLAG_GRP os_event_t;
+struct event
+{
+    OS_FLAG_GRP id;
+};
+typedef struct event *os_event_t;
 
 
 /**
@@ -17,10 +21,11 @@ typedef OS_FLAG_GRP os_event_t;
  * @param queue_size
  * @return
  */
-static inline err_t os_event_init(os_event_t *event)
+__STATIC_INLINE err_t os_event_init(os_event_t event, const char *name)
 {
-    OSFlagCreate(event, NULL, 0, &os_err);
-    return (os_err == 0 ? E_OK : E_NOMEM);
+    ASSERT(event);
+    OSFlagCreate(&event->id, (CPU_CHAR *)name, 0, &os_err);
+    return (os_err == 0 ? E_OK : E_RROR);
 }
 
 /**
@@ -29,9 +34,10 @@ static inline err_t os_event_init(os_event_t *event)
  * @param msg
  * @return
  */
-static inline err_t os_event_send(os_event_t *event, uint32_t msg)
+__STATIC_INLINE err_t os_event_send(os_event_t event, uint32_t msg)
 {
-    OSFlagPost(event, msg, OS_OPT_POST_FLAG_SET, &os_err);
+    ASSERT(event);
+    OSFlagPost(&event->id, msg, OS_OPT_POST_FLAG_SET, &os_err);
     return os_err == 0 ? E_OK : E_RROR;
 }
 
@@ -43,10 +49,11 @@ static inline err_t os_event_send(os_event_t *event, uint32_t msg)
  * @param recved
  * @return
  */
-static inline err_t os_event_recv(os_event_t *event, uint32_t set, uint32_t timeout, uint32_t *recved)
+__STATIC_INLINE err_t os_event_recv(os_event_t event, uint32_t set, uint32_t timeout, uint32_t *recved)
 {
+    ASSERT(event);
     OS_OPT opt = OS_OPT_PEND_FLAG_SET_ANY | OS_OPT_PEND_FLAG_CONSUME | (os_interrupt_get_nest() > 0 ? OS_OPT_PEND_NON_BLOCKING : OS_OPT_PEND_BLOCKING);
-    *recved = OSFlagPend(event, set, TICKS_FROM_MS(timeout), opt, NULL, &os_err);
+    *recved = OSFlagPend(&event->id, set, TICKS_FROM_MS(timeout), opt, NULL, &os_err);
 
     switch (os_err)
     {

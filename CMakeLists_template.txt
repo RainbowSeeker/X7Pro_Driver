@@ -48,7 +48,7 @@ else ()
     add_compile_options(-Og -g)
 endif ()
 
-include_directories(${includes} CODE CODE/application CODE/device CODE/module CODE/dfs/include CODE/dfs/filesystems/elmfat CODE/module/log CODE/hal CODE/finsh CODE/rtos
+include_directories(${includes} CODE CODE/application CODE/module CODE/dfs/include CODE/dfs/filesystems/elmfat CODE/module/log CODE/hal CODE/finsh CODE/rtos
     CODE/lib/mavlink/v2.0/fmt_mavlink CODE/model/fms/base_fms/lib CODE/lib/STM32_USB_Device_Library/Class/CDC/Inc CODE/lib/STM32_USB_Device_Library/Core/Inc CODE/drivers/usbd
     UCOSIII/uC-CPU UCOSIII/uC-CPU/ARM-Cortex-M4/GNU UCOSIII/uC-LIB UCOSIII/UCOS-BSP UCOSIII/UCOS-CONFIG UCOSIII/uCOS-III/Source UCOSIII/uCOS-III/Ports/ARM-Cortex-M/ARMv7-M/GNU)
 

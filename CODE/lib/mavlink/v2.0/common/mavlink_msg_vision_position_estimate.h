@@ -79,7 +79,7 @@ typedef struct __mavlink_vision_position_estimate_t {
  * @param reset_counter  Estimate reset counter. This should be incremented when the estimate resets in any of the dimensions (position, velocity, attitude, angular speed). This is designed to be used when e.g an external SLAM system detects a loop-closure and the estimate jumps.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_vision_position_estimate_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_vision_position_estimate_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                                  uint64_t usec, float x, float y, float z, float roll, float pitch, float yaw, const float* covariance, uint8_t reset_counter)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -129,7 +129,7 @@ static inline uint16_t mavlink_msg_vision_position_estimate_pack(uint8_t system_
  * @param reset_counter  Estimate reset counter. This should be incremented when the estimate resets in any of the dimensions (position, velocity, attitude, angular speed). This is designed to be used when e.g an external SLAM system detects a loop-closure and the estimate jumps.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_vision_position_estimate_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_vision_position_estimate_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                       mavlink_message_t* msg,
                                                                       uint64_t usec, float x, float y, float z, float roll, float pitch, float yaw, const float* covariance, uint8_t reset_counter)
 {
@@ -171,7 +171,7 @@ static inline uint16_t mavlink_msg_vision_position_estimate_pack_chan(uint8_t sy
  * @param msg The MAVLink message to compress the data into
  * @param vision_position_estimate C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_vision_position_estimate_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_vision_position_estimate_t* vision_position_estimate)
+__STATIC_INLINE uint16_t mavlink_msg_vision_position_estimate_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_vision_position_estimate_t* vision_position_estimate)
 {
     return mavlink_msg_vision_position_estimate_pack(system_id, component_id, msg, vision_position_estimate->usec, vision_position_estimate->x, vision_position_estimate->y, vision_position_estimate->z, vision_position_estimate->roll, vision_position_estimate->pitch, vision_position_estimate->yaw, vision_position_estimate->covariance, vision_position_estimate->reset_counter);
 }
@@ -185,7 +185,7 @@ static inline uint16_t mavlink_msg_vision_position_estimate_encode(uint8_t syste
  * @param msg The MAVLink message to compress the data into
  * @param vision_position_estimate C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_vision_position_estimate_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_vision_position_estimate_t* vision_position_estimate)
+__STATIC_INLINE uint16_t mavlink_msg_vision_position_estimate_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_vision_position_estimate_t* vision_position_estimate)
 {
     return mavlink_msg_vision_position_estimate_pack_chan(system_id, component_id, chan, msg, vision_position_estimate->usec, vision_position_estimate->x, vision_position_estimate->y, vision_position_estimate->z, vision_position_estimate->roll, vision_position_estimate->pitch, vision_position_estimate->yaw, vision_position_estimate->covariance, vision_position_estimate->reset_counter);
 }
@@ -206,7 +206,7 @@ static inline uint16_t mavlink_msg_vision_position_estimate_encode_chan(uint8_t 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_vision_position_estimate_send(mavlink_channel_t chan, uint64_t usec, float x, float y, float z, float roll, float pitch, float yaw, const float* covariance, uint8_t reset_counter)
+__STATIC_INLINE void mavlink_msg_vision_position_estimate_send(mavlink_channel_t chan, uint64_t usec, float x, float y, float z, float roll, float pitch, float yaw, const float* covariance, uint8_t reset_counter)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_VISION_POSITION_ESTIMATE_LEN];
@@ -240,7 +240,7 @@ static inline void mavlink_msg_vision_position_estimate_send(mavlink_channel_t c
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_vision_position_estimate_send_struct(mavlink_channel_t chan, const mavlink_vision_position_estimate_t* vision_position_estimate)
+__STATIC_INLINE void mavlink_msg_vision_position_estimate_send_struct(mavlink_channel_t chan, const mavlink_vision_position_estimate_t* vision_position_estimate)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_vision_position_estimate_send(chan, vision_position_estimate->usec, vision_position_estimate->x, vision_position_estimate->y, vision_position_estimate->z, vision_position_estimate->roll, vision_position_estimate->pitch, vision_position_estimate->yaw, vision_position_estimate->covariance, vision_position_estimate->reset_counter);
@@ -257,7 +257,7 @@ static inline void mavlink_msg_vision_position_estimate_send_struct(mavlink_chan
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_vision_position_estimate_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t usec, float x, float y, float z, float roll, float pitch, float yaw, const float* covariance, uint8_t reset_counter)
+__STATIC_INLINE void mavlink_msg_vision_position_estimate_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t usec, float x, float y, float z, float roll, float pitch, float yaw, const float* covariance, uint8_t reset_counter)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -296,7 +296,7 @@ static inline void mavlink_msg_vision_position_estimate_send_buf(mavlink_message
  *
  * @return [us] Timestamp (UNIX time or time since system boot)
  */
-static inline uint64_t mavlink_msg_vision_position_estimate_get_usec(const mavlink_message_t* msg)
+__STATIC_INLINE uint64_t mavlink_msg_vision_position_estimate_get_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 0);
 }
@@ -306,7 +306,7 @@ static inline uint64_t mavlink_msg_vision_position_estimate_get_usec(const mavli
  *
  * @return [m] Local X position
  */
-static inline float mavlink_msg_vision_position_estimate_get_x(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_vision_position_estimate_get_x(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 8);
 }
@@ -316,7 +316,7 @@ static inline float mavlink_msg_vision_position_estimate_get_x(const mavlink_mes
  *
  * @return [m] Local Y position
  */
-static inline float mavlink_msg_vision_position_estimate_get_y(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_vision_position_estimate_get_y(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -326,7 +326,7 @@ static inline float mavlink_msg_vision_position_estimate_get_y(const mavlink_mes
  *
  * @return [m] Local Z position
  */
-static inline float mavlink_msg_vision_position_estimate_get_z(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_vision_position_estimate_get_z(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -336,7 +336,7 @@ static inline float mavlink_msg_vision_position_estimate_get_z(const mavlink_mes
  *
  * @return [rad] Roll angle
  */
-static inline float mavlink_msg_vision_position_estimate_get_roll(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_vision_position_estimate_get_roll(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 20);
 }
@@ -346,7 +346,7 @@ static inline float mavlink_msg_vision_position_estimate_get_roll(const mavlink_
  *
  * @return [rad] Pitch angle
  */
-static inline float mavlink_msg_vision_position_estimate_get_pitch(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_vision_position_estimate_get_pitch(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 24);
 }
@@ -356,7 +356,7 @@ static inline float mavlink_msg_vision_position_estimate_get_pitch(const mavlink
  *
  * @return [rad] Yaw angle
  */
-static inline float mavlink_msg_vision_position_estimate_get_yaw(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_vision_position_estimate_get_yaw(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 28);
 }
@@ -366,7 +366,7 @@ static inline float mavlink_msg_vision_position_estimate_get_yaw(const mavlink_m
  *
  * @return  Row-major representation of pose 6x6 cross-covariance matrix upper right triangle (states: x, y, z, roll, pitch, yaw; first six entries are the first ROW, next five entries are the second ROW, etc.). If unknown, assign NaN value to first element in the array.
  */
-static inline uint16_t mavlink_msg_vision_position_estimate_get_covariance(const mavlink_message_t* msg, float* covariance)
+__STATIC_INLINE uint16_t mavlink_msg_vision_position_estimate_get_covariance(const mavlink_message_t* msg, float* covariance)
 {
     return _MAV_RETURN_float_array(msg, covariance, 21, 32);
 }
@@ -376,7 +376,7 @@ static inline uint16_t mavlink_msg_vision_position_estimate_get_covariance(const
  *
  * @return  Estimate reset counter. This should be incremented when the estimate resets in any of the dimensions (position, velocity, attitude, angular speed). This is designed to be used when e.g an external SLAM system detects a loop-closure and the estimate jumps.
  */
-static inline uint8_t mavlink_msg_vision_position_estimate_get_reset_counter(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_vision_position_estimate_get_reset_counter(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 116);
 }
@@ -387,7 +387,7 @@ static inline uint8_t mavlink_msg_vision_position_estimate_get_reset_counter(con
  * @param msg The message to decode
  * @param vision_position_estimate C-struct to decode the message contents into
  */
-static inline void mavlink_msg_vision_position_estimate_decode(const mavlink_message_t* msg, mavlink_vision_position_estimate_t* vision_position_estimate)
+__STATIC_INLINE void mavlink_msg_vision_position_estimate_decode(const mavlink_message_t* msg, mavlink_vision_position_estimate_t* vision_position_estimate)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     vision_position_estimate->usec = mavlink_msg_vision_position_estimate_get_usec(msg);

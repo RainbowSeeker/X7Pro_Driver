@@ -7,9 +7,6 @@
 #include "thread.h"
 #include "mem.h"
 
-STATIC_DMA_DATA_AUTO uint8_t thread_stk_array[ALL_THREAD_STK_SIZE];
-static uint32_t thread_stk_ptr = 0;
-
 static void (*thread_suspend_hook)(os_thread_t thread);
 static void (*thread_resume_hook) (os_thread_t thread);
 static void (*thread_inited_hook) (os_thread_t thread);
@@ -71,7 +68,7 @@ static void (*idle_hook_list[IDLE_HOOK_LIST_SIZE])(void);
 
 os_thread_t os_thread_idle_gethandler()
 {
-    return os_thread_find("idle");
+    return os_thread_find(IDLE_THREAD_NAME);
 }
 
 
@@ -94,19 +91,19 @@ err_t os_thread_idle_sethook(void (*hook)(void))
     err_t ret = -E_FULL;
     os_thread_t idle;
 
-    idle = os_thread_find("idle");
+    idle = os_thread_find(IDLE_THREAD_NAME);
     if (idle == NULL)
     {
         idle = malloc(sizeof(struct thread));
         /* init thread list */
         list_init(&idle->tlist);
-        object_init(&idle->parent, Object_Class_Thread, "idle");
+        object_init(&idle->parent, Object_Class_Thread, IDLE_THREAD_NAME);
 
         idle->error = E_OK;
         idle->stat = THREAD_READY;
-        idle->priority = 0;
-        idle->stack_size = 1024;
-        idle->tid = &OSIdleTaskTCB;
+        idle->priority = OSIdleTaskTCB.Prio;
+        idle->stack_size = OSIdleTaskTCB.StkSize;
+        memcpy(&idle->tid, &OSIdleTaskTCB, sizeof(OS_TCB));
         if (thread_inited_hook)
         {
             thread_inited_hook(idle);
@@ -138,13 +135,13 @@ err_t os_thread_idle_sethook(void (*hook)(void))
  * @param hook the specified hook function
  *
  * @return E_OK: delete OK
- *         -ENOSYS: hook was not found
+ *         -E_NOSYS: hook was not found
  */
 err_t os_thread_idle_delhook(void (*hook)(void))
 {
     size_t i;
     base_t level;
-    err_t ret = -ENOSYS;
+    err_t ret = -E_NOSYS;
 
     /* disable interrupt */
     level = os_hw_interrupt_disable();
@@ -164,7 +161,7 @@ err_t os_thread_idle_delhook(void (*hook)(void))
     return ret;
 }
 
-void os_thread_idle_hook()
+void os_thread_idle_hook(void)
 {
     size_t i;
     for (i = 0; i < IDLE_HOOK_LIST_SIZE; i++)
@@ -176,18 +173,24 @@ void os_thread_idle_hook()
     }
 }
 
+void os_thread_create_hook(os_thread_t thread)
+{
+    if (thread_inited_hook)
+    {
+        thread_inited_hook(thread);
+    }
+}
 
 void os_scheduler_sethook(void hook(os_thread_t from, os_thread_t to))
 {
     scheduler_hook = hook;
 }
 
-void os_scheduler_hook()
+void os_scheduler_hook(os_thread_t from, os_thread_t to)
 {
-    os_thread_t from = os_thread_self();
-    if (from && scheduler_hook)
+    if (scheduler_hook && from && to)
     {
-        scheduler_hook(from, NULL);
+        scheduler_hook(from, to);
     }
 }
 
@@ -208,33 +211,12 @@ os_thread_t os_thread_create(const char *name,
                              uint16_t stack_size)
 {
     os_thread_t thread = calloc(1, sizeof(struct thread));
-    if (thread == NULL)
-    {
-        printf("\r\nno mem");
-        return NULL;
-    }
-    thread->tid = calloc(1, sizeof(OS_TCB));
-    if (thread == NULL)
-    {
-        printf("\r\nno mem");
-        return NULL;
-    }
+    void *stack_start = malloc(stack_size * sizeof(CPU_STK_SIZE));
+    ASSERT(thread && stack_start);
 
     if (priority >= OS_MAX_PRIORITY)
     {
         printf("\r\nThe priority you set is too high! \r\n Please decrease priority to < %d.", OS_MAX_PRIORITY);
-        goto _fail;
-    }
-
-    if (stack_size > MAX_THREAD_STK_SIZE)
-    {
-        printf("\r\nThe stack_size you set is too high! \r\n Please decrease stack_size to < %d.", MAX_THREAD_STK_SIZE);
-        goto _fail;
-    }
-
-    if (thread_stk_ptr + stack_size >= ALL_THREAD_STK_SIZE)
-    {
-        printf("\r\nThe thread_stk_ptr is exhausted! \r\n Please increase your thread_stk_ptr.");
         goto _fail;
     }
 
@@ -246,30 +228,24 @@ os_thread_t os_thread_create(const char *name,
     thread->stat = THREAD_READY;
     thread->priority = priority;
     thread->stack_size = stack_size;
-    if (thread_inited_hook)
-    {
-        thread_inited_hook(thread);
-    }
 
-    OSTaskCreate(thread->tid,
+    OSTaskCreate(&thread->tid,
                  (CPU_CHAR *)name,
                  task_func_t,
                  parameter,
                  priority,
-                 (CPU_STK *) &thread_stk_array[thread_stk_ptr],
+                 (CPU_STK *) stack_start,
                  stack_size / 10,
                  stack_size,
                  0,
                  0,
                  0,
-                 (OS_OPT_TASK_STK_CHK | 0),
+                 (OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR),
                  &os_err);
     if (os_err != 0)
     {
         goto _fail;
     }
-//    memset(&thread_stk_array[thread_stk_ptr], 0, stack_size);
-    thread_stk_ptr += stack_size;
     return thread;
 
     _fail:
@@ -279,30 +255,30 @@ os_thread_t os_thread_create(const char *name,
 
 err_t os_thread_delete(os_thread_t thread)
 {
-    if (thread == NULL) return E_EMPTY;
+    ASSERT(thread);
+    list_remove(&thread->parent.list);
     if (thread_deleted_hook)
     {
         thread_deleted_hook(thread);
     }
-    list_remove(&thread->parent.list);
-    OSTaskDel(thread->tid, &os_err);
+    OSTaskDel(&thread->tid, &os_err);
     return os_err == 0 ? E_OK : E_RROR;
 }
 
 err_t os_thread_suspend(os_thread_t thread)
 {
-    if (thread == NULL) return E_EMPTY;
+    ASSERT(thread);
     if (thread_suspend_hook)
     {
         thread_suspend_hook(thread);
     }
-    OSTaskSuspend(thread->tid, &os_err);
+    OSTaskSuspend(&thread->tid, &os_err);
     return os_err == 0 ? E_OK : E_RROR;
 }
 
 err_t os_thread_resume(os_thread_t thread)
 {
-    if (thread == NULL) return E_EMPTY;
+    ASSERT(thread);
 
     /* disable interrupt */
     base_t level = os_hw_interrupt_disable();
@@ -317,7 +293,7 @@ err_t os_thread_resume(os_thread_t thread)
         thread_resume_hook(thread);
     }
 
-    OSTaskResume(thread->tid, &os_err);
+    OSTaskResume(&thread->tid, &os_err);
     return os_err == 0 ? E_OK : E_RROR;
 }
 
@@ -335,7 +311,11 @@ void os_thread_update_info_all(void)
     list_for_each(node, &information->object_list)
     {
         os_thread_t thread = (os_thread_t)list_entry(node, struct object, list);
-        switch (thread->tid->TaskState)
+        if (strcmp(thread->parent.name, "idle") == 0)
+        {
+            memcpy(&thread->tid, &OSIdleTaskTCB, sizeof(OS_TCB));
+        }
+        switch (thread->tid.TaskState)
         {
             case OS_TASK_STATE_RDY:
                 thread->stat = THREAD_READY;
@@ -354,7 +334,7 @@ void os_thread_update_info_all(void)
                 thread->stat = THREAD_READY;
                 break;
         }
-        thread->max_used = thread->tid->StkUsed;
+        thread->max_used = thread->tid.StkUsed;
     }
     /* leave critical */
     os_hw_interrupt_enable(level);
@@ -402,7 +382,7 @@ os_thread_t os_thread_self(void)
     {
         struct object *obj;
         obj = list_entry(node, struct object, list);
-        if (((os_thread_t)obj)->tid == OSTCBCurPtr)
+        if (&(((os_thread_t)obj)->tid) == OSTCBCurPtr)
         {
             os_hw_interrupt_enable(level);
             return (os_thread_t)obj;

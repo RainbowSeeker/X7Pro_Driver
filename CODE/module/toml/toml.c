@@ -31,7 +31,7 @@
 
 #include <assert.h>
 #include <ctype.h>
-#include <errno.h>
+#include <os_errno.h>
 #include <setjmp.h>
 #include <stdint.h>
 #include <string.h>
@@ -303,7 +303,7 @@ struct toml_table_t {
     toml_table_t** tab;
 };
 
-static inline void xfree(const void* x)
+__STATIC_INLINE void xfree(const void* x)
 {
     if (x)
         ppfree((void*)(intptr_t)x);

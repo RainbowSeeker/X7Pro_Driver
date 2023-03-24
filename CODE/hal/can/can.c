@@ -1,7 +1,7 @@
 #include "can.h"
 
-#define can_lock(can)   os_mutex_take(can->lock, OS_WAIT_FOREVER)
-#define can_unlock(can) os_mutex_release(can->lock)
+#define CAN_LOCK(can)   os_mutex_take(&(can->lock), OS_WAITING_FOREVER)
+#define CAN_UNLOCK(can) os_mutex_release(&(can->lock))
 
 static err_t can_init(struct device *dev)
 {
@@ -132,7 +132,7 @@ inline int _can_int_tx(struct can_device *can, const struct can_msg *data, int m
         uint32_t result;
         struct can_sndbxinx_list *tx_tosnd = NULL;
 
-        os_sem_take(tx_fifo->sem, OS_WAIT_FOREVER);
+        os_sem_take(&(tx_fifo->sem), OS_WAITING_FOREVER);
         level = os_hw_interrupt_disable();
         tx_tosnd = list_entry(tx_fifo->freelist.next, struct can_sndbxinx_list, list);
         ASSERT(tx_tosnd != NULL);
@@ -147,12 +147,12 @@ inline int _can_int_tx(struct can_device *can, const struct can_msg *data, int m
             level = os_hw_interrupt_disable();
             list_insert_after(&tx_fifo->freelist, &tx_tosnd->list);
             os_hw_interrupt_enable(level);
-            os_sem_release(tx_fifo->sem);
+            os_sem_release(&(tx_fifo->sem));
             continue;
         }
 
         can->status.sndchange = 1;
-        completion_wait(&(tx_tosnd->completion), OS_WAIT_FOREVER);
+        completion_wait(&(tx_tosnd->completion), OS_WAITING_FOREVER);
 
         level = os_hw_interrupt_disable();
         result = tx_tosnd->result;
@@ -162,7 +162,7 @@ inline int _can_int_tx(struct can_device *can, const struct can_msg *data, int m
         }
         list_insert_before(&tx_fifo->freelist, &tx_tosnd->list);
         os_hw_interrupt_enable(level);
-        os_sem_release(tx_fifo->sem);
+        os_sem_release(&(tx_fifo->sem));
 
         if (result == CAN_SND_RESULT_OK)
         {
@@ -212,7 +212,7 @@ inline int _can_int_tx_priv(struct can_device *can, const struct can_msg *data, 
         {
             os_hw_interrupt_enable(level);
 
-            completion_wait(&(tx_fifo->buffer[no].completion), OS_WAIT_FOREVER);
+            completion_wait(&(tx_fifo->buffer[no].completion), OS_WAITING_FOREVER);
             continue;
         }
         tx_fifo->buffer[no].result = CAN_SND_RESULT_WAIT;
@@ -223,7 +223,7 @@ inline int _can_int_tx_priv(struct can_device *can, const struct can_msg *data, 
             continue;
         }
         can->status.sndchange = 1;
-        completion_wait(&(tx_fifo->buffer[no].completion), OS_WAIT_FOREVER);
+        completion_wait(&(tx_fifo->buffer[no].completion), OS_WAITING_FOREVER);
 
         result = tx_fifo->buffer[no].result;
         if (result == CAN_SND_RESULT_OK)
@@ -250,10 +250,11 @@ inline int _can_int_tx_priv(struct can_device *can, const struct can_msg *data, 
 static err_t can_open(struct device *dev, uint16_t oflag)
 {
     struct can_device *can;
+    char tmpname[16];
     ASSERT(dev != NULL);
     can = (struct can_device *)dev;
 
-    can_lock(can);
+    CAN_LOCK(can);
 
     /* get open flags */
     dev->open_flag = oflag & 0xff;
@@ -311,7 +312,8 @@ static err_t can_open(struct device *dev, uint16_t oflag)
                 tx_fifo->buffer[i].result = CAN_SND_RESULT_OK;
             }
 
-            tx_fifo->sem = os_sem_create(can->config.sndboxnumber);
+            sprintf(tmpname, "%stl", dev->name);
+            os_sem_init(&(tx_fifo->sem), tmpname, can->config.sndboxnumber);
             can->can_tx = tx_fifo;
 
             dev->open_flag |= DEVICE_FLAG_INT_TX;
@@ -344,10 +346,10 @@ static err_t can_open(struct device *dev, uint16_t oflag)
     {
         can->timerinitflag = 1;
 
-        os_timer_start(can->timer);
+        os_timer_start(&can->timer);
     }
 
-    can_unlock(can);
+    CAN_UNLOCK(can);
 
     return E_OK;
 }
@@ -359,12 +361,12 @@ static err_t can_close(struct device *dev)
     ASSERT(dev != NULL);
     can = (struct can_device *)dev;
 
-    can_lock(can);
+    CAN_LOCK(can);
 
     /* this device has more reference count */
     if (dev->ref_count > 1)
     {
-        can_unlock(can);
+        CAN_UNLOCK(can);
         return E_OK;
     }
 
@@ -372,7 +374,7 @@ static err_t can_close(struct device *dev)
     {
         can->timerinitflag = 0;
 
-        os_timer_stop(can->timer);
+        os_timer_stop(&can->timer);
     }
 
     can->status_indicate.ind = NULL;
@@ -407,7 +409,7 @@ static err_t can_close(struct device *dev)
         tx_fifo = (struct can_tx_fifo *)can->can_tx;
         ASSERT(tx_fifo != NULL);
 
-        os_sem_delete(tx_fifo->sem);
+        os_sem_detach(&(tx_fifo->sem));
         free(tx_fifo);
         dev->open_flag &= ~DEVICE_FLAG_INT_TX;
         can->can_tx = NULL;
@@ -417,7 +419,7 @@ static err_t can_close(struct device *dev)
 
     can->ops->control(can, DEVICE_CTRL_CLR_INT, (void *)DEVICE_CAN_INT_ERR);
 
-    can_unlock(can);
+    CAN_UNLOCK(can);
 
     return E_OK;
 }
@@ -514,7 +516,7 @@ static err_t can_control(struct device *dev,
                     level = os_hw_interrupt_disable();
                     if(list_isempty(&tx_fifo->buffer[i].list))
                     {
-                        os_sem_release(tx_fifo->sem);
+                        os_sem_release(&(tx_fifo->sem));
                     }
                     else
                     {
@@ -704,7 +706,7 @@ err_t hw_can_register(struct can_device    *can,
 #endif
     can->can_rx         = NULL;
     can->can_tx         = NULL;
-    os_mutex_init(&can->lock);
+    os_mutex_init(&can->lock, "can");
 
 #ifdef RT_CAN_USING_BUS_HOOK
     can->bus_hook       = NULL;
@@ -729,11 +731,12 @@ err_t hw_can_register(struct can_device    *can,
     device->user_data   = data;
 
     can->timerinitflag  = 0;
-    can->timer = os_timer_create(name,
-                                 cantimeout,
-                                 (void *)can,
-                                 can->config.ticks,
-                                 TIMER_TYPE_PERIODIC);
+    os_timer_init(&can->timer,
+                  name,
+                  cantimeout,
+                  (void *)can,
+                  can->config.ticks,
+                  TIMER_TYPE_PERIODIC);
     /* register a character device */
     return device_register(device, name, DEVICE_FLAG_RDWR);
 }

@@ -8,294 +8,519 @@
 #include "common.h"
 #include "lib_mem.h"
 
-static LIB_ERR mem_err;
+/* Turn on some of these (set to non-zero) to debug kernel */
+#define DEBUG_MEM                   0
 
-//static inline void *_malloc(size_t size)
-//{
-//
-//}
-//
-//static inline void _free(void *mem)
-//{
-//
-//}
 
-void *_calloc(size_t count, size_t size)
+static void (*os_malloc_hook)(void *ptr, size_t size);
+static void (*os_free_hook)(void *ptr);
+
+/**
+ * @addtogroup Hook
+ */
+
+/**@{*/
+
+/**
+ * This function will set a hook function, which will be invoked when a memory
+ * block is allocated from heap memory.
+ *
+ * @param hook the hook function
+ */
+void os_malloc_sethook(void (*hook)(void *ptr, size_t size))
+{
+    os_malloc_hook = hook;
+}
+
+/**
+ * This function will set a hook function, which will be invoked when a memory
+ * block is released to heap memory.
+ *
+ * @param hook the hook function
+ */
+void os_free_sethook(void (*hook)(void *ptr))
+{
+    os_free_hook = hook;
+}
+
+#define HEAP_MAGIC 0x1ea0
+struct heap_mem
+{
+    /* magic and used flag */
+    uint16_t magic;
+    uint16_t used;
+
+    size_t next, prev;
+};
+
+/** pointer to the heap: for alignment, heap_ptr is now a pointer instead of an array */
+static uint8_t *heap_ptr;
+
+/** the last entry, always unused! */
+static struct heap_mem *heap_end;
+
+#define MIN_SIZE 12
+
+#define MIN_SIZE_ALIGNED     ALIGN(MIN_SIZE, ALIGN_SIZE)
+#define SIZEOF_STRUCT_MEM    ALIGN(sizeof(struct heap_mem), ALIGN_SIZE)
+
+static struct heap_mem *lfree;   /* pointer to the lowest free block */
+
+static struct sem heap_sem;
+static size_t mem_size_aligned;
+static size_t used_mem, max_mem;
+
+static void plug_holes(struct heap_mem *mem)
+{
+    struct heap_mem *nmem;
+    struct heap_mem *pmem;
+
+    ASSERT((uint8_t *)mem >= heap_ptr);
+    ASSERT((uint8_t *)mem < (uint8_t *)heap_end);
+    ASSERT(mem->used == 0);
+
+    /* plug hole forward */
+    nmem = (struct heap_mem *)&heap_ptr[mem->next];
+    if (mem != nmem &&
+        nmem->used == 0 &&
+        (uint8_t *)nmem != (uint8_t *)heap_end)
+    {
+        /* if mem->next is unused and not end of heap_ptr,
+         * combine mem and mem->next
+         */
+        if (lfree == nmem)
+        {
+            lfree = mem;
+        }
+        mem->next = nmem->next;
+        ((struct heap_mem *)&heap_ptr[nmem->next])->prev = (uint8_t *)mem - heap_ptr;
+    }
+
+    /* plug hole backward */
+    pmem = (struct heap_mem *)&heap_ptr[mem->prev];
+    if (pmem != mem && pmem->used == 0)
+    {
+        /* if mem->prev is unused, combine mem and mem->prev */
+        if (lfree == mem)
+        {
+            lfree = pmem;
+        }
+        pmem->next = mem->next;
+        ((struct heap_mem *)&heap_ptr[mem->next])->prev = (uint8_t *)pmem - heap_ptr;
+    }
+}
+
+/**
+ * @ingroup SystemInit
+ *
+ * This function will initialize system heap memory.
+ *
+ * @param begin_addr the beginning address of system heap memory.
+ * @param end_addr the end address of system heap memory.
+ */
+void system_heap_init(void *begin_addr, void *end_addr)
+{
+    struct heap_mem *mem;
+    ubase_t begin_align = ALIGN((ubase_t)begin_addr, ALIGN_SIZE);
+    ubase_t end_align   = ALIGN_DOWN((ubase_t)end_addr, ALIGN_SIZE);
+
+    DEBUG_NOT_IN_INTERRUPT;
+
+    /* alignment addr */
+    if ((end_align > (2 * SIZEOF_STRUCT_MEM)) &&
+        ((end_align - 2 * SIZEOF_STRUCT_MEM) >= begin_align))
+    {
+        /* calculate the aligned memory size */
+        mem_size_aligned = end_align - begin_align - 2 * SIZEOF_STRUCT_MEM;
+    }
+    else
+    {
+        printf("mem init, error begin address 0x%x, and end address 0x%x\n",
+                   (ubase_t)begin_addr, (ubase_t)end_addr);
+
+        return;
+    }
+
+    /* point to begin address of heap */
+    heap_ptr = (uint8_t *)begin_align;
+
+    DEBUG_LOG(DEBUG_MEM, ("mem init, heap begin address 0x%x, size %d\n",
+            (ubase_t)heap_ptr, mem_size_aligned));
+
+    /* initialize the start of the heap */
+    mem        = (struct heap_mem *)heap_ptr;
+    mem->magic = HEAP_MAGIC;
+    mem->next  = mem_size_aligned + SIZEOF_STRUCT_MEM;
+    mem->prev  = 0;
+    mem->used  = 0;
+
+    /* initialize the end of the heap */
+    heap_end        = (struct heap_mem *)&heap_ptr[mem->next];
+    heap_end->magic = HEAP_MAGIC;
+    heap_end->used  = 1;
+    heap_end->next  = mem_size_aligned + SIZEOF_STRUCT_MEM;
+    heap_end->prev  = mem_size_aligned + SIZEOF_STRUCT_MEM;
+
+    os_sem_init(&heap_sem, "heap", 1);
+
+    /* initialize the lowest-free pointer to the start of the heap */
+    lfree = (struct heap_mem *)heap_ptr;
+}
+
+/**
+ * @addtogroup MM
+ */
+
+/**@{*/
+
+/**
+ * Allocate a block of memory with a minimum of 'size' bytes.
+ *
+ * @param size is the minimum size of the requested block in bytes.
+ *
+ * @return pointer to allocated memory or NULL if no free memory was found.
+ */
+void *malloc(size_t size)
+{
+    size_t ptr, ptr2;
+    struct heap_mem *mem, *mem2;
+
+    if (size == 0)
+        return NULL;
+
+    DEBUG_NOT_IN_INTERRUPT;
+
+    if (size != ALIGN(size, ALIGN_SIZE))
+        DEBUG_LOG(DEBUG_MEM, ("malloc size %d, but align to %d\n",
+                size, ALIGN(size, ALIGN_SIZE)));
+    else
+        DEBUG_LOG(DEBUG_MEM, ("malloc size %d\n", size));
+
+    /* alignment size */
+    size = ALIGN(size, ALIGN_SIZE);
+
+    if (size > mem_size_aligned)
+    {
+        DEBUG_LOG(DEBUG_MEM, ("no memory\n"));
+
+        return NULL;
+    }
+
+    /* every data block must be at least MIN_SIZE_ALIGNED long */
+    if (size < MIN_SIZE_ALIGNED)
+        size = MIN_SIZE_ALIGNED;
+
+    /* take memory semaphore */
+    os_sem_take(&heap_sem, OS_WAITING_FOREVER);
+
+    for (ptr = (uint8_t *)lfree - heap_ptr;
+         ptr < mem_size_aligned - size;
+         ptr = ((struct heap_mem *)&heap_ptr[ptr])->next)
+    {
+        mem = (struct heap_mem *)&heap_ptr[ptr];
+
+        if ((!mem->used) && (mem->next - (ptr + SIZEOF_STRUCT_MEM)) >= size)
+        {
+            /* mem is not used and at least perfect fit is possible:
+             * mem->next - (ptr + SIZEOF_STRUCT_MEM) gives us the 'user data size' of mem */
+
+            if (mem->next - (ptr + SIZEOF_STRUCT_MEM) >=
+                (size + SIZEOF_STRUCT_MEM + MIN_SIZE_ALIGNED))
+            {
+                /* (in addition to the above, we test if another struct heap_mem (SIZEOF_STRUCT_MEM) containing
+                 * at least MIN_SIZE_ALIGNED of data also fits in the 'user data space' of 'mem')
+                 * -> split large block, create empty remainder,
+                 * remainder must be large enough to contain MIN_SIZE_ALIGNED data: if
+                 * mem->next - (ptr + (2*SIZEOF_STRUCT_MEM)) == size,
+                 * struct heap_mem would fit in but no data between mem2 and mem2->next
+                 * @todo we could leave out MIN_SIZE_ALIGNED. We would create an empty
+                 *       region that couldn't hold data, but when mem->next gets freed,
+                 *       the 2 regions would be combined, resulting in more free memory
+                 */
+                ptr2 = ptr + SIZEOF_STRUCT_MEM + size;
+
+                /* create mem2 struct */
+                mem2       = (struct heap_mem *)&heap_ptr[ptr2];
+                mem2->magic = HEAP_MAGIC;
+                mem2->used = 0;
+                mem2->next = mem->next;
+                mem2->prev = ptr;
+
+                /* and insert it between mem and mem->next */
+                mem->next = ptr2;
+                mem->used = 1;
+
+                if (mem2->next != mem_size_aligned + SIZEOF_STRUCT_MEM)
+                {
+                    ((struct heap_mem *)&heap_ptr[mem2->next])->prev = ptr2;
+                }
+                used_mem += (size + SIZEOF_STRUCT_MEM);
+                if (max_mem < used_mem)
+                    max_mem = used_mem;
+            }
+            else
+            {
+                /* (a mem2 struct does no fit into the user data space of mem and mem->next will always
+                 * be used at this point: if not we have 2 unused structs in a row, plug_holes should have
+                 * take care of this).
+                 * -> near fit or excact fit: do not split, no mem2 creation
+                 * also can't move mem->next directly behind mem, since mem->next
+                 * will always be used at this point!
+                 */
+                mem->used = 1;
+                used_mem += mem->next - ((uint8_t *)mem - heap_ptr);
+                if (max_mem < used_mem)
+                    max_mem = used_mem;
+            }
+            /* set memory block magic */
+            mem->magic = HEAP_MAGIC;
+
+            if (mem == lfree)
+            {
+                /* Find next free block after mem and update lowest free pointer */
+                while (lfree->used && lfree != heap_end)
+                    lfree = (struct heap_mem *)&heap_ptr[lfree->next];
+
+                ASSERT(((lfree == heap_end) || (!lfree->used)));
+            }
+
+            os_sem_release(&heap_sem);
+            ASSERT((ubase_t)mem + SIZEOF_STRUCT_MEM + size <= (ubase_t)heap_end);
+            ASSERT((ubase_t)((uint8_t *)mem + SIZEOF_STRUCT_MEM) % ALIGN_SIZE == 0);
+            ASSERT((((ubase_t)mem) & (ALIGN_SIZE - 1)) == 0);
+
+            DEBUG_LOG(DEBUG_MEM,
+                         ("allocate memory at 0x%x, size: %d\n",
+                                 (ubase_t)((uint8_t *)mem + SIZEOF_STRUCT_MEM),
+                                 (ubase_t)(mem->next - ((uint8_t *)mem - heap_ptr))));
+
+            OBJECT_HOOK_CALL(os_malloc_hook,
+                                (((void *)((uint8_t *)mem + SIZEOF_STRUCT_MEM)), size));
+
+            /* return the memory data except mem struct */
+            return (uint8_t *)mem + SIZEOF_STRUCT_MEM;
+        }
+    }
+
+    os_sem_release(&heap_sem);
+
+    return NULL;
+}
+
+/**
+ * This function will change the previously allocated memory block.
+ *
+ * @param rmem pointer to memory allocated by malloc
+ * @param newsize the required new size
+ *
+ * @return the changed memory block address
+ */
+void *realloc(void *rmem, size_t newsize)
+{
+    size_t size;
+    size_t ptr, ptr2;
+    struct heap_mem *mem, *mem2;
+    void *nmem;
+
+    DEBUG_NOT_IN_INTERRUPT;
+
+    /* alignment size */
+    newsize = ALIGN(newsize, ALIGN_SIZE);
+    if (newsize > mem_size_aligned)
+    {
+        DEBUG_LOG(DEBUG_MEM, ("realloc: out of memory\n"));
+
+        return NULL;
+    }
+    else if (newsize == 0)
+    {
+        free(rmem);
+        return NULL;
+    }
+
+    /* allocate a new memory block */
+    if (rmem == NULL)
+        return malloc(newsize);
+
+    os_sem_take(&heap_sem, OS_WAITING_FOREVER);
+
+    if ((uint8_t *)rmem < (uint8_t *)heap_ptr ||
+        (uint8_t *)rmem >= (uint8_t *)heap_end)
+    {
+        /* illegal memory */
+        os_sem_release(&heap_sem);
+
+        return rmem;
+    }
+
+    mem = (struct heap_mem *)((uint8_t *)rmem - SIZEOF_STRUCT_MEM);
+
+    ptr = (uint8_t *)mem - heap_ptr;
+    size = mem->next - ptr - SIZEOF_STRUCT_MEM;
+    if (size == newsize)
+    {
+        /* the size is the same as */
+        os_sem_release(&heap_sem);
+
+        return rmem;
+    }
+
+    if (newsize + SIZEOF_STRUCT_MEM + MIN_SIZE < size)
+    {
+        /* split memory block */
+
+        ptr2 = ptr + SIZEOF_STRUCT_MEM + newsize;
+        mem2 = (struct heap_mem *)&heap_ptr[ptr2];
+        mem2->magic = HEAP_MAGIC;
+        mem2->used = 0;
+        mem2->next = mem->next;
+        mem2->prev = ptr;
+        mem->next = ptr2;
+        if (mem2->next != mem_size_aligned + SIZEOF_STRUCT_MEM)
+        {
+            ((struct heap_mem *)&heap_ptr[mem2->next])->prev = ptr2;
+        }
+
+        if (mem2 < lfree)
+        {
+            /* the splited struct is now the lowest */
+            lfree = mem2;
+        }
+
+        plug_holes(mem2);
+
+        os_sem_release(&heap_sem);
+
+        return rmem;
+    }
+    os_sem_release(&heap_sem);
+
+    /* expand memory */
+    nmem = malloc(newsize);
+    if (nmem != NULL) /* check memory */
+    {
+        memcpy(nmem, rmem, size < newsize ? size : newsize);
+        free(rmem);
+    }
+
+    return nmem;
+}
+
+/**
+ * This function will contiguously allocate enough space for count objects
+ * that are size bytes of memory each and returns a pointer to the allocated
+ * memory.
+ *
+ * The allocated memory is filled with bytes of value zero.
+ *
+ * @param count number of objects to allocate
+ * @param size size of the objects to allocate
+ *
+ * @return pointer to allocated memory / NULL pointer if there is an error
+ */
+void *calloc(size_t count, size_t size)
 {
     void *p;
 
     /* allocate 'count' objects of size 'size' */
     p = malloc(count * size);
-    if (p) {
-        /* zero the memory */
+
+    /* zero the memory */
+    if (p)
         memset(p, 0, count * size);
-    }
-    return p;
-}
 
-void *_realloc(void *mem, size_t newsize)
-{
-    if (newsize == 0) {
-        free(mem);
-        return NULL;
-    }
-
-    void *p;
-    p = malloc(newsize);
-    if (p) {
-        /* zero the memory */
-        if (mem != NULL) {
-            memcpy(p, mem, newsize);
-            free(mem);
-        }
-    }
     return p;
 }
 
 /**
- * This function will set the content of memory to specified value
+ * This function will release the previously allocated memory block by
+ * malloc. The released memory block is taken back to system heap.
  *
- * @param s the address of source memory
- * @param c the value shall be set in content
- * @param count the copied length
- *
- * @return the address of source memory
+ * @param rmem the address of memory which will be released
  */
-void *_memset(void *s, int c, size_t count)
+void free(void *rmem)
 {
-#ifdef USING_TINY_SIZE
-    char *xs = (char *)s;
+    struct heap_mem *mem;
 
-    while (count--)
-        *xs++ = c;
+    if (rmem == NULL)
+        return;
 
-    return s;
-#else
-#define LBLOCKSIZE      (sizeof(long))
-#define UNALIGNED(X)    ((long)X & (LBLOCKSIZE - 1))
-#define TOO_SMALL(LEN)  ((LEN) < LBLOCKSIZE)
+    DEBUG_NOT_IN_INTERRUPT;
 
-    unsigned int i;
-    char *m = (char *)s;
-    unsigned long buffer;
-    unsigned long *aligned_addr;
-    unsigned int d = c & 0xff;  /* To avoid sign extension, copy C to an
-                                unsigned variable.  */
+    ASSERT((((ubase_t)rmem) & (ALIGN_SIZE - 1)) == 0);
+    ASSERT((uint8_t *)rmem >= (uint8_t *)heap_ptr &&
+              (uint8_t *)rmem < (uint8_t *)heap_end);
 
-    if (!TOO_SMALL(count) && !UNALIGNED(s))
+    OBJECT_HOOK_CALL(os_free_hook, (rmem));
+
+    if ((uint8_t *)rmem < (uint8_t *)heap_ptr ||
+        (uint8_t *)rmem >= (uint8_t *)heap_end)
     {
-        /* If we get this far, we know that n is large and m is word-aligned. */
-        aligned_addr = (unsigned long *)s;
+        DEBUG_LOG(DEBUG_MEM, ("illegal memory\n"));
 
-        /* Store D into each char sized location in BUFFER so that
-         * we can set large blocks quickly.
-         */
-        if (LBLOCKSIZE == 4)
-        {
-            buffer = (d << 8) | d;
-            buffer |= (buffer << 16);
-        }
-        else
-        {
-            buffer = 0;
-            for (i = 0; i < LBLOCKSIZE; i ++)
-                buffer = (buffer << 8) | d;
-        }
-
-        while (count >= LBLOCKSIZE * 4)
-        {
-            *aligned_addr++ = buffer;
-            *aligned_addr++ = buffer;
-            *aligned_addr++ = buffer;
-            *aligned_addr++ = buffer;
-            count -= 4 * LBLOCKSIZE;
-        }
-
-        while (count >= LBLOCKSIZE)
-        {
-            *aligned_addr++ = buffer;
-            count -= LBLOCKSIZE;
-        }
-
-        /* Pick up the remainder with a bytewise loop. */
-        m = (char *)aligned_addr;
+        return;
     }
 
-    while (count--)
+    /* Get the corresponding struct heap_mem ... */
+    mem = (struct heap_mem *)((uint8_t *)rmem - SIZEOF_STRUCT_MEM);
+
+    DEBUG_LOG(DEBUG_MEM,
+                 ("release memory 0x%x, size: %d\n",
+                         (ubase_t)rmem,
+                         (ubase_t)(mem->next - ((uint8_t *)mem - heap_ptr))));
+
+
+    /* protect the heap from concurrent access */
+    os_sem_take(&heap_sem, OS_WAITING_FOREVER);
+
+    /* ... which has to be in a used state ... */
+    if (!mem->used || mem->magic != HEAP_MAGIC)
     {
-        *m++ = (char)d;
+        printf("to free a bad data block:\n");
+        printf("mem: 0x%08x, used flag: %d, magic code: 0x%04x\n", mem, mem->used, mem->magic);
+    }
+    ASSERT(mem->used);
+    ASSERT(mem->magic == HEAP_MAGIC);
+    /* ... and is now unused. */
+    mem->used  = 0;
+    mem->magic = HEAP_MAGIC;
+
+    if (mem < lfree)
+    {
+        /* the newly freed struct is now the lowest */
+        lfree = mem;
     }
 
-    return s;
+    used_mem -= (mem->next - ((uint8_t *)mem - heap_ptr));
 
-#undef LBLOCKSIZE
-#undef UNALIGNED
-#undef TOO_SMALL
-#endif
+    /* finally, see if prev or next are free also */
+    plug_holes(mem);
+    os_sem_release(&heap_sem);
 }
 
 
-/**
- * This function will copy memory content from source address to destination
- * address.
- *
- * @param dst the address of destination memory
- * @param src  the address of source memory
- * @param count the copied length
- *
- * @return the address of destination memory
- */
-void *_memcpy(void *dst, const void *src, size_t count)
+void memory_info(uint32_t *total,
+                    uint32_t *used,
+                    uint32_t *max_used)
 {
-#ifdef USING_TINY_SIZE
-    char *tmp = (char *)dst, *s = (char *)src;
-    size_t len;
-
-    if (tmp <= s || tmp > (s + count))
-    {
-        while (count--)
-            *tmp ++ = *s ++;
-    }
-    else
-    {
-        for (len = count; len > 0; len --)
-            tmp[len - 1] = s[len - 1];
-    }
-
-    return dst;
-#else
-
-#define UNALIGNED(X, Y) \
-    (((long)X & (sizeof (long) - 1)) | ((long)Y & (sizeof (long) - 1)))
-#define BIGBLOCKSIZE    (sizeof (long) << 2)
-#define LITTLEBLOCKSIZE (sizeof (long))
-#define TOO_SMALL(LEN)  ((LEN) < BIGBLOCKSIZE)
-
-    char *dst_ptr = (char *)dst;
-    char *src_ptr = (char *)src;
-    long *aligned_dst;
-    long *aligned_src;
-    int len = count;
-
-    /* If the size is small, or either SRC or DST is unaligned,
-    then punt into the byte copy loop.  This should be rare. */
-    if (!TOO_SMALL(len) && !UNALIGNED(src_ptr, dst_ptr))
-    {
-        aligned_dst = (long *)dst_ptr;
-        aligned_src = (long *)src_ptr;
-
-        /* Copy 4X long words at a time if possible. */
-        while (len >= BIGBLOCKSIZE)
-        {
-            *aligned_dst++ = *aligned_src++;
-            *aligned_dst++ = *aligned_src++;
-            *aligned_dst++ = *aligned_src++;
-            *aligned_dst++ = *aligned_src++;
-            len -= BIGBLOCKSIZE;
-        }
-
-        /* Copy one long word at a time if possible. */
-        while (len >= LITTLEBLOCKSIZE)
-        {
-            *aligned_dst++ = *aligned_src++;
-            len -= LITTLEBLOCKSIZE;
-        }
-
-        /* Pick up any residual with a byte copier. */
-        dst_ptr = (char *)aligned_dst;
-        src_ptr = (char *)aligned_src;
-    }
-
-    while (len--)
-        *dst_ptr++ = *src_ptr++;
-
-    return dst;
-#undef UNALIGNED
-#undef BIGBLOCKSIZE
-#undef LITTLEBLOCKSIZE
-#undef TOO_SMALL
-#endif
+    if (total != NULL)
+        *total = mem_size_aligned;
+    if (used  != NULL)
+        *used = used_mem;
+    if (max_used != NULL)
+        *max_used = max_mem;
 }
 
-
-/**
- * This function will move memory content from source address to destination
- * address.
- *
- * @param dest the address of destination memory
- * @param src  the address of source memory
- * @param n the copied length
- *
- * @return the address of destination memory
- */
-void *_memmove(void *dest, const void *src, size_t n)
-{
-    char *tmp = (char *)dest, *s = (char *)src;
-
-    if (s < tmp && tmp < s + n)
-    {
-        tmp += n;
-        s += n;
-
-        while (n--)
-            *(--tmp) = *(--s);
-    }
-    else
-    {
-        while (n--)
-            *tmp++ = *s++;
-    }
-
-    return dest;
-}
-
-
-/**
- * This function will compare two areas of memory
- *
- * @param cs one area of memory
- * @param ct another area of memory
- * @param count the size of the area
- *
- * @return the result
- */
-int32_t _memcmp(const void *cs, const void *ct, size_t count)
-{
-    const unsigned char *su1, *su2;
-    int res = 0;
-
-    for (su1 = (const unsigned char *)cs, su2 = (const unsigned char *)ct; 0 < count; ++su1, ++su2, count--)
-        if ((res = *su1 - *su2) != 0)
-            break;
-
-    return res;
-}
-
-
-#include <sys/types.h>
-//void *malloc(size_t) __attribute__((weak, alias("_malloc")));
-//void free(void *) __attribute__((weak, alias("_free")));
-void *calloc(size_t, size_t) __attribute__((weak, alias("_calloc")));
-void *realloc(void *, size_t) __attribute__((weak, alias("_realloc")));
-
-void *memset(void *, int , size_t) __attribute__((weak, alias("_memset")));
-void *memcpy(void *, const void *, size_t) __attribute__((weak, alias("_memcpy")));
-void *memmove(void *, const void *, size_t) __attribute__((weak, alias("_memmove")));
-int   memcmp(const void *, const void *, size_t) __attribute__((weak, alias("_memcmp")));
 
 #ifdef RT_USING_FINSH
 #include <finsh.h>
 
-//static size_t mem_size = configTOTAL_HEAP_SIZE;
-static size_t used_mem, max_mem;
-
 void list_mem(void)
 {
-//    HeapStats_t stat;
-//    vPortGetHeapStats(&stat);
-
-//    printf("total memory: %d\n", mem_size);
-//    printf("used memory : %d\n", mem_size - stat.xAvailableHeapSpaceInBytes);
-//    printf("maximum allocated memory: %d\n", mem_size - stat.xMinimumEverFreeBytesRemaining);
+    printf("total memory: %d\n", mem_size_aligned);
+    printf("used memory : %d\n", used_mem);
+    printf("maximum allocated memory: %d\n", max_mem);
 }
+FINSH_FUNCTION_EXPORT(list_mem, list memory usage information)
+
 #endif

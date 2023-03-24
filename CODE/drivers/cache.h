@@ -13,7 +13,7 @@
 #define CACHE_LINE_MASK (CACHE_LINE_SIZE - 1)
 
 // Invalidate the D cache covering the area into which data has been read
-static inline void scb_invalidate_dcache(void *addr, size_t dsize)
+__STATIC_INLINE void scb_invalidate_dcache(void *addr, size_t dsize)
 {
 #ifdef __DCACHE_PRESENT
     SCB_InvalidateDCache_by_Addr(
@@ -23,7 +23,7 @@ static inline void scb_invalidate_dcache(void *addr, size_t dsize)
 }
 
 // Flush the D cache to ensure the data to be written is in main memory
-static inline void scb_flush_dcache(void *addr, size_t dsize)
+__STATIC_INLINE void scb_flush_dcache(void *addr, size_t dsize)
 {
 #ifdef __DCACHE_PRESENT
     SCB_CleanDCache_by_Addr(
@@ -32,7 +32,7 @@ static inline void scb_flush_dcache(void *addr, size_t dsize)
 #endif
 }
 
-static inline void scb_flush_invalidate_dcache(void *addr, size_t dsize)
+__STATIC_INLINE void scb_flush_invalidate_dcache(void *addr, size_t dsize)
 {
 #ifdef __DCACHE_PRESENT
     SCB_CleanInvalidateDCache_by_Addr(

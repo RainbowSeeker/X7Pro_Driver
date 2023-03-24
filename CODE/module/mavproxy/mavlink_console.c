@@ -14,7 +14,7 @@ static ringbuffer* _mav_console_tx_rb = NULL;
 static uint8_t _mav_console_rx_buffer[MAV_CONSOLE_RX_BUFFER_SIZE];
 static uint8_t _mav_console_tx_buffer[MAV_CONSOLE_TX_BUFFER_SIZE];
 static mavlink_serial_control_t _serial_control;
-static os_timer_t timer_mav_console;
+static struct timer timer_mav_console;
 
 static void mav_console_timeout(void* parameter)
 {
@@ -295,7 +295,7 @@ err_t mavlink_console_init(void)
     }
 
     /* register timer event */
-    timer_mav_console = os_timer_create("mav_console", mav_console_timeout, NULL, 50, TIMER_TYPE_ONE_SHOT);
+    os_timer_init(&timer_mav_console, "mav_console", mav_console_timeout, NULL, 50, TIMER_TYPE_ONE_SHOT);
     /* open flag doesn't matter, since open function will not check open flag */
     return device_register(device, MAV_CONSOLE_DEVICE_NAME, DEVICE_FLAG_RDWR);
 }

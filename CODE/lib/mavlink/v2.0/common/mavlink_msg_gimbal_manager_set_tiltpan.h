@@ -73,7 +73,7 @@ typedef struct __mavlink_gimbal_manager_set_tiltpan_t {
  * @param pan_rate [rad/s] Pan/yaw angular rate (positive: to the right, negative: to the left, NaN to be ignored).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_gimbal_manager_set_tiltpan_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_gimbal_manager_set_tiltpan_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                                    uint8_t target_system, uint8_t target_component, uint32_t flags, uint8_t gimbal_device_id, float tilt, float pan, float tilt_rate, float pan_rate)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -122,7 +122,7 @@ static inline uint16_t mavlink_msg_gimbal_manager_set_tiltpan_pack(uint8_t syste
  * @param pan_rate [rad/s] Pan/yaw angular rate (positive: to the right, negative: to the left, NaN to be ignored).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_gimbal_manager_set_tiltpan_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_gimbal_manager_set_tiltpan_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                         mavlink_message_t* msg,
                                                                         uint8_t target_system, uint8_t target_component, uint32_t flags, uint8_t gimbal_device_id, float tilt, float pan, float tilt_rate, float pan_rate)
 {
@@ -164,7 +164,7 @@ static inline uint16_t mavlink_msg_gimbal_manager_set_tiltpan_pack_chan(uint8_t 
  * @param msg The MAVLink message to compress the data into
  * @param gimbal_manager_set_tiltpan C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_gimbal_manager_set_tiltpan_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_gimbal_manager_set_tiltpan_t* gimbal_manager_set_tiltpan)
+__STATIC_INLINE uint16_t mavlink_msg_gimbal_manager_set_tiltpan_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_gimbal_manager_set_tiltpan_t* gimbal_manager_set_tiltpan)
 {
     return mavlink_msg_gimbal_manager_set_tiltpan_pack(system_id, component_id, msg, gimbal_manager_set_tiltpan->target_system, gimbal_manager_set_tiltpan->target_component, gimbal_manager_set_tiltpan->flags, gimbal_manager_set_tiltpan->gimbal_device_id, gimbal_manager_set_tiltpan->tilt, gimbal_manager_set_tiltpan->pan, gimbal_manager_set_tiltpan->tilt_rate, gimbal_manager_set_tiltpan->pan_rate);
 }
@@ -178,7 +178,7 @@ static inline uint16_t mavlink_msg_gimbal_manager_set_tiltpan_encode(uint8_t sys
  * @param msg The MAVLink message to compress the data into
  * @param gimbal_manager_set_tiltpan C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_gimbal_manager_set_tiltpan_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_gimbal_manager_set_tiltpan_t* gimbal_manager_set_tiltpan)
+__STATIC_INLINE uint16_t mavlink_msg_gimbal_manager_set_tiltpan_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_gimbal_manager_set_tiltpan_t* gimbal_manager_set_tiltpan)
 {
     return mavlink_msg_gimbal_manager_set_tiltpan_pack_chan(system_id, component_id, chan, msg, gimbal_manager_set_tiltpan->target_system, gimbal_manager_set_tiltpan->target_component, gimbal_manager_set_tiltpan->flags, gimbal_manager_set_tiltpan->gimbal_device_id, gimbal_manager_set_tiltpan->tilt, gimbal_manager_set_tiltpan->pan, gimbal_manager_set_tiltpan->tilt_rate, gimbal_manager_set_tiltpan->pan_rate);
 }
@@ -198,7 +198,7 @@ static inline uint16_t mavlink_msg_gimbal_manager_set_tiltpan_encode_chan(uint8_
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_gimbal_manager_set_tiltpan_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint32_t flags, uint8_t gimbal_device_id, float tilt, float pan, float tilt_rate, float pan_rate)
+__STATIC_INLINE void mavlink_msg_gimbal_manager_set_tiltpan_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint32_t flags, uint8_t gimbal_device_id, float tilt, float pan, float tilt_rate, float pan_rate)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GIMBAL_MANAGER_SET_TILTPAN_LEN];
@@ -232,7 +232,7 @@ static inline void mavlink_msg_gimbal_manager_set_tiltpan_send(mavlink_channel_t
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_gimbal_manager_set_tiltpan_send_struct(mavlink_channel_t chan, const mavlink_gimbal_manager_set_tiltpan_t* gimbal_manager_set_tiltpan)
+__STATIC_INLINE void mavlink_msg_gimbal_manager_set_tiltpan_send_struct(mavlink_channel_t chan, const mavlink_gimbal_manager_set_tiltpan_t* gimbal_manager_set_tiltpan)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_gimbal_manager_set_tiltpan_send(chan, gimbal_manager_set_tiltpan->target_system, gimbal_manager_set_tiltpan->target_component, gimbal_manager_set_tiltpan->flags, gimbal_manager_set_tiltpan->gimbal_device_id, gimbal_manager_set_tiltpan->tilt, gimbal_manager_set_tiltpan->pan, gimbal_manager_set_tiltpan->tilt_rate, gimbal_manager_set_tiltpan->pan_rate);
@@ -249,7 +249,7 @@ static inline void mavlink_msg_gimbal_manager_set_tiltpan_send_struct(mavlink_ch
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_gimbal_manager_set_tiltpan_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint32_t flags, uint8_t gimbal_device_id, float tilt, float pan, float tilt_rate, float pan_rate)
+__STATIC_INLINE void mavlink_msg_gimbal_manager_set_tiltpan_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint32_t flags, uint8_t gimbal_device_id, float tilt, float pan, float tilt_rate, float pan_rate)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -288,7 +288,7 @@ static inline void mavlink_msg_gimbal_manager_set_tiltpan_send_buf(mavlink_messa
  *
  * @return  System ID
  */
-static inline uint8_t mavlink_msg_gimbal_manager_set_tiltpan_get_target_system(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_gimbal_manager_set_tiltpan_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 20);
 }
@@ -298,7 +298,7 @@ static inline uint8_t mavlink_msg_gimbal_manager_set_tiltpan_get_target_system(c
  *
  * @return  Component ID
  */
-static inline uint8_t mavlink_msg_gimbal_manager_set_tiltpan_get_target_component(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_gimbal_manager_set_tiltpan_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 21);
 }
@@ -308,7 +308,7 @@ static inline uint8_t mavlink_msg_gimbal_manager_set_tiltpan_get_target_componen
  *
  * @return  High level gimbal manager flags to use.
  */
-static inline uint32_t mavlink_msg_gimbal_manager_set_tiltpan_get_flags(const mavlink_message_t* msg)
+__STATIC_INLINE uint32_t mavlink_msg_gimbal_manager_set_tiltpan_get_flags(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 0);
 }
@@ -318,7 +318,7 @@ static inline uint32_t mavlink_msg_gimbal_manager_set_tiltpan_get_flags(const ma
  *
  * @return  Component ID of gimbal device to address (or 1-6 for non-MAVLink gimbal), 0 for all gimbal device components. (Send command multiple times for more than one but not all gimbals.)
  */
-static inline uint8_t mavlink_msg_gimbal_manager_set_tiltpan_get_gimbal_device_id(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_gimbal_manager_set_tiltpan_get_gimbal_device_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 22);
 }
@@ -328,7 +328,7 @@ static inline uint8_t mavlink_msg_gimbal_manager_set_tiltpan_get_gimbal_device_i
  *
  * @return [rad] Tilt/pitch angle (positive: up, negative: down, NaN to be ignored).
  */
-static inline float mavlink_msg_gimbal_manager_set_tiltpan_get_tilt(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_gimbal_manager_set_tiltpan_get_tilt(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 4);
 }
@@ -338,7 +338,7 @@ static inline float mavlink_msg_gimbal_manager_set_tiltpan_get_tilt(const mavlin
  *
  * @return [rad] Pan/yaw angle (positive: to the right, negative: to the left, NaN to be ignored).
  */
-static inline float mavlink_msg_gimbal_manager_set_tiltpan_get_pan(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_gimbal_manager_set_tiltpan_get_pan(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 8);
 }
@@ -348,7 +348,7 @@ static inline float mavlink_msg_gimbal_manager_set_tiltpan_get_pan(const mavlink
  *
  * @return [rad/s] Tilt/pitch angular rate (positive: up, negative: down, NaN to be ignored).
  */
-static inline float mavlink_msg_gimbal_manager_set_tiltpan_get_tilt_rate(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_gimbal_manager_set_tiltpan_get_tilt_rate(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -358,7 +358,7 @@ static inline float mavlink_msg_gimbal_manager_set_tiltpan_get_tilt_rate(const m
  *
  * @return [rad/s] Pan/yaw angular rate (positive: to the right, negative: to the left, NaN to be ignored).
  */
-static inline float mavlink_msg_gimbal_manager_set_tiltpan_get_pan_rate(const mavlink_message_t* msg)
+__STATIC_INLINE float mavlink_msg_gimbal_manager_set_tiltpan_get_pan_rate(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -369,7 +369,7 @@ static inline float mavlink_msg_gimbal_manager_set_tiltpan_get_pan_rate(const ma
  * @param msg The message to decode
  * @param gimbal_manager_set_tiltpan C-struct to decode the message contents into
  */
-static inline void mavlink_msg_gimbal_manager_set_tiltpan_decode(const mavlink_message_t* msg, mavlink_gimbal_manager_set_tiltpan_t* gimbal_manager_set_tiltpan)
+__STATIC_INLINE void mavlink_msg_gimbal_manager_set_tiltpan_decode(const mavlink_message_t* msg, mavlink_gimbal_manager_set_tiltpan_t* gimbal_manager_set_tiltpan)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     gimbal_manager_set_tiltpan->flags = mavlink_msg_gimbal_manager_set_tiltpan_get_flags(msg);

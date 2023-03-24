@@ -18,7 +18,7 @@ MCN_DECLARE(sensor_baro);
 MCN_DECLARE(sensor_gps);
 
 static os_thread_t thread_mavlink_rx_handle;
-static os_event_t mav_rx_event;
+static struct event mav_rx_event;
 
 static err_t mavproxy_rx_ind(uint32_t size)
 {
@@ -381,7 +381,7 @@ static void mavproxy_rx_entry(void* param)
 
     while (1) {
         /* wait event happen */
-        err = os_event_recv(&mav_rx_event, EVENT_MAV_RX, OS_WAIT_FOREVER, &recv_set);
+        err = os_event_recv(&mav_rx_event, EVENT_MAV_RX, OS_WAITING_FOREVER, &recv_set);
 
         if (err == E_OK) {
             if (recv_set & EVENT_MAV_RX) {
@@ -397,7 +397,7 @@ static void mavproxy_rx_entry(void* param)
 }
 err_t mavproxy_monitor_create(void)
 {
-    if (os_event_init(&mav_rx_event) != E_OK) {
+    if (os_event_init(&mav_rx_event, "mav_rx") != E_OK) {
         console_printf("mav rx event create fail\n");
         return E_RROR;
     }
@@ -408,7 +408,7 @@ err_t mavproxy_monitor_create(void)
                                                 mavproxy_rx_entry,
                                                 NULL,
                                                 MAVLINK_RX_THREAD_PRIORITY,
-                                                4096);
+                                                512);
     if (thread_mavlink_rx_handle == NULL) {
         console_printf("mav rx thread create fail\n");
         return E_RROR;

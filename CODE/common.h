@@ -7,6 +7,7 @@
 #ifndef X7PRO_DRIVER_COMMON_H
 #define X7PRO_DRIVER_COMMON_H
 
+#include "rtdebug.h"
 #include "common_def.h"
 #include "drivers/cache.h"
 #include "utils/list.h"

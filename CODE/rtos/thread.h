@@ -11,10 +11,7 @@
 #include "os_common.h"
 #include "timer.h"
 
-#define MAX_THREAD_NUM          10
-#define ALL_THREAD_STK_SIZE     20480
-#define MAX_THREAD_STK_SIZE     10240
-
+#define IDLE_THREAD_NAME        "uC/OS-III Idle Task"
 /*
  * Thread
  */
@@ -51,7 +48,7 @@
 struct thread
 {
     struct object parent;
-    OS_TCB      *tid;     //thread ptr
+    OS_TCB      tid;     //thread ptr
     list_t      tlist;                                  /**< the thread list */
 
     uint32_t    stack_size;                             /**< stack size */
@@ -69,19 +66,18 @@ typedef struct thread *os_thread_t;
  * os_thread_get_num
  * @return
  */
-static inline size_t  os_thread_get_num(void)
+__STATIC_INLINE size_t  os_thread_get_num(void)
 {
-//    return uxTaskGetNumberOfTasks();
+    return 0;
 }
 
 /**
  * os_schedule
  * @return
  */
-static inline err_t os_schedule(void)
+__STATIC_INLINE err_t os_schedule(void)
 {
     return E_OK;
-//    return osThreadYield();
 }
 
 void os_thread_suspend_sethook(void (*hook)(os_thread_t thread));
@@ -92,8 +88,12 @@ os_thread_t os_thread_idle_gethandler();
 err_t os_thread_idle_sethook(void (*hook)(void));
 err_t os_thread_idle_delhook(void (*hook)(void));
 void os_scheduler_sethook(void hook(os_thread_t from, os_thread_t to));
-void os_scheduler_hook();
-void os_thread_idle_hook();
+
+
+//you should put them in right place according to your os;
+void os_scheduler_hook(os_thread_t from, os_thread_t to);
+void os_thread_idle_hook(void);
+void os_thread_create_hook(os_thread_t thread);
 /**
  * os_thread_create
  * @param name
@@ -153,7 +153,4 @@ os_thread_t os_thread_self(void);
  * os_thread_update_info_all
  */
 void os_thread_update_info_all(void);
-
-err_t os_get_errno(void);
-void os_set_errno(err_t error);
 #endif //X7PRO_DRIVER_THREAD_H

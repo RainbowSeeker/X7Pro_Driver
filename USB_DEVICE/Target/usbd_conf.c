@@ -319,6 +319,7 @@ void HAL_PCD_ConnectCallback(PCD_HandleTypeDef *hpcd)
 #endif /* USE_HAL_PCD_REGISTER_CALLBACKS */
 {
   USBD_LL_DevConnected((USBD_HandleTypeDef*)hpcd->pData);
+    drv_usbd_cdc_connect_cb(hpcd);
 }
 
 /**
@@ -333,6 +334,7 @@ void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd)
 #endif /* USE_HAL_PCD_REGISTER_CALLBACKS */
 {
   USBD_LL_DevDisconnected((USBD_HandleTypeDef*)hpcd->pData);
+    drv_usbd_cdc_disconnect_cb(hpcd);
 }
 
 /*******************************************************************************

@@ -5,7 +5,7 @@
   modifications to suit mavlink headers
  */
 /*
- * Copyright (c) 1995 - 2001 Kungliga Tekniska Högskolan
+ * Copyright (c) 1995 - 2001 Kungliga Tekniska Hï¿½gskolan
  * (Royal Institute of Technology, Stockholm, Sweden).
  * All rights reserved.
  * 
@@ -96,7 +96,7 @@ MAVLINK_HELPER void mavlink_sha256_init(mavlink_sha256_ctx* m)
     H = 0x5be0cd19;
 }
 
-static inline void mavlink_sha256_calc(mavlink_sha256_ctx* m, uint32_t* in)
+__STATIC_INLINE void mavlink_sha256_calc(mavlink_sha256_ctx* m, uint32_t* in)
 {
     uint32_t AA, BB, CC, DD, EE, FF, GG, HH;
     uint32_t data[64];

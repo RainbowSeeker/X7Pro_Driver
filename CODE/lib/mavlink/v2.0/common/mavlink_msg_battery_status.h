@@ -94,7 +94,7 @@ mavlink_battery_status_t;
  * @param voltages_ext [mV] Battery voltages for cells 11 to 14. Cells above the valid cell count for this battery should have a value of 0, where zero indicates not supported (note, this is different than for the voltages field and allows empty byte truncation). If the measured value is 0 then 1 should be sent instead.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_battery_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_battery_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                        uint8_t id, uint8_t battery_function, uint8_t type, int16_t temperature, const uint16_t* voltages, int16_t current_battery, int32_t current_consumed, int32_t energy_consumed, int8_t battery_remaining, int32_t time_remaining, uint8_t charge_state, const uint16_t* voltages_ext)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -153,7 +153,7 @@ static inline uint16_t mavlink_msg_battery_status_pack(uint8_t system_id, uint8_
  * @param voltages_ext [mV] Battery voltages for cells 11 to 14. Cells above the valid cell count for this battery should have a value of 0, where zero indicates not supported (note, this is different than for the voltages field and allows empty byte truncation). If the measured value is 0 then 1 should be sent instead.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_battery_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_battery_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                             mavlink_message_t* msg,
                                                             uint8_t id, uint8_t battery_function, uint8_t type, int16_t temperature, const uint16_t* voltages, int16_t current_battery, int32_t current_consumed, int32_t energy_consumed, int8_t battery_remaining, int32_t time_remaining, uint8_t charge_state, const uint16_t* voltages_ext)
 {
@@ -201,7 +201,7 @@ static inline uint16_t mavlink_msg_battery_status_pack_chan(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param battery_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_battery_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_battery_status_t* battery_status)
+__STATIC_INLINE uint16_t mavlink_msg_battery_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_battery_status_t* battery_status)
 {
     return mavlink_msg_battery_status_pack(system_id, component_id, msg, battery_status->id, battery_status->battery_function, battery_status->type, battery_status->temperature, battery_status->voltages, battery_status->current_battery, battery_status->current_consumed, battery_status->energy_consumed, battery_status->battery_remaining, battery_status->time_remaining, battery_status->charge_state, battery_status->voltages_ext);
 }
@@ -215,7 +215,7 @@ static inline uint16_t mavlink_msg_battery_status_encode(uint8_t system_id, uint
  * @param msg The MAVLink message to compress the data into
  * @param battery_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_battery_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_battery_status_t* battery_status)
+__STATIC_INLINE uint16_t mavlink_msg_battery_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_battery_status_t* battery_status)
 {
     return mavlink_msg_battery_status_pack_chan(system_id, component_id, chan, msg, battery_status->id, battery_status->battery_function, battery_status->type, battery_status->temperature, battery_status->voltages, battery_status->current_battery, battery_status->current_consumed, battery_status->energy_consumed, battery_status->battery_remaining, battery_status->time_remaining, battery_status->charge_state, battery_status->voltages_ext);
 }
@@ -239,7 +239,7 @@ static inline uint16_t mavlink_msg_battery_status_encode_chan(uint8_t system_id,
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_battery_status_send(mavlink_channel_t chan, uint8_t id, uint8_t battery_function, uint8_t type, int16_t temperature, const uint16_t* voltages, int16_t current_battery, int32_t current_consumed, int32_t energy_consumed, int8_t battery_remaining, int32_t time_remaining, uint8_t charge_state, const uint16_t* voltages_ext)
+__STATIC_INLINE void mavlink_msg_battery_status_send(mavlink_channel_t chan, uint8_t id, uint8_t battery_function, uint8_t type, int16_t temperature, const uint16_t* voltages, int16_t current_battery, int32_t current_consumed, int32_t energy_consumed, int8_t battery_remaining, int32_t time_remaining, uint8_t charge_state, const uint16_t* voltages_ext)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_BATTERY_STATUS_LEN];
@@ -279,7 +279,7 @@ static inline void mavlink_msg_battery_status_send(mavlink_channel_t chan, uint8
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_battery_status_send_struct(mavlink_channel_t chan, const mavlink_battery_status_t* battery_status)
+__STATIC_INLINE void mavlink_msg_battery_status_send_struct(mavlink_channel_t chan, const mavlink_battery_status_t* battery_status)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_battery_status_send(chan, battery_status->id, battery_status->battery_function, battery_status->type, battery_status->temperature, battery_status->voltages, battery_status->current_battery, battery_status->current_consumed, battery_status->energy_consumed, battery_status->battery_remaining, battery_status->time_remaining, battery_status->charge_state, battery_status->voltages_ext);
@@ -296,7 +296,7 @@ static inline void mavlink_msg_battery_status_send_struct(mavlink_channel_t chan
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_battery_status_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t id, uint8_t battery_function, uint8_t type, int16_t temperature, const uint16_t* voltages, int16_t current_battery, int32_t current_consumed, int32_t energy_consumed, int8_t battery_remaining, int32_t time_remaining, uint8_t charge_state, const uint16_t* voltages_ext)
+__STATIC_INLINE void mavlink_msg_battery_status_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t id, uint8_t battery_function, uint8_t type, int16_t temperature, const uint16_t* voltages, int16_t current_battery, int32_t current_consumed, int32_t energy_consumed, int8_t battery_remaining, int32_t time_remaining, uint8_t charge_state, const uint16_t* voltages_ext)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -341,7 +341,7 @@ static inline void mavlink_msg_battery_status_send_buf(mavlink_message_t* msgbuf
  *
  * @return  Battery ID
  */
-static inline uint8_t mavlink_msg_battery_status_get_id(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_battery_status_get_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 32);
 }
@@ -351,7 +351,7 @@ static inline uint8_t mavlink_msg_battery_status_get_id(const mavlink_message_t*
  *
  * @return  Function of the battery
  */
-static inline uint8_t mavlink_msg_battery_status_get_battery_function(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_battery_status_get_battery_function(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 33);
 }
@@ -361,7 +361,7 @@ static inline uint8_t mavlink_msg_battery_status_get_battery_function(const mavl
  *
  * @return  Type (chemistry) of the battery
  */
-static inline uint8_t mavlink_msg_battery_status_get_type(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_battery_status_get_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 34);
 }
@@ -371,7 +371,7 @@ static inline uint8_t mavlink_msg_battery_status_get_type(const mavlink_message_
  *
  * @return [cdegC] Temperature of the battery. INT16_MAX for unknown temperature.
  */
-static inline int16_t mavlink_msg_battery_status_get_temperature(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_battery_status_get_temperature(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 8);
 }
@@ -381,7 +381,7 @@ static inline int16_t mavlink_msg_battery_status_get_temperature(const mavlink_m
  *
  * @return [mV] Battery voltage of cells 1 to 10 (see voltages_ext for cells 11-14). Cells in this field above the valid cell count for this battery should have the UINT16_MAX value. If individual cell voltages are unknown or not measured for this battery, then the overall battery voltage should be filled in cell 0, with all others set to UINT16_MAX. If the voltage of the battery is greater than (UINT16_MAX - 1), then cell 0 should be set to (UINT16_MAX - 1), and cell 1 to the remaining voltage. This can be extended to multiple cells if the total voltage is greater than 2 * (UINT16_MAX - 1).
  */
-static inline uint16_t mavlink_msg_battery_status_get_voltages(const mavlink_message_t* msg, uint16_t* voltages)
+__STATIC_INLINE uint16_t mavlink_msg_battery_status_get_voltages(const mavlink_message_t* msg, uint16_t* voltages)
 {
     return _MAV_RETURN_uint16_t_array(msg, voltages, 10, 10);
 }
@@ -391,7 +391,7 @@ static inline uint16_t mavlink_msg_battery_status_get_voltages(const mavlink_mes
  *
  * @return [cA] Battery current, -1: autopilot does not measure the current
  */
-static inline int16_t mavlink_msg_battery_status_get_current_battery(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_battery_status_get_current_battery(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 30);
 }
@@ -401,7 +401,7 @@ static inline int16_t mavlink_msg_battery_status_get_current_battery(const mavli
  *
  * @return [mAh] Consumed charge, -1: autopilot does not provide consumption estimate
  */
-static inline int32_t mavlink_msg_battery_status_get_current_consumed(const mavlink_message_t* msg)
+__STATIC_INLINE int32_t mavlink_msg_battery_status_get_current_consumed(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 0);
 }
@@ -411,7 +411,7 @@ static inline int32_t mavlink_msg_battery_status_get_current_consumed(const mavl
  *
  * @return [hJ] Consumed energy, -1: autopilot does not provide energy consumption estimate
  */
-static inline int32_t mavlink_msg_battery_status_get_energy_consumed(const mavlink_message_t* msg)
+__STATIC_INLINE int32_t mavlink_msg_battery_status_get_energy_consumed(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 4);
 }
@@ -421,7 +421,7 @@ static inline int32_t mavlink_msg_battery_status_get_energy_consumed(const mavli
  *
  * @return [%] Remaining battery energy. Values: [0-100], -1: autopilot does not estimate the remaining battery.
  */
-static inline int8_t mavlink_msg_battery_status_get_battery_remaining(const mavlink_message_t* msg)
+__STATIC_INLINE int8_t mavlink_msg_battery_status_get_battery_remaining(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int8_t(msg, 35);
 }
@@ -431,7 +431,7 @@ static inline int8_t mavlink_msg_battery_status_get_battery_remaining(const mavl
  *
  * @return [s] Remaining battery time, 0: autopilot does not provide remaining battery time estimate
  */
-static inline int32_t mavlink_msg_battery_status_get_time_remaining(const mavlink_message_t* msg)
+__STATIC_INLINE int32_t mavlink_msg_battery_status_get_time_remaining(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 36);
 }
@@ -441,7 +441,7 @@ static inline int32_t mavlink_msg_battery_status_get_time_remaining(const mavlin
  *
  * @return  State for extent of discharge, provided by autopilot for warning or external reactions
  */
-static inline uint8_t mavlink_msg_battery_status_get_charge_state(const mavlink_message_t* msg)
+__STATIC_INLINE uint8_t mavlink_msg_battery_status_get_charge_state(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 40);
 }
@@ -451,7 +451,7 @@ static inline uint8_t mavlink_msg_battery_status_get_charge_state(const mavlink_
  *
  * @return [mV] Battery voltages for cells 11 to 14. Cells above the valid cell count for this battery should have a value of 0, where zero indicates not supported (note, this is different than for the voltages field and allows empty byte truncation). If the measured value is 0 then 1 should be sent instead.
  */
-static inline uint16_t mavlink_msg_battery_status_get_voltages_ext(const mavlink_message_t* msg, uint16_t* voltages_ext)
+__STATIC_INLINE uint16_t mavlink_msg_battery_status_get_voltages_ext(const mavlink_message_t* msg, uint16_t* voltages_ext)
 {
     return _MAV_RETURN_uint16_t_array(msg, voltages_ext, 4, 41);
 }
@@ -462,7 +462,7 @@ static inline uint16_t mavlink_msg_battery_status_get_voltages_ext(const mavlink
  * @param msg The message to decode
  * @param battery_status C-struct to decode the message contents into
  */
-static inline void mavlink_msg_battery_status_decode(const mavlink_message_t* msg, mavlink_battery_status_t* battery_status)
+__STATIC_INLINE void mavlink_msg_battery_status_decode(const mavlink_message_t* msg, mavlink_battery_status_t* battery_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     battery_status->current_consumed = mavlink_msg_battery_status_get_current_consumed(msg);

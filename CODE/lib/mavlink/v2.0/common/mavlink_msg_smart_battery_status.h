@@ -75,7 +75,7 @@ typedef struct __mavlink_smart_battery_status_t {
  * @param voltages [mV] Individual cell voltages. Batteries with more 16 cells can use the cell_offset field to specify the cell offset for the array specified in the current message . Index values above the valid cell count for this battery should have the UINT16_MAX value.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_smart_battery_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+__STATIC_INLINE uint16_t mavlink_msg_smart_battery_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                              uint16_t id, int16_t capacity_remaining, int16_t current, int16_t temperature, int32_t fault_bitmask, int32_t time_remaining, uint16_t cell_offset, const uint16_t* voltages)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -122,7 +122,7 @@ static inline uint16_t mavlink_msg_smart_battery_status_pack(uint8_t system_id, 
  * @param voltages [mV] Individual cell voltages. Batteries with more 16 cells can use the cell_offset field to specify the cell offset for the array specified in the current message . Index values above the valid cell count for this battery should have the UINT16_MAX value.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-static inline uint16_t mavlink_msg_smart_battery_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+__STATIC_INLINE uint16_t mavlink_msg_smart_battery_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                   mavlink_message_t* msg,
                                                                   uint16_t id, int16_t capacity_remaining, int16_t current, int16_t temperature, int32_t fault_bitmask, int32_t time_remaining, uint16_t cell_offset, const uint16_t* voltages)
 {
@@ -162,7 +162,7 @@ static inline uint16_t mavlink_msg_smart_battery_status_pack_chan(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param smart_battery_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_smart_battery_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_smart_battery_status_t* smart_battery_status)
+__STATIC_INLINE uint16_t mavlink_msg_smart_battery_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_smart_battery_status_t* smart_battery_status)
 {
     return mavlink_msg_smart_battery_status_pack(system_id, component_id, msg, smart_battery_status->id, smart_battery_status->capacity_remaining, smart_battery_status->current, smart_battery_status->temperature, smart_battery_status->fault_bitmask, smart_battery_status->time_remaining, smart_battery_status->cell_offset, smart_battery_status->voltages);
 }
@@ -176,7 +176,7 @@ static inline uint16_t mavlink_msg_smart_battery_status_encode(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param smart_battery_status C-struct to read the message contents from
  */
-static inline uint16_t mavlink_msg_smart_battery_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_smart_battery_status_t* smart_battery_status)
+__STATIC_INLINE uint16_t mavlink_msg_smart_battery_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_smart_battery_status_t* smart_battery_status)
 {
     return mavlink_msg_smart_battery_status_pack_chan(system_id, component_id, chan, msg, smart_battery_status->id, smart_battery_status->capacity_remaining, smart_battery_status->current, smart_battery_status->temperature, smart_battery_status->fault_bitmask, smart_battery_status->time_remaining, smart_battery_status->cell_offset, smart_battery_status->voltages);
 }
@@ -196,7 +196,7 @@ static inline uint16_t mavlink_msg_smart_battery_status_encode_chan(uint8_t syst
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-static inline void mavlink_msg_smart_battery_status_send(mavlink_channel_t chan, uint16_t id, int16_t capacity_remaining, int16_t current, int16_t temperature, int32_t fault_bitmask, int32_t time_remaining, uint16_t cell_offset, const uint16_t* voltages)
+__STATIC_INLINE void mavlink_msg_smart_battery_status_send(mavlink_channel_t chan, uint16_t id, int16_t capacity_remaining, int16_t current, int16_t temperature, int32_t fault_bitmask, int32_t time_remaining, uint16_t cell_offset, const uint16_t* voltages)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SMART_BATTERY_STATUS_LEN];
@@ -228,7 +228,7 @@ static inline void mavlink_msg_smart_battery_status_send(mavlink_channel_t chan,
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-static inline void mavlink_msg_smart_battery_status_send_struct(mavlink_channel_t chan, const mavlink_smart_battery_status_t* smart_battery_status)
+__STATIC_INLINE void mavlink_msg_smart_battery_status_send_struct(mavlink_channel_t chan, const mavlink_smart_battery_status_t* smart_battery_status)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_smart_battery_status_send(chan, smart_battery_status->id, smart_battery_status->capacity_remaining, smart_battery_status->current, smart_battery_status->temperature, smart_battery_status->fault_bitmask, smart_battery_status->time_remaining, smart_battery_status->cell_offset, smart_battery_status->voltages);
@@ -245,7 +245,7 @@ static inline void mavlink_msg_smart_battery_status_send_struct(mavlink_channel_
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-static inline void mavlink_msg_smart_battery_status_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint16_t id, int16_t capacity_remaining, int16_t current, int16_t temperature, int32_t fault_bitmask, int32_t time_remaining, uint16_t cell_offset, const uint16_t* voltages)
+__STATIC_INLINE void mavlink_msg_smart_battery_status_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint16_t id, int16_t capacity_remaining, int16_t current, int16_t temperature, int32_t fault_bitmask, int32_t time_remaining, uint16_t cell_offset, const uint16_t* voltages)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -282,7 +282,7 @@ static inline void mavlink_msg_smart_battery_status_send_buf(mavlink_message_t* 
  *
  * @return  Battery ID
  */
-static inline uint16_t mavlink_msg_smart_battery_status_get_id(const mavlink_message_t* msg)
+__STATIC_INLINE uint16_t mavlink_msg_smart_battery_status_get_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 8);
 }
@@ -292,7 +292,7 @@ static inline uint16_t mavlink_msg_smart_battery_status_get_id(const mavlink_mes
  *
  * @return [%] Remaining battery energy. Values: [0-100], -1: field not provided.
  */
-static inline int16_t mavlink_msg_smart_battery_status_get_capacity_remaining(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_smart_battery_status_get_capacity_remaining(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 10);
 }
@@ -302,7 +302,7 @@ static inline int16_t mavlink_msg_smart_battery_status_get_capacity_remaining(co
  *
  * @return [cA] Battery current (through all cells/loads). Positive if discharging, negative if charging. UINT16_MAX: field not provided.
  */
-static inline int16_t mavlink_msg_smart_battery_status_get_current(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_smart_battery_status_get_current(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 12);
 }
@@ -312,7 +312,7 @@ static inline int16_t mavlink_msg_smart_battery_status_get_current(const mavlink
  *
  * @return [cdegC] Battery temperature. -1: field not provided.
  */
-static inline int16_t mavlink_msg_smart_battery_status_get_temperature(const mavlink_message_t* msg)
+__STATIC_INLINE int16_t mavlink_msg_smart_battery_status_get_temperature(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 14);
 }
@@ -322,7 +322,7 @@ static inline int16_t mavlink_msg_smart_battery_status_get_temperature(const mav
  *
  * @return  Fault/health indications.
  */
-static inline int32_t mavlink_msg_smart_battery_status_get_fault_bitmask(const mavlink_message_t* msg)
+__STATIC_INLINE int32_t mavlink_msg_smart_battery_status_get_fault_bitmask(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 0);
 }
@@ -332,7 +332,7 @@ static inline int32_t mavlink_msg_smart_battery_status_get_fault_bitmask(const m
  *
  * @return [s] Estimated remaining battery time. -1: field not provided.
  */
-static inline int32_t mavlink_msg_smart_battery_status_get_time_remaining(const mavlink_message_t* msg)
+__STATIC_INLINE int32_t mavlink_msg_smart_battery_status_get_time_remaining(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 4);
 }
@@ -342,7 +342,7 @@ static inline int32_t mavlink_msg_smart_battery_status_get_time_remaining(const 
  *
  * @return  The cell number of the first index in the 'voltages' array field. Using this field allows you to specify cell voltages for batteries with more than 16 cells.
  */
-static inline uint16_t mavlink_msg_smart_battery_status_get_cell_offset(const mavlink_message_t* msg)
+__STATIC_INLINE uint16_t mavlink_msg_smart_battery_status_get_cell_offset(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 16);
 }
@@ -352,7 +352,7 @@ static inline uint16_t mavlink_msg_smart_battery_status_get_cell_offset(const ma
  *
  * @return [mV] Individual cell voltages. Batteries with more 16 cells can use the cell_offset field to specify the cell offset for the array specified in the current message . Index values above the valid cell count for this battery should have the UINT16_MAX value.
  */
-static inline uint16_t mavlink_msg_smart_battery_status_get_voltages(const mavlink_message_t* msg, uint16_t* voltages)
+__STATIC_INLINE uint16_t mavlink_msg_smart_battery_status_get_voltages(const mavlink_message_t* msg, uint16_t* voltages)
 {
     return _MAV_RETURN_uint16_t_array(msg, voltages, 16, 18);
 }
@@ -363,7 +363,7 @@ static inline uint16_t mavlink_msg_smart_battery_status_get_voltages(const mavli
  * @param msg The message to decode
  * @param smart_battery_status C-struct to decode the message contents into
  */
-static inline void mavlink_msg_smart_battery_status_decode(const mavlink_message_t* msg, mavlink_smart_battery_status_t* smart_battery_status)
+__STATIC_INLINE void mavlink_msg_smart_battery_status_decode(const mavlink_message_t* msg, mavlink_smart_battery_status_t* smart_battery_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     smart_battery_status->fault_bitmask = mavlink_msg_smart_battery_status_get_fault_bitmask(msg);
