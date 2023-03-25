@@ -5,8 +5,19 @@
 //
 
 #include "drv_uart.h"
-#include "algo/math/maths.h"
-#include "board_config.h"
+
+//--------uart----------
+#define USE_UART1
+//#define USE_UART2
+//#define USE_UART3
+//#define USE_UART4
+//#define USE_UART5
+//#define USE_UART6
+#define USE_UART7
+#define USE_UART8
+//#define USE_LPUART1
+
+
 /* STM32 uart driver */
 struct stm32_uart {
     USART_TypeDef* instance;

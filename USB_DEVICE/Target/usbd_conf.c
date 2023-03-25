@@ -319,7 +319,6 @@ void HAL_PCD_ConnectCallback(PCD_HandleTypeDef *hpcd)
 #endif /* USE_HAL_PCD_REGISTER_CALLBACKS */
 {
   USBD_LL_DevConnected((USBD_HandleTypeDef*)hpcd->pData);
-    drv_usbd_cdc_connect_cb(hpcd);
 }
 
 /**
@@ -334,7 +333,6 @@ void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd)
 #endif /* USE_HAL_PCD_REGISTER_CALLBACKS */
 {
   USBD_LL_DevDisconnected((USBD_HandleTypeDef*)hpcd->pData);
-    drv_usbd_cdc_disconnect_cb(hpcd);
 }
 
 /*******************************************************************************
@@ -389,6 +387,8 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
   HAL_PCDEx_SetRxFiFo(&hpcd_USB_OTG_FS, 0x80);
   HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_FS, 0, 0x40);
   HAL_PCDEx_SetTxFiFo(&hpcd_USB_OTG_FS, 1, 0x80);
+      HAL_PCD_RegisterCallback(&hpcd_USB_OTG_FS, HAL_PCD_CONNECT_CB_ID, drv_usbd_cdc_connect_cb);
+      HAL_PCD_RegisterCallback(&hpcd_USB_OTG_FS, HAL_PCD_DISCONNECT_CB_ID, drv_usbd_cdc_disconnect_cb);
   /* USER CODE END TxRx_Configuration */
   }
   return USBD_OK;

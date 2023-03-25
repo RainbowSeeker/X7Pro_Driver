@@ -8,7 +8,6 @@
 #include "drivers/drv_spi.h"
 #include "drivers/io.h"
 #include "hal/spi/spi.h"
-#include "algo/math/maths.h"
 
 #define DRV_DBG(...) printf(__VA_ARGS__)
 

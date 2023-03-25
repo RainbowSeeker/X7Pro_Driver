@@ -41,11 +41,15 @@ static size_t usbd_cdc_write(usbd_cdc_dev_t usbd, off_t pos, const void* buf, si
 
 void drv_usbd_cdc_connect_cb(PCD_HandleTypeDef* hpcd)
 {
+    //Note: Must be same with !!!HAL_PCD_ConnectCallback!!!
+    USBD_LL_DevConnected((USBD_HandleTypeDef*)hpcd->pData);
     hal_usbd_cdc_notify_status(&usbd_dev, USBD_STATUS_CONNECT);
 }
 
 void drv_usbd_cdc_disconnect_cb(PCD_HandleTypeDef* hpcd)
 {
+    //Note: Must be same with !!!HAL_PCD_DisconnectCallback!!!
+    USBD_LL_DevDisconnected((USBD_HandleTypeDef*)hpcd->pData);
     hal_usbd_cdc_notify_status(&usbd_dev, USBD_STATUS_DISCONNECT);
 }
 

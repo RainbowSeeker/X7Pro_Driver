@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_FULL_LL_DRIVER,USE_HAL_DRIVER,STM32H743xx,ARM_MATH_CM4,ARM_MATH_MATRIX_CHECK,ARM_MATH_ROUNDING,__TARGET_FPU_VFP,__FPU_PRESENT=1</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../USB_DEVICE/App;../USB_DEVICE/Target;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../Middlewares/ST/ARM/DSP/Inc;../CODE;../CODE/application;../CODE/module;../CODE/dfs/include;../CODE/dfs/filesystems/elmfat;../CODE/hal;../CODE/finsh;../CODE/rtos;../CODE/lib/mavlink/v2.0/fmt_mavlink;../CODE/model/fms/base_fms/lib;../CODE/drivers/usbd;../UCOSIII/uC-CPU;..\UCOSIII\uC-CPU\ARM-Cortex-M4\ARM;../UCOSIII/uC-LIB;../UCOSIII/UCOS-BSP;../UCOSIII/UCOS-CONFIG;../UCOSIII/uCOS-III/Source;../UCOSIII/uCOS-III/Ports/ARM-Cortex-M/ARMv7-M/ARM;..\CODE\module\log</IncludePath>
+              <IncludePath>../Core/Inc;../USB_DEVICE/App;../USB_DEVICE/Target;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../Middlewares/ST/ARM/DSP/Inc;../CODE;../CODE/application;../CODE/module;../CODE/dfs/include;../CODE/dfs/filesystems/elmfat;../CODE/hal;../CODE/finsh;../CODE/rtos;../CODE/lib/mavlink/v2.0/fmt_mavlink;../CODE/model/fms/base_fms/lib;../CODE/drivers/usbd;../UCOSIII/uC-CPU;../UCOSIII/uC-CPU/ARM-Cortex-M4/ARM;../UCOSIII/uC-LIB;../UCOSIII/UCOS-BSP;../UCOSIII/UCOS-CONFIG;../UCOSIII/uCOS-III/Source;../UCOSIII/uCOS-III/Ports/ARM-Cortex-M/ARMv7-M/ARM;../CODE/module/log</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -356,7 +356,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\UCOSIII\uC-CPU\ARM-Cortex-M4\ARM;..\UCOSIII\uCOS-III\Ports\ARM-Cortex-M\ARMv7-M\ARM</IncludePath>
+              <IncludePath></IncludePath>
             </VariousControls>
           </Aads>
           <LDads>

@@ -49,7 +49,7 @@ else ()
     add_compile_options(-Og -g)
 endif ()
 
-include_directories(Core/Inc Drivers/STM32H7xx_HAL_Driver/Inc Drivers/STM32H7xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32H7xx/Include Drivers/CMSIS/Include Middlewares/ST/ARM/DSP/Inc USB_DEVICE/App USB_DEVICE/Target Middlewares/ST/STM32_USB_Device_Library/Core/Inc Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc CODE CODE/application CODE/module CODE/dfs/include CODE/dfs/filesystems/elmfat CODE/module/log CODE/hal CODE/finsh CODE/rtos
+include_directories(Core/Inc Drivers/STM32H7xx_HAL_Driver/Inc Drivers/STM32H7xx_HAL_Driver/Inc/Legacy Drivers/CMSIS/Device/ST/STM32H7xx/Include Drivers/CMSIS/Include Middlewares/ST/ARM/DSP/Inc USB_DEVICE/App USB_DEVICE/Target Middlewares/ST/STM32_USB_Device_Library/Core/Inc Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc CODE CODE/application CODE/module CODE/module/dfs/include CODE/module/dfs/filesystems/elmfat CODE/module/log CODE/hal CODE/module/finsh CODE/rtos
     CODE/lib/mavlink/v2.0/fmt_mavlink CODE/model/fms/base_fms/lib CODE/lib/STM32_USB_Device_Library/Class/CDC/Inc CODE/lib/STM32_USB_Device_Library/Core/Inc CODE/drivers/usbd
     UCOSIII/uC-CPU UCOSIII/uC-CPU/ARM-Cortex-M4/GNU UCOSIII/uC-LIB UCOSIII/UCOS-BSP UCOSIII/UCOS-CONFIG UCOSIII/uCOS-III/Source UCOSIII/uCOS-III/Ports/ARM-Cortex-M/ARMv7-M/GNU)
 

@@ -140,6 +140,18 @@ typedef base_t                  off_t;       /**< Type for offset */
  */
 #define ARRAY_LEN(_arr)             (sizeof(_arr) / sizeof(_arr[0]))
 
+/**
+ * get maximum of x1 & x2
+ */
+#ifndef MAX
+#define MAX(_X1, _X2)       (((_X1) > (_X2)) ? (_X1) : (_X2))
+#endif
+/**
+ * get minimum of x1 & x2
+ */
+#ifndef MIN
+#define MIN(_X1, _X2)       (((_X1) < (_X2)) ? (_X1) : (_X2))
+#endif
 
 // Macro to define packed structures
 #ifdef __GNUC__
@@ -197,10 +209,6 @@ typedef struct {
         }                                                                                             \
     } while (false)
 
-#define SOFT_DELAY(__endtime)   for (size_t start = 0; start < __endtime; ++start)
 #define SELF_CHECK(func)        ASSERT(func == E_OK)
-
-
-
 
 #endif //X7PRO_DRIVER_COMMON_DEF_H

@@ -7,17 +7,23 @@
 #include "drv_spi.h"
 #include "hal/spi/spi.h"
 #include "hal/dma/dma.h"
-#include "stm32h7xx.h"
 #include "io.h"
-#include "board_config.h"
 #include "drv_dma.h"
 #include "nvic.h"
+#include "stm32h7xx_ll_spi.h"
+#include "stm32h7xx_ll_rcc.h"
+
+#define USE_SPI1
+#define USE_SPI2
+//#define USE_SPI3
+#define USE_SPI4
+//#define USE_SPI5
+#define USE_SPI6
+
+#define SPI_USE_DMA
 
 #define SPI_TIMEOUT     5
 #define SPI_MAX_NUM     6
-
-
-
 
 struct stm32_spi_bus {
     struct spi_bus parent;

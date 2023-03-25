@@ -5,7 +5,7 @@
 
 #define FNV1_32_INIT  ((uint32_t)0x811c9dc5) // init value for FNV1 hash algorithm
 #define FNV1_32_PRIME ((uint32_t)0x01000193) // magic prime for FNV1 hash algorithm
-#define MIN(x, y)     (x < y ? x : y)
+#define MIN(_X1, _X2)       (((_X1) < (_X2)) ? (_X1) : (_X2))
 
 static uint32_t _fnv1_32_str(uint8_t* str, uint32_t hval)
 {

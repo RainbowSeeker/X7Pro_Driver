@@ -7,7 +7,6 @@
 #ifndef X7PRO_DRIVER_MQ_H
 #define X7PRO_DRIVER_MQ_H
 #include "os_common.h"
-#include "algo/math/maths.h"
 
 struct messagequeue
 {

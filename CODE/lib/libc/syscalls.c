@@ -8,7 +8,7 @@
 #include "common.h"
 
 #ifdef RT_USING_DFS
-#include <dfs_posix.h>
+#include "dfs_posix.h"
 #endif
 
 /* Reentrant versions of system calls.  */
