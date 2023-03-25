@@ -23,13 +23,12 @@
 /* Includes */
 #include <sys/stat.h>
 #include <stdlib.h>
-#include <os_errno.h>
 #include <stdio.h>
 #include <signal.h>
 #include <time.h>
 #include <sys/time.h>
 #include <sys/times.h>
-
+#include <errno.h>
 
 /* Variables */
 extern int __io_putchar(int ch) __attribute__((weak));

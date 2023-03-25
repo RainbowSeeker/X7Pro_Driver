@@ -7,7 +7,7 @@
 #ifndef X7PRO_DRIVER_OS_COMMON_H
 #define X7PRO_DRIVER_OS_COMMON_H
 #include "rtdebug.h"
-#include "os_errno.h"
+#include "os.h"
 #include "common_def.h"
 #include "utils/list.h"
 #include "object.h"
@@ -43,7 +43,40 @@
 
 #define OS_WAITING_FOREVER      (size_t)(-1)
 
+
+/**
+ * This function finds the first bit set (beginning with the least significant bit)
+ * in value and return the index of that bit.
+ *
+ * Bits are numbered starting at 1 (the least significant bit).  A return value of
+ * zero from any of these functions means that the argument was zero.
+ *
+ * @return return the index of the first bit set. If value is 0, then this function
+ * shall return 0.
+ */
 int __ffs(int value);
+
+/*
+ * This function will get errno
+ *
+ * @return errno
+ */
+err_t os_get_errno(void);
+
+/*
+ * This function will set errno
+ *
+ * @param error the errno shall be set
+ */
+void os_set_errno(err_t error);
+
+/**
+ * This function returns errno.
+ *
+ * @return the errno in the system
+ */
+int *_os_errno(void);
+
 /**
  *
  * @param OS_TASK_PTR
@@ -65,7 +98,8 @@ __STATIC_INLINE tick_t os_tick_get(void)
  */
 __STATIC_INLINE void os_delay(uint32_t ms)
 {
-    OSTimeDly(TICKS_FROM_MS(ms), OS_OPT_TIME_DLY, &os_err);
+    OS_ERR err;
+    OSTimeDly(TICKS_FROM_MS(ms), OS_OPT_TIME_DLY, &err);
 }
 
 /**
@@ -75,7 +109,8 @@ __STATIC_INLINE void os_delay(uint32_t ms)
  */
 __STATIC_INLINE void os_delay_until(uint32_t *init_tick, uint32_t ms)
 {
-    OSTimeDly(TICKS_FROM_MS(ms), OS_OPT_TIME_DLY, &os_err);
+    OS_ERR err;
+    OSTimeDly(TICKS_FROM_MS(ms), OS_OPT_TIME_DLY, &err);
 }
 
 /**
@@ -103,7 +138,6 @@ __STATIC_INLINE void os_hw_interrupt_enable(base_t x)
 __STATIC_INLINE uint8_t os_interrupt_get_nest(void)
 {
     return OSIntNestingCtr;
-//    return __get_IPSR();
 }
 
 __STATIC_INLINE void os_interrupt_enter(void)

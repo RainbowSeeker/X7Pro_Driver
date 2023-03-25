@@ -13,6 +13,7 @@ err_t os_timer_init(os_timer_t timer,
                            tick_t period,
                            uint8_t type)
 {
+    OS_ERR err;
     ASSERT(timer);
 
     object_init(&timer->parent, Object_Class_Timer, name);
@@ -25,8 +26,8 @@ err_t os_timer_init(os_timer_t timer,
                 (type & TIMER_TYPE_PERIODIC) ? OS_OPT_TMR_PERIODIC : OS_OPT_TMR_ONE_SHOT,
                 timeout,
                 parameter,
-                &os_err);
-    return os_err == 0 ? E_OK : E_RROR;
+                &err);
+    return err == 0 ? E_OK : E_RROR;
 }
 
 os_timer_t os_timer_create(const char *name,
@@ -44,4 +45,31 @@ os_timer_t os_timer_create(const char *name,
     }
 
     return timer;
+}
+
+
+/**
+ * os_timer_start
+ * @param timer
+ * @return
+ */
+err_t os_timer_start(os_timer_t timer)
+{
+    OS_ERR err;
+    ASSERT(timer);
+    OSTmrStart(&timer->tid, &err);
+    return err == 0 ? E_OK : E_RROR;
+}
+
+/**
+ * os_timer_stop
+ * @param timer
+ * @return
+ */
+err_t os_timer_stop(os_timer_t timer)
+{
+    OS_ERR err;
+    ASSERT(timer);
+    OSTmrStop(&timer->tid, OS_OPT_TMR_NONE, NULL, &err);
+    return err == 0 ? E_OK : E_RROR;
 }

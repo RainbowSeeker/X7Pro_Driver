@@ -43,7 +43,6 @@ target = "CUAV V7Pro"\n
 [mavproxy.device]\n
         type = "usb"\n
         name = "usbd0"\n
-        auto-switch = true\n
 [pilot-cmd]\n
         stick-channel = [2,1,3,4]\n
 [pilot-cmd.device]\n

@@ -31,7 +31,6 @@
 
 #include <assert.h>
 #include <ctype.h>
-#include <os_errno.h>
 #include <setjmp.h>
 #include <stdint.h>
 #include <string.h>

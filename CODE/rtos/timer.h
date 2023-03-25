@@ -54,28 +54,20 @@ os_timer_t os_timer_create(const char *name,
                            tick_t period,
                            uint8_t type);
 
+
 /**
  * os_timer_start
  * @param timer
  * @return
  */
-__STATIC_INLINE err_t os_timer_start(os_timer_t timer)
-{
-    ASSERT(timer);
-    OSTmrStart(&timer->tid, &os_err);
-    return os_err == 0 ? E_OK : E_RROR;
-}
+err_t os_timer_start(os_timer_t timer);
+
 
 /**
  * os_timer_stop
  * @param timer
  * @return
  */
-__STATIC_INLINE err_t os_timer_stop(os_timer_t timer)
-{
-    ASSERT(timer);
-    OSTmrStop(&timer->tid, OS_OPT_TMR_NONE, NULL, &os_err);
-    return os_err == 0 ? E_OK : E_RROR;
-}
+err_t os_timer_stop(os_timer_t timer);
 
 #endif //RTOS_TIMER_H

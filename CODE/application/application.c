@@ -16,16 +16,16 @@ extern void App_IO_Main(void *argument);
 
 void application_create(void *p_arg)
 {
+    OS_ERR err;
 #if OS_CFG_STAT_TASK_EN > 0u
-    OSStatTaskCPUUsageInit(&os_err);                            /* Compute CPU capacity with no task running            */
+    OSStatTaskCPUUsageInit(&err);                            /* Compute CPU capacity with no task running            */
 #endif
 #ifdef CPU_CFG_INT_DIS_MEAS_EN
     CPU_IntDisMeasMaxCurReset();
 #endif
 #if	OS_CFG_SCHED_ROUND_ROBIN_EN
-    OSSchedRoundRobinCfg(DEF_ENABLED,5,&os_err);
+    OSSchedRoundRobinCfg(DEF_ENABLED,5,&err);
 #endif
-
 
     bsp_init();
 

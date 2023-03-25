@@ -210,6 +210,7 @@ os_thread_t os_thread_create(const char *name,
                              size_t priority,
                              uint16_t stack_size)
 {
+    OS_ERR err;
     os_thread_t thread = calloc(1, sizeof(struct thread));
     void *stack_start = malloc(stack_size * sizeof(CPU_STK_SIZE));
     ASSERT(thread && stack_start);
@@ -241,8 +242,8 @@ os_thread_t os_thread_create(const char *name,
                  0,
                  0,
                  (OS_OPT_TASK_STK_CHK | OS_OPT_TASK_STK_CLR),
-                 &os_err);
-    if (os_err != 0)
+                 &err);
+    if (err != 0)
     {
         goto _fail;
     }
@@ -255,29 +256,32 @@ os_thread_t os_thread_create(const char *name,
 
 err_t os_thread_delete(os_thread_t thread)
 {
+    OS_ERR err;
     ASSERT(thread);
     list_remove(&thread->parent.list);
     if (thread_deleted_hook)
     {
         thread_deleted_hook(thread);
     }
-    OSTaskDel(&thread->tid, &os_err);
-    return os_err == 0 ? E_OK : E_RROR;
+    OSTaskDel(&thread->tid, &err);
+    return err == 0 ? E_OK : E_RROR;
 }
 
 err_t os_thread_suspend(os_thread_t thread)
 {
+    OS_ERR err;
     ASSERT(thread);
     if (thread_suspend_hook)
     {
         thread_suspend_hook(thread);
     }
-    OSTaskSuspend(&thread->tid, &os_err);
-    return os_err == 0 ? E_OK : E_RROR;
+    OSTaskSuspend(&thread->tid, &err);
+    return err == 0 ? E_OK : E_RROR;
 }
 
 err_t os_thread_resume(os_thread_t thread)
 {
+    OS_ERR err;
     ASSERT(thread);
 
     /* disable interrupt */
@@ -293,8 +297,8 @@ err_t os_thread_resume(os_thread_t thread)
         thread_resume_hook(thread);
     }
 
-    OSTaskResume(&thread->tid, &os_err);
-    return os_err == 0 ? E_OK : E_RROR;
+    OSTaskResume(&thread->tid, &err);
+    return err;
 }
 
 

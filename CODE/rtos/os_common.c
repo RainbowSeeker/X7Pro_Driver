@@ -12,12 +12,13 @@
 
 void bsp_os_init(void (*StartupTask)(void *p_arg))
 {
+    OS_ERR err;
     Mem_Init();                                                 /* Initialize Memory Managment Module                   */
     CPU_IntDis();                                               /* Disable all Interrupts       */
 
     CPU_Init();                          //Initialize the uC/CPU services
-    OSInit(&os_err);               //Initialize uC/OS-III
-    ASSERT(!os_err);
+    OSInit(&err);               //Initialize uC/OS-III
+    ASSERT(!err);
 
     OS_ENTER_CRITICAL();
     App_OS_SetAllHooks();               //Set all applications hooks
@@ -27,6 +28,9 @@ void bsp_os_init(void (*StartupTask)(void *p_arg))
                      STARTUP_THREAD_PRIORITY,
                      STARTUP_TASK_STK_SIZE);
     OS_EXIT_CRITICAL();
-    OSStart(&os_err);             //Start multitasking (i.e. give control to uC/OS-III)
-    ASSERT(!os_err);
+    OSStart(&err);             //Start multitasking (i.e. give control to uC/OS-III)
+    ASSERT(!err);
 }
+
+
+

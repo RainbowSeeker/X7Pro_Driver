@@ -21,7 +21,6 @@
  */
 
 /* Includes */
-#include <os_errno.h>
 #include <stdint.h>
 #include "rtdebug.h"
 

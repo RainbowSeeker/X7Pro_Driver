@@ -1384,11 +1384,11 @@ void  OSTaskResume (OS_TCB  *p_tcb,
 #endif
 
 #if (OS_CFG_CALLED_FROM_ISR_CHK_EN > 0u)
-    if (OSIntNestingCtr > 0u) {                                 /* Not allowed to call from an ISR                      */
-       *p_err = OS_ERR_TASK_RESUME_ISR;
-        OS_TRACE_TASK_RESUME_EXIT(OS_ERR_TASK_RESUME_ISR);
-        return;
-    }
+//    if (OSIntNestingCtr > 0u) {                                 /* Not allowed to call from an ISR                      */
+//       *p_err = OS_ERR_TASK_RESUME_ISR;
+//        OS_TRACE_TASK_RESUME_EXIT(OS_ERR_TASK_RESUME_ISR);
+//        return;
+//    }
 #endif
 
 #if (OS_CFG_INVALID_OS_CALLS_CHK_EN > 0u)
