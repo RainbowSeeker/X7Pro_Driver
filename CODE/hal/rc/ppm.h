@@ -20,22 +20,22 @@ typedef struct {
     uint16_t ppm_val[MAX_PPM_CHANNEL]; /* ppm raw value in microseconds */
 } ppm_decoder_t;
 
-__STATIC_INLINE void ppm_lock(ppm_decoder_t* decoder)
+static_inline void ppm_lock(ppm_decoder_t* decoder)
 {
     decoder->ppm_reading = 1;
 }
 
-__STATIC_INLINE void ppm_unlock(ppm_decoder_t* decoder)
+static_inline void ppm_unlock(ppm_decoder_t* decoder)
 {
     decoder->ppm_reading = 0;
 }
 
-__STATIC_INLINE uint16_t ppm_get_recvd(ppm_decoder_t* decoder)
+static_inline uint16_t ppm_get_recvd(ppm_decoder_t* decoder)
 {
     return decoder->ppm_recvd;
 }
 
-__STATIC_INLINE void ppm_clear_recvd(ppm_decoder_t* decoder)
+static_inline void ppm_clear_recvd(ppm_decoder_t* decoder)
 {
     decoder->ppm_recvd = 0;
 }

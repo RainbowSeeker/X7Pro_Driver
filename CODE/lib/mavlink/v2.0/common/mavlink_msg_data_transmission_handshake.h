@@ -69,7 +69,7 @@ typedef struct __mavlink_data_transmission_handshake_t {
  * @param jpg_quality [%] JPEG quality. Values: [1-100].
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_data_transmission_handshake_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_data_transmission_handshake_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                                     uint8_t type, uint32_t size, uint16_t width, uint16_t height, uint16_t packets, uint8_t payload, uint8_t jpg_quality)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -115,7 +115,7 @@ __STATIC_INLINE uint16_t mavlink_msg_data_transmission_handshake_pack(uint8_t sy
  * @param jpg_quality [%] JPEG quality. Values: [1-100].
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_data_transmission_handshake_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_data_transmission_handshake_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                          mavlink_message_t* msg,
                                                                          uint8_t type, uint32_t size, uint16_t width, uint16_t height, uint16_t packets, uint8_t payload, uint8_t jpg_quality)
 {
@@ -155,7 +155,7 @@ __STATIC_INLINE uint16_t mavlink_msg_data_transmission_handshake_pack_chan(uint8
  * @param msg The MAVLink message to compress the data into
  * @param data_transmission_handshake C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_data_transmission_handshake_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_data_transmission_handshake_t* data_transmission_handshake)
+static_inline uint16_t mavlink_msg_data_transmission_handshake_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_data_transmission_handshake_t* data_transmission_handshake)
 {
     return mavlink_msg_data_transmission_handshake_pack(system_id, component_id, msg, data_transmission_handshake->type, data_transmission_handshake->size, data_transmission_handshake->width, data_transmission_handshake->height, data_transmission_handshake->packets, data_transmission_handshake->payload, data_transmission_handshake->jpg_quality);
 }
@@ -169,7 +169,7 @@ __STATIC_INLINE uint16_t mavlink_msg_data_transmission_handshake_encode(uint8_t 
  * @param msg The MAVLink message to compress the data into
  * @param data_transmission_handshake C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_data_transmission_handshake_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_data_transmission_handshake_t* data_transmission_handshake)
+static_inline uint16_t mavlink_msg_data_transmission_handshake_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_data_transmission_handshake_t* data_transmission_handshake)
 {
     return mavlink_msg_data_transmission_handshake_pack_chan(system_id, component_id, chan, msg, data_transmission_handshake->type, data_transmission_handshake->size, data_transmission_handshake->width, data_transmission_handshake->height, data_transmission_handshake->packets, data_transmission_handshake->payload, data_transmission_handshake->jpg_quality);
 }
@@ -188,7 +188,7 @@ __STATIC_INLINE uint16_t mavlink_msg_data_transmission_handshake_encode_chan(uin
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_data_transmission_handshake_send(mavlink_channel_t chan, uint8_t type, uint32_t size, uint16_t width, uint16_t height, uint16_t packets, uint8_t payload, uint8_t jpg_quality)
+static_inline void mavlink_msg_data_transmission_handshake_send(mavlink_channel_t chan, uint8_t type, uint32_t size, uint16_t width, uint16_t height, uint16_t packets, uint8_t payload, uint8_t jpg_quality)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_DATA_TRANSMISSION_HANDSHAKE_LEN];
@@ -220,7 +220,7 @@ __STATIC_INLINE void mavlink_msg_data_transmission_handshake_send(mavlink_channe
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_data_transmission_handshake_send_struct(mavlink_channel_t chan, const mavlink_data_transmission_handshake_t* data_transmission_handshake)
+static_inline void mavlink_msg_data_transmission_handshake_send_struct(mavlink_channel_t chan, const mavlink_data_transmission_handshake_t* data_transmission_handshake)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_data_transmission_handshake_send(chan, data_transmission_handshake->type, data_transmission_handshake->size, data_transmission_handshake->width, data_transmission_handshake->height, data_transmission_handshake->packets, data_transmission_handshake->payload, data_transmission_handshake->jpg_quality);
@@ -237,7 +237,7 @@ __STATIC_INLINE void mavlink_msg_data_transmission_handshake_send_struct(mavlink
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_data_transmission_handshake_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t type, uint32_t size, uint16_t width, uint16_t height, uint16_t packets, uint8_t payload, uint8_t jpg_quality)
+static_inline void mavlink_msg_data_transmission_handshake_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t type, uint32_t size, uint16_t width, uint16_t height, uint16_t packets, uint8_t payload, uint8_t jpg_quality)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -274,7 +274,7 @@ __STATIC_INLINE void mavlink_msg_data_transmission_handshake_send_buf(mavlink_me
  *
  * @return  Type of requested/acknowledged data.
  */
-__STATIC_INLINE uint8_t mavlink_msg_data_transmission_handshake_get_type(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_data_transmission_handshake_get_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 10);
 }
@@ -284,7 +284,7 @@ __STATIC_INLINE uint8_t mavlink_msg_data_transmission_handshake_get_type(const m
  *
  * @return [bytes] total data size (set on ACK only).
  */
-__STATIC_INLINE uint32_t mavlink_msg_data_transmission_handshake_get_size(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_data_transmission_handshake_get_size(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 0);
 }
@@ -294,7 +294,7 @@ __STATIC_INLINE uint32_t mavlink_msg_data_transmission_handshake_get_size(const 
  *
  * @return  Width of a matrix or image.
  */
-__STATIC_INLINE uint16_t mavlink_msg_data_transmission_handshake_get_width(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_data_transmission_handshake_get_width(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 4);
 }
@@ -304,7 +304,7 @@ __STATIC_INLINE uint16_t mavlink_msg_data_transmission_handshake_get_width(const
  *
  * @return  Height of a matrix or image.
  */
-__STATIC_INLINE uint16_t mavlink_msg_data_transmission_handshake_get_height(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_data_transmission_handshake_get_height(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 6);
 }
@@ -314,7 +314,7 @@ __STATIC_INLINE uint16_t mavlink_msg_data_transmission_handshake_get_height(cons
  *
  * @return  Number of packets being sent (set on ACK only).
  */
-__STATIC_INLINE uint16_t mavlink_msg_data_transmission_handshake_get_packets(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_data_transmission_handshake_get_packets(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 8);
 }
@@ -324,7 +324,7 @@ __STATIC_INLINE uint16_t mavlink_msg_data_transmission_handshake_get_packets(con
  *
  * @return [bytes] Payload size per packet (normally 253 byte, see DATA field size in message ENCAPSULATED_DATA) (set on ACK only).
  */
-__STATIC_INLINE uint8_t mavlink_msg_data_transmission_handshake_get_payload(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_data_transmission_handshake_get_payload(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 11);
 }
@@ -334,7 +334,7 @@ __STATIC_INLINE uint8_t mavlink_msg_data_transmission_handshake_get_payload(cons
  *
  * @return [%] JPEG quality. Values: [1-100].
  */
-__STATIC_INLINE uint8_t mavlink_msg_data_transmission_handshake_get_jpg_quality(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_data_transmission_handshake_get_jpg_quality(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 12);
 }
@@ -345,7 +345,7 @@ __STATIC_INLINE uint8_t mavlink_msg_data_transmission_handshake_get_jpg_quality(
  * @param msg The message to decode
  * @param data_transmission_handshake C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_data_transmission_handshake_decode(const mavlink_message_t* msg, mavlink_data_transmission_handshake_t* data_transmission_handshake)
+static_inline void mavlink_msg_data_transmission_handshake_decode(const mavlink_message_t* msg, mavlink_data_transmission_handshake_t* data_transmission_handshake)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     data_transmission_handshake->size = mavlink_msg_data_transmission_handshake_get_size(msg);

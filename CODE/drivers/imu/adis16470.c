@@ -6,8 +6,8 @@
 
 #include "adis16470.h"
 #include "hal/spi/spi.h"
-#include "imu/accel.h"
-#include "imu/gyro.h"
+#include "hal/imu/accel.h"
+#include "hal/imu/gyro.h"
 #include "drivers/io.h"
 #include "sensor/sensor_imu.h"
 #include "drivers/drv_exti.h"

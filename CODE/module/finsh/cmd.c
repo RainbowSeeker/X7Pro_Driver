@@ -62,7 +62,7 @@ long version(void)
 }
 FINSH_FUNCTION_EXPORT(version, show version information);
 
-__STATIC_INLINE void object_split(int len)
+static_inline void object_split(int len)
 {
     while (len--) printf("-");
 }

@@ -23,5 +23,9 @@
 #define STATIC_BDMA_DATA_AUTO        static BDMA_DATA
 
 void system_heap_init(void *begin_addr, void *end_addr);
+void *_malloc(size_t size);
+void *_realloc(void *rmem, size_t newsize);
+void *_calloc(size_t count, size_t size);
+void _free(void *rmem);
 
 #endif //X7PRO_DRIVER_MEM_H

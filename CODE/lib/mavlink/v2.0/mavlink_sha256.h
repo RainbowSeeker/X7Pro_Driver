@@ -96,7 +96,7 @@ MAVLINK_HELPER void mavlink_sha256_init(mavlink_sha256_ctx* m)
     H = 0x5be0cd19;
 }
 
-__STATIC_INLINE void mavlink_sha256_calc(mavlink_sha256_ctx* m, uint32_t* in)
+static_inline void mavlink_sha256_calc(mavlink_sha256_ctx* m, uint32_t* in)
 {
     uint32_t AA, BB, CC, DD, EE, FF, GG, HH;
     uint32_t data[64];

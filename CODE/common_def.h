@@ -7,53 +7,32 @@
 #ifndef X7PRO_DRIVER_COMMON_DEF_H
 #define X7PRO_DRIVER_COMMON_DEF_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
+#include <rtconfig.h>
+
+//libc header file
+#include "lib/libc/libc_dirent.h"
+#include "lib/libc/libc_errno.h"
+#include "lib/libc/libc_fcntl.h"
+#include "lib/libc/libc_fdset.h"
+#include "lib/libc/libc_ioctl.h"
+#include "lib/libc/libc_limits.h"
+#include "lib/libc/libc_signal.h"
+#include "lib/libc/libc_stat.h"
+#include "lib/libc/libc_stdio.h"
+
+#if defined(__CC_ARM) || defined(__CLANG_ARM) || defined(__IAR_SYSTEMS_ICC__)
+typedef signed long off_t;
+typedef int mode_t;
+#endif
+
+#if defined(__MINGW32__) || defined(_WIN32)
+typedef signed long off_t;
+typedef int mode_t;
+#endif
+
 
 #if defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
 #define __CLANG_ARM
-#endif
-
-#if defined(__CC_ARM)          /* ARM C Compiler */
-#include "cmsis_armcc.h"
-#include <rt_sys.h>
-#include <errno.h>
-
-#define	O_RDONLY	0		/* +1 == FREAD */
-#define	O_WRONLY	1		/* +1 == FWRITE */
-#define	O_RDWR		2		/* +1 == FREAD|FWRITE */
-#define	O_APPEND	_FAPPEND
-#define	O_CREAT		_FCREAT
-#define	O_TRUNC		_FTRUNC
-#define	O_EXCL		_FEXCL
-#define O_SYNC		_FSYNC
-#define	_FOPEN		(-1)	/* from sys/file.h, kernel use only */
-#define	_FREAD		0x0001	/* read enabled */
-#define	_FWRITE		0x0002	/* write enabled */
-#define	_FAPPEND	0x0008	/* append (writes guaranteed at the end) */
-#define	_FMARK		0x0010	/* internal; mark during gc() */
-#define	_FDEFER		0x0020	/* internal; defer for next gc pass */
-#define	_FASYNC		0x0040	/* signal pgrp when data ready */
-#define	_FSHLOCK	0x0080	/* BSD flock() shared lock present */
-#define	_FEXLOCK	0x0100	/* BSD flock() exclusive lock present */
-#define	_FCREAT		0x0200	/* open with file create */
-#define	_FTRUNC		0x0400	/* open with truncation */
-#define	_FEXCL		0x0800	/* error on open if file exists */
-#define	_FNBIO		0x1000	/* non blocking I/O (sys5 style) */
-#define	_FSYNC		0x2000	/* do all writes synchronously */
-#define	_FNONBLOCK	0x4000	/* non blocking I/O (POSIX style) */
-#define	_FNDELAY	_FNONBLOCK	/* non blocking I/O (4.2 style) */
-#define	_FNOCTTY	0x8000	/* don't assign a ctty on this open */
-
-typedef uint32_t mode_t;
-#elif defined(__GNUC__)
-#include "cmsis_gcc.h"
-#include <sys/errno.h>
-#include <sys/stat.h>
-#include <sys/fcntl.h>
 #endif
 
 typedef _Bool                   bool_t;      /**< boolean type */

@@ -8,6 +8,7 @@
 #define RTOS_TIMER_H
 #include "os_common.h"
 
+
 #define TIMER_TYPE_ONE_SHOT         0
 #define TIMER_TYPE_PERIODIC         1
 

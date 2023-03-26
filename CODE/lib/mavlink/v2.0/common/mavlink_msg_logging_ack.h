@@ -53,7 +53,7 @@ typedef struct __mavlink_logging_ack_t {
  * @param sequence  sequence number (must match the one in LOGGING_DATA_ACKED)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_logging_ack_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_logging_ack_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                     uint8_t target_system, uint8_t target_component, uint16_t sequence)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -87,7 +87,7 @@ __STATIC_INLINE uint16_t mavlink_msg_logging_ack_pack(uint8_t system_id, uint8_t
  * @param sequence  sequence number (must match the one in LOGGING_DATA_ACKED)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_logging_ack_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_logging_ack_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                          mavlink_message_t* msg,
                                                          uint8_t target_system, uint8_t target_component, uint16_t sequence)
 {
@@ -119,7 +119,7 @@ __STATIC_INLINE uint16_t mavlink_msg_logging_ack_pack_chan(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param logging_ack C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_logging_ack_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_logging_ack_t* logging_ack)
+static_inline uint16_t mavlink_msg_logging_ack_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_logging_ack_t* logging_ack)
 {
     return mavlink_msg_logging_ack_pack(system_id, component_id, msg, logging_ack->target_system, logging_ack->target_component, logging_ack->sequence);
 }
@@ -133,7 +133,7 @@ __STATIC_INLINE uint16_t mavlink_msg_logging_ack_encode(uint8_t system_id, uint8
  * @param msg The MAVLink message to compress the data into
  * @param logging_ack C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_logging_ack_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_logging_ack_t* logging_ack)
+static_inline uint16_t mavlink_msg_logging_ack_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_logging_ack_t* logging_ack)
 {
     return mavlink_msg_logging_ack_pack_chan(system_id, component_id, chan, msg, logging_ack->target_system, logging_ack->target_component, logging_ack->sequence);
 }
@@ -148,7 +148,7 @@ __STATIC_INLINE uint16_t mavlink_msg_logging_ack_encode_chan(uint8_t system_id, 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_logging_ack_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint16_t sequence)
+static_inline void mavlink_msg_logging_ack_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint16_t sequence)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_LOGGING_ACK_LEN];
@@ -172,7 +172,7 @@ __STATIC_INLINE void mavlink_msg_logging_ack_send(mavlink_channel_t chan, uint8_
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_logging_ack_send_struct(mavlink_channel_t chan, const mavlink_logging_ack_t* logging_ack)
+static_inline void mavlink_msg_logging_ack_send_struct(mavlink_channel_t chan, const mavlink_logging_ack_t* logging_ack)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_logging_ack_send(chan, logging_ack->target_system, logging_ack->target_component, logging_ack->sequence);
@@ -189,7 +189,7 @@ __STATIC_INLINE void mavlink_msg_logging_ack_send_struct(mavlink_channel_t chan,
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_logging_ack_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint16_t sequence)
+static_inline void mavlink_msg_logging_ack_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint16_t sequence)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -218,7 +218,7 @@ __STATIC_INLINE void mavlink_msg_logging_ack_send_buf(mavlink_message_t* msgbuf,
  *
  * @return  system ID of the target
  */
-__STATIC_INLINE uint8_t mavlink_msg_logging_ack_get_target_system(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_logging_ack_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 2);
 }
@@ -228,7 +228,7 @@ __STATIC_INLINE uint8_t mavlink_msg_logging_ack_get_target_system(const mavlink_
  *
  * @return  component ID of the target
  */
-__STATIC_INLINE uint8_t mavlink_msg_logging_ack_get_target_component(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_logging_ack_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 3);
 }
@@ -238,7 +238,7 @@ __STATIC_INLINE uint8_t mavlink_msg_logging_ack_get_target_component(const mavli
  *
  * @return  sequence number (must match the one in LOGGING_DATA_ACKED)
  */
-__STATIC_INLINE uint16_t mavlink_msg_logging_ack_get_sequence(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_logging_ack_get_sequence(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 0);
 }
@@ -249,7 +249,7 @@ __STATIC_INLINE uint16_t mavlink_msg_logging_ack_get_sequence(const mavlink_mess
  * @param msg The message to decode
  * @param logging_ack C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_logging_ack_decode(const mavlink_message_t* msg, mavlink_logging_ack_t* logging_ack)
+static_inline void mavlink_msg_logging_ack_decode(const mavlink_message_t* msg, mavlink_logging_ack_t* logging_ack)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     logging_ack->sequence = mavlink_msg_logging_ack_get_sequence(msg);

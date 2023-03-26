@@ -117,7 +117,7 @@ typedef enum {
  * unsigned-to-signed overflow is implementation defined in C. This function
  * /looks/ inefficient, but gcc compiles it down to a single movb instruction
  * on x86, even with -O0. */
-__STATIC_INLINE void yxml_setchar(char* dest, unsigned ch)
+static_inline void yxml_setchar(char* dest, unsigned ch)
 {
     unsigned char _ch = ch;
     memcpy(dest, &_ch, 1);
@@ -146,21 +146,21 @@ static void yxml_setutf8(char* dest, unsigned ch)
     *dest = 0;
 }
 
-__STATIC_INLINE yxml_ret_t yxml_datacontent(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_datacontent(yxml_t* x, unsigned ch)
 {
     yxml_setchar(x->data, ch);
     x->data[1] = 0;
     return YXML_CONTENT;
 }
 
-__STATIC_INLINE yxml_ret_t yxml_datapi1(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_datapi1(yxml_t* x, unsigned ch)
 {
     yxml_setchar(x->data, ch);
     x->data[1] = 0;
     return YXML_PICONTENT;
 }
 
-__STATIC_INLINE yxml_ret_t yxml_datapi2(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_datapi2(yxml_t* x, unsigned ch)
 {
     x->data[0] = '?';
     yxml_setchar(x->data + 1, ch);
@@ -168,7 +168,7 @@ __STATIC_INLINE yxml_ret_t yxml_datapi2(yxml_t* x, unsigned ch)
     return YXML_PICONTENT;
 }
 
-__STATIC_INLINE yxml_ret_t yxml_datacd1(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_datacd1(yxml_t* x, unsigned ch)
 {
     x->data[0] = ']';
     yxml_setchar(x->data + 1, ch);
@@ -176,7 +176,7 @@ __STATIC_INLINE yxml_ret_t yxml_datacd1(yxml_t* x, unsigned ch)
     return YXML_CONTENT;
 }
 
-__STATIC_INLINE yxml_ret_t yxml_datacd2(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_datacd2(yxml_t* x, unsigned ch)
 {
     x->data[0] = ']';
     x->data[1] = ']';
@@ -185,7 +185,7 @@ __STATIC_INLINE yxml_ret_t yxml_datacd2(yxml_t* x, unsigned ch)
     return YXML_CONTENT;
 }
 
-__STATIC_INLINE yxml_ret_t yxml_dataattr(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_dataattr(yxml_t* x, unsigned ch)
 {
     /* Normalize attribute values according to the XML spec section 3.3.3. */
     yxml_setchar(x->data, ch == 0x9 || ch == 0xa ? 0x20 : ch);
@@ -225,15 +225,15 @@ static void yxml_popstack(yxml_t* x)
     while (x->stack[x->stacklen]);
 }
 
-__STATIC_INLINE yxml_ret_t yxml_elemstart(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_elemstart(yxml_t* x, unsigned ch)
 {
     return yxml_pushstack(x, &x->elem, ch);
 }
-__STATIC_INLINE yxml_ret_t yxml_elemname(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_elemname(yxml_t* x, unsigned ch)
 {
     return yxml_pushstackc(x, ch);
 }
-__STATIC_INLINE yxml_ret_t yxml_elemnameend(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_elemnameend(yxml_t* x, unsigned ch)
 {
     return YXML_ELEMSTART;
 }
@@ -258,7 +258,7 @@ static yxml_ret_t yxml_selfclose(yxml_t* x, unsigned ch)
     return YXML_ELEMEND;
 }
 
-__STATIC_INLINE yxml_ret_t yxml_elemclose(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_elemclose(yxml_t* x, unsigned ch)
 {
     if (*((unsigned char*)x->elem) != ch)
         return YXML_ECLOSE;
@@ -267,7 +267,7 @@ __STATIC_INLINE yxml_ret_t yxml_elemclose(yxml_t* x, unsigned ch)
     return YXML_OK;
 }
 
-__STATIC_INLINE yxml_ret_t yxml_elemcloseend(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_elemcloseend(yxml_t* x, unsigned ch)
 {
     if (*x->elem)
         return YXML_ECLOSE;
@@ -275,49 +275,49 @@ __STATIC_INLINE yxml_ret_t yxml_elemcloseend(yxml_t* x, unsigned ch)
     return yxml_selfclose(x, ch);
 }
 
-__STATIC_INLINE yxml_ret_t yxml_attrstart(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_attrstart(yxml_t* x, unsigned ch)
 {
     return yxml_pushstack(x, &x->attr, ch);
 }
-__STATIC_INLINE yxml_ret_t yxml_attrname(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_attrname(yxml_t* x, unsigned ch)
 {
     return yxml_pushstackc(x, ch);
 }
-__STATIC_INLINE yxml_ret_t yxml_attrnameend(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_attrnameend(yxml_t* x, unsigned ch)
 {
     return YXML_ATTRSTART;
 }
-__STATIC_INLINE yxml_ret_t yxml_attrvalend(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_attrvalend(yxml_t* x, unsigned ch)
 {
     yxml_popstack(x);
     return YXML_ATTREND;
 }
 
-__STATIC_INLINE yxml_ret_t yxml_pistart(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_pistart(yxml_t* x, unsigned ch)
 {
     return yxml_pushstack(x, &x->pi, ch);
 }
-__STATIC_INLINE yxml_ret_t yxml_piname(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_piname(yxml_t* x, unsigned ch)
 {
     return yxml_pushstackc(x, ch);
 }
-__STATIC_INLINE yxml_ret_t yxml_piabort(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_piabort(yxml_t* x, unsigned ch)
 {
     yxml_popstack(x);
     return YXML_OK;
 }
-__STATIC_INLINE yxml_ret_t yxml_pinameend(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_pinameend(yxml_t* x, unsigned ch)
 {
     return (x->pi[0] | 32) == 'x' && (x->pi[1] | 32) == 'm' && (x->pi[2] | 32) == 'l' && !x->pi[3] ? YXML_ESYN : YXML_PISTART;
 }
-__STATIC_INLINE yxml_ret_t yxml_pivalend(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_pivalend(yxml_t* x, unsigned ch)
 {
     yxml_popstack(x);
     x->pi = (char*)x->stack;
     return YXML_PIEND;
 }
 
-__STATIC_INLINE yxml_ret_t yxml_refstart(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_refstart(yxml_t* x, unsigned ch)
 {
     memset(x->data, 0, sizeof(x->data));
     x->reflen = 0;
@@ -366,11 +366,11 @@ static yxml_ret_t yxml_refend(yxml_t* x, yxml_ret_t ret)
     return ret;
 }
 
-__STATIC_INLINE yxml_ret_t yxml_refcontent(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_refcontent(yxml_t* x, unsigned ch)
 {
     return yxml_refend(x, YXML_CONTENT);
 }
-__STATIC_INLINE yxml_ret_t yxml_refattrval(yxml_t* x, unsigned ch)
+static_inline yxml_ret_t yxml_refattrval(yxml_t* x, unsigned ch)
 {
     return yxml_refend(x, YXML_ATTRVAL);
 }

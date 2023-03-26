@@ -73,7 +73,7 @@ typedef struct __mavlink_nav_controller_output_t {
  * @param xtrack_error [m] Current crosstrack error on x-y plane
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_nav_controller_output_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_nav_controller_output_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                               float nav_roll, float nav_pitch, int16_t nav_bearing, int16_t target_bearing, uint16_t wp_dist, float alt_error, float aspd_error, float xtrack_error)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -122,7 +122,7 @@ __STATIC_INLINE uint16_t mavlink_msg_nav_controller_output_pack(uint8_t system_i
  * @param xtrack_error [m] Current crosstrack error on x-y plane
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_nav_controller_output_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_nav_controller_output_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                    mavlink_message_t* msg,
                                                                    float nav_roll, float nav_pitch, int16_t nav_bearing, int16_t target_bearing, uint16_t wp_dist, float alt_error, float aspd_error, float xtrack_error)
 {
@@ -164,7 +164,7 @@ __STATIC_INLINE uint16_t mavlink_msg_nav_controller_output_pack_chan(uint8_t sys
  * @param msg The MAVLink message to compress the data into
  * @param nav_controller_output C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_nav_controller_output_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_nav_controller_output_t* nav_controller_output)
+static_inline uint16_t mavlink_msg_nav_controller_output_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_nav_controller_output_t* nav_controller_output)
 {
     return mavlink_msg_nav_controller_output_pack(system_id, component_id, msg, nav_controller_output->nav_roll, nav_controller_output->nav_pitch, nav_controller_output->nav_bearing, nav_controller_output->target_bearing, nav_controller_output->wp_dist, nav_controller_output->alt_error, nav_controller_output->aspd_error, nav_controller_output->xtrack_error);
 }
@@ -178,7 +178,7 @@ __STATIC_INLINE uint16_t mavlink_msg_nav_controller_output_encode(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param nav_controller_output C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_nav_controller_output_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_nav_controller_output_t* nav_controller_output)
+static_inline uint16_t mavlink_msg_nav_controller_output_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_nav_controller_output_t* nav_controller_output)
 {
     return mavlink_msg_nav_controller_output_pack_chan(system_id, component_id, chan, msg, nav_controller_output->nav_roll, nav_controller_output->nav_pitch, nav_controller_output->nav_bearing, nav_controller_output->target_bearing, nav_controller_output->wp_dist, nav_controller_output->alt_error, nav_controller_output->aspd_error, nav_controller_output->xtrack_error);
 }
@@ -198,7 +198,7 @@ __STATIC_INLINE uint16_t mavlink_msg_nav_controller_output_encode_chan(uint8_t s
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_nav_controller_output_send(mavlink_channel_t chan, float nav_roll, float nav_pitch, int16_t nav_bearing, int16_t target_bearing, uint16_t wp_dist, float alt_error, float aspd_error, float xtrack_error)
+static_inline void mavlink_msg_nav_controller_output_send(mavlink_channel_t chan, float nav_roll, float nav_pitch, int16_t nav_bearing, int16_t target_bearing, uint16_t wp_dist, float alt_error, float aspd_error, float xtrack_error)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT_LEN];
@@ -232,7 +232,7 @@ __STATIC_INLINE void mavlink_msg_nav_controller_output_send(mavlink_channel_t ch
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_nav_controller_output_send_struct(mavlink_channel_t chan, const mavlink_nav_controller_output_t* nav_controller_output)
+static_inline void mavlink_msg_nav_controller_output_send_struct(mavlink_channel_t chan, const mavlink_nav_controller_output_t* nav_controller_output)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_nav_controller_output_send(chan, nav_controller_output->nav_roll, nav_controller_output->nav_pitch, nav_controller_output->nav_bearing, nav_controller_output->target_bearing, nav_controller_output->wp_dist, nav_controller_output->alt_error, nav_controller_output->aspd_error, nav_controller_output->xtrack_error);
@@ -249,7 +249,7 @@ __STATIC_INLINE void mavlink_msg_nav_controller_output_send_struct(mavlink_chann
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_nav_controller_output_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, float nav_roll, float nav_pitch, int16_t nav_bearing, int16_t target_bearing, uint16_t wp_dist, float alt_error, float aspd_error, float xtrack_error)
+static_inline void mavlink_msg_nav_controller_output_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, float nav_roll, float nav_pitch, int16_t nav_bearing, int16_t target_bearing, uint16_t wp_dist, float alt_error, float aspd_error, float xtrack_error)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -288,7 +288,7 @@ __STATIC_INLINE void mavlink_msg_nav_controller_output_send_buf(mavlink_message_
  *
  * @return [deg] Current desired roll
  */
-__STATIC_INLINE float mavlink_msg_nav_controller_output_get_nav_roll(const mavlink_message_t* msg)
+static_inline float mavlink_msg_nav_controller_output_get_nav_roll(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 0);
 }
@@ -298,7 +298,7 @@ __STATIC_INLINE float mavlink_msg_nav_controller_output_get_nav_roll(const mavli
  *
  * @return [deg] Current desired pitch
  */
-__STATIC_INLINE float mavlink_msg_nav_controller_output_get_nav_pitch(const mavlink_message_t* msg)
+static_inline float mavlink_msg_nav_controller_output_get_nav_pitch(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 4);
 }
@@ -308,7 +308,7 @@ __STATIC_INLINE float mavlink_msg_nav_controller_output_get_nav_pitch(const mavl
  *
  * @return [deg] Current desired heading
  */
-__STATIC_INLINE int16_t mavlink_msg_nav_controller_output_get_nav_bearing(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_nav_controller_output_get_nav_bearing(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 20);
 }
@@ -318,7 +318,7 @@ __STATIC_INLINE int16_t mavlink_msg_nav_controller_output_get_nav_bearing(const 
  *
  * @return [deg] Bearing to current waypoint/target
  */
-__STATIC_INLINE int16_t mavlink_msg_nav_controller_output_get_target_bearing(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_nav_controller_output_get_target_bearing(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 22);
 }
@@ -328,7 +328,7 @@ __STATIC_INLINE int16_t mavlink_msg_nav_controller_output_get_target_bearing(con
  *
  * @return [m] Distance to active waypoint
  */
-__STATIC_INLINE uint16_t mavlink_msg_nav_controller_output_get_wp_dist(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_nav_controller_output_get_wp_dist(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 24);
 }
@@ -338,7 +338,7 @@ __STATIC_INLINE uint16_t mavlink_msg_nav_controller_output_get_wp_dist(const mav
  *
  * @return [m] Current altitude error
  */
-__STATIC_INLINE float mavlink_msg_nav_controller_output_get_alt_error(const mavlink_message_t* msg)
+static_inline float mavlink_msg_nav_controller_output_get_alt_error(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 8);
 }
@@ -348,7 +348,7 @@ __STATIC_INLINE float mavlink_msg_nav_controller_output_get_alt_error(const mavl
  *
  * @return [m/s] Current airspeed error
  */
-__STATIC_INLINE float mavlink_msg_nav_controller_output_get_aspd_error(const mavlink_message_t* msg)
+static_inline float mavlink_msg_nav_controller_output_get_aspd_error(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -358,7 +358,7 @@ __STATIC_INLINE float mavlink_msg_nav_controller_output_get_aspd_error(const mav
  *
  * @return [m] Current crosstrack error on x-y plane
  */
-__STATIC_INLINE float mavlink_msg_nav_controller_output_get_xtrack_error(const mavlink_message_t* msg)
+static_inline float mavlink_msg_nav_controller_output_get_xtrack_error(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -369,7 +369,7 @@ __STATIC_INLINE float mavlink_msg_nav_controller_output_get_xtrack_error(const m
  * @param msg The message to decode
  * @param nav_controller_output C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_nav_controller_output_decode(const mavlink_message_t* msg, mavlink_nav_controller_output_t* nav_controller_output)
+static_inline void mavlink_msg_nav_controller_output_decode(const mavlink_message_t* msg, mavlink_nav_controller_output_t* nav_controller_output)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     nav_controller_output->nav_roll = mavlink_msg_nav_controller_output_get_nav_roll(msg);

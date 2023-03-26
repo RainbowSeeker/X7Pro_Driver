@@ -9,7 +9,7 @@
 #include "hal/spi/spi.h"
 #include "hal/mag/mag.h"
 #include "drivers/drv_exti.h"
-#include "nvic.h"
+#include "drivers/nvic.h"
 
 #define DRV_DBG(...)    printf(__VA_ARGS__)
 

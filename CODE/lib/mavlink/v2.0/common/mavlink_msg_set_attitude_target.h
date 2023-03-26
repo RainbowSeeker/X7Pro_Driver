@@ -79,7 +79,7 @@ typedef struct __mavlink_set_attitude_target_t {
  * @param thrust  Collective thrust, normalized to 0 .. 1 (-1 .. 1 for vehicles capable of reverse trust)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_set_attitude_target_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_set_attitude_target_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                             uint32_t time_boot_ms, uint8_t target_system, uint8_t target_component, uint8_t type_mask, const float* q, float body_roll_rate, float body_pitch_rate, float body_yaw_rate, float thrust)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -129,7 +129,7 @@ __STATIC_INLINE uint16_t mavlink_msg_set_attitude_target_pack(uint8_t system_id,
  * @param thrust  Collective thrust, normalized to 0 .. 1 (-1 .. 1 for vehicles capable of reverse trust)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_set_attitude_target_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_set_attitude_target_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                  mavlink_message_t* msg,
                                                                  uint32_t time_boot_ms, uint8_t target_system, uint8_t target_component, uint8_t type_mask, const float* q, float body_roll_rate, float body_pitch_rate, float body_yaw_rate, float thrust)
 {
@@ -171,7 +171,7 @@ __STATIC_INLINE uint16_t mavlink_msg_set_attitude_target_pack_chan(uint8_t syste
  * @param msg The MAVLink message to compress the data into
  * @param set_attitude_target C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_set_attitude_target_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_set_attitude_target_t* set_attitude_target)
+static_inline uint16_t mavlink_msg_set_attitude_target_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_set_attitude_target_t* set_attitude_target)
 {
     return mavlink_msg_set_attitude_target_pack(system_id, component_id, msg, set_attitude_target->time_boot_ms, set_attitude_target->target_system, set_attitude_target->target_component, set_attitude_target->type_mask, set_attitude_target->q, set_attitude_target->body_roll_rate, set_attitude_target->body_pitch_rate, set_attitude_target->body_yaw_rate, set_attitude_target->thrust);
 }
@@ -185,7 +185,7 @@ __STATIC_INLINE uint16_t mavlink_msg_set_attitude_target_encode(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param set_attitude_target C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_set_attitude_target_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_set_attitude_target_t* set_attitude_target)
+static_inline uint16_t mavlink_msg_set_attitude_target_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_set_attitude_target_t* set_attitude_target)
 {
     return mavlink_msg_set_attitude_target_pack_chan(system_id, component_id, chan, msg, set_attitude_target->time_boot_ms, set_attitude_target->target_system, set_attitude_target->target_component, set_attitude_target->type_mask, set_attitude_target->q, set_attitude_target->body_roll_rate, set_attitude_target->body_pitch_rate, set_attitude_target->body_yaw_rate, set_attitude_target->thrust);
 }
@@ -206,7 +206,7 @@ __STATIC_INLINE uint16_t mavlink_msg_set_attitude_target_encode_chan(uint8_t sys
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_set_attitude_target_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t target_system, uint8_t target_component, uint8_t type_mask, const float* q, float body_roll_rate, float body_pitch_rate, float body_yaw_rate, float thrust)
+static_inline void mavlink_msg_set_attitude_target_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t target_system, uint8_t target_component, uint8_t type_mask, const float* q, float body_roll_rate, float body_pitch_rate, float body_yaw_rate, float thrust)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SET_ATTITUDE_TARGET_LEN];
@@ -240,7 +240,7 @@ __STATIC_INLINE void mavlink_msg_set_attitude_target_send(mavlink_channel_t chan
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_set_attitude_target_send_struct(mavlink_channel_t chan, const mavlink_set_attitude_target_t* set_attitude_target)
+static_inline void mavlink_msg_set_attitude_target_send_struct(mavlink_channel_t chan, const mavlink_set_attitude_target_t* set_attitude_target)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_set_attitude_target_send(chan, set_attitude_target->time_boot_ms, set_attitude_target->target_system, set_attitude_target->target_component, set_attitude_target->type_mask, set_attitude_target->q, set_attitude_target->body_roll_rate, set_attitude_target->body_pitch_rate, set_attitude_target->body_yaw_rate, set_attitude_target->thrust);
@@ -257,7 +257,7 @@ __STATIC_INLINE void mavlink_msg_set_attitude_target_send_struct(mavlink_channel
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_set_attitude_target_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t target_system, uint8_t target_component, uint8_t type_mask, const float* q, float body_roll_rate, float body_pitch_rate, float body_yaw_rate, float thrust)
+static_inline void mavlink_msg_set_attitude_target_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t target_system, uint8_t target_component, uint8_t type_mask, const float* q, float body_roll_rate, float body_pitch_rate, float body_yaw_rate, float thrust)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -296,7 +296,7 @@ __STATIC_INLINE void mavlink_msg_set_attitude_target_send_buf(mavlink_message_t*
  *
  * @return [ms] Timestamp (time since system boot).
  */
-__STATIC_INLINE uint32_t mavlink_msg_set_attitude_target_get_time_boot_ms(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_set_attitude_target_get_time_boot_ms(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 0);
 }
@@ -306,7 +306,7 @@ __STATIC_INLINE uint32_t mavlink_msg_set_attitude_target_get_time_boot_ms(const 
  *
  * @return  System ID
  */
-__STATIC_INLINE uint8_t mavlink_msg_set_attitude_target_get_target_system(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_set_attitude_target_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 36);
 }
@@ -316,7 +316,7 @@ __STATIC_INLINE uint8_t mavlink_msg_set_attitude_target_get_target_system(const 
  *
  * @return  Component ID
  */
-__STATIC_INLINE uint8_t mavlink_msg_set_attitude_target_get_target_component(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_set_attitude_target_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 37);
 }
@@ -326,7 +326,7 @@ __STATIC_INLINE uint8_t mavlink_msg_set_attitude_target_get_target_component(con
  *
  * @return  Mappings: If any of these bits are set, the corresponding input should be ignored: bit 1: body roll rate, bit 2: body pitch rate, bit 3: body yaw rate. bit 4-bit 6: reserved, bit 7: throttle, bit 8: attitude
  */
-__STATIC_INLINE uint8_t mavlink_msg_set_attitude_target_get_type_mask(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_set_attitude_target_get_type_mask(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 38);
 }
@@ -336,7 +336,7 @@ __STATIC_INLINE uint8_t mavlink_msg_set_attitude_target_get_type_mask(const mavl
  *
  * @return  Attitude quaternion (w, x, y, z order, zero-rotation is 1, 0, 0, 0)
  */
-__STATIC_INLINE uint16_t mavlink_msg_set_attitude_target_get_q(const mavlink_message_t* msg, float* q)
+static_inline uint16_t mavlink_msg_set_attitude_target_get_q(const mavlink_message_t* msg, float* q)
 {
     return _MAV_RETURN_float_array(msg, q, 4, 4);
 }
@@ -346,7 +346,7 @@ __STATIC_INLINE uint16_t mavlink_msg_set_attitude_target_get_q(const mavlink_mes
  *
  * @return [rad/s] Body roll rate
  */
-__STATIC_INLINE float mavlink_msg_set_attitude_target_get_body_roll_rate(const mavlink_message_t* msg)
+static_inline float mavlink_msg_set_attitude_target_get_body_roll_rate(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 20);
 }
@@ -356,7 +356,7 @@ __STATIC_INLINE float mavlink_msg_set_attitude_target_get_body_roll_rate(const m
  *
  * @return [rad/s] Body pitch rate
  */
-__STATIC_INLINE float mavlink_msg_set_attitude_target_get_body_pitch_rate(const mavlink_message_t* msg)
+static_inline float mavlink_msg_set_attitude_target_get_body_pitch_rate(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 24);
 }
@@ -366,7 +366,7 @@ __STATIC_INLINE float mavlink_msg_set_attitude_target_get_body_pitch_rate(const 
  *
  * @return [rad/s] Body yaw rate
  */
-__STATIC_INLINE float mavlink_msg_set_attitude_target_get_body_yaw_rate(const mavlink_message_t* msg)
+static_inline float mavlink_msg_set_attitude_target_get_body_yaw_rate(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 28);
 }
@@ -376,7 +376,7 @@ __STATIC_INLINE float mavlink_msg_set_attitude_target_get_body_yaw_rate(const ma
  *
  * @return  Collective thrust, normalized to 0 .. 1 (-1 .. 1 for vehicles capable of reverse trust)
  */
-__STATIC_INLINE float mavlink_msg_set_attitude_target_get_thrust(const mavlink_message_t* msg)
+static_inline float mavlink_msg_set_attitude_target_get_thrust(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 32);
 }
@@ -387,7 +387,7 @@ __STATIC_INLINE float mavlink_msg_set_attitude_target_get_thrust(const mavlink_m
  * @param msg The message to decode
  * @param set_attitude_target C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_set_attitude_target_decode(const mavlink_message_t* msg, mavlink_set_attitude_target_t* set_attitude_target)
+static_inline void mavlink_msg_set_attitude_target_decode(const mavlink_message_t* msg, mavlink_set_attitude_target_t* set_attitude_target)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     set_attitude_target->time_boot_ms = mavlink_msg_set_attitude_target_get_time_boot_ms(msg);

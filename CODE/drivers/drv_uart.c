@@ -89,7 +89,7 @@ static void uart_gpio_init(USART_TypeDef *instance)
 }
 
 
-__STATIC_INLINE void _dma_clear_flags(struct dma_device *dma)
+static_inline void _dma_clear_flags(struct dma_device *dma)
 {
     LL_EX_DMA_ClearFlag(dma, 0x3D);
 }

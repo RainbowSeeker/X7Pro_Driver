@@ -119,7 +119,7 @@ typedef struct __mavlink_open_drone_id_location_t {
  * @param timestamp_accuracy  The accuracy of the timestamps.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_open_drone_id_location_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_open_drone_id_location_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                                uint8_t target_system, uint8_t target_component, const uint8_t* id_or_mac, uint8_t status, uint16_t direction, uint16_t speed_horizontal, int16_t speed_vertical, int32_t latitude, int32_t longitude, float altitude_barometric, float altitude_geodetic, uint8_t height_reference, float height, uint8_t horizontal_accuracy, uint8_t vertical_accuracy, uint8_t barometer_accuracy, uint8_t speed_accuracy, float timestamp, uint8_t timestamp_accuracy)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -199,7 +199,7 @@ __STATIC_INLINE uint16_t mavlink_msg_open_drone_id_location_pack(uint8_t system_
  * @param timestamp_accuracy  The accuracy of the timestamps.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_open_drone_id_location_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_open_drone_id_location_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                     mavlink_message_t* msg,
                                                                     uint8_t target_system, uint8_t target_component, const uint8_t* id_or_mac, uint8_t status, uint16_t direction, uint16_t speed_horizontal, int16_t speed_vertical, int32_t latitude, int32_t longitude, float altitude_barometric, float altitude_geodetic, uint8_t height_reference, float height, uint8_t horizontal_accuracy, uint8_t vertical_accuracy, uint8_t barometer_accuracy, uint8_t speed_accuracy, float timestamp, uint8_t timestamp_accuracy)
 {
@@ -261,7 +261,7 @@ __STATIC_INLINE uint16_t mavlink_msg_open_drone_id_location_pack_chan(uint8_t sy
  * @param msg The MAVLink message to compress the data into
  * @param open_drone_id_location C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_open_drone_id_location_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_open_drone_id_location_t* open_drone_id_location)
+static_inline uint16_t mavlink_msg_open_drone_id_location_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_open_drone_id_location_t* open_drone_id_location)
 {
     return mavlink_msg_open_drone_id_location_pack(system_id, component_id, msg, open_drone_id_location->target_system, open_drone_id_location->target_component, open_drone_id_location->id_or_mac, open_drone_id_location->status, open_drone_id_location->direction, open_drone_id_location->speed_horizontal, open_drone_id_location->speed_vertical, open_drone_id_location->latitude, open_drone_id_location->longitude, open_drone_id_location->altitude_barometric, open_drone_id_location->altitude_geodetic, open_drone_id_location->height_reference, open_drone_id_location->height, open_drone_id_location->horizontal_accuracy, open_drone_id_location->vertical_accuracy, open_drone_id_location->barometer_accuracy, open_drone_id_location->speed_accuracy, open_drone_id_location->timestamp, open_drone_id_location->timestamp_accuracy);
 }
@@ -275,7 +275,7 @@ __STATIC_INLINE uint16_t mavlink_msg_open_drone_id_location_encode(uint8_t syste
  * @param msg The MAVLink message to compress the data into
  * @param open_drone_id_location C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_open_drone_id_location_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_open_drone_id_location_t* open_drone_id_location)
+static_inline uint16_t mavlink_msg_open_drone_id_location_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_open_drone_id_location_t* open_drone_id_location)
 {
     return mavlink_msg_open_drone_id_location_pack_chan(system_id, component_id, chan, msg, open_drone_id_location->target_system, open_drone_id_location->target_component, open_drone_id_location->id_or_mac, open_drone_id_location->status, open_drone_id_location->direction, open_drone_id_location->speed_horizontal, open_drone_id_location->speed_vertical, open_drone_id_location->latitude, open_drone_id_location->longitude, open_drone_id_location->altitude_barometric, open_drone_id_location->altitude_geodetic, open_drone_id_location->height_reference, open_drone_id_location->height, open_drone_id_location->horizontal_accuracy, open_drone_id_location->vertical_accuracy, open_drone_id_location->barometer_accuracy, open_drone_id_location->speed_accuracy, open_drone_id_location->timestamp, open_drone_id_location->timestamp_accuracy);
 }
@@ -306,7 +306,7 @@ __STATIC_INLINE uint16_t mavlink_msg_open_drone_id_location_encode_chan(uint8_t 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_open_drone_id_location_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const uint8_t* id_or_mac, uint8_t status, uint16_t direction, uint16_t speed_horizontal, int16_t speed_vertical, int32_t latitude, int32_t longitude, float altitude_barometric, float altitude_geodetic, uint8_t height_reference, float height, uint8_t horizontal_accuracy, uint8_t vertical_accuracy, uint8_t barometer_accuracy, uint8_t speed_accuracy, float timestamp, uint8_t timestamp_accuracy)
+static_inline void mavlink_msg_open_drone_id_location_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const uint8_t* id_or_mac, uint8_t status, uint16_t direction, uint16_t speed_horizontal, int16_t speed_vertical, int32_t latitude, int32_t longitude, float altitude_barometric, float altitude_geodetic, uint8_t height_reference, float height, uint8_t horizontal_accuracy, uint8_t vertical_accuracy, uint8_t barometer_accuracy, uint8_t speed_accuracy, float timestamp, uint8_t timestamp_accuracy)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_OPEN_DRONE_ID_LOCATION_LEN];
@@ -360,7 +360,7 @@ __STATIC_INLINE void mavlink_msg_open_drone_id_location_send(mavlink_channel_t c
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_open_drone_id_location_send_struct(mavlink_channel_t chan, const mavlink_open_drone_id_location_t* open_drone_id_location)
+static_inline void mavlink_msg_open_drone_id_location_send_struct(mavlink_channel_t chan, const mavlink_open_drone_id_location_t* open_drone_id_location)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_open_drone_id_location_send(chan, open_drone_id_location->target_system, open_drone_id_location->target_component, open_drone_id_location->id_or_mac, open_drone_id_location->status, open_drone_id_location->direction, open_drone_id_location->speed_horizontal, open_drone_id_location->speed_vertical, open_drone_id_location->latitude, open_drone_id_location->longitude, open_drone_id_location->altitude_barometric, open_drone_id_location->altitude_geodetic, open_drone_id_location->height_reference, open_drone_id_location->height, open_drone_id_location->horizontal_accuracy, open_drone_id_location->vertical_accuracy, open_drone_id_location->barometer_accuracy, open_drone_id_location->speed_accuracy, open_drone_id_location->timestamp, open_drone_id_location->timestamp_accuracy);
@@ -377,7 +377,7 @@ __STATIC_INLINE void mavlink_msg_open_drone_id_location_send_struct(mavlink_chan
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_open_drone_id_location_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const uint8_t* id_or_mac, uint8_t status, uint16_t direction, uint16_t speed_horizontal, int16_t speed_vertical, int32_t latitude, int32_t longitude, float altitude_barometric, float altitude_geodetic, uint8_t height_reference, float height, uint8_t horizontal_accuracy, uint8_t vertical_accuracy, uint8_t barometer_accuracy, uint8_t speed_accuracy, float timestamp, uint8_t timestamp_accuracy)
+static_inline void mavlink_msg_open_drone_id_location_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, const uint8_t* id_or_mac, uint8_t status, uint16_t direction, uint16_t speed_horizontal, int16_t speed_vertical, int32_t latitude, int32_t longitude, float altitude_barometric, float altitude_geodetic, uint8_t height_reference, float height, uint8_t horizontal_accuracy, uint8_t vertical_accuracy, uint8_t barometer_accuracy, uint8_t speed_accuracy, float timestamp, uint8_t timestamp_accuracy)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -436,7 +436,7 @@ __STATIC_INLINE void mavlink_msg_open_drone_id_location_send_buf(mavlink_message
  *
  * @return  System ID (0 for broadcast).
  */
-__STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_target_system(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_open_drone_id_location_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 30);
 }
@@ -446,7 +446,7 @@ __STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_target_system(con
  *
  * @return  Component ID (0 for broadcast).
  */
-__STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_target_component(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_open_drone_id_location_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 31);
 }
@@ -456,7 +456,7 @@ __STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_target_component(
  *
  * @return  Only used for drone ID data received from other UAs. See detailed description at https://mavlink.io/en/services/opendroneid.html. 
  */
-__STATIC_INLINE uint16_t mavlink_msg_open_drone_id_location_get_id_or_mac(const mavlink_message_t* msg, uint8_t* id_or_mac)
+static_inline uint16_t mavlink_msg_open_drone_id_location_get_id_or_mac(const mavlink_message_t* msg, uint8_t* id_or_mac)
 {
     return _MAV_RETURN_uint8_t_array(msg, id_or_mac, 20, 32);
 }
@@ -466,7 +466,7 @@ __STATIC_INLINE uint16_t mavlink_msg_open_drone_id_location_get_id_or_mac(const 
  *
  * @return  Indicates whether the unmanned aircraft is on the ground or in the air.
  */
-__STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_status(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_open_drone_id_location_get_status(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 52);
 }
@@ -476,7 +476,7 @@ __STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_status(const mavl
  *
  * @return [cdeg] Direction over ground (not heading, but direction of movement) measured clockwise from true North: 0 - 35999 centi-degrees. If unknown: 36100 centi-degrees.
  */
-__STATIC_INLINE uint16_t mavlink_msg_open_drone_id_location_get_direction(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_open_drone_id_location_get_direction(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 24);
 }
@@ -486,7 +486,7 @@ __STATIC_INLINE uint16_t mavlink_msg_open_drone_id_location_get_direction(const 
  *
  * @return [cm/s] Ground speed. Positive only. If unknown: 25500 cm/s. If speed is larger than 25425 cm/s, use 25425 cm/s.
  */
-__STATIC_INLINE uint16_t mavlink_msg_open_drone_id_location_get_speed_horizontal(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_open_drone_id_location_get_speed_horizontal(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 26);
 }
@@ -496,7 +496,7 @@ __STATIC_INLINE uint16_t mavlink_msg_open_drone_id_location_get_speed_horizontal
  *
  * @return [cm/s] The vertical speed. Up is positive. If unknown: 6300 cm/s. If speed is larger than 6200 cm/s, use 6200 cm/s. If lower than -6200 cm/s, use -6200 cm/s.
  */
-__STATIC_INLINE int16_t mavlink_msg_open_drone_id_location_get_speed_vertical(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_open_drone_id_location_get_speed_vertical(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 28);
 }
@@ -506,7 +506,7 @@ __STATIC_INLINE int16_t mavlink_msg_open_drone_id_location_get_speed_vertical(co
  *
  * @return [degE7] Current latitude of the unmanned aircraft. If unknown: 0 (both Lat/Lon).
  */
-__STATIC_INLINE int32_t mavlink_msg_open_drone_id_location_get_latitude(const mavlink_message_t* msg)
+static_inline int32_t mavlink_msg_open_drone_id_location_get_latitude(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 0);
 }
@@ -516,7 +516,7 @@ __STATIC_INLINE int32_t mavlink_msg_open_drone_id_location_get_latitude(const ma
  *
  * @return [degE7] Current longitude of the unmanned aircraft. If unknown: 0 (both Lat/Lon).
  */
-__STATIC_INLINE int32_t mavlink_msg_open_drone_id_location_get_longitude(const mavlink_message_t* msg)
+static_inline int32_t mavlink_msg_open_drone_id_location_get_longitude(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 4);
 }
@@ -526,7 +526,7 @@ __STATIC_INLINE int32_t mavlink_msg_open_drone_id_location_get_longitude(const m
  *
  * @return [m] The altitude calculated from the barometric pressue. Reference is against 29.92inHg or 1013.2mb. If unknown: -1000 m.
  */
-__STATIC_INLINE float mavlink_msg_open_drone_id_location_get_altitude_barometric(const mavlink_message_t* msg)
+static_inline float mavlink_msg_open_drone_id_location_get_altitude_barometric(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 8);
 }
@@ -536,7 +536,7 @@ __STATIC_INLINE float mavlink_msg_open_drone_id_location_get_altitude_barometric
  *
  * @return [m] The geodetic altitude as defined by WGS84. If unknown: -1000 m.
  */
-__STATIC_INLINE float mavlink_msg_open_drone_id_location_get_altitude_geodetic(const mavlink_message_t* msg)
+static_inline float mavlink_msg_open_drone_id_location_get_altitude_geodetic(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -546,7 +546,7 @@ __STATIC_INLINE float mavlink_msg_open_drone_id_location_get_altitude_geodetic(c
  *
  * @return  Indicates the reference point for the height field.
  */
-__STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_height_reference(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_open_drone_id_location_get_height_reference(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 53);
 }
@@ -556,7 +556,7 @@ __STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_height_reference(
  *
  * @return [m] The current height of the unmanned aircraft above the take-off location or the ground as indicated by height_reference. If unknown: -1000 m.
  */
-__STATIC_INLINE float mavlink_msg_open_drone_id_location_get_height(const mavlink_message_t* msg)
+static_inline float mavlink_msg_open_drone_id_location_get_height(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -566,7 +566,7 @@ __STATIC_INLINE float mavlink_msg_open_drone_id_location_get_height(const mavlin
  *
  * @return  The accuracy of the horizontal position.
  */
-__STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_horizontal_accuracy(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_open_drone_id_location_get_horizontal_accuracy(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 54);
 }
@@ -576,7 +576,7 @@ __STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_horizontal_accura
  *
  * @return  The accuracy of the vertical position.
  */
-__STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_vertical_accuracy(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_open_drone_id_location_get_vertical_accuracy(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 55);
 }
@@ -586,7 +586,7 @@ __STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_vertical_accuracy
  *
  * @return  The accuracy of the barometric altitude.
  */
-__STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_barometer_accuracy(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_open_drone_id_location_get_barometer_accuracy(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 56);
 }
@@ -596,7 +596,7 @@ __STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_barometer_accurac
  *
  * @return  The accuracy of the horizontal and vertical speed.
  */
-__STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_speed_accuracy(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_open_drone_id_location_get_speed_accuracy(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 57);
 }
@@ -606,7 +606,7 @@ __STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_speed_accuracy(co
  *
  * @return [s] Seconds after the full hour with reference to UTC time. Typically the GPS outputs a time-of-week value in milliseconds. First convert that to UTC and then convert for this field using ((float) (time_week_ms % (60*60*1000))) / 1000.
  */
-__STATIC_INLINE float mavlink_msg_open_drone_id_location_get_timestamp(const mavlink_message_t* msg)
+static_inline float mavlink_msg_open_drone_id_location_get_timestamp(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 20);
 }
@@ -616,7 +616,7 @@ __STATIC_INLINE float mavlink_msg_open_drone_id_location_get_timestamp(const mav
  *
  * @return  The accuracy of the timestamps.
  */
-__STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_timestamp_accuracy(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_open_drone_id_location_get_timestamp_accuracy(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 58);
 }
@@ -627,7 +627,7 @@ __STATIC_INLINE uint8_t mavlink_msg_open_drone_id_location_get_timestamp_accurac
  * @param msg The message to decode
  * @param open_drone_id_location C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_open_drone_id_location_decode(const mavlink_message_t* msg, mavlink_open_drone_id_location_t* open_drone_id_location)
+static_inline void mavlink_msg_open_drone_id_location_decode(const mavlink_message_t* msg, mavlink_open_drone_id_location_t* open_drone_id_location)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     open_drone_id_location->latitude = mavlink_msg_open_drone_id_location_get_latitude(msg);

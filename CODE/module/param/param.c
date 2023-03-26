@@ -900,11 +900,21 @@ err_t deregister_param_modify_callback(void (*on_modify)(param_t *param))
  */
 err_t param_init(void)
 {
-    extern const uint32_t __param_start;
-    extern const uint32_t __param_end;
+#if defined(__CC_ARM) || defined(__CLANG_ARM)          /* ARM C Compiler */
+    extern const int ParamTab$$Base;
+    extern const int ParamTab$$Limit;
+
+    __param_table = (param_group_t *) &ParamTab$$Base;
+    __param_group_num = (param_group_t *) &ParamTab$$Limit - __param_table;
+
+#elif defined (__GNUC__) || defined(__TI_COMPILER_VERSION__)
+    /* GNU GCC Compiler and TI CCS */
+    extern const int __param_start;
+    extern const int __param_end;
 
     __param_table = (param_group_t *) &__param_start;
     __param_group_num = (param_group_t *) &__param_end - __param_table;
+#endif
 
     /* load parameter from file */
     if (param_load(PARAM_FILE_NAME) != E_OK)

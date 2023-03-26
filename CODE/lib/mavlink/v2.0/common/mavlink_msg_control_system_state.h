@@ -113,7 +113,7 @@ typedef struct __mavlink_control_system_state_t {
  * @param yaw_rate [rad/s] Angular rate in yaw axis
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_control_system_state_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_control_system_state_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                              uint64_t time_usec, float x_acc, float y_acc, float z_acc, float x_vel, float y_vel, float z_vel, float x_pos, float y_pos, float z_pos, float airspeed, const float* vel_variance, const float* pos_variance, const float* q, float roll_rate, float pitch_rate, float yaw_rate)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -187,7 +187,7 @@ __STATIC_INLINE uint16_t mavlink_msg_control_system_state_pack(uint8_t system_id
  * @param yaw_rate [rad/s] Angular rate in yaw axis
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_control_system_state_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_control_system_state_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                   mavlink_message_t* msg,
                                                                   uint64_t time_usec, float x_acc, float y_acc, float z_acc, float x_vel, float y_vel, float z_vel, float x_pos, float y_pos, float z_pos, float airspeed, const float* vel_variance, const float* pos_variance, const float* q, float roll_rate, float pitch_rate, float yaw_rate)
 {
@@ -245,7 +245,7 @@ __STATIC_INLINE uint16_t mavlink_msg_control_system_state_pack_chan(uint8_t syst
  * @param msg The MAVLink message to compress the data into
  * @param control_system_state C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_control_system_state_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_control_system_state_t* control_system_state)
+static_inline uint16_t mavlink_msg_control_system_state_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_control_system_state_t* control_system_state)
 {
     return mavlink_msg_control_system_state_pack(system_id, component_id, msg, control_system_state->time_usec, control_system_state->x_acc, control_system_state->y_acc, control_system_state->z_acc, control_system_state->x_vel, control_system_state->y_vel, control_system_state->z_vel, control_system_state->x_pos, control_system_state->y_pos, control_system_state->z_pos, control_system_state->airspeed, control_system_state->vel_variance, control_system_state->pos_variance, control_system_state->q, control_system_state->roll_rate, control_system_state->pitch_rate, control_system_state->yaw_rate);
 }
@@ -259,7 +259,7 @@ __STATIC_INLINE uint16_t mavlink_msg_control_system_state_encode(uint8_t system_
  * @param msg The MAVLink message to compress the data into
  * @param control_system_state C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_control_system_state_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_control_system_state_t* control_system_state)
+static_inline uint16_t mavlink_msg_control_system_state_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_control_system_state_t* control_system_state)
 {
     return mavlink_msg_control_system_state_pack_chan(system_id, component_id, chan, msg, control_system_state->time_usec, control_system_state->x_acc, control_system_state->y_acc, control_system_state->z_acc, control_system_state->x_vel, control_system_state->y_vel, control_system_state->z_vel, control_system_state->x_pos, control_system_state->y_pos, control_system_state->z_pos, control_system_state->airspeed, control_system_state->vel_variance, control_system_state->pos_variance, control_system_state->q, control_system_state->roll_rate, control_system_state->pitch_rate, control_system_state->yaw_rate);
 }
@@ -288,7 +288,7 @@ __STATIC_INLINE uint16_t mavlink_msg_control_system_state_encode_chan(uint8_t sy
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_control_system_state_send(mavlink_channel_t chan, uint64_t time_usec, float x_acc, float y_acc, float z_acc, float x_vel, float y_vel, float z_vel, float x_pos, float y_pos, float z_pos, float airspeed, const float* vel_variance, const float* pos_variance, const float* q, float roll_rate, float pitch_rate, float yaw_rate)
+static_inline void mavlink_msg_control_system_state_send(mavlink_channel_t chan, uint64_t time_usec, float x_acc, float y_acc, float z_acc, float x_vel, float y_vel, float z_vel, float x_pos, float y_pos, float z_pos, float airspeed, const float* vel_variance, const float* pos_variance, const float* q, float roll_rate, float pitch_rate, float yaw_rate)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_CONTROL_SYSTEM_STATE_LEN];
@@ -338,7 +338,7 @@ __STATIC_INLINE void mavlink_msg_control_system_state_send(mavlink_channel_t cha
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_control_system_state_send_struct(mavlink_channel_t chan, const mavlink_control_system_state_t* control_system_state)
+static_inline void mavlink_msg_control_system_state_send_struct(mavlink_channel_t chan, const mavlink_control_system_state_t* control_system_state)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_control_system_state_send(chan, control_system_state->time_usec, control_system_state->x_acc, control_system_state->y_acc, control_system_state->z_acc, control_system_state->x_vel, control_system_state->y_vel, control_system_state->z_vel, control_system_state->x_pos, control_system_state->y_pos, control_system_state->z_pos, control_system_state->airspeed, control_system_state->vel_variance, control_system_state->pos_variance, control_system_state->q, control_system_state->roll_rate, control_system_state->pitch_rate, control_system_state->yaw_rate);
@@ -355,7 +355,7 @@ __STATIC_INLINE void mavlink_msg_control_system_state_send_struct(mavlink_channe
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_control_system_state_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, float x_acc, float y_acc, float z_acc, float x_vel, float y_vel, float z_vel, float x_pos, float y_pos, float z_pos, float airspeed, const float* vel_variance, const float* pos_variance, const float* q, float roll_rate, float pitch_rate, float yaw_rate)
+static_inline void mavlink_msg_control_system_state_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, float x_acc, float y_acc, float z_acc, float x_vel, float y_vel, float z_vel, float x_pos, float y_pos, float z_pos, float airspeed, const float* vel_variance, const float* pos_variance, const float* q, float roll_rate, float pitch_rate, float yaw_rate)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -410,7 +410,7 @@ __STATIC_INLINE void mavlink_msg_control_system_state_send_buf(mavlink_message_t
  *
  * @return [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  */
-__STATIC_INLINE uint64_t mavlink_msg_control_system_state_get_time_usec(const mavlink_message_t* msg)
+static_inline uint64_t mavlink_msg_control_system_state_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 0);
 }
@@ -420,7 +420,7 @@ __STATIC_INLINE uint64_t mavlink_msg_control_system_state_get_time_usec(const ma
  *
  * @return [m/s/s] X acceleration in body frame
  */
-__STATIC_INLINE float mavlink_msg_control_system_state_get_x_acc(const mavlink_message_t* msg)
+static_inline float mavlink_msg_control_system_state_get_x_acc(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 8);
 }
@@ -430,7 +430,7 @@ __STATIC_INLINE float mavlink_msg_control_system_state_get_x_acc(const mavlink_m
  *
  * @return [m/s/s] Y acceleration in body frame
  */
-__STATIC_INLINE float mavlink_msg_control_system_state_get_y_acc(const mavlink_message_t* msg)
+static_inline float mavlink_msg_control_system_state_get_y_acc(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -440,7 +440,7 @@ __STATIC_INLINE float mavlink_msg_control_system_state_get_y_acc(const mavlink_m
  *
  * @return [m/s/s] Z acceleration in body frame
  */
-__STATIC_INLINE float mavlink_msg_control_system_state_get_z_acc(const mavlink_message_t* msg)
+static_inline float mavlink_msg_control_system_state_get_z_acc(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -450,7 +450,7 @@ __STATIC_INLINE float mavlink_msg_control_system_state_get_z_acc(const mavlink_m
  *
  * @return [m/s] X velocity in body frame
  */
-__STATIC_INLINE float mavlink_msg_control_system_state_get_x_vel(const mavlink_message_t* msg)
+static_inline float mavlink_msg_control_system_state_get_x_vel(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 20);
 }
@@ -460,7 +460,7 @@ __STATIC_INLINE float mavlink_msg_control_system_state_get_x_vel(const mavlink_m
  *
  * @return [m/s] Y velocity in body frame
  */
-__STATIC_INLINE float mavlink_msg_control_system_state_get_y_vel(const mavlink_message_t* msg)
+static_inline float mavlink_msg_control_system_state_get_y_vel(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 24);
 }
@@ -470,7 +470,7 @@ __STATIC_INLINE float mavlink_msg_control_system_state_get_y_vel(const mavlink_m
  *
  * @return [m/s] Z velocity in body frame
  */
-__STATIC_INLINE float mavlink_msg_control_system_state_get_z_vel(const mavlink_message_t* msg)
+static_inline float mavlink_msg_control_system_state_get_z_vel(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 28);
 }
@@ -480,7 +480,7 @@ __STATIC_INLINE float mavlink_msg_control_system_state_get_z_vel(const mavlink_m
  *
  * @return [m] X position in local frame
  */
-__STATIC_INLINE float mavlink_msg_control_system_state_get_x_pos(const mavlink_message_t* msg)
+static_inline float mavlink_msg_control_system_state_get_x_pos(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 32);
 }
@@ -490,7 +490,7 @@ __STATIC_INLINE float mavlink_msg_control_system_state_get_x_pos(const mavlink_m
  *
  * @return [m] Y position in local frame
  */
-__STATIC_INLINE float mavlink_msg_control_system_state_get_y_pos(const mavlink_message_t* msg)
+static_inline float mavlink_msg_control_system_state_get_y_pos(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 36);
 }
@@ -500,7 +500,7 @@ __STATIC_INLINE float mavlink_msg_control_system_state_get_y_pos(const mavlink_m
  *
  * @return [m] Z position in local frame
  */
-__STATIC_INLINE float mavlink_msg_control_system_state_get_z_pos(const mavlink_message_t* msg)
+static_inline float mavlink_msg_control_system_state_get_z_pos(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 40);
 }
@@ -510,7 +510,7 @@ __STATIC_INLINE float mavlink_msg_control_system_state_get_z_pos(const mavlink_m
  *
  * @return [m/s] Airspeed, set to -1 if unknown
  */
-__STATIC_INLINE float mavlink_msg_control_system_state_get_airspeed(const mavlink_message_t* msg)
+static_inline float mavlink_msg_control_system_state_get_airspeed(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 44);
 }
@@ -520,7 +520,7 @@ __STATIC_INLINE float mavlink_msg_control_system_state_get_airspeed(const mavlin
  *
  * @return  Variance of body velocity estimate
  */
-__STATIC_INLINE uint16_t mavlink_msg_control_system_state_get_vel_variance(const mavlink_message_t* msg, float* vel_variance)
+static_inline uint16_t mavlink_msg_control_system_state_get_vel_variance(const mavlink_message_t* msg, float* vel_variance)
 {
     return _MAV_RETURN_float_array(msg, vel_variance, 3, 48);
 }
@@ -530,7 +530,7 @@ __STATIC_INLINE uint16_t mavlink_msg_control_system_state_get_vel_variance(const
  *
  * @return  Variance in local position
  */
-__STATIC_INLINE uint16_t mavlink_msg_control_system_state_get_pos_variance(const mavlink_message_t* msg, float* pos_variance)
+static_inline uint16_t mavlink_msg_control_system_state_get_pos_variance(const mavlink_message_t* msg, float* pos_variance)
 {
     return _MAV_RETURN_float_array(msg, pos_variance, 3, 60);
 }
@@ -540,7 +540,7 @@ __STATIC_INLINE uint16_t mavlink_msg_control_system_state_get_pos_variance(const
  *
  * @return  The attitude, represented as Quaternion
  */
-__STATIC_INLINE uint16_t mavlink_msg_control_system_state_get_q(const mavlink_message_t* msg, float* q)
+static_inline uint16_t mavlink_msg_control_system_state_get_q(const mavlink_message_t* msg, float* q)
 {
     return _MAV_RETURN_float_array(msg, q, 4, 72);
 }
@@ -550,7 +550,7 @@ __STATIC_INLINE uint16_t mavlink_msg_control_system_state_get_q(const mavlink_me
  *
  * @return [rad/s] Angular rate in roll axis
  */
-__STATIC_INLINE float mavlink_msg_control_system_state_get_roll_rate(const mavlink_message_t* msg)
+static_inline float mavlink_msg_control_system_state_get_roll_rate(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 88);
 }
@@ -560,7 +560,7 @@ __STATIC_INLINE float mavlink_msg_control_system_state_get_roll_rate(const mavli
  *
  * @return [rad/s] Angular rate in pitch axis
  */
-__STATIC_INLINE float mavlink_msg_control_system_state_get_pitch_rate(const mavlink_message_t* msg)
+static_inline float mavlink_msg_control_system_state_get_pitch_rate(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 92);
 }
@@ -570,7 +570,7 @@ __STATIC_INLINE float mavlink_msg_control_system_state_get_pitch_rate(const mavl
  *
  * @return [rad/s] Angular rate in yaw axis
  */
-__STATIC_INLINE float mavlink_msg_control_system_state_get_yaw_rate(const mavlink_message_t* msg)
+static_inline float mavlink_msg_control_system_state_get_yaw_rate(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 96);
 }
@@ -581,7 +581,7 @@ __STATIC_INLINE float mavlink_msg_control_system_state_get_yaw_rate(const mavlin
  * @param msg The message to decode
  * @param control_system_state C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_control_system_state_decode(const mavlink_message_t* msg, mavlink_control_system_state_t* control_system_state)
+static_inline void mavlink_msg_control_system_state_decode(const mavlink_message_t* msg, mavlink_control_system_state_t* control_system_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     control_system_state->time_usec = mavlink_msg_control_system_state_get_time_usec(msg);

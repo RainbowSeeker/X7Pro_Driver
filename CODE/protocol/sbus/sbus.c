@@ -510,6 +510,22 @@ bool sbus_input(uint16_t *values, uint16_t *num_values, bool *sbus_failsafe,
 }
 
 
+uint8_t sbus_send_ch(uint8_t ch)
+{
+    return ch;
+}
+
+uint16_t sbus_send(uint8_t* data, uint16_t len)
+{
+    uint16_t i;
+
+    for (i = 0; i < len; i++) {
+        sbus_send_ch(data[i]);
+    }
+
+    return len;
+}
+
 uint16_t sbus_read(uint8_t* buf, uint16_t size)
 {
     return ringbuffer_get(rx_rb, buf, size);

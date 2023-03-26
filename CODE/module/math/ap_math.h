@@ -43,7 +43,7 @@ uint16_t constrain_uint16(uint16_t amt, uint16_t low, uint16_t high);
 int16_t constrain_int16(int16_t amt, int16_t low, int16_t high);
 uint32_t constrain_uint32(uint32_t amt, uint32_t low, uint32_t high);
 
-__STATIC_INLINE int about(float val)
+static_inline int about(float val)
 {
     return (int)(val + 0.5);
 }

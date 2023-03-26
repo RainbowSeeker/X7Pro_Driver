@@ -9,7 +9,7 @@
 #include "hal/imu/gyro.h"
 #include "hal/spi/spi.h"
 #include "sensor/sensor_imu.h"
-#include "nvic.h"
+#include "drivers/nvic.h"
 #include "drivers/drv_exti.h"
 
 #define DRV_DBG(...)    printf(__VA_ARGS__)

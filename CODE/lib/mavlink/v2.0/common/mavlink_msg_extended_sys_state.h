@@ -49,7 +49,7 @@ typedef struct __mavlink_extended_sys_state_t {
  * @param landed_state  The landed state. Is set to MAV_LANDED_STATE_UNDEFINED if landed state is unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_extended_sys_state_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_extended_sys_state_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                            uint8_t vtol_state, uint8_t landed_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -80,7 +80,7 @@ __STATIC_INLINE uint16_t mavlink_msg_extended_sys_state_pack(uint8_t system_id, 
  * @param landed_state  The landed state. Is set to MAV_LANDED_STATE_UNDEFINED if landed state is unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_extended_sys_state_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_extended_sys_state_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                 mavlink_message_t* msg,
                                                                 uint8_t vtol_state, uint8_t landed_state)
 {
@@ -110,7 +110,7 @@ __STATIC_INLINE uint16_t mavlink_msg_extended_sys_state_pack_chan(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param extended_sys_state C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_extended_sys_state_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_extended_sys_state_t* extended_sys_state)
+static_inline uint16_t mavlink_msg_extended_sys_state_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_extended_sys_state_t* extended_sys_state)
 {
     return mavlink_msg_extended_sys_state_pack(system_id, component_id, msg, extended_sys_state->vtol_state, extended_sys_state->landed_state);
 }
@@ -124,7 +124,7 @@ __STATIC_INLINE uint16_t mavlink_msg_extended_sys_state_encode(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param extended_sys_state C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_extended_sys_state_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_extended_sys_state_t* extended_sys_state)
+static_inline uint16_t mavlink_msg_extended_sys_state_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_extended_sys_state_t* extended_sys_state)
 {
     return mavlink_msg_extended_sys_state_pack_chan(system_id, component_id, chan, msg, extended_sys_state->vtol_state, extended_sys_state->landed_state);
 }
@@ -138,7 +138,7 @@ __STATIC_INLINE uint16_t mavlink_msg_extended_sys_state_encode_chan(uint8_t syst
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_extended_sys_state_send(mavlink_channel_t chan, uint8_t vtol_state, uint8_t landed_state)
+static_inline void mavlink_msg_extended_sys_state_send(mavlink_channel_t chan, uint8_t vtol_state, uint8_t landed_state)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_EXTENDED_SYS_STATE_LEN];
@@ -160,7 +160,7 @@ __STATIC_INLINE void mavlink_msg_extended_sys_state_send(mavlink_channel_t chan,
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_extended_sys_state_send_struct(mavlink_channel_t chan, const mavlink_extended_sys_state_t* extended_sys_state)
+static_inline void mavlink_msg_extended_sys_state_send_struct(mavlink_channel_t chan, const mavlink_extended_sys_state_t* extended_sys_state)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_extended_sys_state_send(chan, extended_sys_state->vtol_state, extended_sys_state->landed_state);
@@ -177,7 +177,7 @@ __STATIC_INLINE void mavlink_msg_extended_sys_state_send_struct(mavlink_channel_
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_extended_sys_state_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t vtol_state, uint8_t landed_state)
+static_inline void mavlink_msg_extended_sys_state_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t vtol_state, uint8_t landed_state)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -204,7 +204,7 @@ __STATIC_INLINE void mavlink_msg_extended_sys_state_send_buf(mavlink_message_t* 
  *
  * @return  The VTOL state if applicable. Is set to MAV_VTOL_STATE_UNDEFINED if UAV is not in VTOL configuration.
  */
-__STATIC_INLINE uint8_t mavlink_msg_extended_sys_state_get_vtol_state(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_extended_sys_state_get_vtol_state(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 0);
 }
@@ -214,7 +214,7 @@ __STATIC_INLINE uint8_t mavlink_msg_extended_sys_state_get_vtol_state(const mavl
  *
  * @return  The landed state. Is set to MAV_LANDED_STATE_UNDEFINED if landed state is unknown.
  */
-__STATIC_INLINE uint8_t mavlink_msg_extended_sys_state_get_landed_state(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_extended_sys_state_get_landed_state(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 1);
 }
@@ -225,7 +225,7 @@ __STATIC_INLINE uint8_t mavlink_msg_extended_sys_state_get_landed_state(const ma
  * @param msg The message to decode
  * @param extended_sys_state C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_extended_sys_state_decode(const mavlink_message_t* msg, mavlink_extended_sys_state_t* extended_sys_state)
+static_inline void mavlink_msg_extended_sys_state_decode(const mavlink_message_t* msg, mavlink_extended_sys_state_t* extended_sys_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     extended_sys_state->vtol_state = mavlink_msg_extended_sys_state_get_vtol_state(msg);

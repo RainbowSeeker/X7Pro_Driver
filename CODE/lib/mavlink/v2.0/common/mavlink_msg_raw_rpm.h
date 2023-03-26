@@ -49,7 +49,7 @@ typedef struct __mavlink_raw_rpm_t {
  * @param frequency [rpm] Indicated rate
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_raw_rpm_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_raw_rpm_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                 uint8_t index, float frequency)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -80,7 +80,7 @@ __STATIC_INLINE uint16_t mavlink_msg_raw_rpm_pack(uint8_t system_id, uint8_t com
  * @param frequency [rpm] Indicated rate
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_raw_rpm_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_raw_rpm_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                      mavlink_message_t* msg,
                                                      uint8_t index, float frequency)
 {
@@ -110,7 +110,7 @@ __STATIC_INLINE uint16_t mavlink_msg_raw_rpm_pack_chan(uint8_t system_id, uint8_
  * @param msg The MAVLink message to compress the data into
  * @param raw_rpm C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_raw_rpm_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_raw_rpm_t* raw_rpm)
+static_inline uint16_t mavlink_msg_raw_rpm_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_raw_rpm_t* raw_rpm)
 {
     return mavlink_msg_raw_rpm_pack(system_id, component_id, msg, raw_rpm->index, raw_rpm->frequency);
 }
@@ -124,7 +124,7 @@ __STATIC_INLINE uint16_t mavlink_msg_raw_rpm_encode(uint8_t system_id, uint8_t c
  * @param msg The MAVLink message to compress the data into
  * @param raw_rpm C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_raw_rpm_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_raw_rpm_t* raw_rpm)
+static_inline uint16_t mavlink_msg_raw_rpm_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_raw_rpm_t* raw_rpm)
 {
     return mavlink_msg_raw_rpm_pack_chan(system_id, component_id, chan, msg, raw_rpm->index, raw_rpm->frequency);
 }
@@ -138,7 +138,7 @@ __STATIC_INLINE uint16_t mavlink_msg_raw_rpm_encode_chan(uint8_t system_id, uint
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_raw_rpm_send(mavlink_channel_t chan, uint8_t index, float frequency)
+static_inline void mavlink_msg_raw_rpm_send(mavlink_channel_t chan, uint8_t index, float frequency)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_RAW_RPM_LEN];
@@ -160,7 +160,7 @@ __STATIC_INLINE void mavlink_msg_raw_rpm_send(mavlink_channel_t chan, uint8_t in
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_raw_rpm_send_struct(mavlink_channel_t chan, const mavlink_raw_rpm_t* raw_rpm)
+static_inline void mavlink_msg_raw_rpm_send_struct(mavlink_channel_t chan, const mavlink_raw_rpm_t* raw_rpm)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_raw_rpm_send(chan, raw_rpm->index, raw_rpm->frequency);
@@ -177,7 +177,7 @@ __STATIC_INLINE void mavlink_msg_raw_rpm_send_struct(mavlink_channel_t chan, con
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_raw_rpm_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t index, float frequency)
+static_inline void mavlink_msg_raw_rpm_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t index, float frequency)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -204,7 +204,7 @@ __STATIC_INLINE void mavlink_msg_raw_rpm_send_buf(mavlink_message_t* msgbuf, mav
  *
  * @return  Index of this RPM sensor (0-indexed)
  */
-__STATIC_INLINE uint8_t mavlink_msg_raw_rpm_get_index(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_raw_rpm_get_index(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 4);
 }
@@ -214,7 +214,7 @@ __STATIC_INLINE uint8_t mavlink_msg_raw_rpm_get_index(const mavlink_message_t* m
  *
  * @return [rpm] Indicated rate
  */
-__STATIC_INLINE float mavlink_msg_raw_rpm_get_frequency(const mavlink_message_t* msg)
+static_inline float mavlink_msg_raw_rpm_get_frequency(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 0);
 }
@@ -225,7 +225,7 @@ __STATIC_INLINE float mavlink_msg_raw_rpm_get_frequency(const mavlink_message_t*
  * @param msg The message to decode
  * @param raw_rpm C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_raw_rpm_decode(const mavlink_message_t* msg, mavlink_raw_rpm_t* raw_rpm)
+static_inline void mavlink_msg_raw_rpm_decode(const mavlink_message_t* msg, mavlink_raw_rpm_t* raw_rpm)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     raw_rpm->frequency = mavlink_msg_raw_rpm_get_frequency(msg);

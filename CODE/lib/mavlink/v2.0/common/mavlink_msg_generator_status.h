@@ -85,7 +85,7 @@ typedef struct __mavlink_generator_status_t {
  * @param time_until_maintenance [s] Seconds until this generator requires maintenance.  A negative value indicates maintenance is past-due. INT32_MAX: field not provided.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_generator_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_generator_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                          uint64_t status, uint16_t generator_speed, float battery_current, float load_current, float power_generated, float bus_voltage, int16_t rectifier_temperature, float bat_current_setpoint, int16_t generator_temperature, uint32_t runtime, int32_t time_until_maintenance)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -143,7 +143,7 @@ __STATIC_INLINE uint16_t mavlink_msg_generator_status_pack(uint8_t system_id, ui
  * @param time_until_maintenance [s] Seconds until this generator requires maintenance.  A negative value indicates maintenance is past-due. INT32_MAX: field not provided.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_generator_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_generator_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                               mavlink_message_t* msg,
                                                               uint64_t status, uint16_t generator_speed, float battery_current, float load_current, float power_generated, float bus_voltage, int16_t rectifier_temperature, float bat_current_setpoint, int16_t generator_temperature, uint32_t runtime, int32_t time_until_maintenance)
 {
@@ -191,7 +191,7 @@ __STATIC_INLINE uint16_t mavlink_msg_generator_status_pack_chan(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param generator_status C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_generator_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_generator_status_t* generator_status)
+static_inline uint16_t mavlink_msg_generator_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_generator_status_t* generator_status)
 {
     return mavlink_msg_generator_status_pack(system_id, component_id, msg, generator_status->status, generator_status->generator_speed, generator_status->battery_current, generator_status->load_current, generator_status->power_generated, generator_status->bus_voltage, generator_status->rectifier_temperature, generator_status->bat_current_setpoint, generator_status->generator_temperature, generator_status->runtime, generator_status->time_until_maintenance);
 }
@@ -205,7 +205,7 @@ __STATIC_INLINE uint16_t mavlink_msg_generator_status_encode(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param generator_status C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_generator_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_generator_status_t* generator_status)
+static_inline uint16_t mavlink_msg_generator_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_generator_status_t* generator_status)
 {
     return mavlink_msg_generator_status_pack_chan(system_id, component_id, chan, msg, generator_status->status, generator_status->generator_speed, generator_status->battery_current, generator_status->load_current, generator_status->power_generated, generator_status->bus_voltage, generator_status->rectifier_temperature, generator_status->bat_current_setpoint, generator_status->generator_temperature, generator_status->runtime, generator_status->time_until_maintenance);
 }
@@ -228,7 +228,7 @@ __STATIC_INLINE uint16_t mavlink_msg_generator_status_encode_chan(uint8_t system
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_generator_status_send(mavlink_channel_t chan, uint64_t status, uint16_t generator_speed, float battery_current, float load_current, float power_generated, float bus_voltage, int16_t rectifier_temperature, float bat_current_setpoint, int16_t generator_temperature, uint32_t runtime, int32_t time_until_maintenance)
+static_inline void mavlink_msg_generator_status_send(mavlink_channel_t chan, uint64_t status, uint16_t generator_speed, float battery_current, float load_current, float power_generated, float bus_voltage, int16_t rectifier_temperature, float bat_current_setpoint, int16_t generator_temperature, uint32_t runtime, int32_t time_until_maintenance)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GENERATOR_STATUS_LEN];
@@ -268,7 +268,7 @@ __STATIC_INLINE void mavlink_msg_generator_status_send(mavlink_channel_t chan, u
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_generator_status_send_struct(mavlink_channel_t chan, const mavlink_generator_status_t* generator_status)
+static_inline void mavlink_msg_generator_status_send_struct(mavlink_channel_t chan, const mavlink_generator_status_t* generator_status)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_generator_status_send(chan, generator_status->status, generator_status->generator_speed, generator_status->battery_current, generator_status->load_current, generator_status->power_generated, generator_status->bus_voltage, generator_status->rectifier_temperature, generator_status->bat_current_setpoint, generator_status->generator_temperature, generator_status->runtime, generator_status->time_until_maintenance);
@@ -285,7 +285,7 @@ __STATIC_INLINE void mavlink_msg_generator_status_send_struct(mavlink_channel_t 
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_generator_status_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t status, uint16_t generator_speed, float battery_current, float load_current, float power_generated, float bus_voltage, int16_t rectifier_temperature, float bat_current_setpoint, int16_t generator_temperature, uint32_t runtime, int32_t time_until_maintenance)
+static_inline void mavlink_msg_generator_status_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t status, uint16_t generator_speed, float battery_current, float load_current, float power_generated, float bus_voltage, int16_t rectifier_temperature, float bat_current_setpoint, int16_t generator_temperature, uint32_t runtime, int32_t time_until_maintenance)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -330,7 +330,7 @@ __STATIC_INLINE void mavlink_msg_generator_status_send_buf(mavlink_message_t* ms
  *
  * @return  Status flags.
  */
-__STATIC_INLINE uint64_t mavlink_msg_generator_status_get_status(const mavlink_message_t* msg)
+static_inline uint64_t mavlink_msg_generator_status_get_status(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 0);
 }
@@ -340,7 +340,7 @@ __STATIC_INLINE uint64_t mavlink_msg_generator_status_get_status(const mavlink_m
  *
  * @return [rpm] Speed of electrical generator or alternator. UINT16_MAX: field not provided.
  */
-__STATIC_INLINE uint16_t mavlink_msg_generator_status_get_generator_speed(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_generator_status_get_generator_speed(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 36);
 }
@@ -350,7 +350,7 @@ __STATIC_INLINE uint16_t mavlink_msg_generator_status_get_generator_speed(const 
  *
  * @return [A] Current into/out of battery. Positive for out. Negative for in. NaN: field not provided.
  */
-__STATIC_INLINE float mavlink_msg_generator_status_get_battery_current(const mavlink_message_t* msg)
+static_inline float mavlink_msg_generator_status_get_battery_current(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 8);
 }
@@ -360,7 +360,7 @@ __STATIC_INLINE float mavlink_msg_generator_status_get_battery_current(const mav
  *
  * @return [A] Current going to the UAV. If battery current not available this is the DC current from the generator. Positive for out. Negative for in. NaN: field not provided
  */
-__STATIC_INLINE float mavlink_msg_generator_status_get_load_current(const mavlink_message_t* msg)
+static_inline float mavlink_msg_generator_status_get_load_current(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -370,7 +370,7 @@ __STATIC_INLINE float mavlink_msg_generator_status_get_load_current(const mavlin
  *
  * @return [W] The power being generated. NaN: field not provided
  */
-__STATIC_INLINE float mavlink_msg_generator_status_get_power_generated(const mavlink_message_t* msg)
+static_inline float mavlink_msg_generator_status_get_power_generated(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -380,7 +380,7 @@ __STATIC_INLINE float mavlink_msg_generator_status_get_power_generated(const mav
  *
  * @return [V] Voltage of the bus seen at the generator, or battery bus if battery bus is controlled by generator and at a different voltage to main bus.
  */
-__STATIC_INLINE float mavlink_msg_generator_status_get_bus_voltage(const mavlink_message_t* msg)
+static_inline float mavlink_msg_generator_status_get_bus_voltage(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 20);
 }
@@ -390,7 +390,7 @@ __STATIC_INLINE float mavlink_msg_generator_status_get_bus_voltage(const mavlink
  *
  * @return [degC] The temperature of the rectifier or power converter. INT16_MAX: field not provided.
  */
-__STATIC_INLINE int16_t mavlink_msg_generator_status_get_rectifier_temperature(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_generator_status_get_rectifier_temperature(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 38);
 }
@@ -400,7 +400,7 @@ __STATIC_INLINE int16_t mavlink_msg_generator_status_get_rectifier_temperature(c
  *
  * @return [A] The target battery current. Positive for out. Negative for in. NaN: field not provided
  */
-__STATIC_INLINE float mavlink_msg_generator_status_get_bat_current_setpoint(const mavlink_message_t* msg)
+static_inline float mavlink_msg_generator_status_get_bat_current_setpoint(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 24);
 }
@@ -410,7 +410,7 @@ __STATIC_INLINE float mavlink_msg_generator_status_get_bat_current_setpoint(cons
  *
  * @return [degC] The temperature of the mechanical motor, fuel cell core or generator. INT16_MAX: field not provided.
  */
-__STATIC_INLINE int16_t mavlink_msg_generator_status_get_generator_temperature(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_generator_status_get_generator_temperature(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 40);
 }
@@ -420,7 +420,7 @@ __STATIC_INLINE int16_t mavlink_msg_generator_status_get_generator_temperature(c
  *
  * @return [s] Seconds this generator has run since it was rebooted. UINT32_MAX: field not provided.
  */
-__STATIC_INLINE uint32_t mavlink_msg_generator_status_get_runtime(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_generator_status_get_runtime(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 28);
 }
@@ -430,7 +430,7 @@ __STATIC_INLINE uint32_t mavlink_msg_generator_status_get_runtime(const mavlink_
  *
  * @return [s] Seconds until this generator requires maintenance.  A negative value indicates maintenance is past-due. INT32_MAX: field not provided.
  */
-__STATIC_INLINE int32_t mavlink_msg_generator_status_get_time_until_maintenance(const mavlink_message_t* msg)
+static_inline int32_t mavlink_msg_generator_status_get_time_until_maintenance(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 32);
 }
@@ -441,7 +441,7 @@ __STATIC_INLINE int32_t mavlink_msg_generator_status_get_time_until_maintenance(
  * @param msg The message to decode
  * @param generator_status C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_generator_status_decode(const mavlink_message_t* msg, mavlink_generator_status_t* generator_status)
+static_inline void mavlink_msg_generator_status_decode(const mavlink_message_t* msg, mavlink_generator_status_t* generator_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     generator_status->status = mavlink_msg_generator_status_get_status(msg);

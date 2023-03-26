@@ -5,7 +5,7 @@
 //
 
 #include "sensor_gps.h"
-#include "gps/gps.h"
+#include "hal/gps/gps.h"
 
 /**
  * @brief Check if gps data is ready to read

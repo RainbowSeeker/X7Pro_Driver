@@ -108,7 +108,7 @@
 //    return val;
 //}
 //
-//__STATIC_INLINE void stm32_udelay(uint32_t us)
+//static_inline void stm32_udelay(uint32_t us)
 //{
 //    systime_udelay(us);
 //}

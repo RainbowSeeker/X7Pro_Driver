@@ -592,6 +592,9 @@ WAKEUP_PIN_IRQHandler
                 
                  IMPORT  __use_two_region_memory
                  EXPORT  __user_initial_stackheap
+					 
+				 EXPORT  __heap_base
+                 EXPORT  __heap_limit
                  
 __user_initial_stackheap
 

@@ -85,7 +85,7 @@ typedef struct __mavlink_rc_channels_scaled_t {
  * @param rssi  Receive signal strength indicator in device-dependent units/scale. Values: [0-254], 255: invalid/unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_rc_channels_scaled_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_rc_channels_scaled_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                            uint32_t time_boot_ms, uint8_t port, int16_t chan1_scaled, int16_t chan2_scaled, int16_t chan3_scaled, int16_t chan4_scaled, int16_t chan5_scaled, int16_t chan6_scaled, int16_t chan7_scaled, int16_t chan8_scaled, uint8_t rssi)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -143,7 +143,7 @@ __STATIC_INLINE uint16_t mavlink_msg_rc_channels_scaled_pack(uint8_t system_id, 
  * @param rssi  Receive signal strength indicator in device-dependent units/scale. Values: [0-254], 255: invalid/unknown.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_rc_channels_scaled_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_rc_channels_scaled_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                 mavlink_message_t* msg,
                                                                 uint32_t time_boot_ms, uint8_t port, int16_t chan1_scaled, int16_t chan2_scaled, int16_t chan3_scaled, int16_t chan4_scaled, int16_t chan5_scaled, int16_t chan6_scaled, int16_t chan7_scaled, int16_t chan8_scaled, uint8_t rssi)
 {
@@ -191,7 +191,7 @@ __STATIC_INLINE uint16_t mavlink_msg_rc_channels_scaled_pack_chan(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param rc_channels_scaled C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_rc_channels_scaled_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_rc_channels_scaled_t* rc_channels_scaled)
+static_inline uint16_t mavlink_msg_rc_channels_scaled_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_rc_channels_scaled_t* rc_channels_scaled)
 {
     return mavlink_msg_rc_channels_scaled_pack(system_id, component_id, msg, rc_channels_scaled->time_boot_ms, rc_channels_scaled->port, rc_channels_scaled->chan1_scaled, rc_channels_scaled->chan2_scaled, rc_channels_scaled->chan3_scaled, rc_channels_scaled->chan4_scaled, rc_channels_scaled->chan5_scaled, rc_channels_scaled->chan6_scaled, rc_channels_scaled->chan7_scaled, rc_channels_scaled->chan8_scaled, rc_channels_scaled->rssi);
 }
@@ -205,7 +205,7 @@ __STATIC_INLINE uint16_t mavlink_msg_rc_channels_scaled_encode(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param rc_channels_scaled C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_rc_channels_scaled_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_rc_channels_scaled_t* rc_channels_scaled)
+static_inline uint16_t mavlink_msg_rc_channels_scaled_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_rc_channels_scaled_t* rc_channels_scaled)
 {
     return mavlink_msg_rc_channels_scaled_pack_chan(system_id, component_id, chan, msg, rc_channels_scaled->time_boot_ms, rc_channels_scaled->port, rc_channels_scaled->chan1_scaled, rc_channels_scaled->chan2_scaled, rc_channels_scaled->chan3_scaled, rc_channels_scaled->chan4_scaled, rc_channels_scaled->chan5_scaled, rc_channels_scaled->chan6_scaled, rc_channels_scaled->chan7_scaled, rc_channels_scaled->chan8_scaled, rc_channels_scaled->rssi);
 }
@@ -228,7 +228,7 @@ __STATIC_INLINE uint16_t mavlink_msg_rc_channels_scaled_encode_chan(uint8_t syst
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_rc_channels_scaled_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t port, int16_t chan1_scaled, int16_t chan2_scaled, int16_t chan3_scaled, int16_t chan4_scaled, int16_t chan5_scaled, int16_t chan6_scaled, int16_t chan7_scaled, int16_t chan8_scaled, uint8_t rssi)
+static_inline void mavlink_msg_rc_channels_scaled_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t port, int16_t chan1_scaled, int16_t chan2_scaled, int16_t chan3_scaled, int16_t chan4_scaled, int16_t chan5_scaled, int16_t chan6_scaled, int16_t chan7_scaled, int16_t chan8_scaled, uint8_t rssi)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_RC_CHANNELS_SCALED_LEN];
@@ -268,7 +268,7 @@ __STATIC_INLINE void mavlink_msg_rc_channels_scaled_send(mavlink_channel_t chan,
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_rc_channels_scaled_send_struct(mavlink_channel_t chan, const mavlink_rc_channels_scaled_t* rc_channels_scaled)
+static_inline void mavlink_msg_rc_channels_scaled_send_struct(mavlink_channel_t chan, const mavlink_rc_channels_scaled_t* rc_channels_scaled)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_rc_channels_scaled_send(chan, rc_channels_scaled->time_boot_ms, rc_channels_scaled->port, rc_channels_scaled->chan1_scaled, rc_channels_scaled->chan2_scaled, rc_channels_scaled->chan3_scaled, rc_channels_scaled->chan4_scaled, rc_channels_scaled->chan5_scaled, rc_channels_scaled->chan6_scaled, rc_channels_scaled->chan7_scaled, rc_channels_scaled->chan8_scaled, rc_channels_scaled->rssi);
@@ -285,7 +285,7 @@ __STATIC_INLINE void mavlink_msg_rc_channels_scaled_send_struct(mavlink_channel_
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_rc_channels_scaled_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t port, int16_t chan1_scaled, int16_t chan2_scaled, int16_t chan3_scaled, int16_t chan4_scaled, int16_t chan5_scaled, int16_t chan6_scaled, int16_t chan7_scaled, int16_t chan8_scaled, uint8_t rssi)
+static_inline void mavlink_msg_rc_channels_scaled_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t port, int16_t chan1_scaled, int16_t chan2_scaled, int16_t chan3_scaled, int16_t chan4_scaled, int16_t chan5_scaled, int16_t chan6_scaled, int16_t chan7_scaled, int16_t chan8_scaled, uint8_t rssi)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -330,7 +330,7 @@ __STATIC_INLINE void mavlink_msg_rc_channels_scaled_send_buf(mavlink_message_t* 
  *
  * @return [ms] Timestamp (time since system boot).
  */
-__STATIC_INLINE uint32_t mavlink_msg_rc_channels_scaled_get_time_boot_ms(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_rc_channels_scaled_get_time_boot_ms(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 0);
 }
@@ -340,7 +340,7 @@ __STATIC_INLINE uint32_t mavlink_msg_rc_channels_scaled_get_time_boot_ms(const m
  *
  * @return  Servo output port (set of 8 outputs = 1 port). Flight stacks running on Pixhawk should use: 0 = MAIN, 1 = AUX.
  */
-__STATIC_INLINE uint8_t mavlink_msg_rc_channels_scaled_get_port(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_rc_channels_scaled_get_port(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 20);
 }
@@ -350,7 +350,7 @@ __STATIC_INLINE uint8_t mavlink_msg_rc_channels_scaled_get_port(const mavlink_me
  *
  * @return  RC channel 1 value scaled.
  */
-__STATIC_INLINE int16_t mavlink_msg_rc_channels_scaled_get_chan1_scaled(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_rc_channels_scaled_get_chan1_scaled(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 4);
 }
@@ -360,7 +360,7 @@ __STATIC_INLINE int16_t mavlink_msg_rc_channels_scaled_get_chan1_scaled(const ma
  *
  * @return  RC channel 2 value scaled.
  */
-__STATIC_INLINE int16_t mavlink_msg_rc_channels_scaled_get_chan2_scaled(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_rc_channels_scaled_get_chan2_scaled(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 6);
 }
@@ -370,7 +370,7 @@ __STATIC_INLINE int16_t mavlink_msg_rc_channels_scaled_get_chan2_scaled(const ma
  *
  * @return  RC channel 3 value scaled.
  */
-__STATIC_INLINE int16_t mavlink_msg_rc_channels_scaled_get_chan3_scaled(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_rc_channels_scaled_get_chan3_scaled(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 8);
 }
@@ -380,7 +380,7 @@ __STATIC_INLINE int16_t mavlink_msg_rc_channels_scaled_get_chan3_scaled(const ma
  *
  * @return  RC channel 4 value scaled.
  */
-__STATIC_INLINE int16_t mavlink_msg_rc_channels_scaled_get_chan4_scaled(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_rc_channels_scaled_get_chan4_scaled(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 10);
 }
@@ -390,7 +390,7 @@ __STATIC_INLINE int16_t mavlink_msg_rc_channels_scaled_get_chan4_scaled(const ma
  *
  * @return  RC channel 5 value scaled.
  */
-__STATIC_INLINE int16_t mavlink_msg_rc_channels_scaled_get_chan5_scaled(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_rc_channels_scaled_get_chan5_scaled(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 12);
 }
@@ -400,7 +400,7 @@ __STATIC_INLINE int16_t mavlink_msg_rc_channels_scaled_get_chan5_scaled(const ma
  *
  * @return  RC channel 6 value scaled.
  */
-__STATIC_INLINE int16_t mavlink_msg_rc_channels_scaled_get_chan6_scaled(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_rc_channels_scaled_get_chan6_scaled(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 14);
 }
@@ -410,7 +410,7 @@ __STATIC_INLINE int16_t mavlink_msg_rc_channels_scaled_get_chan6_scaled(const ma
  *
  * @return  RC channel 7 value scaled.
  */
-__STATIC_INLINE int16_t mavlink_msg_rc_channels_scaled_get_chan7_scaled(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_rc_channels_scaled_get_chan7_scaled(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 16);
 }
@@ -420,7 +420,7 @@ __STATIC_INLINE int16_t mavlink_msg_rc_channels_scaled_get_chan7_scaled(const ma
  *
  * @return  RC channel 8 value scaled.
  */
-__STATIC_INLINE int16_t mavlink_msg_rc_channels_scaled_get_chan8_scaled(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_rc_channels_scaled_get_chan8_scaled(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 18);
 }
@@ -430,7 +430,7 @@ __STATIC_INLINE int16_t mavlink_msg_rc_channels_scaled_get_chan8_scaled(const ma
  *
  * @return  Receive signal strength indicator in device-dependent units/scale. Values: [0-254], 255: invalid/unknown.
  */
-__STATIC_INLINE uint8_t mavlink_msg_rc_channels_scaled_get_rssi(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_rc_channels_scaled_get_rssi(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 21);
 }
@@ -441,7 +441,7 @@ __STATIC_INLINE uint8_t mavlink_msg_rc_channels_scaled_get_rssi(const mavlink_me
  * @param msg The message to decode
  * @param rc_channels_scaled C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_rc_channels_scaled_decode(const mavlink_message_t* msg, mavlink_rc_channels_scaled_t* rc_channels_scaled)
+static_inline void mavlink_msg_rc_channels_scaled_decode(const mavlink_message_t* msg, mavlink_rc_channels_scaled_t* rc_channels_scaled)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     rc_channels_scaled->time_boot_ms = mavlink_msg_rc_channels_scaled_get_time_boot_ms(msg);

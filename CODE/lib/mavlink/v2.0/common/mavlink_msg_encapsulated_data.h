@@ -51,7 +51,7 @@ typedef struct __mavlink_encapsulated_data_t {
  * @param data  image data bytes
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_encapsulated_data_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_encapsulated_data_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                           uint16_t seqnr, const uint8_t* data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -80,7 +80,7 @@ __STATIC_INLINE uint16_t mavlink_msg_encapsulated_data_pack(uint8_t system_id, u
  * @param data  image data bytes
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_encapsulated_data_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_encapsulated_data_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                mavlink_message_t* msg,
                                                                uint16_t seqnr, const uint8_t* data)
 {
@@ -108,7 +108,7 @@ __STATIC_INLINE uint16_t mavlink_msg_encapsulated_data_pack_chan(uint8_t system_
  * @param msg The MAVLink message to compress the data into
  * @param encapsulated_data C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_encapsulated_data_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_encapsulated_data_t* encapsulated_data)
+static_inline uint16_t mavlink_msg_encapsulated_data_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_encapsulated_data_t* encapsulated_data)
 {
     return mavlink_msg_encapsulated_data_pack(system_id, component_id, msg, encapsulated_data->seqnr, encapsulated_data->data);
 }
@@ -122,7 +122,7 @@ __STATIC_INLINE uint16_t mavlink_msg_encapsulated_data_encode(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param encapsulated_data C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_encapsulated_data_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_encapsulated_data_t* encapsulated_data)
+static_inline uint16_t mavlink_msg_encapsulated_data_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_encapsulated_data_t* encapsulated_data)
 {
     return mavlink_msg_encapsulated_data_pack_chan(system_id, component_id, chan, msg, encapsulated_data->seqnr, encapsulated_data->data);
 }
@@ -136,7 +136,7 @@ __STATIC_INLINE uint16_t mavlink_msg_encapsulated_data_encode_chan(uint8_t syste
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_encapsulated_data_send(mavlink_channel_t chan, uint16_t seqnr, const uint8_t* data)
+static_inline void mavlink_msg_encapsulated_data_send(mavlink_channel_t chan, uint16_t seqnr, const uint8_t* data)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ENCAPSULATED_DATA_LEN];
@@ -156,7 +156,7 @@ __STATIC_INLINE void mavlink_msg_encapsulated_data_send(mavlink_channel_t chan, 
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_encapsulated_data_send_struct(mavlink_channel_t chan, const mavlink_encapsulated_data_t* encapsulated_data)
+static_inline void mavlink_msg_encapsulated_data_send_struct(mavlink_channel_t chan, const mavlink_encapsulated_data_t* encapsulated_data)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_encapsulated_data_send(chan, encapsulated_data->seqnr, encapsulated_data->data);
@@ -173,7 +173,7 @@ __STATIC_INLINE void mavlink_msg_encapsulated_data_send_struct(mavlink_channel_t
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_encapsulated_data_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint16_t seqnr, const uint8_t* data)
+static_inline void mavlink_msg_encapsulated_data_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint16_t seqnr, const uint8_t* data)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -198,7 +198,7 @@ __STATIC_INLINE void mavlink_msg_encapsulated_data_send_buf(mavlink_message_t* m
  *
  * @return  sequence number (starting with 0 on every transmission)
  */
-__STATIC_INLINE uint16_t mavlink_msg_encapsulated_data_get_seqnr(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_encapsulated_data_get_seqnr(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 0);
 }
@@ -208,7 +208,7 @@ __STATIC_INLINE uint16_t mavlink_msg_encapsulated_data_get_seqnr(const mavlink_m
  *
  * @return  image data bytes
  */
-__STATIC_INLINE uint16_t mavlink_msg_encapsulated_data_get_data(const mavlink_message_t* msg, uint8_t* data)
+static_inline uint16_t mavlink_msg_encapsulated_data_get_data(const mavlink_message_t* msg, uint8_t* data)
 {
     return _MAV_RETURN_uint8_t_array(msg, data, 253, 2);
 }
@@ -219,7 +219,7 @@ __STATIC_INLINE uint16_t mavlink_msg_encapsulated_data_get_data(const mavlink_me
  * @param msg The message to decode
  * @param encapsulated_data C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_encapsulated_data_decode(const mavlink_message_t* msg, mavlink_encapsulated_data_t* encapsulated_data)
+static_inline void mavlink_msg_encapsulated_data_decode(const mavlink_message_t* msg, mavlink_encapsulated_data_t* encapsulated_data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     encapsulated_data->seqnr = mavlink_msg_encapsulated_data_get_seqnr(msg);

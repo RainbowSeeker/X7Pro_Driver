@@ -16,8 +16,7 @@ device_t console_get_device(void);
 int console_printf(const char* fmt, ...);
 int console_println(const char* fmt, ...);
 int console_print_args(const char* fmt, va_list args);
+int console_putc(char ch);
 int console_write(const char* content, uint32_t len);
 void console_format(char* buffer, const char* fmt, ...);
-
-int println(const void *,...);
 #endif

@@ -59,7 +59,7 @@ typedef struct __mavlink_file_transfer_protocol_t {
  * @param payload  Variable length payload. The length is defined by the remaining message length when subtracting the header and other fields.  The entire content of this block is opaque unless you understand any the encoding message_type.  The particular encoding used can be extension specific and might not always be documented as part of the mavlink specification.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_file_transfer_protocol_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_file_transfer_protocol_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                                uint8_t target_network, uint8_t target_system, uint8_t target_component, const uint8_t* payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -94,7 +94,7 @@ __STATIC_INLINE uint16_t mavlink_msg_file_transfer_protocol_pack(uint8_t system_
  * @param payload  Variable length payload. The length is defined by the remaining message length when subtracting the header and other fields.  The entire content of this block is opaque unless you understand any the encoding message_type.  The particular encoding used can be extension specific and might not always be documented as part of the mavlink specification.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_file_transfer_protocol_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_file_transfer_protocol_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                     mavlink_message_t* msg,
                                                                     uint8_t target_network, uint8_t target_system, uint8_t target_component, const uint8_t* payload)
 {
@@ -126,7 +126,7 @@ __STATIC_INLINE uint16_t mavlink_msg_file_transfer_protocol_pack_chan(uint8_t sy
  * @param msg The MAVLink message to compress the data into
  * @param file_transfer_protocol C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_file_transfer_protocol_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_file_transfer_protocol_t* file_transfer_protocol)
+static_inline uint16_t mavlink_msg_file_transfer_protocol_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_file_transfer_protocol_t* file_transfer_protocol)
 {
     return mavlink_msg_file_transfer_protocol_pack(system_id, component_id, msg, file_transfer_protocol->target_network, file_transfer_protocol->target_system, file_transfer_protocol->target_component, file_transfer_protocol->payload);
 }
@@ -140,7 +140,7 @@ __STATIC_INLINE uint16_t mavlink_msg_file_transfer_protocol_encode(uint8_t syste
  * @param msg The MAVLink message to compress the data into
  * @param file_transfer_protocol C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_file_transfer_protocol_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_file_transfer_protocol_t* file_transfer_protocol)
+static_inline uint16_t mavlink_msg_file_transfer_protocol_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_file_transfer_protocol_t* file_transfer_protocol)
 {
     return mavlink_msg_file_transfer_protocol_pack_chan(system_id, component_id, chan, msg, file_transfer_protocol->target_network, file_transfer_protocol->target_system, file_transfer_protocol->target_component, file_transfer_protocol->payload);
 }
@@ -156,7 +156,7 @@ __STATIC_INLINE uint16_t mavlink_msg_file_transfer_protocol_encode_chan(uint8_t 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_file_transfer_protocol_send(mavlink_channel_t chan, uint8_t target_network, uint8_t target_system, uint8_t target_component, const uint8_t* payload)
+static_inline void mavlink_msg_file_transfer_protocol_send(mavlink_channel_t chan, uint8_t target_network, uint8_t target_system, uint8_t target_component, const uint8_t* payload)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_FILE_TRANSFER_PROTOCOL_LEN];
@@ -180,7 +180,7 @@ __STATIC_INLINE void mavlink_msg_file_transfer_protocol_send(mavlink_channel_t c
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_file_transfer_protocol_send_struct(mavlink_channel_t chan, const mavlink_file_transfer_protocol_t* file_transfer_protocol)
+static_inline void mavlink_msg_file_transfer_protocol_send_struct(mavlink_channel_t chan, const mavlink_file_transfer_protocol_t* file_transfer_protocol)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_file_transfer_protocol_send(chan, file_transfer_protocol->target_network, file_transfer_protocol->target_system, file_transfer_protocol->target_component, file_transfer_protocol->payload);
@@ -197,7 +197,7 @@ __STATIC_INLINE void mavlink_msg_file_transfer_protocol_send_struct(mavlink_chan
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_file_transfer_protocol_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_network, uint8_t target_system, uint8_t target_component, const uint8_t* payload)
+static_inline void mavlink_msg_file_transfer_protocol_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_network, uint8_t target_system, uint8_t target_component, const uint8_t* payload)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -226,7 +226,7 @@ __STATIC_INLINE void mavlink_msg_file_transfer_protocol_send_buf(mavlink_message
  *
  * @return  Network ID (0 for broadcast)
  */
-__STATIC_INLINE uint8_t mavlink_msg_file_transfer_protocol_get_target_network(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_file_transfer_protocol_get_target_network(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 0);
 }
@@ -236,7 +236,7 @@ __STATIC_INLINE uint8_t mavlink_msg_file_transfer_protocol_get_target_network(co
  *
  * @return  System ID (0 for broadcast)
  */
-__STATIC_INLINE uint8_t mavlink_msg_file_transfer_protocol_get_target_system(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_file_transfer_protocol_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 1);
 }
@@ -246,7 +246,7 @@ __STATIC_INLINE uint8_t mavlink_msg_file_transfer_protocol_get_target_system(con
  *
  * @return  Component ID (0 for broadcast)
  */
-__STATIC_INLINE uint8_t mavlink_msg_file_transfer_protocol_get_target_component(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_file_transfer_protocol_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 2);
 }
@@ -256,7 +256,7 @@ __STATIC_INLINE uint8_t mavlink_msg_file_transfer_protocol_get_target_component(
  *
  * @return  Variable length payload. The length is defined by the remaining message length when subtracting the header and other fields.  The entire content of this block is opaque unless you understand any the encoding message_type.  The particular encoding used can be extension specific and might not always be documented as part of the mavlink specification.
  */
-__STATIC_INLINE uint16_t mavlink_msg_file_transfer_protocol_get_payload(const mavlink_message_t* msg, uint8_t* payload)
+static_inline uint16_t mavlink_msg_file_transfer_protocol_get_payload(const mavlink_message_t* msg, uint8_t* payload)
 {
     return _MAV_RETURN_uint8_t_array(msg, payload, 251, 3);
 }
@@ -267,7 +267,7 @@ __STATIC_INLINE uint16_t mavlink_msg_file_transfer_protocol_get_payload(const ma
  * @param msg The message to decode
  * @param file_transfer_protocol C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_file_transfer_protocol_decode(const mavlink_message_t* msg, mavlink_file_transfer_protocol_t* file_transfer_protocol)
+static_inline void mavlink_msg_file_transfer_protocol_decode(const mavlink_message_t* msg, mavlink_file_transfer_protocol_t* file_transfer_protocol)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     file_transfer_protocol->target_network = mavlink_msg_file_transfer_protocol_get_target_network(msg);

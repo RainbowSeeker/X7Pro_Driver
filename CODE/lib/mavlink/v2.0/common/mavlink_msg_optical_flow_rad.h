@@ -89,7 +89,7 @@ typedef struct __mavlink_optical_flow_rad_t {
  * @param distance [m] Distance to the center of the flow field. Positive value (including zero): distance known. Negative value: Unknown distance.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_optical_flow_rad_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_optical_flow_rad_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                          uint64_t time_usec, uint8_t sensor_id, uint32_t integration_time_us, float integrated_x, float integrated_y, float integrated_xgyro, float integrated_ygyro, float integrated_zgyro, int16_t temperature, uint8_t quality, uint32_t time_delta_distance_us, float distance)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -150,7 +150,7 @@ __STATIC_INLINE uint16_t mavlink_msg_optical_flow_rad_pack(uint8_t system_id, ui
  * @param distance [m] Distance to the center of the flow field. Positive value (including zero): distance known. Negative value: Unknown distance.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_optical_flow_rad_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_optical_flow_rad_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                               mavlink_message_t* msg,
                                                               uint64_t time_usec, uint8_t sensor_id, uint32_t integration_time_us, float integrated_x, float integrated_y, float integrated_xgyro, float integrated_ygyro, float integrated_zgyro, int16_t temperature, uint8_t quality, uint32_t time_delta_distance_us, float distance)
 {
@@ -200,7 +200,7 @@ __STATIC_INLINE uint16_t mavlink_msg_optical_flow_rad_pack_chan(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param optical_flow_rad C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_optical_flow_rad_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_optical_flow_rad_t* optical_flow_rad)
+static_inline uint16_t mavlink_msg_optical_flow_rad_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_optical_flow_rad_t* optical_flow_rad)
 {
     return mavlink_msg_optical_flow_rad_pack(system_id, component_id, msg, optical_flow_rad->time_usec, optical_flow_rad->sensor_id, optical_flow_rad->integration_time_us, optical_flow_rad->integrated_x, optical_flow_rad->integrated_y, optical_flow_rad->integrated_xgyro, optical_flow_rad->integrated_ygyro, optical_flow_rad->integrated_zgyro, optical_flow_rad->temperature, optical_flow_rad->quality, optical_flow_rad->time_delta_distance_us, optical_flow_rad->distance);
 }
@@ -214,7 +214,7 @@ __STATIC_INLINE uint16_t mavlink_msg_optical_flow_rad_encode(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param optical_flow_rad C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_optical_flow_rad_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_optical_flow_rad_t* optical_flow_rad)
+static_inline uint16_t mavlink_msg_optical_flow_rad_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_optical_flow_rad_t* optical_flow_rad)
 {
     return mavlink_msg_optical_flow_rad_pack_chan(system_id, component_id, chan, msg, optical_flow_rad->time_usec, optical_flow_rad->sensor_id, optical_flow_rad->integration_time_us, optical_flow_rad->integrated_x, optical_flow_rad->integrated_y, optical_flow_rad->integrated_xgyro, optical_flow_rad->integrated_ygyro, optical_flow_rad->integrated_zgyro, optical_flow_rad->temperature, optical_flow_rad->quality, optical_flow_rad->time_delta_distance_us, optical_flow_rad->distance);
 }
@@ -238,7 +238,7 @@ __STATIC_INLINE uint16_t mavlink_msg_optical_flow_rad_encode_chan(uint8_t system
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_optical_flow_rad_send(mavlink_channel_t chan, uint64_t time_usec, uint8_t sensor_id, uint32_t integration_time_us, float integrated_x, float integrated_y, float integrated_xgyro, float integrated_ygyro, float integrated_zgyro, int16_t temperature, uint8_t quality, uint32_t time_delta_distance_us, float distance)
+static_inline void mavlink_msg_optical_flow_rad_send(mavlink_channel_t chan, uint64_t time_usec, uint8_t sensor_id, uint32_t integration_time_us, float integrated_x, float integrated_y, float integrated_xgyro, float integrated_ygyro, float integrated_zgyro, int16_t temperature, uint8_t quality, uint32_t time_delta_distance_us, float distance)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_OPTICAL_FLOW_RAD_LEN];
@@ -280,7 +280,7 @@ __STATIC_INLINE void mavlink_msg_optical_flow_rad_send(mavlink_channel_t chan, u
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_optical_flow_rad_send_struct(mavlink_channel_t chan, const mavlink_optical_flow_rad_t* optical_flow_rad)
+static_inline void mavlink_msg_optical_flow_rad_send_struct(mavlink_channel_t chan, const mavlink_optical_flow_rad_t* optical_flow_rad)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_optical_flow_rad_send(chan, optical_flow_rad->time_usec, optical_flow_rad->sensor_id, optical_flow_rad->integration_time_us, optical_flow_rad->integrated_x, optical_flow_rad->integrated_y, optical_flow_rad->integrated_xgyro, optical_flow_rad->integrated_ygyro, optical_flow_rad->integrated_zgyro, optical_flow_rad->temperature, optical_flow_rad->quality, optical_flow_rad->time_delta_distance_us, optical_flow_rad->distance);
@@ -297,7 +297,7 @@ __STATIC_INLINE void mavlink_msg_optical_flow_rad_send_struct(mavlink_channel_t 
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_optical_flow_rad_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, uint8_t sensor_id, uint32_t integration_time_us, float integrated_x, float integrated_y, float integrated_xgyro, float integrated_ygyro, float integrated_zgyro, int16_t temperature, uint8_t quality, uint32_t time_delta_distance_us, float distance)
+static_inline void mavlink_msg_optical_flow_rad_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, uint8_t sensor_id, uint32_t integration_time_us, float integrated_x, float integrated_y, float integrated_xgyro, float integrated_ygyro, float integrated_zgyro, int16_t temperature, uint8_t quality, uint32_t time_delta_distance_us, float distance)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -344,7 +344,7 @@ __STATIC_INLINE void mavlink_msg_optical_flow_rad_send_buf(mavlink_message_t* ms
  *
  * @return [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  */
-__STATIC_INLINE uint64_t mavlink_msg_optical_flow_rad_get_time_usec(const mavlink_message_t* msg)
+static_inline uint64_t mavlink_msg_optical_flow_rad_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 0);
 }
@@ -354,7 +354,7 @@ __STATIC_INLINE uint64_t mavlink_msg_optical_flow_rad_get_time_usec(const mavlin
  *
  * @return  Sensor ID
  */
-__STATIC_INLINE uint8_t mavlink_msg_optical_flow_rad_get_sensor_id(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_optical_flow_rad_get_sensor_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 42);
 }
@@ -364,7 +364,7 @@ __STATIC_INLINE uint8_t mavlink_msg_optical_flow_rad_get_sensor_id(const mavlink
  *
  * @return [us] Integration time. Divide integrated_x and integrated_y by the integration time to obtain average flow. The integration time also indicates the.
  */
-__STATIC_INLINE uint32_t mavlink_msg_optical_flow_rad_get_integration_time_us(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_optical_flow_rad_get_integration_time_us(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 8);
 }
@@ -374,7 +374,7 @@ __STATIC_INLINE uint32_t mavlink_msg_optical_flow_rad_get_integration_time_us(co
  *
  * @return [rad] Flow around X axis (Sensor RH rotation about the X axis induces a positive flow. Sensor linear motion along the positive Y axis induces a negative flow.)
  */
-__STATIC_INLINE float mavlink_msg_optical_flow_rad_get_integrated_x(const mavlink_message_t* msg)
+static_inline float mavlink_msg_optical_flow_rad_get_integrated_x(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -384,7 +384,7 @@ __STATIC_INLINE float mavlink_msg_optical_flow_rad_get_integrated_x(const mavlin
  *
  * @return [rad] Flow around Y axis (Sensor RH rotation about the Y axis induces a positive flow. Sensor linear motion along the positive X axis induces a positive flow.)
  */
-__STATIC_INLINE float mavlink_msg_optical_flow_rad_get_integrated_y(const mavlink_message_t* msg)
+static_inline float mavlink_msg_optical_flow_rad_get_integrated_y(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -394,7 +394,7 @@ __STATIC_INLINE float mavlink_msg_optical_flow_rad_get_integrated_y(const mavlin
  *
  * @return [rad] RH rotation around X axis
  */
-__STATIC_INLINE float mavlink_msg_optical_flow_rad_get_integrated_xgyro(const mavlink_message_t* msg)
+static_inline float mavlink_msg_optical_flow_rad_get_integrated_xgyro(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 20);
 }
@@ -404,7 +404,7 @@ __STATIC_INLINE float mavlink_msg_optical_flow_rad_get_integrated_xgyro(const ma
  *
  * @return [rad] RH rotation around Y axis
  */
-__STATIC_INLINE float mavlink_msg_optical_flow_rad_get_integrated_ygyro(const mavlink_message_t* msg)
+static_inline float mavlink_msg_optical_flow_rad_get_integrated_ygyro(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 24);
 }
@@ -414,7 +414,7 @@ __STATIC_INLINE float mavlink_msg_optical_flow_rad_get_integrated_ygyro(const ma
  *
  * @return [rad] RH rotation around Z axis
  */
-__STATIC_INLINE float mavlink_msg_optical_flow_rad_get_integrated_zgyro(const mavlink_message_t* msg)
+static_inline float mavlink_msg_optical_flow_rad_get_integrated_zgyro(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 28);
 }
@@ -424,7 +424,7 @@ __STATIC_INLINE float mavlink_msg_optical_flow_rad_get_integrated_zgyro(const ma
  *
  * @return [cdegC] Temperature
  */
-__STATIC_INLINE int16_t mavlink_msg_optical_flow_rad_get_temperature(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_optical_flow_rad_get_temperature(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 40);
 }
@@ -434,7 +434,7 @@ __STATIC_INLINE int16_t mavlink_msg_optical_flow_rad_get_temperature(const mavli
  *
  * @return  Optical flow quality / confidence. 0: no valid flow, 255: maximum quality
  */
-__STATIC_INLINE uint8_t mavlink_msg_optical_flow_rad_get_quality(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_optical_flow_rad_get_quality(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 43);
 }
@@ -444,7 +444,7 @@ __STATIC_INLINE uint8_t mavlink_msg_optical_flow_rad_get_quality(const mavlink_m
  *
  * @return [us] Time since the distance was sampled.
  */
-__STATIC_INLINE uint32_t mavlink_msg_optical_flow_rad_get_time_delta_distance_us(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_optical_flow_rad_get_time_delta_distance_us(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 32);
 }
@@ -454,7 +454,7 @@ __STATIC_INLINE uint32_t mavlink_msg_optical_flow_rad_get_time_delta_distance_us
  *
  * @return [m] Distance to the center of the flow field. Positive value (including zero): distance known. Negative value: Unknown distance.
  */
-__STATIC_INLINE float mavlink_msg_optical_flow_rad_get_distance(const mavlink_message_t* msg)
+static_inline float mavlink_msg_optical_flow_rad_get_distance(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 36);
 }
@@ -465,7 +465,7 @@ __STATIC_INLINE float mavlink_msg_optical_flow_rad_get_distance(const mavlink_me
  * @param msg The message to decode
  * @param optical_flow_rad C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_optical_flow_rad_decode(const mavlink_message_t* msg, mavlink_optical_flow_rad_t* optical_flow_rad)
+static_inline void mavlink_msg_optical_flow_rad_decode(const mavlink_message_t* msg, mavlink_optical_flow_rad_t* optical_flow_rad)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     optical_flow_rad->time_usec = mavlink_msg_optical_flow_rad_get_time_usec(msg);

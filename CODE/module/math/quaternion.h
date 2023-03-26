@@ -21,7 +21,7 @@ typedef struct {
     float z;
 } quaternion;
 
-//__STATIC_INLINE void quaternion_loadIdentity(quaternion * q);
+//static_inline void quaternion_loadIdentity(quaternion * q);
 void quaternion_normalize(quaternion* q);
 void quaternion_mult(quaternion* result, const quaternion* left, const quaternion* right);
 void quaternion_add(quaternion* result, const quaternion* left, const quaternion* right);
@@ -35,7 +35,7 @@ void quaternion_fromEuler(const Euler e, quaternion* q);
 float quaternion_getEuler(const quaternion q, int index);
 void quaternion_conjugate(const quaternion* q, quaternion* res);
 
-__STATIC_INLINE void quaternion_load_init_attitude(quaternion* q)
+static_inline void quaternion_load_init_attitude(quaternion* q)
 {
     q->w = 1;
     q->x = q->y = q->z = 0;

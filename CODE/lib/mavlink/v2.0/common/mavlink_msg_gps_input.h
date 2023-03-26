@@ -119,7 +119,7 @@ mavlink_gps_input_t;
  * @param yaw [cdeg] Yaw of vehicle relative to Earth's North, zero means not available, use 36000 for north
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_gps_input_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_gps_input_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                   uint64_t time_usec, uint8_t gps_id, uint16_t ignore_flags, uint32_t time_week_ms, uint16_t time_week, uint8_t fix_type, int32_t lat, int32_t lon, float alt, float hdop, float vdop, float vn, float ve, float vd, float speed_accuracy, float horiz_accuracy, float vert_accuracy, uint8_t satellites_visible, uint16_t yaw)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -201,7 +201,7 @@ __STATIC_INLINE uint16_t mavlink_msg_gps_input_pack(uint8_t system_id, uint8_t c
  * @param yaw [cdeg] Yaw of vehicle relative to Earth's North, zero means not available, use 36000 for north
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_gps_input_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_gps_input_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                        mavlink_message_t* msg,
                                                        uint64_t time_usec, uint8_t gps_id, uint16_t ignore_flags, uint32_t time_week_ms, uint16_t time_week, uint8_t fix_type, int32_t lat, int32_t lon, float alt, float hdop, float vdop, float vn, float ve, float vd, float speed_accuracy, float horiz_accuracy, float vert_accuracy, uint8_t satellites_visible, uint16_t yaw)
 {
@@ -265,7 +265,7 @@ __STATIC_INLINE uint16_t mavlink_msg_gps_input_pack_chan(uint8_t system_id, uint
  * @param msg The MAVLink message to compress the data into
  * @param gps_input C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_gps_input_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_gps_input_t* gps_input)
+static_inline uint16_t mavlink_msg_gps_input_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_gps_input_t* gps_input)
 {
     return mavlink_msg_gps_input_pack(system_id, component_id, msg, gps_input->time_usec, gps_input->gps_id, gps_input->ignore_flags, gps_input->time_week_ms, gps_input->time_week, gps_input->fix_type, gps_input->lat, gps_input->lon, gps_input->alt, gps_input->hdop, gps_input->vdop, gps_input->vn, gps_input->ve, gps_input->vd, gps_input->speed_accuracy, gps_input->horiz_accuracy, gps_input->vert_accuracy, gps_input->satellites_visible, gps_input->yaw);
 }
@@ -279,7 +279,7 @@ __STATIC_INLINE uint16_t mavlink_msg_gps_input_encode(uint8_t system_id, uint8_t
  * @param msg The MAVLink message to compress the data into
  * @param gps_input C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_gps_input_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_gps_input_t* gps_input)
+static_inline uint16_t mavlink_msg_gps_input_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_gps_input_t* gps_input)
 {
     return mavlink_msg_gps_input_pack_chan(system_id, component_id, chan, msg, gps_input->time_usec, gps_input->gps_id, gps_input->ignore_flags, gps_input->time_week_ms, gps_input->time_week, gps_input->fix_type, gps_input->lat, gps_input->lon, gps_input->alt, gps_input->hdop, gps_input->vdop, gps_input->vn, gps_input->ve, gps_input->vd, gps_input->speed_accuracy, gps_input->horiz_accuracy, gps_input->vert_accuracy, gps_input->satellites_visible, gps_input->yaw);
 }
@@ -310,7 +310,7 @@ __STATIC_INLINE uint16_t mavlink_msg_gps_input_encode_chan(uint8_t system_id, ui
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_gps_input_send(mavlink_channel_t chan, uint64_t time_usec, uint8_t gps_id, uint16_t ignore_flags, uint32_t time_week_ms, uint16_t time_week, uint8_t fix_type, int32_t lat, int32_t lon, float alt, float hdop, float vdop, float vn, float ve, float vd, float speed_accuracy, float horiz_accuracy, float vert_accuracy, uint8_t satellites_visible, uint16_t yaw)
+static_inline void mavlink_msg_gps_input_send(mavlink_channel_t chan, uint64_t time_usec, uint8_t gps_id, uint16_t ignore_flags, uint32_t time_week_ms, uint16_t time_week, uint8_t fix_type, int32_t lat, int32_t lon, float alt, float hdop, float vdop, float vn, float ve, float vd, float speed_accuracy, float horiz_accuracy, float vert_accuracy, uint8_t satellites_visible, uint16_t yaw)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_GPS_INPUT_LEN];
@@ -366,7 +366,7 @@ __STATIC_INLINE void mavlink_msg_gps_input_send(mavlink_channel_t chan, uint64_t
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_gps_input_send_struct(mavlink_channel_t chan, const mavlink_gps_input_t* gps_input)
+static_inline void mavlink_msg_gps_input_send_struct(mavlink_channel_t chan, const mavlink_gps_input_t* gps_input)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_gps_input_send(chan, gps_input->time_usec, gps_input->gps_id, gps_input->ignore_flags, gps_input->time_week_ms, gps_input->time_week, gps_input->fix_type, gps_input->lat, gps_input->lon, gps_input->alt, gps_input->hdop, gps_input->vdop, gps_input->vn, gps_input->ve, gps_input->vd, gps_input->speed_accuracy, gps_input->horiz_accuracy, gps_input->vert_accuracy, gps_input->satellites_visible, gps_input->yaw);
@@ -383,7 +383,7 @@ __STATIC_INLINE void mavlink_msg_gps_input_send_struct(mavlink_channel_t chan, c
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_gps_input_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, uint8_t gps_id, uint16_t ignore_flags, uint32_t time_week_ms, uint16_t time_week, uint8_t fix_type, int32_t lat, int32_t lon, float alt, float hdop, float vdop, float vn, float ve, float vd, float speed_accuracy, float horiz_accuracy, float vert_accuracy, uint8_t satellites_visible, uint16_t yaw)
+static_inline void mavlink_msg_gps_input_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, uint8_t gps_id, uint16_t ignore_flags, uint32_t time_week_ms, uint16_t time_week, uint8_t fix_type, int32_t lat, int32_t lon, float alt, float hdop, float vdop, float vn, float ve, float vd, float speed_accuracy, float horiz_accuracy, float vert_accuracy, uint8_t satellites_visible, uint16_t yaw)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -444,7 +444,7 @@ __STATIC_INLINE void mavlink_msg_gps_input_send_buf(mavlink_message_t* msgbuf, m
  *
  * @return [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  */
-__STATIC_INLINE uint64_t mavlink_msg_gps_input_get_time_usec(const mavlink_message_t* msg)
+static_inline uint64_t mavlink_msg_gps_input_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 0);
 }
@@ -454,7 +454,7 @@ __STATIC_INLINE uint64_t mavlink_msg_gps_input_get_time_usec(const mavlink_messa
  *
  * @return  ID of the GPS for multiple GPS inputs
  */
-__STATIC_INLINE uint8_t mavlink_msg_gps_input_get_gps_id(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_gps_input_get_gps_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 60);
 }
@@ -464,7 +464,7 @@ __STATIC_INLINE uint8_t mavlink_msg_gps_input_get_gps_id(const mavlink_message_t
  *
  * @return  Bitmap indicating which GPS input flags fields to ignore.  All other fields must be provided.
  */
-__STATIC_INLINE uint16_t mavlink_msg_gps_input_get_ignore_flags(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_gps_input_get_ignore_flags(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 56);
 }
@@ -474,7 +474,7 @@ __STATIC_INLINE uint16_t mavlink_msg_gps_input_get_ignore_flags(const mavlink_me
  *
  * @return [ms] GPS time (from start of GPS week)
  */
-__STATIC_INLINE uint32_t mavlink_msg_gps_input_get_time_week_ms(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_gps_input_get_time_week_ms(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 8);
 }
@@ -484,7 +484,7 @@ __STATIC_INLINE uint32_t mavlink_msg_gps_input_get_time_week_ms(const mavlink_me
  *
  * @return  GPS week number
  */
-__STATIC_INLINE uint16_t mavlink_msg_gps_input_get_time_week(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_gps_input_get_time_week(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 58);
 }
@@ -494,7 +494,7 @@ __STATIC_INLINE uint16_t mavlink_msg_gps_input_get_time_week(const mavlink_messa
  *
  * @return  0-1: no fix, 2: 2D fix, 3: 3D fix. 4: 3D with DGPS. 5: 3D with RTK
  */
-__STATIC_INLINE uint8_t mavlink_msg_gps_input_get_fix_type(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_gps_input_get_fix_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 61);
 }
@@ -504,7 +504,7 @@ __STATIC_INLINE uint8_t mavlink_msg_gps_input_get_fix_type(const mavlink_message
  *
  * @return [degE7] Latitude (WGS84)
  */
-__STATIC_INLINE int32_t mavlink_msg_gps_input_get_lat(const mavlink_message_t* msg)
+static_inline int32_t mavlink_msg_gps_input_get_lat(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 12);
 }
@@ -514,7 +514,7 @@ __STATIC_INLINE int32_t mavlink_msg_gps_input_get_lat(const mavlink_message_t* m
  *
  * @return [degE7] Longitude (WGS84)
  */
-__STATIC_INLINE int32_t mavlink_msg_gps_input_get_lon(const mavlink_message_t* msg)
+static_inline int32_t mavlink_msg_gps_input_get_lon(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 16);
 }
@@ -524,7 +524,7 @@ __STATIC_INLINE int32_t mavlink_msg_gps_input_get_lon(const mavlink_message_t* m
  *
  * @return [m] Altitude (MSL). Positive for up.
  */
-__STATIC_INLINE float mavlink_msg_gps_input_get_alt(const mavlink_message_t* msg)
+static_inline float mavlink_msg_gps_input_get_alt(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 20);
 }
@@ -534,7 +534,7 @@ __STATIC_INLINE float mavlink_msg_gps_input_get_alt(const mavlink_message_t* msg
  *
  * @return [m] GPS HDOP horizontal dilution of position
  */
-__STATIC_INLINE float mavlink_msg_gps_input_get_hdop(const mavlink_message_t* msg)
+static_inline float mavlink_msg_gps_input_get_hdop(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 24);
 }
@@ -544,7 +544,7 @@ __STATIC_INLINE float mavlink_msg_gps_input_get_hdop(const mavlink_message_t* ms
  *
  * @return [m] GPS VDOP vertical dilution of position
  */
-__STATIC_INLINE float mavlink_msg_gps_input_get_vdop(const mavlink_message_t* msg)
+static_inline float mavlink_msg_gps_input_get_vdop(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 28);
 }
@@ -554,7 +554,7 @@ __STATIC_INLINE float mavlink_msg_gps_input_get_vdop(const mavlink_message_t* ms
  *
  * @return [m/s] GPS velocity in north direction in earth-fixed NED frame
  */
-__STATIC_INLINE float mavlink_msg_gps_input_get_vn(const mavlink_message_t* msg)
+static_inline float mavlink_msg_gps_input_get_vn(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 32);
 }
@@ -564,7 +564,7 @@ __STATIC_INLINE float mavlink_msg_gps_input_get_vn(const mavlink_message_t* msg)
  *
  * @return [m/s] GPS velocity in east direction in earth-fixed NED frame
  */
-__STATIC_INLINE float mavlink_msg_gps_input_get_ve(const mavlink_message_t* msg)
+static_inline float mavlink_msg_gps_input_get_ve(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 36);
 }
@@ -574,7 +574,7 @@ __STATIC_INLINE float mavlink_msg_gps_input_get_ve(const mavlink_message_t* msg)
  *
  * @return [m/s] GPS velocity in down direction in earth-fixed NED frame
  */
-__STATIC_INLINE float mavlink_msg_gps_input_get_vd(const mavlink_message_t* msg)
+static_inline float mavlink_msg_gps_input_get_vd(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 40);
 }
@@ -584,7 +584,7 @@ __STATIC_INLINE float mavlink_msg_gps_input_get_vd(const mavlink_message_t* msg)
  *
  * @return [m/s] GPS speed accuracy
  */
-__STATIC_INLINE float mavlink_msg_gps_input_get_speed_accuracy(const mavlink_message_t* msg)
+static_inline float mavlink_msg_gps_input_get_speed_accuracy(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 44);
 }
@@ -594,7 +594,7 @@ __STATIC_INLINE float mavlink_msg_gps_input_get_speed_accuracy(const mavlink_mes
  *
  * @return [m] GPS horizontal accuracy
  */
-__STATIC_INLINE float mavlink_msg_gps_input_get_horiz_accuracy(const mavlink_message_t* msg)
+static_inline float mavlink_msg_gps_input_get_horiz_accuracy(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 48);
 }
@@ -604,7 +604,7 @@ __STATIC_INLINE float mavlink_msg_gps_input_get_horiz_accuracy(const mavlink_mes
  *
  * @return [m] GPS vertical accuracy
  */
-__STATIC_INLINE float mavlink_msg_gps_input_get_vert_accuracy(const mavlink_message_t* msg)
+static_inline float mavlink_msg_gps_input_get_vert_accuracy(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 52);
 }
@@ -614,7 +614,7 @@ __STATIC_INLINE float mavlink_msg_gps_input_get_vert_accuracy(const mavlink_mess
  *
  * @return  Number of satellites visible.
  */
-__STATIC_INLINE uint8_t mavlink_msg_gps_input_get_satellites_visible(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_gps_input_get_satellites_visible(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 62);
 }
@@ -624,7 +624,7 @@ __STATIC_INLINE uint8_t mavlink_msg_gps_input_get_satellites_visible(const mavli
  *
  * @return [cdeg] Yaw of vehicle relative to Earth's North, zero means not available, use 36000 for north
  */
-__STATIC_INLINE uint16_t mavlink_msg_gps_input_get_yaw(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_gps_input_get_yaw(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 63);
 }
@@ -635,7 +635,7 @@ __STATIC_INLINE uint16_t mavlink_msg_gps_input_get_yaw(const mavlink_message_t* 
  * @param msg The message to decode
  * @param gps_input C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_gps_input_decode(const mavlink_message_t* msg, mavlink_gps_input_t* gps_input)
+static_inline void mavlink_msg_gps_input_decode(const mavlink_message_t* msg, mavlink_gps_input_t* gps_input)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     gps_input->time_usec = mavlink_msg_gps_input_get_time_usec(msg);

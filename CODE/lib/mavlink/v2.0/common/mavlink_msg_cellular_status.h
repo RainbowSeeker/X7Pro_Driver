@@ -69,7 +69,7 @@ typedef struct __mavlink_cellular_status_t {
  * @param lac  Location area code. If unknown, set to 0
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_cellular_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_cellular_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                         uint8_t status, uint8_t failure_reason, uint8_t type, uint8_t quality, uint16_t mcc, uint16_t mnc, uint16_t lac)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -115,7 +115,7 @@ __STATIC_INLINE uint16_t mavlink_msg_cellular_status_pack(uint8_t system_id, uin
  * @param lac  Location area code. If unknown, set to 0
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_cellular_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_cellular_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                              mavlink_message_t* msg,
                                                              uint8_t status, uint8_t failure_reason, uint8_t type, uint8_t quality, uint16_t mcc, uint16_t mnc, uint16_t lac)
 {
@@ -155,7 +155,7 @@ __STATIC_INLINE uint16_t mavlink_msg_cellular_status_pack_chan(uint8_t system_id
  * @param msg The MAVLink message to compress the data into
  * @param cellular_status C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_cellular_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_cellular_status_t* cellular_status)
+static_inline uint16_t mavlink_msg_cellular_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_cellular_status_t* cellular_status)
 {
     return mavlink_msg_cellular_status_pack(system_id, component_id, msg, cellular_status->status, cellular_status->failure_reason, cellular_status->type, cellular_status->quality, cellular_status->mcc, cellular_status->mnc, cellular_status->lac);
 }
@@ -169,7 +169,7 @@ __STATIC_INLINE uint16_t mavlink_msg_cellular_status_encode(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param cellular_status C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_cellular_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_cellular_status_t* cellular_status)
+static_inline uint16_t mavlink_msg_cellular_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_cellular_status_t* cellular_status)
 {
     return mavlink_msg_cellular_status_pack_chan(system_id, component_id, chan, msg, cellular_status->status, cellular_status->failure_reason, cellular_status->type, cellular_status->quality, cellular_status->mcc, cellular_status->mnc, cellular_status->lac);
 }
@@ -188,7 +188,7 @@ __STATIC_INLINE uint16_t mavlink_msg_cellular_status_encode_chan(uint8_t system_
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_cellular_status_send(mavlink_channel_t chan, uint8_t status, uint8_t failure_reason, uint8_t type, uint8_t quality, uint16_t mcc, uint16_t mnc, uint16_t lac)
+static_inline void mavlink_msg_cellular_status_send(mavlink_channel_t chan, uint8_t status, uint8_t failure_reason, uint8_t type, uint8_t quality, uint16_t mcc, uint16_t mnc, uint16_t lac)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_CELLULAR_STATUS_LEN];
@@ -220,7 +220,7 @@ __STATIC_INLINE void mavlink_msg_cellular_status_send(mavlink_channel_t chan, ui
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_cellular_status_send_struct(mavlink_channel_t chan, const mavlink_cellular_status_t* cellular_status)
+static_inline void mavlink_msg_cellular_status_send_struct(mavlink_channel_t chan, const mavlink_cellular_status_t* cellular_status)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_cellular_status_send(chan, cellular_status->status, cellular_status->failure_reason, cellular_status->type, cellular_status->quality, cellular_status->mcc, cellular_status->mnc, cellular_status->lac);
@@ -237,7 +237,7 @@ __STATIC_INLINE void mavlink_msg_cellular_status_send_struct(mavlink_channel_t c
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_cellular_status_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t status, uint8_t failure_reason, uint8_t type, uint8_t quality, uint16_t mcc, uint16_t mnc, uint16_t lac)
+static_inline void mavlink_msg_cellular_status_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t status, uint8_t failure_reason, uint8_t type, uint8_t quality, uint16_t mcc, uint16_t mnc, uint16_t lac)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -274,7 +274,7 @@ __STATIC_INLINE void mavlink_msg_cellular_status_send_buf(mavlink_message_t* msg
  *
  * @return  Cellular modem status
  */
-__STATIC_INLINE uint8_t mavlink_msg_cellular_status_get_status(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_cellular_status_get_status(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 6);
 }
@@ -284,7 +284,7 @@ __STATIC_INLINE uint8_t mavlink_msg_cellular_status_get_status(const mavlink_mes
  *
  * @return  Failure reason when status in in CELLUAR_STATUS_FAILED
  */
-__STATIC_INLINE uint8_t mavlink_msg_cellular_status_get_failure_reason(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_cellular_status_get_failure_reason(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 7);
 }
@@ -294,7 +294,7 @@ __STATIC_INLINE uint8_t mavlink_msg_cellular_status_get_failure_reason(const mav
  *
  * @return  Cellular network radio type: gsm, cdma, lte...
  */
-__STATIC_INLINE uint8_t mavlink_msg_cellular_status_get_type(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_cellular_status_get_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 8);
 }
@@ -304,7 +304,7 @@ __STATIC_INLINE uint8_t mavlink_msg_cellular_status_get_type(const mavlink_messa
  *
  * @return  Signal quality in percent. If unknown, set to UINT8_MAX
  */
-__STATIC_INLINE uint8_t mavlink_msg_cellular_status_get_quality(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_cellular_status_get_quality(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 9);
 }
@@ -314,7 +314,7 @@ __STATIC_INLINE uint8_t mavlink_msg_cellular_status_get_quality(const mavlink_me
  *
  * @return  Mobile country code. If unknown, set to UINT16_MAX
  */
-__STATIC_INLINE uint16_t mavlink_msg_cellular_status_get_mcc(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_cellular_status_get_mcc(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 0);
 }
@@ -324,7 +324,7 @@ __STATIC_INLINE uint16_t mavlink_msg_cellular_status_get_mcc(const mavlink_messa
  *
  * @return  Mobile network code. If unknown, set to UINT16_MAX
  */
-__STATIC_INLINE uint16_t mavlink_msg_cellular_status_get_mnc(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_cellular_status_get_mnc(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 2);
 }
@@ -334,7 +334,7 @@ __STATIC_INLINE uint16_t mavlink_msg_cellular_status_get_mnc(const mavlink_messa
  *
  * @return  Location area code. If unknown, set to 0
  */
-__STATIC_INLINE uint16_t mavlink_msg_cellular_status_get_lac(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_cellular_status_get_lac(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 4);
 }
@@ -345,7 +345,7 @@ __STATIC_INLINE uint16_t mavlink_msg_cellular_status_get_lac(const mavlink_messa
  * @param msg The message to decode
  * @param cellular_status C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_cellular_status_decode(const mavlink_message_t* msg, mavlink_cellular_status_t* cellular_status)
+static_inline void mavlink_msg_cellular_status_decode(const mavlink_message_t* msg, mavlink_cellular_status_t* cellular_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     cellular_status->mcc = mavlink_msg_cellular_status_get_mcc(msg);

@@ -49,7 +49,7 @@ typedef struct __mavlink_terrain_check_t {
  * @param lon [degE7] Longitude
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_terrain_check_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_terrain_check_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                       int32_t lat, int32_t lon)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -80,7 +80,7 @@ __STATIC_INLINE uint16_t mavlink_msg_terrain_check_pack(uint8_t system_id, uint8
  * @param lon [degE7] Longitude
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_terrain_check_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_terrain_check_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                            mavlink_message_t* msg,
                                                            int32_t lat, int32_t lon)
 {
@@ -110,7 +110,7 @@ __STATIC_INLINE uint16_t mavlink_msg_terrain_check_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param terrain_check C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_terrain_check_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_terrain_check_t* terrain_check)
+static_inline uint16_t mavlink_msg_terrain_check_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_terrain_check_t* terrain_check)
 {
     return mavlink_msg_terrain_check_pack(system_id, component_id, msg, terrain_check->lat, terrain_check->lon);
 }
@@ -124,7 +124,7 @@ __STATIC_INLINE uint16_t mavlink_msg_terrain_check_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param terrain_check C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_terrain_check_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_terrain_check_t* terrain_check)
+static_inline uint16_t mavlink_msg_terrain_check_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_terrain_check_t* terrain_check)
 {
     return mavlink_msg_terrain_check_pack_chan(system_id, component_id, chan, msg, terrain_check->lat, terrain_check->lon);
 }
@@ -138,7 +138,7 @@ __STATIC_INLINE uint16_t mavlink_msg_terrain_check_encode_chan(uint8_t system_id
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_terrain_check_send(mavlink_channel_t chan, int32_t lat, int32_t lon)
+static_inline void mavlink_msg_terrain_check_send(mavlink_channel_t chan, int32_t lat, int32_t lon)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_TERRAIN_CHECK_LEN];
@@ -160,7 +160,7 @@ __STATIC_INLINE void mavlink_msg_terrain_check_send(mavlink_channel_t chan, int3
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_terrain_check_send_struct(mavlink_channel_t chan, const mavlink_terrain_check_t* terrain_check)
+static_inline void mavlink_msg_terrain_check_send_struct(mavlink_channel_t chan, const mavlink_terrain_check_t* terrain_check)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_terrain_check_send(chan, terrain_check->lat, terrain_check->lon);
@@ -177,7 +177,7 @@ __STATIC_INLINE void mavlink_msg_terrain_check_send_struct(mavlink_channel_t cha
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_terrain_check_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, int32_t lat, int32_t lon)
+static_inline void mavlink_msg_terrain_check_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, int32_t lat, int32_t lon)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -204,7 +204,7 @@ __STATIC_INLINE void mavlink_msg_terrain_check_send_buf(mavlink_message_t* msgbu
  *
  * @return [degE7] Latitude
  */
-__STATIC_INLINE int32_t mavlink_msg_terrain_check_get_lat(const mavlink_message_t* msg)
+static_inline int32_t mavlink_msg_terrain_check_get_lat(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 0);
 }
@@ -214,7 +214,7 @@ __STATIC_INLINE int32_t mavlink_msg_terrain_check_get_lat(const mavlink_message_
  *
  * @return [degE7] Longitude
  */
-__STATIC_INLINE int32_t mavlink_msg_terrain_check_get_lon(const mavlink_message_t* msg)
+static_inline int32_t mavlink_msg_terrain_check_get_lon(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 4);
 }
@@ -225,7 +225,7 @@ __STATIC_INLINE int32_t mavlink_msg_terrain_check_get_lon(const mavlink_message_
  * @param msg The message to decode
  * @param terrain_check C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_terrain_check_decode(const mavlink_message_t* msg, mavlink_terrain_check_t* terrain_check)
+static_inline void mavlink_msg_terrain_check_decode(const mavlink_message_t* msg, mavlink_terrain_check_t* terrain_check)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     terrain_check->lat = mavlink_msg_terrain_check_get_lat(msg);

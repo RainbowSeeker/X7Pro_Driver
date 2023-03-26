@@ -91,7 +91,7 @@ typedef struct __mavlink_follow_target_t {
  * @param custom_state  button states or switches of a tracker device
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_follow_target_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_follow_target_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                       uint64_t timestamp, uint8_t est_capabilities, int32_t lat, int32_t lon, float alt, const float* vel, const float* acc, const float* attitude_q, const float* rates, const float* position_cov, uint64_t custom_state)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -147,7 +147,7 @@ __STATIC_INLINE uint16_t mavlink_msg_follow_target_pack(uint8_t system_id, uint8
  * @param custom_state  button states or switches of a tracker device
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_follow_target_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_follow_target_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                            mavlink_message_t* msg,
                                                            uint64_t timestamp, uint8_t est_capabilities, int32_t lat, int32_t lon, float alt, const float* vel, const float* acc, const float* attitude_q, const float* rates, const float* position_cov, uint64_t custom_state)
 {
@@ -193,7 +193,7 @@ __STATIC_INLINE uint16_t mavlink_msg_follow_target_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param follow_target C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_follow_target_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_follow_target_t* follow_target)
+static_inline uint16_t mavlink_msg_follow_target_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_follow_target_t* follow_target)
 {
     return mavlink_msg_follow_target_pack(system_id, component_id, msg, follow_target->timestamp, follow_target->est_capabilities, follow_target->lat, follow_target->lon, follow_target->alt, follow_target->vel, follow_target->acc, follow_target->attitude_q, follow_target->rates, follow_target->position_cov, follow_target->custom_state);
 }
@@ -207,7 +207,7 @@ __STATIC_INLINE uint16_t mavlink_msg_follow_target_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param follow_target C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_follow_target_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_follow_target_t* follow_target)
+static_inline uint16_t mavlink_msg_follow_target_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_follow_target_t* follow_target)
 {
     return mavlink_msg_follow_target_pack_chan(system_id, component_id, chan, msg, follow_target->timestamp, follow_target->est_capabilities, follow_target->lat, follow_target->lon, follow_target->alt, follow_target->vel, follow_target->acc, follow_target->attitude_q, follow_target->rates, follow_target->position_cov, follow_target->custom_state);
 }
@@ -230,7 +230,7 @@ __STATIC_INLINE uint16_t mavlink_msg_follow_target_encode_chan(uint8_t system_id
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_follow_target_send(mavlink_channel_t chan, uint64_t timestamp, uint8_t est_capabilities, int32_t lat, int32_t lon, float alt, const float* vel, const float* acc, const float* attitude_q, const float* rates, const float* position_cov, uint64_t custom_state)
+static_inline void mavlink_msg_follow_target_send(mavlink_channel_t chan, uint64_t timestamp, uint8_t est_capabilities, int32_t lat, int32_t lon, float alt, const float* vel, const float* acc, const float* attitude_q, const float* rates, const float* position_cov, uint64_t custom_state)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_FOLLOW_TARGET_LEN];
@@ -268,7 +268,7 @@ __STATIC_INLINE void mavlink_msg_follow_target_send(mavlink_channel_t chan, uint
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_follow_target_send_struct(mavlink_channel_t chan, const mavlink_follow_target_t* follow_target)
+static_inline void mavlink_msg_follow_target_send_struct(mavlink_channel_t chan, const mavlink_follow_target_t* follow_target)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_follow_target_send(chan, follow_target->timestamp, follow_target->est_capabilities, follow_target->lat, follow_target->lon, follow_target->alt, follow_target->vel, follow_target->acc, follow_target->attitude_q, follow_target->rates, follow_target->position_cov, follow_target->custom_state);
@@ -285,7 +285,7 @@ __STATIC_INLINE void mavlink_msg_follow_target_send_struct(mavlink_channel_t cha
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_follow_target_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t timestamp, uint8_t est_capabilities, int32_t lat, int32_t lon, float alt, const float* vel, const float* acc, const float* attitude_q, const float* rates, const float* position_cov, uint64_t custom_state)
+static_inline void mavlink_msg_follow_target_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t timestamp, uint8_t est_capabilities, int32_t lat, int32_t lon, float alt, const float* vel, const float* acc, const float* attitude_q, const float* rates, const float* position_cov, uint64_t custom_state)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -328,7 +328,7 @@ __STATIC_INLINE void mavlink_msg_follow_target_send_buf(mavlink_message_t* msgbu
  *
  * @return [ms] Timestamp (time since system boot).
  */
-__STATIC_INLINE uint64_t mavlink_msg_follow_target_get_timestamp(const mavlink_message_t* msg)
+static_inline uint64_t mavlink_msg_follow_target_get_timestamp(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 0);
 }
@@ -338,7 +338,7 @@ __STATIC_INLINE uint64_t mavlink_msg_follow_target_get_timestamp(const mavlink_m
  *
  * @return  bit positions for tracker reporting capabilities (POS = 0, VEL = 1, ACCEL = 2, ATT + RATES = 3)
  */
-__STATIC_INLINE uint8_t mavlink_msg_follow_target_get_est_capabilities(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_follow_target_get_est_capabilities(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 92);
 }
@@ -348,7 +348,7 @@ __STATIC_INLINE uint8_t mavlink_msg_follow_target_get_est_capabilities(const mav
  *
  * @return [degE7] Latitude (WGS84)
  */
-__STATIC_INLINE int32_t mavlink_msg_follow_target_get_lat(const mavlink_message_t* msg)
+static_inline int32_t mavlink_msg_follow_target_get_lat(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 16);
 }
@@ -358,7 +358,7 @@ __STATIC_INLINE int32_t mavlink_msg_follow_target_get_lat(const mavlink_message_
  *
  * @return [degE7] Longitude (WGS84)
  */
-__STATIC_INLINE int32_t mavlink_msg_follow_target_get_lon(const mavlink_message_t* msg)
+static_inline int32_t mavlink_msg_follow_target_get_lon(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 20);
 }
@@ -368,7 +368,7 @@ __STATIC_INLINE int32_t mavlink_msg_follow_target_get_lon(const mavlink_message_
  *
  * @return [m] Altitude (MSL)
  */
-__STATIC_INLINE float mavlink_msg_follow_target_get_alt(const mavlink_message_t* msg)
+static_inline float mavlink_msg_follow_target_get_alt(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 24);
 }
@@ -378,7 +378,7 @@ __STATIC_INLINE float mavlink_msg_follow_target_get_alt(const mavlink_message_t*
  *
  * @return [m/s] target velocity (0,0,0) for unknown
  */
-__STATIC_INLINE uint16_t mavlink_msg_follow_target_get_vel(const mavlink_message_t* msg, float* vel)
+static_inline uint16_t mavlink_msg_follow_target_get_vel(const mavlink_message_t* msg, float* vel)
 {
     return _MAV_RETURN_float_array(msg, vel, 3, 28);
 }
@@ -388,7 +388,7 @@ __STATIC_INLINE uint16_t mavlink_msg_follow_target_get_vel(const mavlink_message
  *
  * @return [m/s/s] linear target acceleration (0,0,0) for unknown
  */
-__STATIC_INLINE uint16_t mavlink_msg_follow_target_get_acc(const mavlink_message_t* msg, float* acc)
+static_inline uint16_t mavlink_msg_follow_target_get_acc(const mavlink_message_t* msg, float* acc)
 {
     return _MAV_RETURN_float_array(msg, acc, 3, 40);
 }
@@ -398,7 +398,7 @@ __STATIC_INLINE uint16_t mavlink_msg_follow_target_get_acc(const mavlink_message
  *
  * @return  (1 0 0 0 for unknown)
  */
-__STATIC_INLINE uint16_t mavlink_msg_follow_target_get_attitude_q(const mavlink_message_t* msg, float* attitude_q)
+static_inline uint16_t mavlink_msg_follow_target_get_attitude_q(const mavlink_message_t* msg, float* attitude_q)
 {
     return _MAV_RETURN_float_array(msg, attitude_q, 4, 52);
 }
@@ -408,7 +408,7 @@ __STATIC_INLINE uint16_t mavlink_msg_follow_target_get_attitude_q(const mavlink_
  *
  * @return  (0 0 0 for unknown)
  */
-__STATIC_INLINE uint16_t mavlink_msg_follow_target_get_rates(const mavlink_message_t* msg, float* rates)
+static_inline uint16_t mavlink_msg_follow_target_get_rates(const mavlink_message_t* msg, float* rates)
 {
     return _MAV_RETURN_float_array(msg, rates, 3, 68);
 }
@@ -418,7 +418,7 @@ __STATIC_INLINE uint16_t mavlink_msg_follow_target_get_rates(const mavlink_messa
  *
  * @return  eph epv
  */
-__STATIC_INLINE uint16_t mavlink_msg_follow_target_get_position_cov(const mavlink_message_t* msg, float* position_cov)
+static_inline uint16_t mavlink_msg_follow_target_get_position_cov(const mavlink_message_t* msg, float* position_cov)
 {
     return _MAV_RETURN_float_array(msg, position_cov, 3, 80);
 }
@@ -428,7 +428,7 @@ __STATIC_INLINE uint16_t mavlink_msg_follow_target_get_position_cov(const mavlin
  *
  * @return  button states or switches of a tracker device
  */
-__STATIC_INLINE uint64_t mavlink_msg_follow_target_get_custom_state(const mavlink_message_t* msg)
+static_inline uint64_t mavlink_msg_follow_target_get_custom_state(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 8);
 }
@@ -439,7 +439,7 @@ __STATIC_INLINE uint64_t mavlink_msg_follow_target_get_custom_state(const mavlin
  * @param msg The message to decode
  * @param follow_target C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_follow_target_decode(const mavlink_message_t* msg, mavlink_follow_target_t* follow_target)
+static_inline void mavlink_msg_follow_target_decode(const mavlink_message_t* msg, mavlink_follow_target_t* follow_target)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     follow_target->timestamp = mavlink_msg_follow_target_get_timestamp(msg);

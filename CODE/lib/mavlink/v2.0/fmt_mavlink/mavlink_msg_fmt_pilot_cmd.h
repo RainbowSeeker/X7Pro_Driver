@@ -73,7 +73,7 @@ typedef struct __mavlink_fmt_pilot_cmd_t {
  * @param command_2  Pilot command 2
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_fmt_pilot_cmd_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_fmt_pilot_cmd_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                       uint32_t timestamp, float ls_lr, float ls_ud, float rs_lr, float rs_ud, uint32_t mode, uint32_t command_1, uint32_t command_2)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -122,7 +122,7 @@ __STATIC_INLINE uint16_t mavlink_msg_fmt_pilot_cmd_pack(uint8_t system_id, uint8
  * @param command_2  Pilot command 2
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_fmt_pilot_cmd_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_fmt_pilot_cmd_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                            mavlink_message_t* msg,
                                                            uint32_t timestamp, float ls_lr, float ls_ud, float rs_lr, float rs_ud, uint32_t mode, uint32_t command_1, uint32_t command_2)
 {
@@ -164,7 +164,7 @@ __STATIC_INLINE uint16_t mavlink_msg_fmt_pilot_cmd_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param fmt_pilot_cmd C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_fmt_pilot_cmd_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_fmt_pilot_cmd_t* fmt_pilot_cmd)
+static_inline uint16_t mavlink_msg_fmt_pilot_cmd_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_fmt_pilot_cmd_t* fmt_pilot_cmd)
 {
     return mavlink_msg_fmt_pilot_cmd_pack(system_id, component_id, msg, fmt_pilot_cmd->timestamp, fmt_pilot_cmd->ls_lr, fmt_pilot_cmd->ls_ud, fmt_pilot_cmd->rs_lr, fmt_pilot_cmd->rs_ud, fmt_pilot_cmd->mode, fmt_pilot_cmd->command_1, fmt_pilot_cmd->command_2);
 }
@@ -178,7 +178,7 @@ __STATIC_INLINE uint16_t mavlink_msg_fmt_pilot_cmd_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param fmt_pilot_cmd C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_fmt_pilot_cmd_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_fmt_pilot_cmd_t* fmt_pilot_cmd)
+static_inline uint16_t mavlink_msg_fmt_pilot_cmd_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_fmt_pilot_cmd_t* fmt_pilot_cmd)
 {
     return mavlink_msg_fmt_pilot_cmd_pack_chan(system_id, component_id, chan, msg, fmt_pilot_cmd->timestamp, fmt_pilot_cmd->ls_lr, fmt_pilot_cmd->ls_ud, fmt_pilot_cmd->rs_lr, fmt_pilot_cmd->rs_ud, fmt_pilot_cmd->mode, fmt_pilot_cmd->command_1, fmt_pilot_cmd->command_2);
 }
@@ -198,7 +198,7 @@ __STATIC_INLINE uint16_t mavlink_msg_fmt_pilot_cmd_encode_chan(uint8_t system_id
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_fmt_pilot_cmd_send(mavlink_channel_t chan, uint32_t timestamp, float ls_lr, float ls_ud, float rs_lr, float rs_ud, uint32_t mode, uint32_t command_1, uint32_t command_2)
+static_inline void mavlink_msg_fmt_pilot_cmd_send(mavlink_channel_t chan, uint32_t timestamp, float ls_lr, float ls_ud, float rs_lr, float rs_ud, uint32_t mode, uint32_t command_1, uint32_t command_2)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_FMT_PILOT_CMD_LEN];
@@ -232,7 +232,7 @@ __STATIC_INLINE void mavlink_msg_fmt_pilot_cmd_send(mavlink_channel_t chan, uint
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_fmt_pilot_cmd_send_struct(mavlink_channel_t chan, const mavlink_fmt_pilot_cmd_t* fmt_pilot_cmd)
+static_inline void mavlink_msg_fmt_pilot_cmd_send_struct(mavlink_channel_t chan, const mavlink_fmt_pilot_cmd_t* fmt_pilot_cmd)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_fmt_pilot_cmd_send(chan, fmt_pilot_cmd->timestamp, fmt_pilot_cmd->ls_lr, fmt_pilot_cmd->ls_ud, fmt_pilot_cmd->rs_lr, fmt_pilot_cmd->rs_ud, fmt_pilot_cmd->mode, fmt_pilot_cmd->command_1, fmt_pilot_cmd->command_2);
@@ -249,7 +249,7 @@ __STATIC_INLINE void mavlink_msg_fmt_pilot_cmd_send_struct(mavlink_channel_t cha
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_fmt_pilot_cmd_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t timestamp, float ls_lr, float ls_ud, float rs_lr, float rs_ud, uint32_t mode, uint32_t command_1, uint32_t command_2)
+static_inline void mavlink_msg_fmt_pilot_cmd_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t timestamp, float ls_lr, float ls_ud, float rs_lr, float rs_ud, uint32_t mode, uint32_t command_1, uint32_t command_2)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -288,7 +288,7 @@ __STATIC_INLINE void mavlink_msg_fmt_pilot_cmd_send_buf(mavlink_message_t* msgbu
  *
  * @return  timestamp in milliseconds
  */
-__STATIC_INLINE uint32_t mavlink_msg_fmt_pilot_cmd_get_timestamp(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_fmt_pilot_cmd_get_timestamp(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 0);
 }
@@ -298,7 +298,7 @@ __STATIC_INLINE uint32_t mavlink_msg_fmt_pilot_cmd_get_timestamp(const mavlink_m
  *
  * @return  Left stick left/right
  */
-__STATIC_INLINE float mavlink_msg_fmt_pilot_cmd_get_ls_lr(const mavlink_message_t* msg)
+static_inline float mavlink_msg_fmt_pilot_cmd_get_ls_lr(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 4);
 }
@@ -308,7 +308,7 @@ __STATIC_INLINE float mavlink_msg_fmt_pilot_cmd_get_ls_lr(const mavlink_message_
  *
  * @return  Left stick up/down
  */
-__STATIC_INLINE float mavlink_msg_fmt_pilot_cmd_get_ls_ud(const mavlink_message_t* msg)
+static_inline float mavlink_msg_fmt_pilot_cmd_get_ls_ud(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 8);
 }
@@ -318,7 +318,7 @@ __STATIC_INLINE float mavlink_msg_fmt_pilot_cmd_get_ls_ud(const mavlink_message_
  *
  * @return  Right stick left/right
  */
-__STATIC_INLINE float mavlink_msg_fmt_pilot_cmd_get_rs_lr(const mavlink_message_t* msg)
+static_inline float mavlink_msg_fmt_pilot_cmd_get_rs_lr(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -328,7 +328,7 @@ __STATIC_INLINE float mavlink_msg_fmt_pilot_cmd_get_rs_lr(const mavlink_message_
  *
  * @return  Right stick up/down
  */
-__STATIC_INLINE float mavlink_msg_fmt_pilot_cmd_get_rs_ud(const mavlink_message_t* msg)
+static_inline float mavlink_msg_fmt_pilot_cmd_get_rs_ud(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -338,7 +338,7 @@ __STATIC_INLINE float mavlink_msg_fmt_pilot_cmd_get_rs_ud(const mavlink_message_
  *
  * @return  Control Mode
  */
-__STATIC_INLINE uint32_t mavlink_msg_fmt_pilot_cmd_get_mode(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_fmt_pilot_cmd_get_mode(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 20);
 }
@@ -348,7 +348,7 @@ __STATIC_INLINE uint32_t mavlink_msg_fmt_pilot_cmd_get_mode(const mavlink_messag
  *
  * @return  Pilot command 1
  */
-__STATIC_INLINE uint32_t mavlink_msg_fmt_pilot_cmd_get_command_1(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_fmt_pilot_cmd_get_command_1(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 24);
 }
@@ -358,7 +358,7 @@ __STATIC_INLINE uint32_t mavlink_msg_fmt_pilot_cmd_get_command_1(const mavlink_m
  *
  * @return  Pilot command 2
  */
-__STATIC_INLINE uint32_t mavlink_msg_fmt_pilot_cmd_get_command_2(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_fmt_pilot_cmd_get_command_2(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 28);
 }
@@ -369,7 +369,7 @@ __STATIC_INLINE uint32_t mavlink_msg_fmt_pilot_cmd_get_command_2(const mavlink_m
  * @param msg The message to decode
  * @param fmt_pilot_cmd C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_fmt_pilot_cmd_decode(const mavlink_message_t* msg, mavlink_fmt_pilot_cmd_t* fmt_pilot_cmd)
+static_inline void mavlink_msg_fmt_pilot_cmd_decode(const mavlink_message_t* msg, mavlink_fmt_pilot_cmd_t* fmt_pilot_cmd)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     fmt_pilot_cmd->timestamp = mavlink_msg_fmt_pilot_cmd_get_timestamp(msg);

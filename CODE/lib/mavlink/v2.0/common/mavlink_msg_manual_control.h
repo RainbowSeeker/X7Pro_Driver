@@ -65,7 +65,7 @@ typedef struct __mavlink_manual_control_t {
  * @param buttons  A bitfield corresponding to the joystick buttons' current state, 1 for pressed, 0 for released. The lowest bit corresponds to Button 1.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_manual_control_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_manual_control_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                        uint8_t target, int16_t x, int16_t y, int16_t z, int16_t r, uint16_t buttons)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -108,7 +108,7 @@ __STATIC_INLINE uint16_t mavlink_msg_manual_control_pack(uint8_t system_id, uint
  * @param buttons  A bitfield corresponding to the joystick buttons' current state, 1 for pressed, 0 for released. The lowest bit corresponds to Button 1.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_manual_control_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_manual_control_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                             mavlink_message_t* msg,
                                                             uint8_t target, int16_t x, int16_t y, int16_t z, int16_t r, uint16_t buttons)
 {
@@ -146,7 +146,7 @@ __STATIC_INLINE uint16_t mavlink_msg_manual_control_pack_chan(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param manual_control C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_manual_control_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_manual_control_t* manual_control)
+static_inline uint16_t mavlink_msg_manual_control_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_manual_control_t* manual_control)
 {
     return mavlink_msg_manual_control_pack(system_id, component_id, msg, manual_control->target, manual_control->x, manual_control->y, manual_control->z, manual_control->r, manual_control->buttons);
 }
@@ -160,7 +160,7 @@ __STATIC_INLINE uint16_t mavlink_msg_manual_control_encode(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param manual_control C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_manual_control_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_manual_control_t* manual_control)
+static_inline uint16_t mavlink_msg_manual_control_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_manual_control_t* manual_control)
 {
     return mavlink_msg_manual_control_pack_chan(system_id, component_id, chan, msg, manual_control->target, manual_control->x, manual_control->y, manual_control->z, manual_control->r, manual_control->buttons);
 }
@@ -178,7 +178,7 @@ __STATIC_INLINE uint16_t mavlink_msg_manual_control_encode_chan(uint8_t system_i
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_manual_control_send(mavlink_channel_t chan, uint8_t target, int16_t x, int16_t y, int16_t z, int16_t r, uint16_t buttons)
+static_inline void mavlink_msg_manual_control_send(mavlink_channel_t chan, uint8_t target, int16_t x, int16_t y, int16_t z, int16_t r, uint16_t buttons)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_MANUAL_CONTROL_LEN];
@@ -208,7 +208,7 @@ __STATIC_INLINE void mavlink_msg_manual_control_send(mavlink_channel_t chan, uin
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_manual_control_send_struct(mavlink_channel_t chan, const mavlink_manual_control_t* manual_control)
+static_inline void mavlink_msg_manual_control_send_struct(mavlink_channel_t chan, const mavlink_manual_control_t* manual_control)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_manual_control_send(chan, manual_control->target, manual_control->x, manual_control->y, manual_control->z, manual_control->r, manual_control->buttons);
@@ -225,7 +225,7 @@ __STATIC_INLINE void mavlink_msg_manual_control_send_struct(mavlink_channel_t ch
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_manual_control_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target, int16_t x, int16_t y, int16_t z, int16_t r, uint16_t buttons)
+static_inline void mavlink_msg_manual_control_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target, int16_t x, int16_t y, int16_t z, int16_t r, uint16_t buttons)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -260,7 +260,7 @@ __STATIC_INLINE void mavlink_msg_manual_control_send_buf(mavlink_message_t* msgb
  *
  * @return  The system to be controlled.
  */
-__STATIC_INLINE uint8_t mavlink_msg_manual_control_get_target(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_manual_control_get_target(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 10);
 }
@@ -270,7 +270,7 @@ __STATIC_INLINE uint8_t mavlink_msg_manual_control_get_target(const mavlink_mess
  *
  * @return  X-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to forward(1000)-backward(-1000) movement on a joystick and the pitch of a vehicle.
  */
-__STATIC_INLINE int16_t mavlink_msg_manual_control_get_x(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_manual_control_get_x(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 0);
 }
@@ -280,7 +280,7 @@ __STATIC_INLINE int16_t mavlink_msg_manual_control_get_x(const mavlink_message_t
  *
  * @return  Y-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to left(-1000)-right(1000) movement on a joystick and the roll of a vehicle.
  */
-__STATIC_INLINE int16_t mavlink_msg_manual_control_get_y(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_manual_control_get_y(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 2);
 }
@@ -290,7 +290,7 @@ __STATIC_INLINE int16_t mavlink_msg_manual_control_get_y(const mavlink_message_t
  *
  * @return  Z-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to a separate slider movement with maximum being 1000 and minimum being -1000 on a joystick and the thrust of a vehicle. Positive values are positive thrust, negative values are negative thrust.
  */
-__STATIC_INLINE int16_t mavlink_msg_manual_control_get_z(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_manual_control_get_z(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 4);
 }
@@ -300,7 +300,7 @@ __STATIC_INLINE int16_t mavlink_msg_manual_control_get_z(const mavlink_message_t
  *
  * @return  R-axis, normalized to the range [-1000,1000]. A value of INT16_MAX indicates that this axis is invalid. Generally corresponds to a twisting of the joystick, with counter-clockwise being 1000 and clockwise being -1000, and the yaw of a vehicle.
  */
-__STATIC_INLINE int16_t mavlink_msg_manual_control_get_r(const mavlink_message_t* msg)
+static_inline int16_t mavlink_msg_manual_control_get_r(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int16_t(msg, 6);
 }
@@ -310,7 +310,7 @@ __STATIC_INLINE int16_t mavlink_msg_manual_control_get_r(const mavlink_message_t
  *
  * @return  A bitfield corresponding to the joystick buttons' current state, 1 for pressed, 0 for released. The lowest bit corresponds to Button 1.
  */
-__STATIC_INLINE uint16_t mavlink_msg_manual_control_get_buttons(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_manual_control_get_buttons(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 8);
 }
@@ -321,7 +321,7 @@ __STATIC_INLINE uint16_t mavlink_msg_manual_control_get_buttons(const mavlink_me
  * @param msg The message to decode
  * @param manual_control C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_manual_control_decode(const mavlink_message_t* msg, mavlink_manual_control_t* manual_control)
+static_inline void mavlink_msg_manual_control_decode(const mavlink_message_t* msg, mavlink_manual_control_t* manual_control)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     manual_control->x = mavlink_msg_manual_control_get_x(msg);

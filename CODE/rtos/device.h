@@ -8,6 +8,7 @@
 #define X7PRO_DRIVER_DEVICE_H
 
 #include "os_common.h"
+#include "utils/list.h"
 
 
 /**

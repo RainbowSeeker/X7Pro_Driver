@@ -287,7 +287,7 @@ MAVLINK_HELPER uint16_t mavlink_finalize_message(mavlink_message_t* msg, uint8_t
     return mavlink_finalize_message_chan(msg, system_id, component_id, MAVLINK_COMM_0, min_length, length, crc_extra);
 }
 
-__STATIC_INLINE void _mav_parse_error(mavlink_status_t* status)
+static_inline void _mav_parse_error(mavlink_status_t* status)
 {
     status->parse_error++;
 }

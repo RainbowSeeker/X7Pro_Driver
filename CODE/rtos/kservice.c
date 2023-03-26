@@ -101,7 +101,7 @@ int *_os_errno(void)
  *
  * @return the address of source memory
  */
-void *_memset(void *s, int c, ubase_t count)
+void *__memset(void *s, int c, ubase_t count)
 {
 #ifdef RT_USING_TINY_SIZE
     char *xs = (char *)s;
@@ -623,11 +623,12 @@ int __ffs(int value)
 #if defined (__GNUC__)
 #include <sys/types.h>
 void *memcpy(void *dest, const void *src, size_t n) __attribute__((weak, alias("_memcpy")));
-void *memset(void *s, int c, size_t n) __attribute__((weak, alias("_memset")));
+void *memset(void *s, int c, size_t n) __attribute__((weak, alias("__memset")));
 void *memmove(void *dest, const void *src, size_t n) __attribute__((weak, alias("_memmove")));
 int   memcmp(const void *s1, const void *s2, size_t n) __attribute__((weak, alias("_memcmp")));
 
 size_t strlen(const char *s) __attribute__((weak, alias("_strlen")));
+size_t strnlen(const char *s, size_t maxlen) __attribute__((weak, alias("_strnlen")));
 char *strstr(const char *s1, const char *s2) __attribute__((weak, alias("_strstr")));
 int strcasecmp(const char *a, const char *b) __attribute__((weak, alias("_strcasecmp")));
 char *strncpy(char *dest, const char *src, size_t n) __attribute__((weak, alias("_strncpy")));
@@ -636,18 +637,9 @@ int strcmp(const char *cs, const char *ct) __attribute__((weak, alias("_strcmp")
 #ifdef RT_USING_HEAP
 char *strdup(const char *s) __attribute__((weak, alias("_strdup")));
 #endif
-
 #endif
 
 
-#ifndef _gettimeofday
-/* Dummy function when hardware do not have RTC */
-int _gettimeofday( struct timeval *tv, void *ignore)
-{
-    tv->tv_sec = 0;  // convert to seconds
-    tv->tv_usec = 0;  // get remaining microseconds
-    return 0;  // return non-zero for error
-}
-#endif
+
 
 /**@}*/

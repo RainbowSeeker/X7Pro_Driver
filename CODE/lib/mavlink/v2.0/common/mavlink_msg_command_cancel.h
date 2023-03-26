@@ -53,7 +53,7 @@ typedef struct __mavlink_command_cancel_t {
  * @param command  Command ID (of command to cancel).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_command_cancel_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_command_cancel_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                        uint8_t target_system, uint8_t target_component, uint16_t command)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -87,7 +87,7 @@ __STATIC_INLINE uint16_t mavlink_msg_command_cancel_pack(uint8_t system_id, uint
  * @param command  Command ID (of command to cancel).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_command_cancel_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_command_cancel_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                             mavlink_message_t* msg,
                                                             uint8_t target_system, uint8_t target_component, uint16_t command)
 {
@@ -119,7 +119,7 @@ __STATIC_INLINE uint16_t mavlink_msg_command_cancel_pack_chan(uint8_t system_id,
  * @param msg The MAVLink message to compress the data into
  * @param command_cancel C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_command_cancel_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_command_cancel_t* command_cancel)
+static_inline uint16_t mavlink_msg_command_cancel_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_command_cancel_t* command_cancel)
 {
     return mavlink_msg_command_cancel_pack(system_id, component_id, msg, command_cancel->target_system, command_cancel->target_component, command_cancel->command);
 }
@@ -133,7 +133,7 @@ __STATIC_INLINE uint16_t mavlink_msg_command_cancel_encode(uint8_t system_id, ui
  * @param msg The MAVLink message to compress the data into
  * @param command_cancel C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_command_cancel_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_command_cancel_t* command_cancel)
+static_inline uint16_t mavlink_msg_command_cancel_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_command_cancel_t* command_cancel)
 {
     return mavlink_msg_command_cancel_pack_chan(system_id, component_id, chan, msg, command_cancel->target_system, command_cancel->target_component, command_cancel->command);
 }
@@ -148,7 +148,7 @@ __STATIC_INLINE uint16_t mavlink_msg_command_cancel_encode_chan(uint8_t system_i
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_command_cancel_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint16_t command)
+static_inline void mavlink_msg_command_cancel_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint16_t command)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_COMMAND_CANCEL_LEN];
@@ -172,7 +172,7 @@ __STATIC_INLINE void mavlink_msg_command_cancel_send(mavlink_channel_t chan, uin
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_command_cancel_send_struct(mavlink_channel_t chan, const mavlink_command_cancel_t* command_cancel)
+static_inline void mavlink_msg_command_cancel_send_struct(mavlink_channel_t chan, const mavlink_command_cancel_t* command_cancel)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_command_cancel_send(chan, command_cancel->target_system, command_cancel->target_component, command_cancel->command);
@@ -189,7 +189,7 @@ __STATIC_INLINE void mavlink_msg_command_cancel_send_struct(mavlink_channel_t ch
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_command_cancel_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint16_t command)
+static_inline void mavlink_msg_command_cancel_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint16_t command)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -218,7 +218,7 @@ __STATIC_INLINE void mavlink_msg_command_cancel_send_buf(mavlink_message_t* msgb
  *
  * @return  System executing long running command. Should not be broadcast (0).
  */
-__STATIC_INLINE uint8_t mavlink_msg_command_cancel_get_target_system(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_command_cancel_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 2);
 }
@@ -228,7 +228,7 @@ __STATIC_INLINE uint8_t mavlink_msg_command_cancel_get_target_system(const mavli
  *
  * @return  Component executing long running command.
  */
-__STATIC_INLINE uint8_t mavlink_msg_command_cancel_get_target_component(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_command_cancel_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 3);
 }
@@ -238,7 +238,7 @@ __STATIC_INLINE uint8_t mavlink_msg_command_cancel_get_target_component(const ma
  *
  * @return  Command ID (of command to cancel).
  */
-__STATIC_INLINE uint16_t mavlink_msg_command_cancel_get_command(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_command_cancel_get_command(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 0);
 }
@@ -249,7 +249,7 @@ __STATIC_INLINE uint16_t mavlink_msg_command_cancel_get_command(const mavlink_me
  * @param msg The message to decode
  * @param command_cancel C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_command_cancel_decode(const mavlink_message_t* msg, mavlink_command_cancel_t* command_cancel)
+static_inline void mavlink_msg_command_cancel_decode(const mavlink_message_t* msg, mavlink_command_cancel_t* command_cancel)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     command_cancel->command = mavlink_msg_command_cancel_get_command(msg);

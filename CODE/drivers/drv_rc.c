@@ -5,8 +5,8 @@
 //
 
 #include "drv_rc.h"
-#include "rc/rc.h"
-#include "rc/ppm.h"
+#include "hal/rc/rc.h"
+#include "hal/rc/ppm.h"
 
 #define RC_CHANNEL_NUM    16
 
@@ -46,16 +46,16 @@ static err_t rc_configure(rc_dev_t rc, struct rc_configure* cfg)
     }
 
 
-    if (io_rc_config(new_config) == E_OK)
-    {
-        /* update default configuration */
-        rc_config = new_config;
-        /* update rc device configuration */
-        rc->config = *cfg;
-        return E_OK;
-    } else {
-        return ERROR;
-    }
+//    if (io_rc_config(new_config) == E_OK)
+//    {
+//        /* update default configuration */
+//        rc_config = new_config;
+//        /* update rc device configuration */
+//        rc->config = *cfg;
+//        return E_OK;
+//    } else {
+//        return ERROR;
+//    }
 }
 
 static err_t rc_control(rc_dev_t rc, int cmd, void* arg)

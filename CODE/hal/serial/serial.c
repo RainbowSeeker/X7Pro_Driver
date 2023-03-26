@@ -4,7 +4,7 @@
 /*
  * Serial poll routines
  */
-__STATIC_INLINE int _serial_poll_rx(struct serial_device* serial, uint8_t* data, int length)
+static_inline int _serial_poll_rx(struct serial_device* serial, uint8_t* data, int length)
 {
     int ch;
     int size;
@@ -37,7 +37,7 @@ __STATIC_INLINE int _serial_poll_rx(struct serial_device* serial, uint8_t* data,
     return rx_length;
 }
 
-__STATIC_INLINE int _serial_poll_tx(struct serial_device* serial, const uint8_t* data, int length)
+static_inline int _serial_poll_tx(struct serial_device* serial, const uint8_t* data, int length)
 {
     int size;
     ASSERT(serial != NULL);
@@ -70,7 +70,7 @@ __STATIC_INLINE int _serial_poll_tx(struct serial_device* serial, const uint8_t*
 /*
  * Serial interrupt routines
  */
-__STATIC_INLINE int _serial_int_rx(struct serial_device* serial, uint8_t* data, int length)
+static_inline int _serial_int_rx(struct serial_device* serial, uint8_t* data, int length)
 {
     int size;
     struct serial_rx_fifo* rx_fifo;
@@ -243,7 +243,7 @@ static void _dma_recv_update_put_index(struct serial_device* serial, size_t len)
 /*
  * Serial DMA routines
  */
-__STATIC_INLINE int _serial_dma_rx(struct serial_device* serial, uint8_t* data, int length)
+static_inline int _serial_dma_rx(struct serial_device* serial, uint8_t* data, int length)
 {
     base_t level;
 
@@ -275,7 +275,7 @@ __STATIC_INLINE int _serial_dma_rx(struct serial_device* serial, uint8_t* data, 
     return recv_len;
 }
 
-__STATIC_INLINE int _serial_dma_tx(struct serial_device* serial, const uint8_t* data, int length)
+static_inline int _serial_dma_tx(struct serial_device* serial, const uint8_t* data, int length)
 {
     /* make a DMA transfer */
     serial->ops->dma_transmit(serial, (uint8_t*)data, length, SERIAL_DMA_TX);

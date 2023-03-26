@@ -60,7 +60,7 @@ typedef struct __mavlink_param_v3_ack_t {
  * @param param_value  Parameter value (new value if PARAM_ACK_ACCEPTED, current value otherwise, zeros get trimmed)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_param_v3_ack_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_param_v3_ack_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                      const char* param_id, uint8_t param_type, uint8_t param_result, const char* param_value)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -95,7 +95,7 @@ __STATIC_INLINE uint16_t mavlink_msg_param_v3_ack_pack(uint8_t system_id, uint8_
  * @param param_value  Parameter value (new value if PARAM_ACK_ACCEPTED, current value otherwise, zeros get trimmed)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_param_v3_ack_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_param_v3_ack_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                           mavlink_message_t* msg,
                                                           const char* param_id, uint8_t param_type, uint8_t param_result, const char* param_value)
 {
@@ -127,7 +127,7 @@ __STATIC_INLINE uint16_t mavlink_msg_param_v3_ack_pack_chan(uint8_t system_id, u
  * @param msg The MAVLink message to compress the data into
  * @param param_v3_ack C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_param_v3_ack_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_param_v3_ack_t* param_v3_ack)
+static_inline uint16_t mavlink_msg_param_v3_ack_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_param_v3_ack_t* param_v3_ack)
 {
     return mavlink_msg_param_v3_ack_pack(system_id, component_id, msg, param_v3_ack->param_id, param_v3_ack->param_type, param_v3_ack->param_result, param_v3_ack->param_value);
 }
@@ -141,7 +141,7 @@ __STATIC_INLINE uint16_t mavlink_msg_param_v3_ack_encode(uint8_t system_id, uint
  * @param msg The MAVLink message to compress the data into
  * @param param_v3_ack C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_param_v3_ack_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_param_v3_ack_t* param_v3_ack)
+static_inline uint16_t mavlink_msg_param_v3_ack_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_param_v3_ack_t* param_v3_ack)
 {
     return mavlink_msg_param_v3_ack_pack_chan(system_id, component_id, chan, msg, param_v3_ack->param_id, param_v3_ack->param_type, param_v3_ack->param_result, param_v3_ack->param_value);
 }
@@ -157,7 +157,7 @@ __STATIC_INLINE uint16_t mavlink_msg_param_v3_ack_encode_chan(uint8_t system_id,
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_param_v3_ack_send(mavlink_channel_t chan, const char* param_id, uint8_t param_type, uint8_t param_result, const char* param_value)
+static_inline void mavlink_msg_param_v3_ack_send(mavlink_channel_t chan, const char* param_id, uint8_t param_type, uint8_t param_result, const char* param_value)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_PARAM_V3_ACK_LEN];
@@ -181,7 +181,7 @@ __STATIC_INLINE void mavlink_msg_param_v3_ack_send(mavlink_channel_t chan, const
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_param_v3_ack_send_struct(mavlink_channel_t chan, const mavlink_param_v3_ack_t* param_v3_ack)
+static_inline void mavlink_msg_param_v3_ack_send_struct(mavlink_channel_t chan, const mavlink_param_v3_ack_t* param_v3_ack)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_param_v3_ack_send(chan, param_v3_ack->param_id, param_v3_ack->param_type, param_v3_ack->param_result, param_v3_ack->param_value);
@@ -198,7 +198,7 @@ __STATIC_INLINE void mavlink_msg_param_v3_ack_send_struct(mavlink_channel_t chan
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_param_v3_ack_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, const char* param_id, uint8_t param_type, uint8_t param_result, const char* param_value)
+static_inline void mavlink_msg_param_v3_ack_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, const char* param_id, uint8_t param_type, uint8_t param_result, const char* param_value)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -227,7 +227,7 @@ __STATIC_INLINE void mavlink_msg_param_v3_ack_send_buf(mavlink_message_t* msgbuf
  *
  * @return  Parameter id, terminated by NULL if the length is less than 16 human-readable chars and WITHOUT null termination (NULL) byte if the length is exactly 16 chars - applications have to provide 16+1 bytes storage if the ID is stored as string
  */
-__STATIC_INLINE uint16_t mavlink_msg_param_v3_ack_get_param_id(const mavlink_message_t* msg, char* param_id)
+static_inline uint16_t mavlink_msg_param_v3_ack_get_param_id(const mavlink_message_t* msg, char* param_id)
 {
     return _MAV_RETURN_char_array(msg, param_id, 16, 0);
 }
@@ -237,7 +237,7 @@ __STATIC_INLINE uint16_t mavlink_msg_param_v3_ack_get_param_id(const mavlink_mes
  *
  * @return  Parameter type.
  */
-__STATIC_INLINE uint8_t mavlink_msg_param_v3_ack_get_param_type(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_param_v3_ack_get_param_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 16);
 }
@@ -247,7 +247,7 @@ __STATIC_INLINE uint8_t mavlink_msg_param_v3_ack_get_param_type(const mavlink_me
  *
  * @return  Result code.
  */
-__STATIC_INLINE uint8_t mavlink_msg_param_v3_ack_get_param_result(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_param_v3_ack_get_param_result(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 17);
 }
@@ -257,7 +257,7 @@ __STATIC_INLINE uint8_t mavlink_msg_param_v3_ack_get_param_result(const mavlink_
  *
  * @return  Parameter value (new value if PARAM_ACK_ACCEPTED, current value otherwise, zeros get trimmed)
  */
-__STATIC_INLINE uint16_t mavlink_msg_param_v3_ack_get_param_value(const mavlink_message_t* msg, char* param_value)
+static_inline uint16_t mavlink_msg_param_v3_ack_get_param_value(const mavlink_message_t* msg, char* param_value)
 {
     return _MAV_RETURN_char_array(msg, param_value, 128, 18);
 }
@@ -268,7 +268,7 @@ __STATIC_INLINE uint16_t mavlink_msg_param_v3_ack_get_param_value(const mavlink_
  * @param msg The message to decode
  * @param param_v3_ack C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_param_v3_ack_decode(const mavlink_message_t* msg, mavlink_param_v3_ack_t* param_v3_ack)
+static_inline void mavlink_msg_param_v3_ack_decode(const mavlink_message_t* msg, mavlink_param_v3_ack_t* param_v3_ack)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_param_v3_ack_get_param_id(msg, param_v3_ack->param_id);

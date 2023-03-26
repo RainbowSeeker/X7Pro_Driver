@@ -5,7 +5,7 @@
 //
 
 #include "sensor_baro.h"
-#include "barometer/barometer.h"
+#include "hal/barometer/barometer.h"
 
 /**
  * @brief Check if barometer data is ready to read

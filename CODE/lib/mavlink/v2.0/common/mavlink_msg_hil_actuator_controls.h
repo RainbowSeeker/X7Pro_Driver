@@ -59,7 +59,7 @@ typedef struct __mavlink_hil_actuator_controls_t {
  * @param flags  Flags as bitfield, 1: indicate simulation using lockstep.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_hil_actuator_controls_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_hil_actuator_controls_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                               uint64_t time_usec, const float* controls, uint8_t mode, uint64_t flags)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -94,7 +94,7 @@ __STATIC_INLINE uint16_t mavlink_msg_hil_actuator_controls_pack(uint8_t system_i
  * @param flags  Flags as bitfield, 1: indicate simulation using lockstep.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_hil_actuator_controls_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_hil_actuator_controls_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                    mavlink_message_t* msg,
                                                                    uint64_t time_usec, const float* controls, uint8_t mode, uint64_t flags)
 {
@@ -126,7 +126,7 @@ __STATIC_INLINE uint16_t mavlink_msg_hil_actuator_controls_pack_chan(uint8_t sys
  * @param msg The MAVLink message to compress the data into
  * @param hil_actuator_controls C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_hil_actuator_controls_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_hil_actuator_controls_t* hil_actuator_controls)
+static_inline uint16_t mavlink_msg_hil_actuator_controls_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_hil_actuator_controls_t* hil_actuator_controls)
 {
     return mavlink_msg_hil_actuator_controls_pack(system_id, component_id, msg, hil_actuator_controls->time_usec, hil_actuator_controls->controls, hil_actuator_controls->mode, hil_actuator_controls->flags);
 }
@@ -140,7 +140,7 @@ __STATIC_INLINE uint16_t mavlink_msg_hil_actuator_controls_encode(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param hil_actuator_controls C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_hil_actuator_controls_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_hil_actuator_controls_t* hil_actuator_controls)
+static_inline uint16_t mavlink_msg_hil_actuator_controls_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_hil_actuator_controls_t* hil_actuator_controls)
 {
     return mavlink_msg_hil_actuator_controls_pack_chan(system_id, component_id, chan, msg, hil_actuator_controls->time_usec, hil_actuator_controls->controls, hil_actuator_controls->mode, hil_actuator_controls->flags);
 }
@@ -156,7 +156,7 @@ __STATIC_INLINE uint16_t mavlink_msg_hil_actuator_controls_encode_chan(uint8_t s
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_hil_actuator_controls_send(mavlink_channel_t chan, uint64_t time_usec, const float* controls, uint8_t mode, uint64_t flags)
+static_inline void mavlink_msg_hil_actuator_controls_send(mavlink_channel_t chan, uint64_t time_usec, const float* controls, uint8_t mode, uint64_t flags)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_HIL_ACTUATOR_CONTROLS_LEN];
@@ -180,7 +180,7 @@ __STATIC_INLINE void mavlink_msg_hil_actuator_controls_send(mavlink_channel_t ch
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_hil_actuator_controls_send_struct(mavlink_channel_t chan, const mavlink_hil_actuator_controls_t* hil_actuator_controls)
+static_inline void mavlink_msg_hil_actuator_controls_send_struct(mavlink_channel_t chan, const mavlink_hil_actuator_controls_t* hil_actuator_controls)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_hil_actuator_controls_send(chan, hil_actuator_controls->time_usec, hil_actuator_controls->controls, hil_actuator_controls->mode, hil_actuator_controls->flags);
@@ -197,7 +197,7 @@ __STATIC_INLINE void mavlink_msg_hil_actuator_controls_send_struct(mavlink_chann
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_hil_actuator_controls_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, const float* controls, uint8_t mode, uint64_t flags)
+static_inline void mavlink_msg_hil_actuator_controls_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, const float* controls, uint8_t mode, uint64_t flags)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -226,7 +226,7 @@ __STATIC_INLINE void mavlink_msg_hil_actuator_controls_send_buf(mavlink_message_
  *
  * @return [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  */
-__STATIC_INLINE uint64_t mavlink_msg_hil_actuator_controls_get_time_usec(const mavlink_message_t* msg)
+static_inline uint64_t mavlink_msg_hil_actuator_controls_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 0);
 }
@@ -236,7 +236,7 @@ __STATIC_INLINE uint64_t mavlink_msg_hil_actuator_controls_get_time_usec(const m
  *
  * @return  Control outputs -1 .. 1. Channel assignment depends on the simulated hardware.
  */
-__STATIC_INLINE uint16_t mavlink_msg_hil_actuator_controls_get_controls(const mavlink_message_t* msg, float* controls)
+static_inline uint16_t mavlink_msg_hil_actuator_controls_get_controls(const mavlink_message_t* msg, float* controls)
 {
     return _MAV_RETURN_float_array(msg, controls, 16, 16);
 }
@@ -246,7 +246,7 @@ __STATIC_INLINE uint16_t mavlink_msg_hil_actuator_controls_get_controls(const ma
  *
  * @return  System mode. Includes arming state.
  */
-__STATIC_INLINE uint8_t mavlink_msg_hil_actuator_controls_get_mode(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_hil_actuator_controls_get_mode(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 80);
 }
@@ -256,7 +256,7 @@ __STATIC_INLINE uint8_t mavlink_msg_hil_actuator_controls_get_mode(const mavlink
  *
  * @return  Flags as bitfield, 1: indicate simulation using lockstep.
  */
-__STATIC_INLINE uint64_t mavlink_msg_hil_actuator_controls_get_flags(const mavlink_message_t* msg)
+static_inline uint64_t mavlink_msg_hil_actuator_controls_get_flags(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 8);
 }
@@ -267,7 +267,7 @@ __STATIC_INLINE uint64_t mavlink_msg_hil_actuator_controls_get_flags(const mavli
  * @param msg The message to decode
  * @param hil_actuator_controls C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_hil_actuator_controls_decode(const mavlink_message_t* msg, mavlink_hil_actuator_controls_t* hil_actuator_controls)
+static_inline void mavlink_msg_hil_actuator_controls_decode(const mavlink_message_t* msg, mavlink_hil_actuator_controls_t* hil_actuator_controls)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     hil_actuator_controls->time_usec = mavlink_msg_hil_actuator_controls_get_time_usec(msg);

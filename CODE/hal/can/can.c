@@ -30,7 +30,7 @@ static err_t can_init(struct device *dev)
 /*
  * can interrupt routines
  */
-inline int _can_int_rx(struct can_device *can, struct can_msg *data, int msgs)
+static_inline int _can_int_rx(struct can_device *can, struct can_msg *data, int msgs)
 {
     int size;
     struct can_rx_fifo *rx_fifo;
@@ -114,7 +114,7 @@ inline int _can_int_rx(struct can_device *can, struct can_msg *data, int msgs)
     return (size - msgs);
 }
 
-inline int _can_int_tx(struct can_device *can, const struct can_msg *data, int msgs)
+static_inline int _can_int_tx(struct can_device *can, const struct can_msg *data, int msgs)
 {
     int size;
     struct can_tx_fifo *tx_fifo;
@@ -186,7 +186,7 @@ inline int _can_int_tx(struct can_device *can, const struct can_msg *data, int m
     return (size - msgs);
 }
 
-inline int _can_int_tx_priv(struct can_device *can, const struct can_msg *data, int msgs)
+static_inline int _can_int_tx_priv(struct can_device *can, const struct can_msg *data, int msgs)
 {
     int size;
     base_t level;

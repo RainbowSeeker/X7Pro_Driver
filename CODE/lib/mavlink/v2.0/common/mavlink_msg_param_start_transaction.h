@@ -57,7 +57,7 @@ typedef struct __mavlink_param_start_transaction_t {
  * @param response  Message acceptance response (sent back to GS).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_param_start_transaction_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_param_start_transaction_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                                 uint8_t target_system, uint8_t target_component, uint8_t param_transport, uint8_t response)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -94,7 +94,7 @@ __STATIC_INLINE uint16_t mavlink_msg_param_start_transaction_pack(uint8_t system
  * @param response  Message acceptance response (sent back to GS).
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_param_start_transaction_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_param_start_transaction_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                      mavlink_message_t* msg,
                                                                      uint8_t target_system, uint8_t target_component, uint8_t param_transport, uint8_t response)
 {
@@ -128,7 +128,7 @@ __STATIC_INLINE uint16_t mavlink_msg_param_start_transaction_pack_chan(uint8_t s
  * @param msg The MAVLink message to compress the data into
  * @param param_start_transaction C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_param_start_transaction_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_param_start_transaction_t* param_start_transaction)
+static_inline uint16_t mavlink_msg_param_start_transaction_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_param_start_transaction_t* param_start_transaction)
 {
     return mavlink_msg_param_start_transaction_pack(system_id, component_id, msg, param_start_transaction->target_system, param_start_transaction->target_component, param_start_transaction->param_transport, param_start_transaction->response);
 }
@@ -142,7 +142,7 @@ __STATIC_INLINE uint16_t mavlink_msg_param_start_transaction_encode(uint8_t syst
  * @param msg The MAVLink message to compress the data into
  * @param param_start_transaction C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_param_start_transaction_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_param_start_transaction_t* param_start_transaction)
+static_inline uint16_t mavlink_msg_param_start_transaction_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_param_start_transaction_t* param_start_transaction)
 {
     return mavlink_msg_param_start_transaction_pack_chan(system_id, component_id, chan, msg, param_start_transaction->target_system, param_start_transaction->target_component, param_start_transaction->param_transport, param_start_transaction->response);
 }
@@ -158,7 +158,7 @@ __STATIC_INLINE uint16_t mavlink_msg_param_start_transaction_encode_chan(uint8_t
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_param_start_transaction_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint8_t param_transport, uint8_t response)
+static_inline void mavlink_msg_param_start_transaction_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint8_t param_transport, uint8_t response)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_PARAM_START_TRANSACTION_LEN];
@@ -184,7 +184,7 @@ __STATIC_INLINE void mavlink_msg_param_start_transaction_send(mavlink_channel_t 
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_param_start_transaction_send_struct(mavlink_channel_t chan, const mavlink_param_start_transaction_t* param_start_transaction)
+static_inline void mavlink_msg_param_start_transaction_send_struct(mavlink_channel_t chan, const mavlink_param_start_transaction_t* param_start_transaction)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_param_start_transaction_send(chan, param_start_transaction->target_system, param_start_transaction->target_component, param_start_transaction->param_transport, param_start_transaction->response);
@@ -201,7 +201,7 @@ __STATIC_INLINE void mavlink_msg_param_start_transaction_send_struct(mavlink_cha
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_param_start_transaction_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint8_t param_transport, uint8_t response)
+static_inline void mavlink_msg_param_start_transaction_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint8_t param_transport, uint8_t response)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -232,7 +232,7 @@ __STATIC_INLINE void mavlink_msg_param_start_transaction_send_buf(mavlink_messag
  *
  * @return  System ID
  */
-__STATIC_INLINE uint8_t mavlink_msg_param_start_transaction_get_target_system(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_param_start_transaction_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 0);
 }
@@ -242,7 +242,7 @@ __STATIC_INLINE uint8_t mavlink_msg_param_start_transaction_get_target_system(co
  *
  * @return  Component ID
  */
-__STATIC_INLINE uint8_t mavlink_msg_param_start_transaction_get_target_component(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_param_start_transaction_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 1);
 }
@@ -252,7 +252,7 @@ __STATIC_INLINE uint8_t mavlink_msg_param_start_transaction_get_target_component
  *
  * @return  Possible transport layers to set and get parameters via mavlink during a parameter transaction.
  */
-__STATIC_INLINE uint8_t mavlink_msg_param_start_transaction_get_param_transport(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_param_start_transaction_get_param_transport(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 2);
 }
@@ -262,7 +262,7 @@ __STATIC_INLINE uint8_t mavlink_msg_param_start_transaction_get_param_transport(
  *
  * @return  Message acceptance response (sent back to GS).
  */
-__STATIC_INLINE uint8_t mavlink_msg_param_start_transaction_get_response(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_param_start_transaction_get_response(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 3);
 }
@@ -273,7 +273,7 @@ __STATIC_INLINE uint8_t mavlink_msg_param_start_transaction_get_response(const m
  * @param msg The message to decode
  * @param param_start_transaction C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_param_start_transaction_decode(const mavlink_message_t* msg, mavlink_param_start_transaction_t* param_start_transaction)
+static_inline void mavlink_msg_param_start_transaction_decode(const mavlink_message_t* msg, mavlink_param_start_transaction_t* param_start_transaction)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     param_start_transaction->target_system = mavlink_msg_param_start_transaction_get_target_system(msg);

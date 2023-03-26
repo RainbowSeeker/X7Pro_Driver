@@ -67,7 +67,7 @@ typedef struct __mavlink_vision_speed_estimate_t {
  * @param reset_counter  Estimate reset counter. This should be incremented when the estimate resets in any of the dimensions (position, velocity, attitude, angular speed). This is designed to be used when e.g an external SLAM system detects a loop-closure and the estimate jumps.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_vision_speed_estimate_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_vision_speed_estimate_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                               uint64_t usec, float x, float y, float z, const float* covariance, uint8_t reset_counter)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -108,7 +108,7 @@ __STATIC_INLINE uint16_t mavlink_msg_vision_speed_estimate_pack(uint8_t system_i
  * @param reset_counter  Estimate reset counter. This should be incremented when the estimate resets in any of the dimensions (position, velocity, attitude, angular speed). This is designed to be used when e.g an external SLAM system detects a loop-closure and the estimate jumps.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_vision_speed_estimate_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_vision_speed_estimate_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                    mavlink_message_t* msg,
                                                                    uint64_t usec, float x, float y, float z, const float* covariance, uint8_t reset_counter)
 {
@@ -144,7 +144,7 @@ __STATIC_INLINE uint16_t mavlink_msg_vision_speed_estimate_pack_chan(uint8_t sys
  * @param msg The MAVLink message to compress the data into
  * @param vision_speed_estimate C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_vision_speed_estimate_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_vision_speed_estimate_t* vision_speed_estimate)
+static_inline uint16_t mavlink_msg_vision_speed_estimate_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_vision_speed_estimate_t* vision_speed_estimate)
 {
     return mavlink_msg_vision_speed_estimate_pack(system_id, component_id, msg, vision_speed_estimate->usec, vision_speed_estimate->x, vision_speed_estimate->y, vision_speed_estimate->z, vision_speed_estimate->covariance, vision_speed_estimate->reset_counter);
 }
@@ -158,7 +158,7 @@ __STATIC_INLINE uint16_t mavlink_msg_vision_speed_estimate_encode(uint8_t system
  * @param msg The MAVLink message to compress the data into
  * @param vision_speed_estimate C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_vision_speed_estimate_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_vision_speed_estimate_t* vision_speed_estimate)
+static_inline uint16_t mavlink_msg_vision_speed_estimate_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_vision_speed_estimate_t* vision_speed_estimate)
 {
     return mavlink_msg_vision_speed_estimate_pack_chan(system_id, component_id, chan, msg, vision_speed_estimate->usec, vision_speed_estimate->x, vision_speed_estimate->y, vision_speed_estimate->z, vision_speed_estimate->covariance, vision_speed_estimate->reset_counter);
 }
@@ -176,7 +176,7 @@ __STATIC_INLINE uint16_t mavlink_msg_vision_speed_estimate_encode_chan(uint8_t s
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_vision_speed_estimate_send(mavlink_channel_t chan, uint64_t usec, float x, float y, float z, const float* covariance, uint8_t reset_counter)
+static_inline void mavlink_msg_vision_speed_estimate_send(mavlink_channel_t chan, uint64_t usec, float x, float y, float z, const float* covariance, uint8_t reset_counter)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_VISION_SPEED_ESTIMATE_LEN];
@@ -204,7 +204,7 @@ __STATIC_INLINE void mavlink_msg_vision_speed_estimate_send(mavlink_channel_t ch
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_vision_speed_estimate_send_struct(mavlink_channel_t chan, const mavlink_vision_speed_estimate_t* vision_speed_estimate)
+static_inline void mavlink_msg_vision_speed_estimate_send_struct(mavlink_channel_t chan, const mavlink_vision_speed_estimate_t* vision_speed_estimate)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_vision_speed_estimate_send(chan, vision_speed_estimate->usec, vision_speed_estimate->x, vision_speed_estimate->y, vision_speed_estimate->z, vision_speed_estimate->covariance, vision_speed_estimate->reset_counter);
@@ -221,7 +221,7 @@ __STATIC_INLINE void mavlink_msg_vision_speed_estimate_send_struct(mavlink_chann
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_vision_speed_estimate_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t usec, float x, float y, float z, const float* covariance, uint8_t reset_counter)
+static_inline void mavlink_msg_vision_speed_estimate_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t usec, float x, float y, float z, const float* covariance, uint8_t reset_counter)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -254,7 +254,7 @@ __STATIC_INLINE void mavlink_msg_vision_speed_estimate_send_buf(mavlink_message_
  *
  * @return [us] Timestamp (UNIX time or time since system boot)
  */
-__STATIC_INLINE uint64_t mavlink_msg_vision_speed_estimate_get_usec(const mavlink_message_t* msg)
+static_inline uint64_t mavlink_msg_vision_speed_estimate_get_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 0);
 }
@@ -264,7 +264,7 @@ __STATIC_INLINE uint64_t mavlink_msg_vision_speed_estimate_get_usec(const mavlin
  *
  * @return [m/s] Global X speed
  */
-__STATIC_INLINE float mavlink_msg_vision_speed_estimate_get_x(const mavlink_message_t* msg)
+static_inline float mavlink_msg_vision_speed_estimate_get_x(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 8);
 }
@@ -274,7 +274,7 @@ __STATIC_INLINE float mavlink_msg_vision_speed_estimate_get_x(const mavlink_mess
  *
  * @return [m/s] Global Y speed
  */
-__STATIC_INLINE float mavlink_msg_vision_speed_estimate_get_y(const mavlink_message_t* msg)
+static_inline float mavlink_msg_vision_speed_estimate_get_y(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -284,7 +284,7 @@ __STATIC_INLINE float mavlink_msg_vision_speed_estimate_get_y(const mavlink_mess
  *
  * @return [m/s] Global Z speed
  */
-__STATIC_INLINE float mavlink_msg_vision_speed_estimate_get_z(const mavlink_message_t* msg)
+static_inline float mavlink_msg_vision_speed_estimate_get_z(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -294,7 +294,7 @@ __STATIC_INLINE float mavlink_msg_vision_speed_estimate_get_z(const mavlink_mess
  *
  * @return  Row-major representation of 3x3 linear velocity covariance matrix (states: vx, vy, vz; 1st three entries - 1st row, etc.). If unknown, assign NaN value to first element in the array.
  */
-__STATIC_INLINE uint16_t mavlink_msg_vision_speed_estimate_get_covariance(const mavlink_message_t* msg, float* covariance)
+static_inline uint16_t mavlink_msg_vision_speed_estimate_get_covariance(const mavlink_message_t* msg, float* covariance)
 {
     return _MAV_RETURN_float_array(msg, covariance, 9, 20);
 }
@@ -304,7 +304,7 @@ __STATIC_INLINE uint16_t mavlink_msg_vision_speed_estimate_get_covariance(const 
  *
  * @return  Estimate reset counter. This should be incremented when the estimate resets in any of the dimensions (position, velocity, attitude, angular speed). This is designed to be used when e.g an external SLAM system detects a loop-closure and the estimate jumps.
  */
-__STATIC_INLINE uint8_t mavlink_msg_vision_speed_estimate_get_reset_counter(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_vision_speed_estimate_get_reset_counter(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 56);
 }
@@ -315,7 +315,7 @@ __STATIC_INLINE uint8_t mavlink_msg_vision_speed_estimate_get_reset_counter(cons
  * @param msg The message to decode
  * @param vision_speed_estimate C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_vision_speed_estimate_decode(const mavlink_message_t* msg, mavlink_vision_speed_estimate_t* vision_speed_estimate)
+static_inline void mavlink_msg_vision_speed_estimate_decode(const mavlink_message_t* msg, mavlink_vision_speed_estimate_t* vision_speed_estimate)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     vision_speed_estimate->usec = mavlink_msg_vision_speed_estimate_get_usec(msg);

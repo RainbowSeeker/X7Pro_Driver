@@ -928,7 +928,7 @@ int elm_init(void)
 {
     DWORD fat_time = 0;
 
-#ifdef RT_USING_LIBC
+#if defined(RT_USING_RTC) && defined(RT_USING_LIBC)
     time_t now;
     struct tm *p_tm;
     struct tm tm_now;

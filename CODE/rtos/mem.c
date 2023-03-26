@@ -180,7 +180,7 @@ void system_heap_init(void *begin_addr, void *end_addr)
  *
  * @return pointer to allocated memory or NULL if no free memory was found.
  */
-void *malloc(size_t size)
+void *_malloc(size_t size)
 {
     size_t ptr, ptr2;
     struct heap_mem *mem, *mem2;
@@ -315,7 +315,7 @@ void *malloc(size_t size)
  *
  * @return the changed memory block address
  */
-void *realloc(void *rmem, size_t newsize)
+void *_realloc(void *rmem, size_t newsize)
 {
     size_t size;
     size_t ptr, ptr2;
@@ -418,7 +418,7 @@ void *realloc(void *rmem, size_t newsize)
  *
  * @return pointer to allocated memory / NULL pointer if there is an error
  */
-void *calloc(size_t count, size_t size)
+void *_calloc(size_t count, size_t size)
 {
     void *p;
 
@@ -438,7 +438,7 @@ void *calloc(size_t count, size_t size)
  *
  * @param rmem the address of memory which will be released
  */
-void free(void *rmem)
+void _free(void *rmem)
 {
     struct heap_mem *mem;
 

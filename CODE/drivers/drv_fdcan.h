@@ -6,7 +6,7 @@
 
 #ifndef X7PRO_DRIVER_DRV_FDCAN_H
 #define X7PRO_DRIVER_DRV_FDCAN_H
-#include "can/can.h"
+#include "hal/can/can.h"
 
 struct stm32_fdcan
 {

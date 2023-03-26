@@ -89,7 +89,7 @@ mavlink_home_position_t;
  * @param time_usec [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_home_position_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_home_position_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                       int32_t latitude, int32_t longitude, int32_t altitude, float x, float y, float z, const float* q, float approach_x, float approach_y, float approach_z, uint64_t time_usec)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -145,7 +145,7 @@ __STATIC_INLINE uint16_t mavlink_msg_home_position_pack(uint8_t system_id, uint8
  * @param time_usec [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_home_position_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_home_position_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                            mavlink_message_t* msg,
                                                            int32_t latitude, int32_t longitude, int32_t altitude, float x, float y, float z, const float* q, float approach_x, float approach_y, float approach_z, uint64_t time_usec)
 {
@@ -191,7 +191,7 @@ __STATIC_INLINE uint16_t mavlink_msg_home_position_pack_chan(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param home_position C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_home_position_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_home_position_t* home_position)
+static_inline uint16_t mavlink_msg_home_position_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_home_position_t* home_position)
 {
     return mavlink_msg_home_position_pack(system_id, component_id, msg, home_position->latitude, home_position->longitude, home_position->altitude, home_position->x, home_position->y, home_position->z, home_position->q, home_position->approach_x, home_position->approach_y, home_position->approach_z, home_position->time_usec);
 }
@@ -205,7 +205,7 @@ __STATIC_INLINE uint16_t mavlink_msg_home_position_encode(uint8_t system_id, uin
  * @param msg The MAVLink message to compress the data into
  * @param home_position C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_home_position_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_home_position_t* home_position)
+static_inline uint16_t mavlink_msg_home_position_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_home_position_t* home_position)
 {
     return mavlink_msg_home_position_pack_chan(system_id, component_id, chan, msg, home_position->latitude, home_position->longitude, home_position->altitude, home_position->x, home_position->y, home_position->z, home_position->q, home_position->approach_x, home_position->approach_y, home_position->approach_z, home_position->time_usec);
 }
@@ -228,7 +228,7 @@ __STATIC_INLINE uint16_t mavlink_msg_home_position_encode_chan(uint8_t system_id
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_home_position_send(mavlink_channel_t chan, int32_t latitude, int32_t longitude, int32_t altitude, float x, float y, float z, const float* q, float approach_x, float approach_y, float approach_z, uint64_t time_usec)
+static_inline void mavlink_msg_home_position_send(mavlink_channel_t chan, int32_t latitude, int32_t longitude, int32_t altitude, float x, float y, float z, const float* q, float approach_x, float approach_y, float approach_z, uint64_t time_usec)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_HOME_POSITION_LEN];
@@ -266,7 +266,7 @@ __STATIC_INLINE void mavlink_msg_home_position_send(mavlink_channel_t chan, int3
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_home_position_send_struct(mavlink_channel_t chan, const mavlink_home_position_t* home_position)
+static_inline void mavlink_msg_home_position_send_struct(mavlink_channel_t chan, const mavlink_home_position_t* home_position)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_home_position_send(chan, home_position->latitude, home_position->longitude, home_position->altitude, home_position->x, home_position->y, home_position->z, home_position->q, home_position->approach_x, home_position->approach_y, home_position->approach_z, home_position->time_usec);
@@ -283,7 +283,7 @@ __STATIC_INLINE void mavlink_msg_home_position_send_struct(mavlink_channel_t cha
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_home_position_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, int32_t latitude, int32_t longitude, int32_t altitude, float x, float y, float z, const float* q, float approach_x, float approach_y, float approach_z, uint64_t time_usec)
+static_inline void mavlink_msg_home_position_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, int32_t latitude, int32_t longitude, int32_t altitude, float x, float y, float z, const float* q, float approach_x, float approach_y, float approach_z, uint64_t time_usec)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -326,7 +326,7 @@ __STATIC_INLINE void mavlink_msg_home_position_send_buf(mavlink_message_t* msgbu
  *
  * @return [degE7] Latitude (WGS84)
  */
-__STATIC_INLINE int32_t mavlink_msg_home_position_get_latitude(const mavlink_message_t* msg)
+static_inline int32_t mavlink_msg_home_position_get_latitude(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 0);
 }
@@ -336,7 +336,7 @@ __STATIC_INLINE int32_t mavlink_msg_home_position_get_latitude(const mavlink_mes
  *
  * @return [degE7] Longitude (WGS84)
  */
-__STATIC_INLINE int32_t mavlink_msg_home_position_get_longitude(const mavlink_message_t* msg)
+static_inline int32_t mavlink_msg_home_position_get_longitude(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 4);
 }
@@ -346,7 +346,7 @@ __STATIC_INLINE int32_t mavlink_msg_home_position_get_longitude(const mavlink_me
  *
  * @return [mm] Altitude (MSL). Positive for up.
  */
-__STATIC_INLINE int32_t mavlink_msg_home_position_get_altitude(const mavlink_message_t* msg)
+static_inline int32_t mavlink_msg_home_position_get_altitude(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 8);
 }
@@ -356,7 +356,7 @@ __STATIC_INLINE int32_t mavlink_msg_home_position_get_altitude(const mavlink_mes
  *
  * @return [m] Local X position of this position in the local coordinate frame
  */
-__STATIC_INLINE float mavlink_msg_home_position_get_x(const mavlink_message_t* msg)
+static_inline float mavlink_msg_home_position_get_x(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -366,7 +366,7 @@ __STATIC_INLINE float mavlink_msg_home_position_get_x(const mavlink_message_t* m
  *
  * @return [m] Local Y position of this position in the local coordinate frame
  */
-__STATIC_INLINE float mavlink_msg_home_position_get_y(const mavlink_message_t* msg)
+static_inline float mavlink_msg_home_position_get_y(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -376,7 +376,7 @@ __STATIC_INLINE float mavlink_msg_home_position_get_y(const mavlink_message_t* m
  *
  * @return [m] Local Z position of this position in the local coordinate frame
  */
-__STATIC_INLINE float mavlink_msg_home_position_get_z(const mavlink_message_t* msg)
+static_inline float mavlink_msg_home_position_get_z(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 20);
 }
@@ -386,7 +386,7 @@ __STATIC_INLINE float mavlink_msg_home_position_get_z(const mavlink_message_t* m
  *
  * @return  World to surface normal and heading transformation of the takeoff position. Used to indicate the heading and slope of the ground
  */
-__STATIC_INLINE uint16_t mavlink_msg_home_position_get_q(const mavlink_message_t* msg, float* q)
+static_inline uint16_t mavlink_msg_home_position_get_q(const mavlink_message_t* msg, float* q)
 {
     return _MAV_RETURN_float_array(msg, q, 4, 24);
 }
@@ -396,7 +396,7 @@ __STATIC_INLINE uint16_t mavlink_msg_home_position_get_q(const mavlink_message_t
  *
  * @return [m] Local X position of the end of the approach vector. Multicopters should set this position based on their takeoff path. Grass-landing fixed wing aircraft should set it the same way as multicopters. Runway-landing fixed wing aircraft should set it to the opposite direction of the takeoff, assuming the takeoff happened from the threshold / touchdown zone.
  */
-__STATIC_INLINE float mavlink_msg_home_position_get_approach_x(const mavlink_message_t* msg)
+static_inline float mavlink_msg_home_position_get_approach_x(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 40);
 }
@@ -406,7 +406,7 @@ __STATIC_INLINE float mavlink_msg_home_position_get_approach_x(const mavlink_mes
  *
  * @return [m] Local Y position of the end of the approach vector. Multicopters should set this position based on their takeoff path. Grass-landing fixed wing aircraft should set it the same way as multicopters. Runway-landing fixed wing aircraft should set it to the opposite direction of the takeoff, assuming the takeoff happened from the threshold / touchdown zone.
  */
-__STATIC_INLINE float mavlink_msg_home_position_get_approach_y(const mavlink_message_t* msg)
+static_inline float mavlink_msg_home_position_get_approach_y(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 44);
 }
@@ -416,7 +416,7 @@ __STATIC_INLINE float mavlink_msg_home_position_get_approach_y(const mavlink_mes
  *
  * @return [m] Local Z position of the end of the approach vector. Multicopters should set this position based on their takeoff path. Grass-landing fixed wing aircraft should set it the same way as multicopters. Runway-landing fixed wing aircraft should set it to the opposite direction of the takeoff, assuming the takeoff happened from the threshold / touchdown zone.
  */
-__STATIC_INLINE float mavlink_msg_home_position_get_approach_z(const mavlink_message_t* msg)
+static_inline float mavlink_msg_home_position_get_approach_z(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 48);
 }
@@ -426,7 +426,7 @@ __STATIC_INLINE float mavlink_msg_home_position_get_approach_z(const mavlink_mes
  *
  * @return [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  */
-__STATIC_INLINE uint64_t mavlink_msg_home_position_get_time_usec(const mavlink_message_t* msg)
+static_inline uint64_t mavlink_msg_home_position_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 52);
 }
@@ -437,7 +437,7 @@ __STATIC_INLINE uint64_t mavlink_msg_home_position_get_time_usec(const mavlink_m
  * @param msg The message to decode
  * @param home_position C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_home_position_decode(const mavlink_message_t* msg, mavlink_home_position_t* home_position)
+static_inline void mavlink_msg_home_position_decode(const mavlink_message_t* msg, mavlink_home_position_t* home_position)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     home_position->latitude = mavlink_msg_home_position_get_latitude(msg);

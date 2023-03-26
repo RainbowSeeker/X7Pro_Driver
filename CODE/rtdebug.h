@@ -27,7 +27,7 @@ if(!(expr))             \
  * 断言错误处理
  * @param string
  */
-__STATIC_INLINE void assert_failed(const char *ex_string, const char *func, const char *file, size_t line)
+static_inline void assert_failed(const char *ex_string, const char *func, const char *file, size_t line)
 {
     printf("\r\n(%s) assertion failed at function:%s, in file:%s, line:%d\r\n", ex_string, func, file, line);
     while(1);

@@ -64,7 +64,7 @@ typedef struct __mavlink_protocol_version_t {
  * @param library_version_hash  The first 8 bytes (not characters printed in hex!) of the git hash.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_protocol_version_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_protocol_version_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                          uint16_t version, uint16_t min_version, uint16_t max_version, const uint8_t* spec_version_hash, const uint8_t* library_version_hash)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -102,7 +102,7 @@ __STATIC_INLINE uint16_t mavlink_msg_protocol_version_pack(uint8_t system_id, ui
  * @param library_version_hash  The first 8 bytes (not characters printed in hex!) of the git hash.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_protocol_version_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_protocol_version_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                               mavlink_message_t* msg,
                                                               uint16_t version, uint16_t min_version, uint16_t max_version, const uint8_t* spec_version_hash, const uint8_t* library_version_hash)
 {
@@ -136,7 +136,7 @@ __STATIC_INLINE uint16_t mavlink_msg_protocol_version_pack_chan(uint8_t system_i
  * @param msg The MAVLink message to compress the data into
  * @param protocol_version C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_protocol_version_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_protocol_version_t* protocol_version)
+static_inline uint16_t mavlink_msg_protocol_version_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_protocol_version_t* protocol_version)
 {
     return mavlink_msg_protocol_version_pack(system_id, component_id, msg, protocol_version->version, protocol_version->min_version, protocol_version->max_version, protocol_version->spec_version_hash, protocol_version->library_version_hash);
 }
@@ -150,7 +150,7 @@ __STATIC_INLINE uint16_t mavlink_msg_protocol_version_encode(uint8_t system_id, 
  * @param msg The MAVLink message to compress the data into
  * @param protocol_version C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_protocol_version_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_protocol_version_t* protocol_version)
+static_inline uint16_t mavlink_msg_protocol_version_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_protocol_version_t* protocol_version)
 {
     return mavlink_msg_protocol_version_pack_chan(system_id, component_id, chan, msg, protocol_version->version, protocol_version->min_version, protocol_version->max_version, protocol_version->spec_version_hash, protocol_version->library_version_hash);
 }
@@ -167,7 +167,7 @@ __STATIC_INLINE uint16_t mavlink_msg_protocol_version_encode_chan(uint8_t system
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_protocol_version_send(mavlink_channel_t chan, uint16_t version, uint16_t min_version, uint16_t max_version, const uint8_t* spec_version_hash, const uint8_t* library_version_hash)
+static_inline void mavlink_msg_protocol_version_send(mavlink_channel_t chan, uint16_t version, uint16_t min_version, uint16_t max_version, const uint8_t* spec_version_hash, const uint8_t* library_version_hash)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_PROTOCOL_VERSION_LEN];
@@ -193,7 +193,7 @@ __STATIC_INLINE void mavlink_msg_protocol_version_send(mavlink_channel_t chan, u
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_protocol_version_send_struct(mavlink_channel_t chan, const mavlink_protocol_version_t* protocol_version)
+static_inline void mavlink_msg_protocol_version_send_struct(mavlink_channel_t chan, const mavlink_protocol_version_t* protocol_version)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_protocol_version_send(chan, protocol_version->version, protocol_version->min_version, protocol_version->max_version, protocol_version->spec_version_hash, protocol_version->library_version_hash);
@@ -210,7 +210,7 @@ __STATIC_INLINE void mavlink_msg_protocol_version_send_struct(mavlink_channel_t 
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_protocol_version_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint16_t version, uint16_t min_version, uint16_t max_version, const uint8_t* spec_version_hash, const uint8_t* library_version_hash)
+static_inline void mavlink_msg_protocol_version_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint16_t version, uint16_t min_version, uint16_t max_version, const uint8_t* spec_version_hash, const uint8_t* library_version_hash)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -241,7 +241,7 @@ __STATIC_INLINE void mavlink_msg_protocol_version_send_buf(mavlink_message_t* ms
  *
  * @return  Currently active MAVLink version number * 100: v1.0 is 100, v2.0 is 200, etc.
  */
-__STATIC_INLINE uint16_t mavlink_msg_protocol_version_get_version(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_protocol_version_get_version(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 0);
 }
@@ -251,7 +251,7 @@ __STATIC_INLINE uint16_t mavlink_msg_protocol_version_get_version(const mavlink_
  *
  * @return  Minimum MAVLink version supported
  */
-__STATIC_INLINE uint16_t mavlink_msg_protocol_version_get_min_version(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_protocol_version_get_min_version(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 2);
 }
@@ -261,7 +261,7 @@ __STATIC_INLINE uint16_t mavlink_msg_protocol_version_get_min_version(const mavl
  *
  * @return  Maximum MAVLink version supported (set to the same value as version by default)
  */
-__STATIC_INLINE uint16_t mavlink_msg_protocol_version_get_max_version(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_protocol_version_get_max_version(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 4);
 }
@@ -271,7 +271,7 @@ __STATIC_INLINE uint16_t mavlink_msg_protocol_version_get_max_version(const mavl
  *
  * @return  The first 8 bytes (not characters printed in hex!) of the git hash.
  */
-__STATIC_INLINE uint16_t mavlink_msg_protocol_version_get_spec_version_hash(const mavlink_message_t* msg, uint8_t* spec_version_hash)
+static_inline uint16_t mavlink_msg_protocol_version_get_spec_version_hash(const mavlink_message_t* msg, uint8_t* spec_version_hash)
 {
     return _MAV_RETURN_uint8_t_array(msg, spec_version_hash, 8, 6);
 }
@@ -281,7 +281,7 @@ __STATIC_INLINE uint16_t mavlink_msg_protocol_version_get_spec_version_hash(cons
  *
  * @return  The first 8 bytes (not characters printed in hex!) of the git hash.
  */
-__STATIC_INLINE uint16_t mavlink_msg_protocol_version_get_library_version_hash(const mavlink_message_t* msg, uint8_t* library_version_hash)
+static_inline uint16_t mavlink_msg_protocol_version_get_library_version_hash(const mavlink_message_t* msg, uint8_t* library_version_hash)
 {
     return _MAV_RETURN_uint8_t_array(msg, library_version_hash, 8, 14);
 }
@@ -292,7 +292,7 @@ __STATIC_INLINE uint16_t mavlink_msg_protocol_version_get_library_version_hash(c
  * @param msg The message to decode
  * @param protocol_version C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_protocol_version_decode(const mavlink_message_t* msg, mavlink_protocol_version_t* protocol_version)
+static_inline void mavlink_msg_protocol_version_decode(const mavlink_message_t* msg, mavlink_protocol_version_t* protocol_version)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     protocol_version->version = mavlink_msg_protocol_version_get_version(msg);

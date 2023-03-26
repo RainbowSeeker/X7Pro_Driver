@@ -63,7 +63,7 @@ typedef struct __mavlink_tunnel_t {
  * @param payload  Variable length payload. The payload length is defined by payload_length. The entire content of this block is opaque unless you understand the encoding specified by payload_type.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_tunnel_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_tunnel_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                uint8_t target_system, uint8_t target_component, uint16_t payload_type, uint8_t payload_length, const uint8_t* payload)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -101,7 +101,7 @@ __STATIC_INLINE uint16_t mavlink_msg_tunnel_pack(uint8_t system_id, uint8_t comp
  * @param payload  Variable length payload. The payload length is defined by payload_length. The entire content of this block is opaque unless you understand the encoding specified by payload_type.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_tunnel_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_tunnel_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                     mavlink_message_t* msg,
                                                     uint8_t target_system, uint8_t target_component, uint16_t payload_type, uint8_t payload_length, const uint8_t* payload)
 {
@@ -135,7 +135,7 @@ __STATIC_INLINE uint16_t mavlink_msg_tunnel_pack_chan(uint8_t system_id, uint8_t
  * @param msg The MAVLink message to compress the data into
  * @param tunnel C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_tunnel_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_tunnel_t* tunnel)
+static_inline uint16_t mavlink_msg_tunnel_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_tunnel_t* tunnel)
 {
     return mavlink_msg_tunnel_pack(system_id, component_id, msg, tunnel->target_system, tunnel->target_component, tunnel->payload_type, tunnel->payload_length, tunnel->payload);
 }
@@ -149,7 +149,7 @@ __STATIC_INLINE uint16_t mavlink_msg_tunnel_encode(uint8_t system_id, uint8_t co
  * @param msg The MAVLink message to compress the data into
  * @param tunnel C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_tunnel_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_tunnel_t* tunnel)
+static_inline uint16_t mavlink_msg_tunnel_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_tunnel_t* tunnel)
 {
     return mavlink_msg_tunnel_pack_chan(system_id, component_id, chan, msg, tunnel->target_system, tunnel->target_component, tunnel->payload_type, tunnel->payload_length, tunnel->payload);
 }
@@ -166,7 +166,7 @@ __STATIC_INLINE uint16_t mavlink_msg_tunnel_encode_chan(uint8_t system_id, uint8
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_tunnel_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint16_t payload_type, uint8_t payload_length, const uint8_t* payload)
+static_inline void mavlink_msg_tunnel_send(mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint16_t payload_type, uint8_t payload_length, const uint8_t* payload)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_TUNNEL_LEN];
@@ -192,7 +192,7 @@ __STATIC_INLINE void mavlink_msg_tunnel_send(mavlink_channel_t chan, uint8_t tar
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_tunnel_send_struct(mavlink_channel_t chan, const mavlink_tunnel_t* tunnel)
+static_inline void mavlink_msg_tunnel_send_struct(mavlink_channel_t chan, const mavlink_tunnel_t* tunnel)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_tunnel_send(chan, tunnel->target_system, tunnel->target_component, tunnel->payload_type, tunnel->payload_length, tunnel->payload);
@@ -209,7 +209,7 @@ __STATIC_INLINE void mavlink_msg_tunnel_send_struct(mavlink_channel_t chan, cons
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_tunnel_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint16_t payload_type, uint8_t payload_length, const uint8_t* payload)
+static_inline void mavlink_msg_tunnel_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint8_t target_system, uint8_t target_component, uint16_t payload_type, uint8_t payload_length, const uint8_t* payload)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -240,7 +240,7 @@ __STATIC_INLINE void mavlink_msg_tunnel_send_buf(mavlink_message_t* msgbuf, mavl
  *
  * @return  System ID (can be 0 for broadcast, but this is discouraged)
  */
-__STATIC_INLINE uint8_t mavlink_msg_tunnel_get_target_system(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_tunnel_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 2);
 }
@@ -250,7 +250,7 @@ __STATIC_INLINE uint8_t mavlink_msg_tunnel_get_target_system(const mavlink_messa
  *
  * @return  Component ID (can be 0 for broadcast, but this is discouraged)
  */
-__STATIC_INLINE uint8_t mavlink_msg_tunnel_get_target_component(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_tunnel_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 3);
 }
@@ -260,7 +260,7 @@ __STATIC_INLINE uint8_t mavlink_msg_tunnel_get_target_component(const mavlink_me
  *
  * @return  A code that identifies the content of the payload (0 for unknown, which is the default). If this code is less than 32768, it is a 'registered' payload type and the corresponding code should be added to the MAV_TUNNEL_PAYLOAD_TYPE enum. Software creators can register blocks of types as needed. Codes greater than 32767 are considered local experiments and should not be checked in to any widely distributed codebase.
  */
-__STATIC_INLINE uint16_t mavlink_msg_tunnel_get_payload_type(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_tunnel_get_payload_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 0);
 }
@@ -270,7 +270,7 @@ __STATIC_INLINE uint16_t mavlink_msg_tunnel_get_payload_type(const mavlink_messa
  *
  * @return  Length of the data transported in payload
  */
-__STATIC_INLINE uint8_t mavlink_msg_tunnel_get_payload_length(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_tunnel_get_payload_length(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 4);
 }
@@ -280,7 +280,7 @@ __STATIC_INLINE uint8_t mavlink_msg_tunnel_get_payload_length(const mavlink_mess
  *
  * @return  Variable length payload. The payload length is defined by payload_length. The entire content of this block is opaque unless you understand the encoding specified by payload_type.
  */
-__STATIC_INLINE uint16_t mavlink_msg_tunnel_get_payload(const mavlink_message_t* msg, uint8_t* payload)
+static_inline uint16_t mavlink_msg_tunnel_get_payload(const mavlink_message_t* msg, uint8_t* payload)
 {
     return _MAV_RETURN_uint8_t_array(msg, payload, 128, 5);
 }
@@ -291,7 +291,7 @@ __STATIC_INLINE uint16_t mavlink_msg_tunnel_get_payload(const mavlink_message_t*
  * @param msg The message to decode
  * @param tunnel C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_tunnel_decode(const mavlink_message_t* msg, mavlink_tunnel_t* tunnel)
+static_inline void mavlink_msg_tunnel_decode(const mavlink_message_t* msg, mavlink_tunnel_t* tunnel)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     tunnel->payload_type = mavlink_msg_tunnel_get_payload_type(msg);

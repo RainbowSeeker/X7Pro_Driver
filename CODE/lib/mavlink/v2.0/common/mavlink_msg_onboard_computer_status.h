@@ -136,7 +136,7 @@ typedef struct __mavlink_onboard_computer_status_t {
  * @param link_rx_max [KiB/s] Network capacity to the component system. A value of UINT32_MAX implies the field is unused.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_onboard_computer_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                                 uint64_t time_usec, uint32_t uptime, uint8_t type, const uint8_t* cpu_cores, const uint8_t* cpu_combined, const uint8_t* gpu_cores, const uint8_t* gpu_combined, int8_t temperature_board, const int8_t* temperature_core, const int16_t* fan_speed, uint32_t ram_usage, uint32_t ram_total, const uint32_t* storage_type, const uint32_t* storage_usage, const uint32_t* storage_total, const uint32_t* link_type, const uint32_t* link_tx_rate, const uint32_t* link_rx_rate, const uint32_t* link_tx_max, const uint32_t* link_rx_max)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -219,7 +219,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_pack(uint8_t system
  * @param link_rx_max [KiB/s] Network capacity to the component system. A value of UINT32_MAX implies the field is unused.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_onboard_computer_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                      mavlink_message_t* msg,
                                                                      uint64_t time_usec, uint32_t uptime, uint8_t type, const uint8_t* cpu_cores, const uint8_t* cpu_combined, const uint8_t* gpu_cores, const uint8_t* gpu_combined, int8_t temperature_board, const int8_t* temperature_core, const int16_t* fan_speed, uint32_t ram_usage, uint32_t ram_total, const uint32_t* storage_type, const uint32_t* storage_usage, const uint32_t* storage_total, const uint32_t* link_type, const uint32_t* link_tx_rate, const uint32_t* link_rx_rate, const uint32_t* link_tx_max, const uint32_t* link_rx_max)
 {
@@ -283,7 +283,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_pack_chan(uint8_t s
  * @param msg The MAVLink message to compress the data into
  * @param onboard_computer_status C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_onboard_computer_status_t* onboard_computer_status)
+static_inline uint16_t mavlink_msg_onboard_computer_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_onboard_computer_status_t* onboard_computer_status)
 {
     return mavlink_msg_onboard_computer_status_pack(system_id, component_id, msg, onboard_computer_status->time_usec, onboard_computer_status->uptime, onboard_computer_status->type, onboard_computer_status->cpu_cores, onboard_computer_status->cpu_combined, onboard_computer_status->gpu_cores, onboard_computer_status->gpu_combined, onboard_computer_status->temperature_board, onboard_computer_status->temperature_core, onboard_computer_status->fan_speed, onboard_computer_status->ram_usage, onboard_computer_status->ram_total, onboard_computer_status->storage_type, onboard_computer_status->storage_usage, onboard_computer_status->storage_total, onboard_computer_status->link_type, onboard_computer_status->link_tx_rate, onboard_computer_status->link_rx_rate, onboard_computer_status->link_tx_max, onboard_computer_status->link_rx_max);
 }
@@ -297,7 +297,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_encode(uint8_t syst
  * @param msg The MAVLink message to compress the data into
  * @param onboard_computer_status C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_onboard_computer_status_t* onboard_computer_status)
+static_inline uint16_t mavlink_msg_onboard_computer_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_onboard_computer_status_t* onboard_computer_status)
 {
     return mavlink_msg_onboard_computer_status_pack_chan(system_id, component_id, chan, msg, onboard_computer_status->time_usec, onboard_computer_status->uptime, onboard_computer_status->type, onboard_computer_status->cpu_cores, onboard_computer_status->cpu_combined, onboard_computer_status->gpu_cores, onboard_computer_status->gpu_combined, onboard_computer_status->temperature_board, onboard_computer_status->temperature_core, onboard_computer_status->fan_speed, onboard_computer_status->ram_usage, onboard_computer_status->ram_total, onboard_computer_status->storage_type, onboard_computer_status->storage_usage, onboard_computer_status->storage_total, onboard_computer_status->link_type, onboard_computer_status->link_tx_rate, onboard_computer_status->link_rx_rate, onboard_computer_status->link_tx_max, onboard_computer_status->link_rx_max);
 }
@@ -329,7 +329,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_encode_chan(uint8_t
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_onboard_computer_status_send(mavlink_channel_t chan, uint64_t time_usec, uint32_t uptime, uint8_t type, const uint8_t* cpu_cores, const uint8_t* cpu_combined, const uint8_t* gpu_cores, const uint8_t* gpu_combined, int8_t temperature_board, const int8_t* temperature_core, const int16_t* fan_speed, uint32_t ram_usage, uint32_t ram_total, const uint32_t* storage_type, const uint32_t* storage_usage, const uint32_t* storage_total, const uint32_t* link_type, const uint32_t* link_tx_rate, const uint32_t* link_rx_rate, const uint32_t* link_tx_max, const uint32_t* link_rx_max)
+static_inline void mavlink_msg_onboard_computer_status_send(mavlink_channel_t chan, uint64_t time_usec, uint32_t uptime, uint8_t type, const uint8_t* cpu_cores, const uint8_t* cpu_combined, const uint8_t* gpu_cores, const uint8_t* gpu_combined, int8_t temperature_board, const int8_t* temperature_core, const int16_t* fan_speed, uint32_t ram_usage, uint32_t ram_total, const uint32_t* storage_type, const uint32_t* storage_usage, const uint32_t* storage_total, const uint32_t* link_type, const uint32_t* link_tx_rate, const uint32_t* link_rx_rate, const uint32_t* link_tx_max, const uint32_t* link_rx_max)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ONBOARD_COMPUTER_STATUS_LEN];
@@ -385,7 +385,7 @@ __STATIC_INLINE void mavlink_msg_onboard_computer_status_send(mavlink_channel_t 
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_onboard_computer_status_send_struct(mavlink_channel_t chan, const mavlink_onboard_computer_status_t* onboard_computer_status)
+static_inline void mavlink_msg_onboard_computer_status_send_struct(mavlink_channel_t chan, const mavlink_onboard_computer_status_t* onboard_computer_status)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_onboard_computer_status_send(chan, onboard_computer_status->time_usec, onboard_computer_status->uptime, onboard_computer_status->type, onboard_computer_status->cpu_cores, onboard_computer_status->cpu_combined, onboard_computer_status->gpu_cores, onboard_computer_status->gpu_combined, onboard_computer_status->temperature_board, onboard_computer_status->temperature_core, onboard_computer_status->fan_speed, onboard_computer_status->ram_usage, onboard_computer_status->ram_total, onboard_computer_status->storage_type, onboard_computer_status->storage_usage, onboard_computer_status->storage_total, onboard_computer_status->link_type, onboard_computer_status->link_tx_rate, onboard_computer_status->link_rx_rate, onboard_computer_status->link_tx_max, onboard_computer_status->link_rx_max);
@@ -402,7 +402,7 @@ __STATIC_INLINE void mavlink_msg_onboard_computer_status_send_struct(mavlink_cha
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_onboard_computer_status_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, uint32_t uptime, uint8_t type, const uint8_t* cpu_cores, const uint8_t* cpu_combined, const uint8_t* gpu_cores, const uint8_t* gpu_combined, int8_t temperature_board, const int8_t* temperature_core, const int16_t* fan_speed, uint32_t ram_usage, uint32_t ram_total, const uint32_t* storage_type, const uint32_t* storage_usage, const uint32_t* storage_total, const uint32_t* link_type, const uint32_t* link_tx_rate, const uint32_t* link_rx_rate, const uint32_t* link_tx_max, const uint32_t* link_rx_max)
+static_inline void mavlink_msg_onboard_computer_status_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, uint32_t uptime, uint8_t type, const uint8_t* cpu_cores, const uint8_t* cpu_combined, const uint8_t* gpu_cores, const uint8_t* gpu_combined, int8_t temperature_board, const int8_t* temperature_core, const int16_t* fan_speed, uint32_t ram_usage, uint32_t ram_total, const uint32_t* storage_type, const uint32_t* storage_usage, const uint32_t* storage_total, const uint32_t* link_type, const uint32_t* link_tx_rate, const uint32_t* link_rx_rate, const uint32_t* link_tx_max, const uint32_t* link_rx_max)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -463,7 +463,7 @@ __STATIC_INLINE void mavlink_msg_onboard_computer_status_send_buf(mavlink_messag
  *
  * @return [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  */
-__STATIC_INLINE uint64_t mavlink_msg_onboard_computer_status_get_time_usec(const mavlink_message_t* msg)
+static_inline uint64_t mavlink_msg_onboard_computer_status_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 0);
 }
@@ -473,7 +473,7 @@ __STATIC_INLINE uint64_t mavlink_msg_onboard_computer_status_get_time_usec(const
  *
  * @return [ms] Time since system boot.
  */
-__STATIC_INLINE uint32_t mavlink_msg_onboard_computer_status_get_uptime(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_onboard_computer_status_get_uptime(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 8);
 }
@@ -483,7 +483,7 @@ __STATIC_INLINE uint32_t mavlink_msg_onboard_computer_status_get_uptime(const ma
  *
  * @return  Type of the onboard computer: 0: Mission computer primary, 1: Mission computer backup 1, 2: Mission computer backup 2, 3: Compute node, 4-5: Compute spares, 6-9: Payload computers.
  */
-__STATIC_INLINE uint8_t mavlink_msg_onboard_computer_status_get_type(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_onboard_computer_status_get_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 196);
 }
@@ -493,7 +493,7 @@ __STATIC_INLINE uint8_t mavlink_msg_onboard_computer_status_get_type(const mavli
  *
  * @return  CPU usage on the component in percent (100 - idle). A value of UINT8_MAX implies the field is unused.
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_cpu_cores(const mavlink_message_t* msg, uint8_t* cpu_cores)
+static_inline uint16_t mavlink_msg_onboard_computer_status_get_cpu_cores(const mavlink_message_t* msg, uint8_t* cpu_cores)
 {
     return _MAV_RETURN_uint8_t_array(msg, cpu_cores, 8, 197);
 }
@@ -503,7 +503,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_cpu_cores(const
  *
  * @return  Combined CPU usage as the last 10 slices of 100 MS (a histogram). This allows to identify spikes in load that max out the system, but only for a short amount of time. A value of UINT8_MAX implies the field is unused.
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_cpu_combined(const mavlink_message_t* msg, uint8_t* cpu_combined)
+static_inline uint16_t mavlink_msg_onboard_computer_status_get_cpu_combined(const mavlink_message_t* msg, uint8_t* cpu_combined)
 {
     return _MAV_RETURN_uint8_t_array(msg, cpu_combined, 10, 205);
 }
@@ -513,7 +513,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_cpu_combined(co
  *
  * @return  GPU usage on the component in percent (100 - idle). A value of UINT8_MAX implies the field is unused.
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_gpu_cores(const mavlink_message_t* msg, uint8_t* gpu_cores)
+static_inline uint16_t mavlink_msg_onboard_computer_status_get_gpu_cores(const mavlink_message_t* msg, uint8_t* gpu_cores)
 {
     return _MAV_RETURN_uint8_t_array(msg, gpu_cores, 4, 215);
 }
@@ -523,7 +523,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_gpu_cores(const
  *
  * @return  Combined GPU usage as the last 10 slices of 100 MS (a histogram). This allows to identify spikes in load that max out the system, but only for a short amount of time. A value of UINT8_MAX implies the field is unused.
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_gpu_combined(const mavlink_message_t* msg, uint8_t* gpu_combined)
+static_inline uint16_t mavlink_msg_onboard_computer_status_get_gpu_combined(const mavlink_message_t* msg, uint8_t* gpu_combined)
 {
     return _MAV_RETURN_uint8_t_array(msg, gpu_combined, 10, 219);
 }
@@ -533,7 +533,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_gpu_combined(co
  *
  * @return [degC] Temperature of the board. A value of INT8_MAX implies the field is unused.
  */
-__STATIC_INLINE int8_t mavlink_msg_onboard_computer_status_get_temperature_board(const mavlink_message_t* msg)
+static_inline int8_t mavlink_msg_onboard_computer_status_get_temperature_board(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int8_t(msg, 229);
 }
@@ -543,7 +543,7 @@ __STATIC_INLINE int8_t mavlink_msg_onboard_computer_status_get_temperature_board
  *
  * @return [degC] Temperature of the CPU core. A value of INT8_MAX implies the field is unused.
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_temperature_core(const mavlink_message_t* msg, int8_t* temperature_core)
+static_inline uint16_t mavlink_msg_onboard_computer_status_get_temperature_core(const mavlink_message_t* msg, int8_t* temperature_core)
 {
     return _MAV_RETURN_int8_t_array(msg, temperature_core, 8, 230);
 }
@@ -553,7 +553,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_temperature_cor
  *
  * @return [rpm] Fan speeds. A value of INT16_MAX implies the field is unused.
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_fan_speed(const mavlink_message_t* msg, int16_t* fan_speed)
+static_inline uint16_t mavlink_msg_onboard_computer_status_get_fan_speed(const mavlink_message_t* msg, int16_t* fan_speed)
 {
     return _MAV_RETURN_int16_t_array(msg, fan_speed, 4, 188);
 }
@@ -563,7 +563,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_fan_speed(const
  *
  * @return [MiB] Amount of used RAM on the component system. A value of UINT32_MAX implies the field is unused.
  */
-__STATIC_INLINE uint32_t mavlink_msg_onboard_computer_status_get_ram_usage(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_onboard_computer_status_get_ram_usage(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 12);
 }
@@ -573,7 +573,7 @@ __STATIC_INLINE uint32_t mavlink_msg_onboard_computer_status_get_ram_usage(const
  *
  * @return [MiB] Total amount of RAM on the component system. A value of UINT32_MAX implies the field is unused.
  */
-__STATIC_INLINE uint32_t mavlink_msg_onboard_computer_status_get_ram_total(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_onboard_computer_status_get_ram_total(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 16);
 }
@@ -583,7 +583,7 @@ __STATIC_INLINE uint32_t mavlink_msg_onboard_computer_status_get_ram_total(const
  *
  * @return  Storage type: 0: HDD, 1: SSD, 2: EMMC, 3: SD card (non-removable), 4: SD card (removable). A value of UINT32_MAX implies the field is unused.
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_storage_type(const mavlink_message_t* msg, uint32_t* storage_type)
+static_inline uint16_t mavlink_msg_onboard_computer_status_get_storage_type(const mavlink_message_t* msg, uint32_t* storage_type)
 {
     return _MAV_RETURN_uint32_t_array(msg, storage_type, 4, 20);
 }
@@ -593,7 +593,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_storage_type(co
  *
  * @return [MiB] Amount of used storage space on the component system. A value of UINT32_MAX implies the field is unused.
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_storage_usage(const mavlink_message_t* msg, uint32_t* storage_usage)
+static_inline uint16_t mavlink_msg_onboard_computer_status_get_storage_usage(const mavlink_message_t* msg, uint32_t* storage_usage)
 {
     return _MAV_RETURN_uint32_t_array(msg, storage_usage, 4, 36);
 }
@@ -603,7 +603,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_storage_usage(c
  *
  * @return [MiB] Total amount of storage space on the component system. A value of UINT32_MAX implies the field is unused.
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_storage_total(const mavlink_message_t* msg, uint32_t* storage_total)
+static_inline uint16_t mavlink_msg_onboard_computer_status_get_storage_total(const mavlink_message_t* msg, uint32_t* storage_total)
 {
     return _MAV_RETURN_uint32_t_array(msg, storage_total, 4, 52);
 }
@@ -613,7 +613,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_storage_total(c
  *
  * @return  Link type: 0-9: UART, 10-19: Wired network, 20-29: Wifi, 30-39: Point-to-point proprietary, 40-49: Mesh proprietary
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_link_type(const mavlink_message_t* msg, uint32_t* link_type)
+static_inline uint16_t mavlink_msg_onboard_computer_status_get_link_type(const mavlink_message_t* msg, uint32_t* link_type)
 {
     return _MAV_RETURN_uint32_t_array(msg, link_type, 6, 68);
 }
@@ -623,7 +623,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_link_type(const
  *
  * @return [KiB/s] Network traffic from the component system. A value of UINT32_MAX implies the field is unused.
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_link_tx_rate(const mavlink_message_t* msg, uint32_t* link_tx_rate)
+static_inline uint16_t mavlink_msg_onboard_computer_status_get_link_tx_rate(const mavlink_message_t* msg, uint32_t* link_tx_rate)
 {
     return _MAV_RETURN_uint32_t_array(msg, link_tx_rate, 6, 92);
 }
@@ -633,7 +633,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_link_tx_rate(co
  *
  * @return [KiB/s] Network traffic to the component system. A value of UINT32_MAX implies the field is unused.
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_link_rx_rate(const mavlink_message_t* msg, uint32_t* link_rx_rate)
+static_inline uint16_t mavlink_msg_onboard_computer_status_get_link_rx_rate(const mavlink_message_t* msg, uint32_t* link_rx_rate)
 {
     return _MAV_RETURN_uint32_t_array(msg, link_rx_rate, 6, 116);
 }
@@ -643,7 +643,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_link_rx_rate(co
  *
  * @return [KiB/s] Network capacity from the component system. A value of UINT32_MAX implies the field is unused.
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_link_tx_max(const mavlink_message_t* msg, uint32_t* link_tx_max)
+static_inline uint16_t mavlink_msg_onboard_computer_status_get_link_tx_max(const mavlink_message_t* msg, uint32_t* link_tx_max)
 {
     return _MAV_RETURN_uint32_t_array(msg, link_tx_max, 6, 140);
 }
@@ -653,7 +653,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_link_tx_max(con
  *
  * @return [KiB/s] Network capacity to the component system. A value of UINT32_MAX implies the field is unused.
  */
-__STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_link_rx_max(const mavlink_message_t* msg, uint32_t* link_rx_max)
+static_inline uint16_t mavlink_msg_onboard_computer_status_get_link_rx_max(const mavlink_message_t* msg, uint32_t* link_rx_max)
 {
     return _MAV_RETURN_uint32_t_array(msg, link_rx_max, 6, 164);
 }
@@ -664,7 +664,7 @@ __STATIC_INLINE uint16_t mavlink_msg_onboard_computer_status_get_link_rx_max(con
  * @param msg The message to decode
  * @param onboard_computer_status C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_onboard_computer_status_decode(const mavlink_message_t* msg, mavlink_onboard_computer_status_t* onboard_computer_status)
+static_inline void mavlink_msg_onboard_computer_status_decode(const mavlink_message_t* msg, mavlink_onboard_computer_status_t* onboard_computer_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     onboard_computer_status->time_usec = mavlink_msg_onboard_computer_status_get_time_usec(msg);

@@ -134,11 +134,11 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4107</DriverSelection>
+            <DriverSelection>4101</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>STLink\ST-LINKIII-KEIL_SWO.dll</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -188,7 +188,7 @@
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>1</useUlib>
+            <useUlib>0</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>USE_FULL_LL_DRIVER,USE_HAL_DRIVER,STM32H743xx,ARM_MATH_CM4,ARM_MATH_MATRIX_CHECK,ARM_MATH_ROUNDING,__TARGET_FPU_VFP,__FPU_PRESENT=1</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../USB_DEVICE/App;../USB_DEVICE/Target;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../Middlewares/ST/ARM/DSP/Inc;../CODE;../CODE/application;../CODE/module;../CODE/dfs/include;../CODE/dfs/filesystems/elmfat;../CODE/hal;../CODE/finsh;../CODE/rtos;../CODE/lib/mavlink/v2.0/fmt_mavlink;../CODE/model/fms/base_fms/lib;../CODE/drivers/usbd;../UCOSIII/uC-CPU;../UCOSIII/uC-CPU/ARM-Cortex-M4/ARM;../UCOSIII/uC-LIB;../UCOSIII/UCOS-BSP;../UCOSIII/UCOS-CONFIG;../UCOSIII/uCOS-III/Source;../UCOSIII/uCOS-III/Ports/ARM-Cortex-M/ARMv7-M/ARM;../CODE/module/log</IncludePath>
+              <IncludePath>../Core/Inc;../USB_DEVICE/App;../USB_DEVICE/Target;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;../Middlewares/ST/ARM/DSP/Inc;../CODE;../CODE/application;../CODE/drivers;../CODE/drivers/barometer;../CODE/drivers/fram;../CODE/drivers/gps;../CODE/drivers/imu;../CODE/drivers/mag;../CODE/drivers/usbd;../CODE/hal/actuator;../CODE/hal/adc;../CODE/hal/barometer;../CODE/hal/can;../CODE/hal/dma;../CODE/hal/fmtio_dev;../CODE/hal/gps;../CODE/hal/imu;../CODE/hal/mag;../CODE/hal/rc;../CODE/hal/sd;../CODE/hal/serial;../CODE/hal/spi;../CODE/hal/systick;../CODE/hal/usb;../CODE/lib/libc;../CODE/lib/libc/armlibc;../CODE/lib/libc/armlibc/sys;../CODE/lib/mavlink/v2.0;../CODE/lib/mavlink/v2.0/fmt_mavlink;../CODE/lib/mavlink/v2.0/common;../CODE/model/ins;../CODE/model/ins/base_ins/lib;../CODE/model/fms;../CODE/model/fms/base_fms/lib;../CODE/model/control;../CODE/model/control/base_controller/lib;../CODE/module;../CODE/module/buzzer;../CODE/module/calibration;../CODE/module/console;../CODE/module/dfs/include;../CODE/module/dfs/filesystems/elmfat;../CODE/module/file_manager;../CODE/module/filter;../CODE/module/finsh;../CODE/module/fmtio;../CODE/module/ipc;../CODE/module/log;../CODE/module/math;../CODE/module/mavproxy;../CODE/module/param;../CODE/module/pmu;../CODE/module/sensor;../CODE/module/syscmd;../CODE/module/sysio;../CODE/module/system;../CODE/module/toml;../CODE/module/utils;../CODE/module/workqueue;../CODE/protocol/sbus;../CODE/protocol/ublox;../CODE/rtos;../CODE/rtos/completion;../UCOSIII/uC-CPU;../UCOSIII/uC-CPU/ARM-Cortex-M4/ARM;../UCOSIII/uC-LIB;../UCOSIII/UCOS-BSP;../UCOSIII/UCOS-CONFIG;../UCOSIII/uCOS-III/Source;../UCOSIII/uCOS-III/Ports/ARM-Cortex-M/ARMv7-M/ARM</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -698,79 +698,9 @@
           <GroupName>CODE</GroupName>
           <Files>
             <File>
-              <FileName>board_config.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\board_config.h</FilePath>
-            </File>
-            <File>
-              <FileName>com.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\CODE\com.c</FilePath>
-            </File>
-            <File>
-              <FileName>com.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\com.h</FilePath>
-            </File>
-            <File>
-              <FileName>common.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\common.h</FilePath>
-            </File>
-            <File>
-              <FileName>common_def.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\common_def.h</FilePath>
-            </File>
-            <File>
               <FileName>init.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\init.c</FilePath>
-            </File>
-            <File>
-              <FileName>init.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\init.h</FilePath>
-            </File>
-            <File>
-              <FileName>rtconfig.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\rtconfig.h</FilePath>
-            </File>
-            <File>
-              <FileName>rtdebug.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\rtdebug.h</FilePath>
-            </File>
-            <File>
-              <FileName>task.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\CODE\task.c</FilePath>
-            </File>
-            <File>
-              <FileName>task.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\task.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>CODE/algo</GroupName>
-          <Files>
-            <File>
-              <FileName>array.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\CODE\algo\math\array.c</FilePath>
-            </File>
-            <File>
-              <FileName>array.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\algo\math\array.h</FilePath>
-            </File>
-            <File>
-              <FileName>maths.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\algo\math\maths.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -783,9 +713,29 @@
               <FilePath>..\CODE\application\application.c</FilePath>
             </File>
             <File>
-              <FileName>application.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\application\application.h</FilePath>
+              <FileName>app_comm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\application\app_comm.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_io.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\application\app_io.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_logger.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\application\app_logger.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_status.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\application\app_status.c</FilePath>
+            </File>
+            <File>
+              <FileName>app_vehicle.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\application\app_vehicle.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -793,19 +743,9 @@
           <GroupName>CODE/drivers</GroupName>
           <Files>
             <File>
-              <FileName>cache.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\cache.h</FilePath>
-            </File>
-            <File>
               <FileName>drv_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\drivers\drv_adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>drv_adc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\drv_adc.h</FilePath>
             </File>
             <File>
               <FileName>drv_dma.c</FileName>
@@ -813,19 +753,9 @@
               <FilePath>..\CODE\drivers\drv_dma.c</FilePath>
             </File>
             <File>
-              <FileName>drv_dma.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\drv_dma.h</FilePath>
-            </File>
-            <File>
               <FileName>drv_exti.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\drivers\drv_exti.c</FilePath>
-            </File>
-            <File>
-              <FileName>drv_exti.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\drv_exti.h</FilePath>
             </File>
             <File>
               <FileName>drv_gpio.c</FileName>
@@ -833,19 +763,9 @@
               <FilePath>..\CODE\drivers\drv_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>drv_gpio.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\drv_gpio.h</FilePath>
-            </File>
-            <File>
               <FileName>drv_i2c_soft.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\drivers\drv_i2c_soft.c</FilePath>
-            </File>
-            <File>
-              <FileName>drv_i2c_soft.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\drv_i2c_soft.h</FilePath>
             </File>
             <File>
               <FileName>drv_spi.c</FileName>
@@ -853,19 +773,9 @@
               <FilePath>..\CODE\drivers\drv_spi.c</FilePath>
             </File>
             <File>
-              <FileName>drv_spi.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\drv_spi.h</FilePath>
-            </File>
-            <File>
               <FileName>drv_systick.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\drivers\drv_systick.c</FilePath>
-            </File>
-            <File>
-              <FileName>drv_systick.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\drv_systick.h</FilePath>
             </File>
             <File>
               <FileName>drv_uart.c</FileName>
@@ -873,19 +783,9 @@
               <FilePath>..\CODE\drivers\drv_uart.c</FilePath>
             </File>
             <File>
-              <FileName>drv_uart.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\drv_uart.h</FilePath>
-            </File>
-            <File>
               <FileName>io.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\drivers\io.c</FilePath>
-            </File>
-            <File>
-              <FileName>io.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\io.h</FilePath>
             </File>
             <File>
               <FileName>pwm.c</FileName>
@@ -893,19 +793,9 @@
               <FilePath>..\CODE\drivers\pwm.c</FilePath>
             </File>
             <File>
-              <FileName>pwm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\pwm.h</FilePath>
-            </File>
-            <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\drivers\timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>timer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\timer.h</FilePath>
             </File>
             <File>
               <FileName>fm25vx.c</FileName>
@@ -913,19 +803,9 @@
               <FilePath>..\CODE\drivers\fram\fm25vx.c</FilePath>
             </File>
             <File>
-              <FileName>fm25vx.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\fram\fm25vx.h</FilePath>
-            </File>
-            <File>
               <FileName>fram.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\drivers\fram\fram.c</FilePath>
-            </File>
-            <File>
-              <FileName>fram.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\fram\fram.h</FilePath>
             </File>
             <File>
               <FileName>adis16470.c</FileName>
@@ -933,19 +813,9 @@
               <FilePath>..\CODE\drivers\imu\adis16470.c</FilePath>
             </File>
             <File>
-              <FileName>adis16470.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\imu\adis16470.h</FilePath>
-            </File>
-            <File>
               <FileName>icm20689.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\drivers\imu\icm20689.c</FilePath>
-            </File>
-            <File>
-              <FileName>icm20689.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\imu\icm20689.h</FilePath>
             </File>
             <File>
               <FileName>icm42688.c</FileName>
@@ -953,19 +823,59 @@
               <FilePath>..\CODE\drivers\imu\icm42688.c</FilePath>
             </File>
             <File>
-              <FileName>icm42688.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\imu\icm42688.h</FilePath>
-            </File>
-            <File>
               <FileName>rm3100.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\drivers\mag\rm3100.c</FilePath>
             </File>
             <File>
-              <FileName>rm3100.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\drivers\mag\rm3100.h</FilePath>
+              <FileName>board.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\drivers\board.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_buzzer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\drivers\drv_buzzer.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_fdcan.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\drivers\drv_fdcan.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_pwm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\drivers\drv_pwm.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_rc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\drivers\drv_rc.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_sdio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\drivers\drv_sdio.c</FilePath>
+            </File>
+            <File>
+              <FileName>rotate.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\drivers\rotate.c</FilePath>
+            </File>
+            <File>
+              <FileName>ms5611.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\drivers\barometer\ms5611.c</FilePath>
+            </File>
+            <File>
+              <FileName>gps_ubx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\drivers\gps\gps_ubx.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_usbd_cdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\drivers\usbd\drv_usbd_cdc.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -973,29 +883,9 @@
           <GroupName>CODE/hal</GroupName>
           <Files>
             <File>
-              <FileName>bus_spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\CODE\hal\bus_spi.c</FilePath>
-            </File>
-            <File>
-              <FileName>bus_spi.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\hal\bus_spi.h</FilePath>
-            </File>
-            <File>
-              <FileName>nvic.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\hal\nvic.h</FilePath>
-            </File>
-            <File>
               <FileName>adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\hal\adc\adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>adc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\hal\adc\adc.h</FilePath>
             </File>
             <File>
               <FileName>barometer.c</FileName>
@@ -1003,19 +893,9 @@
               <FilePath>..\CODE\hal\barometer\barometer.c</FilePath>
             </File>
             <File>
-              <FileName>barometer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\hal\barometer\barometer.h</FilePath>
-            </File>
-            <File>
               <FileName>dma.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\hal\dma\dma.c</FilePath>
-            </File>
-            <File>
-              <FileName>dma.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\hal\dma\dma.h</FilePath>
             </File>
             <File>
               <FileName>fmtio_dev.c</FileName>
@@ -1023,19 +903,9 @@
               <FilePath>..\CODE\hal\fmtio_dev\fmtio_dev.c</FilePath>
             </File>
             <File>
-              <FileName>fmtio_dev.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\hal\fmtio_dev\fmtio_dev.h</FilePath>
-            </File>
-            <File>
               <FileName>gps.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\hal\gps\gps.c</FilePath>
-            </File>
-            <File>
-              <FileName>gps.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\hal\gps\gps.h</FilePath>
             </File>
             <File>
               <FileName>accel.c</FileName>
@@ -1043,19 +913,9 @@
               <FilePath>..\CODE\hal\imu\accel.c</FilePath>
             </File>
             <File>
-              <FileName>accel.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\hal\imu\accel.h</FilePath>
-            </File>
-            <File>
               <FileName>gyro.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\hal\imu\gyro.c</FilePath>
-            </File>
-            <File>
-              <FileName>gyro.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\hal\imu\gyro.h</FilePath>
             </File>
             <File>
               <FileName>mag.c</FileName>
@@ -1063,19 +923,9 @@
               <FilePath>..\CODE\hal\mag\mag.c</FilePath>
             </File>
             <File>
-              <FileName>mag.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\hal\mag\mag.h</FilePath>
-            </File>
-            <File>
               <FileName>ppm.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\hal\rc\ppm.c</FilePath>
-            </File>
-            <File>
-              <FileName>ppm.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\hal\rc\ppm.h</FilePath>
             </File>
             <File>
               <FileName>rc.c</FileName>
@@ -1083,19 +933,9 @@
               <FilePath>..\CODE\hal\rc\rc.c</FilePath>
             </File>
             <File>
-              <FileName>rc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\hal\rc\rc.h</FilePath>
-            </File>
-            <File>
               <FileName>sd.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\hal\sd\sd.c</FilePath>
-            </File>
-            <File>
-              <FileName>sd.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\hal\sd\sd.h</FilePath>
             </File>
             <File>
               <FileName>serial.c</FileName>
@@ -1103,19 +943,9 @@
               <FilePath>..\CODE\hal\serial\serial.c</FilePath>
             </File>
             <File>
-              <FileName>serial.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\hal\serial\serial.h</FilePath>
-            </File>
-            <File>
               <FileName>spi.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\hal\spi\spi.c</FilePath>
-            </File>
-            <File>
-              <FileName>spi.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\hal\spi\spi.h</FilePath>
             </File>
             <File>
               <FileName>systick.c</FileName>
@@ -1123,9 +953,99 @@
               <FilePath>..\CODE\hal\systick\systick.c</FilePath>
             </File>
             <File>
-              <FileName>systick.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\hal\systick\systick.h</FilePath>
+              <FileName>actuator.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\hal\actuator\actuator.c</FilePath>
+            </File>
+            <File>
+              <FileName>can.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\hal\can\can.c</FilePath>
+            </File>
+            <File>
+              <FileName>usbd_cdc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\hal\usb\usbd_cdc.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>CODE/lib</GroupName>
+          <Files>
+            <File>
+              <FileName>mem_std.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\lib\libc\armlibc\mem_std.c</FilePath>
+            </File>
+            <File>
+              <FileName>stubs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\lib\libc\armlibc\stubs.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>CODE/model</GroupName>
+          <Files>
+            <File>
+              <FileName>ins_interface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\model\ins\base_ins\ins_interface.c</FilePath>
+            </File>
+            <File>
+              <FileName>INS.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\model\ins\base_ins\lib\INS.c</FilePath>
+            </File>
+            <File>
+              <FileName>fms_interface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\model\fms\base_fms\fms_interface.c</FilePath>
+            </File>
+            <File>
+              <FileName>FMS.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\model\fms\base_fms\lib\FMS.c</FilePath>
+            </File>
+            <File>
+              <FileName>FMS_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\model\fms\base_fms\lib\FMS_data.c</FilePath>
+            </File>
+            <File>
+              <FileName>control_interface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\model\control\base_controller\control_interface.c</FilePath>
+            </File>
+            <File>
+              <FileName>Controller.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\model\control\base_controller\lib\Controller.c</FilePath>
+            </File>
+            <File>
+              <FileName>Controller_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\model\control\base_controller\lib\Controller_data.c</FilePath>
+            </File>
+            <File>
+              <FileName>rt_nonfinite.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\model\control\base_controller\lib\rt_nonfinite.c</FilePath>
+            </File>
+            <File>
+              <FileName>rtGetInf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\model\control\base_controller\lib\rtGetInf.c</FilePath>
+            </File>
+            <File>
+              <FileName>rtGetNaN.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\model\control\base_controller\lib\rtGetNaN.c</FilePath>
+            </File>
+            <File>
+              <FileName>arm_cortexM4lf_math.lib</FileName>
+              <FileType>4</FileType>
+              <FilePath>..\Middlewares\ST\ARM\DSP\lib\arm_cortexM4lf_math.lib</FilePath>
             </File>
           </Files>
         </Group>
@@ -1133,24 +1053,244 @@
           <GroupName>CODE/module</GroupName>
           <Files>
             <File>
+              <FileName>buzzer_tune.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\buzzer\buzzer_tune.c</FilePath>
+            </File>
+            <File>
+              <FileName>decode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\buzzer\decode.c</FilePath>
+            </File>
+            <File>
+              <FileName>player.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\buzzer\player.c</FilePath>
+            </File>
+            <File>
+              <FileName>calibration.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\calibration\calibration.c</FilePath>
+            </File>
+            <File>
+              <FileName>calibration_param.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\calibration\calibration_param.c</FilePath>
+            </File>
+            <File>
+              <FileName>rt_nonfinite.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\calibration\rt_nonfinite.c</FilePath>
+            </File>
+            <File>
+              <FileName>rtGetInf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\calibration\rtGetInf.c</FilePath>
+            </File>
+            <File>
+              <FileName>rtGetNaN.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\calibration\rtGetNaN.c</FilePath>
+            </File>
+            <File>
+              <FileName>console.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\console\console.c</FilePath>
+            </File>
+            <File>
+              <FileName>console_config.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\console\console_config.c</FilePath>
+            </File>
+            <File>
+              <FileName>dfs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\dfs\src\dfs.c</FilePath>
+            </File>
+            <File>
+              <FileName>dfs_file.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\dfs\src\dfs_file.c</FilePath>
+            </File>
+            <File>
+              <FileName>dfs_fs.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\dfs\src\dfs_fs.c</FilePath>
+            </File>
+            <File>
+              <FileName>dfs_posix.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\dfs\src\dfs_posix.c</FilePath>
+            </File>
+            <File>
+              <FileName>poll.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\dfs\src\poll.c</FilePath>
+            </File>
+            <File>
+              <FileName>select.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\dfs\src\select.c</FilePath>
+            </File>
+            <File>
+              <FileName>dfs_elm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\dfs\filesystems\elmfat\dfs_elm.c</FilePath>
+            </File>
+            <File>
+              <FileName>ff.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\dfs\filesystems\elmfat\ff.c</FilePath>
+            </File>
+            <File>
+              <FileName>ffunicode.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\dfs\filesystems\elmfat\ffunicode.c</FilePath>
+            </File>
+            <File>
+              <FileName>file_ex_ops.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\file_manager\file_ex_ops.c</FilePath>
+            </File>
+            <File>
+              <FileName>file_manager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\file_manager\file_manager.c</FilePath>
+            </File>
+            <File>
+              <FileName>yxml.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\file_manager\yxml.c</FilePath>
+            </File>
+            <File>
+              <FileName>butter.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\filter\butter.c</FilePath>
+            </File>
+            <File>
+              <FileName>cmd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\finsh\cmd.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_compiler.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\finsh\finsh_compiler.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_error.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\finsh\finsh_error.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_heap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\finsh\finsh_heap.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\finsh\finsh_init.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_node.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\finsh\finsh_node.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_ops.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\finsh\finsh_ops.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_parser.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\finsh\finsh_parser.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_token.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\finsh\finsh_token.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_var.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\finsh\finsh_var.c</FilePath>
+            </File>
+            <File>
+              <FileName>finsh_vm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\finsh\finsh_vm.c</FilePath>
+            </File>
+            <File>
+              <FileName>msh.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\finsh\msh.c</FilePath>
+            </File>
+            <File>
+              <FileName>msh_file.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\finsh\msh_file.c</FilePath>
+            </File>
+            <File>
+              <FileName>shell.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\finsh\shell.c</FilePath>
+            </File>
+            <File>
+              <FileName>symbol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\finsh\symbol.c</FilePath>
+            </File>
+            <File>
+              <FileName>fmtio.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\fmtio\fmtio.c</FilePath>
+            </File>
+            <File>
+              <FileName>fmtio_uploader.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\fmtio\fmtio_uploader.c</FilePath>
+            </File>
+            <File>
+              <FileName>protocol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\fmtio\protocol.c</FilePath>
+            </File>
+            <File>
+              <FileName>ringblk_buf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\ipc\ringblk_buf.c</FilePath>
+            </File>
+            <File>
+              <FileName>uMCN.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\ipc\uMCN.c</FilePath>
+            </File>
+            <File>
+              <FileName>boot_log.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\log\boot_log.c</FilePath>
+            </File>
+            <File>
+              <FileName>logger.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\log\logger.c</FilePath>
+            </File>
+            <File>
+              <FileName>mlog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\log\mlog.c</FilePath>
+            </File>
+            <File>
+              <FileName>ulog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\log\ulog.c</FilePath>
+            </File>
+            <File>
               <FileName>ap_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\module\math\ap_math.c</FilePath>
-            </File>
-            <File>
-              <FileName>ap_math.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\module\math\ap_math.h</FilePath>
-            </File>
-            <File>
-              <FileName>systime.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\CODE\module\system\systime.c</FilePath>
-            </File>
-            <File>
-              <FileName>systime.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\module\system\systime.h</FilePath>
             </File>
             <File>
               <FileName>conversion.c</FileName>
@@ -1158,9 +1298,234 @@
               <FilePath>..\CODE\module\math\conversion.c</FilePath>
             </File>
             <File>
-              <FileName>conversion.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\module\math\conversion.h</FilePath>
+              <FileName>light_matrix.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\math\light_matrix.c</FilePath>
+            </File>
+            <File>
+              <FileName>quaternion.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\math\quaternion.c</FilePath>
+            </File>
+            <File>
+              <FileName>rotation.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\math\rotation.c</FilePath>
+            </File>
+            <File>
+              <FileName>mavlink_console.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\mavproxy\mavlink_console.c</FilePath>
+            </File>
+            <File>
+              <FileName>mavlink_mission.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\mavproxy\mavlink_mission.c</FilePath>
+            </File>
+            <File>
+              <FileName>mavlink_param.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\mavproxy\mavlink_param.c</FilePath>
+            </File>
+            <File>
+              <FileName>mavlink_status.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\mavproxy\mavlink_status.c</FilePath>
+            </File>
+            <File>
+              <FileName>mavproxy.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\mavproxy\mavproxy.c</FilePath>
+            </File>
+            <File>
+              <FileName>mavproxy_cmd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\mavproxy\mavproxy_cmd.c</FilePath>
+            </File>
+            <File>
+              <FileName>mavproxy_config.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\mavproxy\mavproxy_config.c</FilePath>
+            </File>
+            <File>
+              <FileName>mavproxy_dev.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\mavproxy\mavproxy_dev.c</FilePath>
+            </File>
+            <File>
+              <FileName>mavproxy_monitor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\mavproxy\mavproxy_monitor.c</FilePath>
+            </File>
+            <File>
+              <FileName>param.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\param\param.c</FilePath>
+            </File>
+            <File>
+              <FileName>rc_param.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\param\rc_param.c</FilePath>
+            </File>
+            <File>
+              <FileName>sys_param.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\param\sys_param.c</FilePath>
+            </File>
+            <File>
+              <FileName>power_manage.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\pmu\power_manage.c</FilePath>
+            </File>
+            <File>
+              <FileName>sensor_baro.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\sensor\sensor_baro.c</FilePath>
+            </File>
+            <File>
+              <FileName>sensor_gps.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\sensor\sensor_gps.c</FilePath>
+            </File>
+            <File>
+              <FileName>sensor_hub.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\sensor\sensor_hub.c</FilePath>
+            </File>
+            <File>
+              <FileName>sensor_imu.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\sensor\sensor_imu.c</FilePath>
+            </File>
+            <File>
+              <FileName>sensor_mag.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\sensor\sensor_mag.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_cmd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\syscmd\bsp_cmd.c</FilePath>
+            </File>
+            <File>
+              <FileName>cmd_boot_log.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\syscmd\cmd_boot_log.c</FilePath>
+            </File>
+            <File>
+              <FileName>cmd_mcn.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\syscmd\cmd_mcn.c</FilePath>
+            </File>
+            <File>
+              <FileName>cmd_mlog.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\syscmd\cmd_mlog.c</FilePath>
+            </File>
+            <File>
+              <FileName>cmd_param.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\syscmd\cmd_param.c</FilePath>
+            </File>
+            <File>
+              <FileName>optparse.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\syscmd\optparse.c</FilePath>
+            </File>
+            <File>
+              <FileName>syscmd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\syscmd\syscmd.c</FilePath>
+            </File>
+            <File>
+              <FileName>actuator_cmd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\sysio\actuator_cmd.c</FilePath>
+            </File>
+            <File>
+              <FileName>actuator_config.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\sysio\actuator_config.c</FilePath>
+            </File>
+            <File>
+              <FileName>auto_cmd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\sysio\auto_cmd.c</FilePath>
+            </File>
+            <File>
+              <FileName>gcs_cmd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\sysio\gcs_cmd.c</FilePath>
+            </File>
+            <File>
+              <FileName>mission_data.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\sysio\mission_data.c</FilePath>
+            </File>
+            <File>
+              <FileName>pilot_cmd.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\sysio\pilot_cmd.c</FilePath>
+            </File>
+            <File>
+              <FileName>pilot_cmd_config.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\sysio\pilot_cmd_config.c</FilePath>
+            </File>
+            <File>
+              <FileName>statistic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\system\statistic.c</FilePath>
+            </File>
+            <File>
+              <FileName>systime.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\system\systime.c</FilePath>
+            </File>
+            <File>
+              <FileName>toml.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\toml\toml.c</FilePath>
+            </File>
+            <File>
+              <FileName>toml_util.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\toml\toml_util.c</FilePath>
+            </File>
+            <File>
+              <FileName>devmq.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\utils\devmq.c</FilePath>
+            </File>
+            <File>
+              <FileName>ringbuffer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\utils\ringbuffer.c</FilePath>
+            </File>
+            <File>
+              <FileName>work_queue.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\workqueue\work_queue.c</FilePath>
+            </File>
+            <File>
+              <FileName>workqueue_manager.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\module\workqueue\workqueue_manager.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>CODE/protocol</GroupName>
+          <Files>
+            <File>
+              <FileName>sbus.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\protocol\sbus\sbus.c</FilePath>
+            </File>
+            <File>
+              <FileName>ublox.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\CODE\protocol\ublox\ublox.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1173,19 +1538,9 @@
               <FilePath>..\CODE\rtos\device.c</FilePath>
             </File>
             <File>
-              <FileName>device.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\rtos\device.h</FilePath>
-            </File>
-            <File>
               <FileName>event.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\rtos\event.c</FilePath>
-            </File>
-            <File>
-              <FileName>event.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\rtos\event.h</FilePath>
             </File>
             <File>
               <FileName>kservice.c</FileName>
@@ -1198,19 +1553,9 @@
               <FilePath>..\CODE\rtos\mem.c</FilePath>
             </File>
             <File>
-              <FileName>mem.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\rtos\mem.h</FilePath>
-            </File>
-            <File>
               <FileName>mq.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\rtos\mq.c</FilePath>
-            </File>
-            <File>
-              <FileName>mq.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\rtos\mq.h</FilePath>
             </File>
             <File>
               <FileName>mutex.c</FileName>
@@ -1218,19 +1563,9 @@
               <FilePath>..\CODE\rtos\mutex.c</FilePath>
             </File>
             <File>
-              <FileName>mutex.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\rtos\mutex.h</FilePath>
-            </File>
-            <File>
               <FileName>object.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\rtos\object.c</FilePath>
-            </File>
-            <File>
-              <FileName>object.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\rtos\object.h</FilePath>
             </File>
             <File>
               <FileName>os_common.c</FileName>
@@ -1238,24 +1573,9 @@
               <FilePath>..\CODE\rtos\os_common.c</FilePath>
             </File>
             <File>
-              <FileName>os_common.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\rtos\os_common.h</FilePath>
-            </File>
-            <File>
-              <FileName>port.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\CODE\rtos\port.c</FilePath>
-            </File>
-            <File>
               <FileName>semaphore.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\rtos\semaphore.c</FilePath>
-            </File>
-            <File>
-              <FileName>semaphore.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\rtos\semaphore.h</FilePath>
             </File>
             <File>
               <FileName>thread.c</FileName>
@@ -1263,39 +1583,14 @@
               <FilePath>..\CODE\rtos\thread.c</FilePath>
             </File>
             <File>
-              <FileName>thread.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\rtos\thread.h</FilePath>
-            </File>
-            <File>
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\rtos\timer.c</FilePath>
             </File>
             <File>
-              <FileName>timer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\rtos\timer.h</FilePath>
-            </File>
-            <File>
               <FileName>completion.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\CODE\rtos\completion\completion.c</FilePath>
-            </File>
-            <File>
-              <FileName>completion.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\rtos\completion\completion.h</FilePath>
-            </File>
-            <File>
-              <FileName>os_errno.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\CODE\rtos\os_errno.c</FilePath>
-            </File>
-            <File>
-              <FileName>os_errno.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\CODE\rtos\os_errno.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1303,34 +1598,14 @@
           <GroupName>UCOSIII/uC-CPU</GroupName>
           <Files>
             <File>
-              <FileName>cpu_cache.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uC-CPU\cpu_cache.h</FilePath>
-            </File>
-            <File>
               <FileName>cpu_core.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\UCOSIII\uC-CPU\cpu_core.c</FilePath>
             </File>
             <File>
-              <FileName>cpu_core.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uC-CPU\cpu_core.h</FilePath>
-            </File>
-            <File>
-              <FileName>cpu_def.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uC-CPU\cpu_def.h</FilePath>
-            </File>
-            <File>
               <FileName>cpu_c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\UCOSIII\uC-CPU\ARM-Cortex-M4\cpu_c.c</FilePath>
-            </File>
-            <File>
-              <FileName>cpu.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uC-CPU\ARM-Cortex-M4\ARM\cpu.h</FilePath>
             </File>
             <File>
               <FileName>cpu_a.asm</FileName>
@@ -1348,24 +1623,9 @@
               <FilePath>..\UCOSIII\uC-LIB\lib_ascii.c</FilePath>
             </File>
             <File>
-              <FileName>lib_ascii.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uC-LIB\lib_ascii.h</FilePath>
-            </File>
-            <File>
-              <FileName>lib_def.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uC-LIB\lib_def.h</FilePath>
-            </File>
-            <File>
               <FileName>lib_math.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\UCOSIII\uC-LIB\lib_math.c</FilePath>
-            </File>
-            <File>
-              <FileName>lib_math.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uC-LIB\lib_math.h</FilePath>
             </File>
             <File>
               <FileName>lib_mem.c</FileName>
@@ -1373,19 +1633,9 @@
               <FilePath>..\UCOSIII\uC-LIB\lib_mem.c</FilePath>
             </File>
             <File>
-              <FileName>lib_mem.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uC-LIB\lib_mem.h</FilePath>
-            </File>
-            <File>
               <FileName>lib_str.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\UCOSIII\uC-LIB\lib_str.c</FilePath>
-            </File>
-            <File>
-              <FileName>lib_str.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uC-LIB\lib_str.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1398,19 +1648,9 @@
               <FilePath>..\UCOSIII\UCOS-BSP\bsp_clk.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_clk.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\UCOS-BSP\bsp_clk.h</FilePath>
-            </File>
-            <File>
               <FileName>bsp_cpu.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\UCOSIII\UCOS-BSP\bsp_cpu.c</FilePath>
-            </File>
-            <File>
-              <FileName>bsp_int.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\UCOS-BSP\bsp_int.h</FilePath>
             </File>
             <File>
               <FileName>bsp_int_armv7m.c</FileName>
@@ -1422,16 +1662,16 @@
               <FileType>1</FileType>
               <FilePath>..\UCOSIII\UCOS-BSP\bsp_os.c</FilePath>
             </File>
-            <File>
-              <FileName>bsp_os.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\UCOS-BSP\bsp_os.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>UCOSIII/UCOS-CONFIG</GroupName>
           <Files>
+            <File>
+              <FileName>os_app_hooks.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\UCOSIII\UCOS-CONFIG\os_app_hooks.c</FilePath>
+            </File>
             <File>
               <FileName>app_cfg.h</FileName>
               <FileType>5</FileType>
@@ -1446,11 +1686,6 @@
               <FileName>lib_cfg.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\UCOSIII\UCOS-CONFIG\lib_cfg.h</FilePath>
-            </File>
-            <File>
-              <FileName>os_app_hooks.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\UCOSIII\UCOS-CONFIG\os_app_hooks.c</FilePath>
             </File>
             <File>
               <FileName>os_app_hooks.h</FileName>
@@ -1470,17 +1705,12 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>UCOSIII/uCOS-III/Source</GroupName>
+          <GroupName>UCOSIII/uCOS-III</GroupName>
           <Files>
             <File>
               <FileName>__dbg_uCOS-III.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\UCOSIII\uCOS-III\Source\__dbg_uCOS-III.c</FilePath>
-            </File>
-            <File>
-              <FileName>os.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os.h</FilePath>
             </File>
             <File>
               <FileName>os_cfg_app.c</FileName>
@@ -1558,16 +1788,6 @@
               <FilePath>..\UCOSIII\uCOS-III\Source\os_tmr.c</FilePath>
             </File>
             <File>
-              <FileName>os_trace.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_trace.h</FilePath>
-            </File>
-            <File>
-              <FileName>os_type.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Source\os_type.h</FilePath>
-            </File>
-            <File>
               <FileName>os_var.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\UCOSIII\uCOS-III\Source\os_var.c</FilePath>
@@ -1576,11 +1796,6 @@
               <FileName>os_cpu_c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\UCOSIII\uCOS-III\Ports\ARM-Cortex-M\ARMv7-M\os_cpu_c.c</FilePath>
-            </File>
-            <File>
-              <FileName>os_cpu.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\UCOSIII\uCOS-III\Ports\ARM-Cortex-M\ARMv7-M\ARM\os_cpu.h</FilePath>
             </File>
             <File>
               <FileName>os_cpu_a.asm</FileName>

@@ -91,7 +91,7 @@ typedef struct __mavlink_local_position_ned_cov_t {
  * @param covariance  Row-major representation of position, velocity and acceleration 9x9 cross-covariance matrix upper right triangle (states: x, y, z, vx, vy, vz, ax, ay, az; first nine entries are the first ROW, next eight entries are the second row, etc.). If unknown, assign NaN value to first element in the array.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_local_position_ned_cov_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_local_position_ned_cov_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                                uint64_t time_usec, uint8_t estimator_type, float x, float y, float z, float vx, float vy, float vz, float ax, float ay, float az, const float* covariance)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -150,7 +150,7 @@ __STATIC_INLINE uint16_t mavlink_msg_local_position_ned_cov_pack(uint8_t system_
  * @param covariance  Row-major representation of position, velocity and acceleration 9x9 cross-covariance matrix upper right triangle (states: x, y, z, vx, vy, vz, ax, ay, az; first nine entries are the first ROW, next eight entries are the second row, etc.). If unknown, assign NaN value to first element in the array.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_local_position_ned_cov_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_local_position_ned_cov_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                     mavlink_message_t* msg,
                                                                     uint64_t time_usec, uint8_t estimator_type, float x, float y, float z, float vx, float vy, float vz, float ax, float ay, float az, const float* covariance)
 {
@@ -198,7 +198,7 @@ __STATIC_INLINE uint16_t mavlink_msg_local_position_ned_cov_pack_chan(uint8_t sy
  * @param msg The MAVLink message to compress the data into
  * @param local_position_ned_cov C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_local_position_ned_cov_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_local_position_ned_cov_t* local_position_ned_cov)
+static_inline uint16_t mavlink_msg_local_position_ned_cov_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_local_position_ned_cov_t* local_position_ned_cov)
 {
     return mavlink_msg_local_position_ned_cov_pack(system_id, component_id, msg, local_position_ned_cov->time_usec, local_position_ned_cov->estimator_type, local_position_ned_cov->x, local_position_ned_cov->y, local_position_ned_cov->z, local_position_ned_cov->vx, local_position_ned_cov->vy, local_position_ned_cov->vz, local_position_ned_cov->ax, local_position_ned_cov->ay, local_position_ned_cov->az, local_position_ned_cov->covariance);
 }
@@ -212,7 +212,7 @@ __STATIC_INLINE uint16_t mavlink_msg_local_position_ned_cov_encode(uint8_t syste
  * @param msg The MAVLink message to compress the data into
  * @param local_position_ned_cov C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_local_position_ned_cov_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_local_position_ned_cov_t* local_position_ned_cov)
+static_inline uint16_t mavlink_msg_local_position_ned_cov_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_local_position_ned_cov_t* local_position_ned_cov)
 {
     return mavlink_msg_local_position_ned_cov_pack_chan(system_id, component_id, chan, msg, local_position_ned_cov->time_usec, local_position_ned_cov->estimator_type, local_position_ned_cov->x, local_position_ned_cov->y, local_position_ned_cov->z, local_position_ned_cov->vx, local_position_ned_cov->vy, local_position_ned_cov->vz, local_position_ned_cov->ax, local_position_ned_cov->ay, local_position_ned_cov->az, local_position_ned_cov->covariance);
 }
@@ -236,7 +236,7 @@ __STATIC_INLINE uint16_t mavlink_msg_local_position_ned_cov_encode_chan(uint8_t 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_local_position_ned_cov_send(mavlink_channel_t chan, uint64_t time_usec, uint8_t estimator_type, float x, float y, float z, float vx, float vy, float vz, float ax, float ay, float az, const float* covariance)
+static_inline void mavlink_msg_local_position_ned_cov_send(mavlink_channel_t chan, uint64_t time_usec, uint8_t estimator_type, float x, float y, float z, float vx, float vy, float vz, float ax, float ay, float az, const float* covariance)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_LOCAL_POSITION_NED_COV_LEN];
@@ -276,7 +276,7 @@ __STATIC_INLINE void mavlink_msg_local_position_ned_cov_send(mavlink_channel_t c
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_local_position_ned_cov_send_struct(mavlink_channel_t chan, const mavlink_local_position_ned_cov_t* local_position_ned_cov)
+static_inline void mavlink_msg_local_position_ned_cov_send_struct(mavlink_channel_t chan, const mavlink_local_position_ned_cov_t* local_position_ned_cov)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_local_position_ned_cov_send(chan, local_position_ned_cov->time_usec, local_position_ned_cov->estimator_type, local_position_ned_cov->x, local_position_ned_cov->y, local_position_ned_cov->z, local_position_ned_cov->vx, local_position_ned_cov->vy, local_position_ned_cov->vz, local_position_ned_cov->ax, local_position_ned_cov->ay, local_position_ned_cov->az, local_position_ned_cov->covariance);
@@ -293,7 +293,7 @@ __STATIC_INLINE void mavlink_msg_local_position_ned_cov_send_struct(mavlink_chan
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_local_position_ned_cov_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, uint8_t estimator_type, float x, float y, float z, float vx, float vy, float vz, float ax, float ay, float az, const float* covariance)
+static_inline void mavlink_msg_local_position_ned_cov_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, uint8_t estimator_type, float x, float y, float z, float vx, float vy, float vz, float ax, float ay, float az, const float* covariance)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -338,7 +338,7 @@ __STATIC_INLINE void mavlink_msg_local_position_ned_cov_send_buf(mavlink_message
  *
  * @return [us] Timestamp (UNIX Epoch time or time since system boot). The receiving end can infer timestamp format (since 1.1.1970 or since system boot) by checking for the magnitude of the number.
  */
-__STATIC_INLINE uint64_t mavlink_msg_local_position_ned_cov_get_time_usec(const mavlink_message_t* msg)
+static_inline uint64_t mavlink_msg_local_position_ned_cov_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 0);
 }
@@ -348,7 +348,7 @@ __STATIC_INLINE uint64_t mavlink_msg_local_position_ned_cov_get_time_usec(const 
  *
  * @return  Class id of the estimator this estimate originated from.
  */
-__STATIC_INLINE uint8_t mavlink_msg_local_position_ned_cov_get_estimator_type(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_local_position_ned_cov_get_estimator_type(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 224);
 }
@@ -358,7 +358,7 @@ __STATIC_INLINE uint8_t mavlink_msg_local_position_ned_cov_get_estimator_type(co
  *
  * @return [m] X Position
  */
-__STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_x(const mavlink_message_t* msg)
+static_inline float mavlink_msg_local_position_ned_cov_get_x(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 8);
 }
@@ -368,7 +368,7 @@ __STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_x(const mavlink_mes
  *
  * @return [m] Y Position
  */
-__STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_y(const mavlink_message_t* msg)
+static_inline float mavlink_msg_local_position_ned_cov_get_y(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -378,7 +378,7 @@ __STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_y(const mavlink_mes
  *
  * @return [m] Z Position
  */
-__STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_z(const mavlink_message_t* msg)
+static_inline float mavlink_msg_local_position_ned_cov_get_z(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -388,7 +388,7 @@ __STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_z(const mavlink_mes
  *
  * @return [m/s] X Speed
  */
-__STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_vx(const mavlink_message_t* msg)
+static_inline float mavlink_msg_local_position_ned_cov_get_vx(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 20);
 }
@@ -398,7 +398,7 @@ __STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_vx(const mavlink_me
  *
  * @return [m/s] Y Speed
  */
-__STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_vy(const mavlink_message_t* msg)
+static_inline float mavlink_msg_local_position_ned_cov_get_vy(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 24);
 }
@@ -408,7 +408,7 @@ __STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_vy(const mavlink_me
  *
  * @return [m/s] Z Speed
  */
-__STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_vz(const mavlink_message_t* msg)
+static_inline float mavlink_msg_local_position_ned_cov_get_vz(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 28);
 }
@@ -418,7 +418,7 @@ __STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_vz(const mavlink_me
  *
  * @return [m/s/s] X Acceleration
  */
-__STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_ax(const mavlink_message_t* msg)
+static_inline float mavlink_msg_local_position_ned_cov_get_ax(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 32);
 }
@@ -428,7 +428,7 @@ __STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_ax(const mavlink_me
  *
  * @return [m/s/s] Y Acceleration
  */
-__STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_ay(const mavlink_message_t* msg)
+static_inline float mavlink_msg_local_position_ned_cov_get_ay(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 36);
 }
@@ -438,7 +438,7 @@ __STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_ay(const mavlink_me
  *
  * @return [m/s/s] Z Acceleration
  */
-__STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_az(const mavlink_message_t* msg)
+static_inline float mavlink_msg_local_position_ned_cov_get_az(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 40);
 }
@@ -448,7 +448,7 @@ __STATIC_INLINE float mavlink_msg_local_position_ned_cov_get_az(const mavlink_me
  *
  * @return  Row-major representation of position, velocity and acceleration 9x9 cross-covariance matrix upper right triangle (states: x, y, z, vx, vy, vz, ax, ay, az; first nine entries are the first ROW, next eight entries are the second row, etc.). If unknown, assign NaN value to first element in the array.
  */
-__STATIC_INLINE uint16_t mavlink_msg_local_position_ned_cov_get_covariance(const mavlink_message_t* msg, float* covariance)
+static_inline uint16_t mavlink_msg_local_position_ned_cov_get_covariance(const mavlink_message_t* msg, float* covariance)
 {
     return _MAV_RETURN_float_array(msg, covariance, 45, 44);
 }
@@ -459,7 +459,7 @@ __STATIC_INLINE uint16_t mavlink_msg_local_position_ned_cov_get_covariance(const
  * @param msg The message to decode
  * @param local_position_ned_cov C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_local_position_ned_cov_decode(const mavlink_message_t* msg, mavlink_local_position_ned_cov_t* local_position_ned_cov)
+static_inline void mavlink_msg_local_position_ned_cov_decode(const mavlink_message_t* msg, mavlink_local_position_ned_cov_t* local_position_ned_cov)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     local_position_ned_cov->time_usec = mavlink_msg_local_position_ned_cov_get_time_usec(msg);

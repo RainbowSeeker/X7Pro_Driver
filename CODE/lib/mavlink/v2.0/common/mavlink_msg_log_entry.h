@@ -61,7 +61,7 @@ typedef struct __mavlink_log_entry_t {
  * @param size [bytes] Size of the log (may be approximate)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_log_entry_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_log_entry_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                   uint16_t id, uint16_t num_logs, uint16_t last_log_num, uint32_t time_utc, uint32_t size)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -101,7 +101,7 @@ __STATIC_INLINE uint16_t mavlink_msg_log_entry_pack(uint8_t system_id, uint8_t c
  * @param size [bytes] Size of the log (may be approximate)
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_log_entry_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_log_entry_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                        mavlink_message_t* msg,
                                                        uint16_t id, uint16_t num_logs, uint16_t last_log_num, uint32_t time_utc, uint32_t size)
 {
@@ -137,7 +137,7 @@ __STATIC_INLINE uint16_t mavlink_msg_log_entry_pack_chan(uint8_t system_id, uint
  * @param msg The MAVLink message to compress the data into
  * @param log_entry C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_log_entry_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_log_entry_t* log_entry)
+static_inline uint16_t mavlink_msg_log_entry_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_log_entry_t* log_entry)
 {
     return mavlink_msg_log_entry_pack(system_id, component_id, msg, log_entry->id, log_entry->num_logs, log_entry->last_log_num, log_entry->time_utc, log_entry->size);
 }
@@ -151,7 +151,7 @@ __STATIC_INLINE uint16_t mavlink_msg_log_entry_encode(uint8_t system_id, uint8_t
  * @param msg The MAVLink message to compress the data into
  * @param log_entry C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_log_entry_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_log_entry_t* log_entry)
+static_inline uint16_t mavlink_msg_log_entry_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_log_entry_t* log_entry)
 {
     return mavlink_msg_log_entry_pack_chan(system_id, component_id, chan, msg, log_entry->id, log_entry->num_logs, log_entry->last_log_num, log_entry->time_utc, log_entry->size);
 }
@@ -168,7 +168,7 @@ __STATIC_INLINE uint16_t mavlink_msg_log_entry_encode_chan(uint8_t system_id, ui
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_log_entry_send(mavlink_channel_t chan, uint16_t id, uint16_t num_logs, uint16_t last_log_num, uint32_t time_utc, uint32_t size)
+static_inline void mavlink_msg_log_entry_send(mavlink_channel_t chan, uint16_t id, uint16_t num_logs, uint16_t last_log_num, uint32_t time_utc, uint32_t size)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_LOG_ENTRY_LEN];
@@ -196,7 +196,7 @@ __STATIC_INLINE void mavlink_msg_log_entry_send(mavlink_channel_t chan, uint16_t
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_log_entry_send_struct(mavlink_channel_t chan, const mavlink_log_entry_t* log_entry)
+static_inline void mavlink_msg_log_entry_send_struct(mavlink_channel_t chan, const mavlink_log_entry_t* log_entry)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_log_entry_send(chan, log_entry->id, log_entry->num_logs, log_entry->last_log_num, log_entry->time_utc, log_entry->size);
@@ -213,7 +213,7 @@ __STATIC_INLINE void mavlink_msg_log_entry_send_struct(mavlink_channel_t chan, c
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_log_entry_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint16_t id, uint16_t num_logs, uint16_t last_log_num, uint32_t time_utc, uint32_t size)
+static_inline void mavlink_msg_log_entry_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint16_t id, uint16_t num_logs, uint16_t last_log_num, uint32_t time_utc, uint32_t size)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -246,7 +246,7 @@ __STATIC_INLINE void mavlink_msg_log_entry_send_buf(mavlink_message_t* msgbuf, m
  *
  * @return  Log id
  */
-__STATIC_INLINE uint16_t mavlink_msg_log_entry_get_id(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_log_entry_get_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 8);
 }
@@ -256,7 +256,7 @@ __STATIC_INLINE uint16_t mavlink_msg_log_entry_get_id(const mavlink_message_t* m
  *
  * @return  Total number of logs
  */
-__STATIC_INLINE uint16_t mavlink_msg_log_entry_get_num_logs(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_log_entry_get_num_logs(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 10);
 }
@@ -266,7 +266,7 @@ __STATIC_INLINE uint16_t mavlink_msg_log_entry_get_num_logs(const mavlink_messag
  *
  * @return  High log number
  */
-__STATIC_INLINE uint16_t mavlink_msg_log_entry_get_last_log_num(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_log_entry_get_last_log_num(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 12);
 }
@@ -276,7 +276,7 @@ __STATIC_INLINE uint16_t mavlink_msg_log_entry_get_last_log_num(const mavlink_me
  *
  * @return [s] UTC timestamp of log since 1970, or 0 if not available
  */
-__STATIC_INLINE uint32_t mavlink_msg_log_entry_get_time_utc(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_log_entry_get_time_utc(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 0);
 }
@@ -286,7 +286,7 @@ __STATIC_INLINE uint32_t mavlink_msg_log_entry_get_time_utc(const mavlink_messag
  *
  * @return [bytes] Size of the log (may be approximate)
  */
-__STATIC_INLINE uint32_t mavlink_msg_log_entry_get_size(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_log_entry_get_size(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 4);
 }
@@ -297,7 +297,7 @@ __STATIC_INLINE uint32_t mavlink_msg_log_entry_get_size(const mavlink_message_t*
  * @param msg The message to decode
  * @param log_entry C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_log_entry_decode(const mavlink_message_t* msg, mavlink_log_entry_t* log_entry)
+static_inline void mavlink_msg_log_entry_decode(const mavlink_message_t* msg, mavlink_log_entry_t* log_entry)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     log_entry->time_utc = mavlink_msg_log_entry_get_time_utc(msg);

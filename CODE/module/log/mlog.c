@@ -45,8 +45,15 @@ struct mlog
     mlog_stats_t *stats;
 };
 
+#if defined(__CC_ARM) || defined(__CLANG_ARM)          /* ARM C Compiler */
+extern const int MlogTab$$Base;
+extern const int MlogTab$$Limit;
+
+#elif defined (__GNUC__) || defined(__TI_COMPILER_VERSION__)
+/* GNU GCC Compiler and TI CCS */
 extern const int __mlog_start;
 extern const int __mlog_end;
+#endif
 
 static uint8_t __mlog_data_buffer[MLOG_BUFFER_SIZE];
 static mlog_bus_t *__mlog_table;
@@ -341,8 +348,21 @@ err_t mlog_deregister_callback(mlog_cb_type type, void (*cb_func)(void))
 int mlog_get_bus_id(const char *bus_name)
 {
     /* this function may be called before mlog_init */
+#if defined(__CC_ARM) || defined(__CLANG_ARM)          /* ARM C Compiler */
+    extern const int MlogTab$$Base;
+    extern const int MlogTab$$Limit;
+
+    mlog_bus_t *mlog_table = (mlog_bus_t *) &MlogTab$$Base;
+    uint8_t mlog_bus_num = (mlog_bus_t *) &MlogTab$$Limit - mlog_table;
+#elif defined (__GNUC__) || defined(__TI_COMPILER_VERSION__)
+    /* GNU GCC Compiler and TI CCS */
+    extern const int __mlog_start;
+    extern const int __mlog_end;
+
     mlog_bus_t *mlog_table = (mlog_bus_t *) &__mlog_start;
     uint8_t mlog_bus_num = (mlog_bus_t *) &__mlog_end - mlog_table;
+#endif
+
 
     for (uint8_t n = 0; n < mlog_bus_num; n++)
     {
@@ -688,8 +708,20 @@ void mlog_async_output(void)
  */
 err_t mlog_init(void)
 {
+#if defined(__CC_ARM) || defined(__CLANG_ARM)          /* ARM C Compiler */
+    extern const int MlogTab$$Base;
+    extern const int MlogTab$$Limit;
+
+    __mlog_table = (mlog_bus_t *) &MlogTab$$Base;
+    __mlog_bus_num = (mlog_bus_t *) &MlogTab$$Limit - __mlog_table;
+#elif defined (__GNUC__) || defined(__TI_COMPILER_VERSION__)
+    /* GNU GCC Compiler and TI CCS */
+    extern const int __mlog_start;
+    extern const int __mlog_end;
+
     __mlog_table = (mlog_bus_t *) &__mlog_start;
     __mlog_bus_num = (mlog_bus_t *) &__mlog_end - __mlog_table;
+#endif
 
     /* initialize mlog_handle status */
     mlog_handle.is_open = 0;

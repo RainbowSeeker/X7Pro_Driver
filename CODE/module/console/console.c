@@ -17,6 +17,17 @@ __WEAK void console_write_hook(const char *content, uint32_t len);
 static device_t console_dev;
 static char console_buffer[CONSOLE_BUFF_SIZE];
 
+
+/**
+ * Write raw data to console device.
+ * @param ch char to be written
+ * @return
+ */
+int console_putc(char ch)
+{
+    return console_write(&ch, 1);
+}
+
 /**
  * Write raw data to console device.
  *

@@ -7,8 +7,6 @@
 #include <common.h>
 #include "module_common.h"
 #include "model/ins/base_ins/lib/INS.h"
-#include "spi/spi.h"
-#include "barometer/barometer.h"
 #include "sensor/sensor_hub.h"
 #include "sysio/pilot_cmd.h"
 #include "sysio/gcs_cmd.h"

@@ -51,7 +51,7 @@ typedef struct list_node list_t;
  *
  * @param l list to be initialized
  */
-__STATIC_INLINE void list_init(list_t *l)
+static_inline void list_init(list_t *l)
 {
     l->next = l->prev = l;
 }
@@ -62,7 +62,7 @@ __STATIC_INLINE void list_init(list_t *l)
  * @param l list to insert it
  * @param n new node to be inserted
  */
-__STATIC_INLINE void list_insert_after(list_t *l, struct list_node *n)
+static_inline void list_insert_after(list_t *l, struct list_node *n)
 {
     l->next->prev = n;
     n->next = l->next;
@@ -77,7 +77,7 @@ __STATIC_INLINE void list_insert_after(list_t *l, struct list_node *n)
  * @param n new node to be inserted
  * @param l list to insert it
  */
-__STATIC_INLINE void list_insert_before(list_t *l, struct list_node *n)
+static_inline void list_insert_before(list_t *l, struct list_node *n)
 {
     l->prev->next = n;
     n->prev = l->prev;
@@ -90,7 +90,7 @@ __STATIC_INLINE void list_insert_before(list_t *l, struct list_node *n)
  * @brief remove node from list.
  * @param n the node to remove from the list.
  */
-__STATIC_INLINE void list_remove(struct list_node *n)
+static_inline void list_remove(struct list_node *n)
 {
     n->next->prev = n->prev;
     n->prev->next = n->next;
@@ -102,7 +102,7 @@ __STATIC_INLINE void list_remove(struct list_node *n)
  * @brief tests whether a list is empty
  * @param l the list to test.
  */
-__STATIC_INLINE int list_isempty(const list_t *l)
+static_inline int list_isempty(const list_t *l)
 {
     return l->next == l;
 }
@@ -111,7 +111,7 @@ __STATIC_INLINE int list_isempty(const list_t *l)
  * @brief get the list length
  * @param l the list to get.
  */
-__STATIC_INLINE unsigned int list_len(const list_t *l)
+static_inline unsigned int list_len(const list_t *l)
 {
     unsigned int len = 0;
     const list_t *p = l;
@@ -130,7 +130,7 @@ __STATIC_INLINE unsigned int list_len(const list_t *l)
  * This is only for internal list manipulation where we know
  * the prev/next entries already!
  */
-__STATIC_INLINE void __list_add(struct list_node *new,
+static_inline void __list_add(struct list_node *new,
                               struct list_node *prev,
                               struct list_node *next)
 {
@@ -148,7 +148,7 @@ __STATIC_INLINE void __list_add(struct list_node *new,
  * Insert a new entry after the specified head.
  * This is good for implementing stacks.
  */
-__STATIC_INLINE void list_add(struct list_node *new, struct list_node *head)
+static_inline void list_add(struct list_node *new, struct list_node *head)
 {
     __list_add(new, head, head->next);
 }
@@ -161,7 +161,7 @@ __STATIC_INLINE void list_add(struct list_node *new, struct list_node *head)
  * Insert a new entry before the specified head.
  * This is useful for implementing queues.
  */
-__STATIC_INLINE void list_add_tail(struct list_node *new, struct list_node *head)
+static_inline void list_add_tail(struct list_node *new, struct list_node *head)
 {
     __list_add(new, head->prev, head);
 }
@@ -173,7 +173,7 @@ __STATIC_INLINE void list_add_tail(struct list_node *new, struct list_node *head
  * This is only for internal list manipulation where we know
  * the prev/next entries already!
  */
-__STATIC_INLINE void __list_del(struct list_node *prev, struct list_node *next)
+static_inline void __list_del(struct list_node *prev, struct list_node *next)
 {
     next->prev = prev;
     prev->next = next;
@@ -185,12 +185,12 @@ __STATIC_INLINE void __list_del(struct list_node *prev, struct list_node *next)
  * Note: list_empty() on entry does not return true after this, the entry is
  * in an undefined state.
  */
-__STATIC_INLINE void __list_del_entry(struct list_node *entry)
+static_inline void __list_del_entry(struct list_node *entry)
 {
     __list_del(entry->prev, entry->next);
 }
 
-__STATIC_INLINE void list_del(struct list_node *entry)
+static_inline void list_del(struct list_node *entry)
 {
     __list_del_entry(entry);
     entry->next = NULL;
@@ -202,7 +202,7 @@ __STATIC_INLINE void list_del(struct list_node *entry)
  * @list: the entry to test
  * @head: the head of the list
  */
-__STATIC_INLINE int list_is_first(const struct list_node *list,
+static_inline int list_is_first(const struct list_node *list,
                                 const struct list_node *head)
 {
     return list->prev == head;
@@ -213,7 +213,7 @@ __STATIC_INLINE int list_is_first(const struct list_node *list,
  * @list: the entry to test
  * @head: the head of the list
  */
-__STATIC_INLINE int list_is_last(const struct list_node *list,
+static_inline int list_is_last(const struct list_node *list,
                                const struct list_node *head)
 {
     return list->next == head;
@@ -223,7 +223,7 @@ __STATIC_INLINE int list_is_last(const struct list_node *list,
  * list_empty - tests whether a list is empty
  * @head: the list to test.
  */
-__STATIC_INLINE int list_empty(const struct list_node *head)
+static_inline int list_empty(const struct list_node *head)
 {
     return head->next == head;
 }
@@ -352,12 +352,12 @@ typedef struct slist_node slist_t;                /**< Type for single list. */
  *
  * @param l the single list to be initialized
  */
-__STATIC_INLINE void slist_init(slist_t *l)
+static_inline void slist_init(slist_t *l)
 {
     l->next = NULL;
 }
 
-__STATIC_INLINE void slist_append(slist_t *l, slist_t *n)
+static_inline void slist_append(slist_t *l, slist_t *n)
 {
     struct slist_node *node;
 
@@ -369,13 +369,13 @@ __STATIC_INLINE void slist_append(slist_t *l, slist_t *n)
     n->next = NULL;
 }
 
-__STATIC_INLINE void slist_insert(slist_t *l, slist_t *n)
+static_inline void slist_insert(slist_t *l, slist_t *n)
 {
     n->next = l->next;
     l->next = n;
 }
 
-__STATIC_INLINE unsigned int slist_len(const slist_t *l)
+static_inline unsigned int slist_len(const slist_t *l)
 {
     unsigned int len = 0;
     const slist_t *list = l->next;
@@ -388,7 +388,7 @@ __STATIC_INLINE unsigned int slist_len(const slist_t *l)
     return len;
 }
 
-__STATIC_INLINE slist_t *slist_remove(slist_t *l, slist_t *n)
+static_inline slist_t *slist_remove(slist_t *l, slist_t *n)
 {
     /* remove slist head */
     struct slist_node *node = l;
@@ -400,24 +400,24 @@ __STATIC_INLINE slist_t *slist_remove(slist_t *l, slist_t *n)
     return l;
 }
 
-__STATIC_INLINE slist_t *slist_first(slist_t *l)
+static_inline slist_t *slist_first(slist_t *l)
 {
     return l->next;
 }
 
-__STATIC_INLINE slist_t *slist_tail(slist_t *l)
+static_inline slist_t *slist_tail(slist_t *l)
 {
     while (l->next) l = l->next;
 
     return l;
 }
 
-__STATIC_INLINE slist_t *slist_next(slist_t *n)
+static_inline slist_t *slist_next(slist_t *n)
 {
     return n->next;
 }
 
-__STATIC_INLINE int slist_isempty(slist_t *l)
+static_inline int slist_isempty(slist_t *l)
 {
     return l->next == NULL;
 }

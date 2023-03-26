@@ -28,7 +28,6 @@
 #include <common.h>
 
 
-
 #include <assert.h>
 #include <ctype.h>
 #include <setjmp.h>
@@ -67,7 +66,7 @@ static char* STRDUP(const char* s)
 
 static char* STRNDUP(const char* s, size_t n)
 {
-    size_t len = strnlen(s, n);
+    size_t len = MIN(strlen(s), n);
     char* p = ppmalloc(len + 1);
     if (p) {
         memcpy(p, s, len);
@@ -302,7 +301,7 @@ struct toml_table_t {
     toml_table_t** tab;
 };
 
-__STATIC_INLINE void xfree(const void* x)
+static_inline void xfree(const void* x)
 {
     if (x)
         ppfree((void*)(intptr_t)x);

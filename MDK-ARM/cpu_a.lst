@@ -452,20 +452,18 @@ ARM Macro Assembler    Page 7
   285 00000054         
   286 00000054                 END
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.sp --apcs=
-interwork --depend=x7pro_driver\cpu_a.d -ox7pro_driver\cpu_a.o -I..\UCOSIII\uC-
+interwork --depend=x7pro_driver\cpu_a.d -ox7pro_driver\cpu_a.o -I.\RTE\_X7Pro_D
 
 
 
 ARM Macro Assembler    Page 8 
 
 
-CPU\ARM-Cortex-M4\ARM -I..\UCOSIII\uCOS-III\Ports\ARM-Cortex-M\ARMv7-M\ARM -I.\
-RTE\_X7Pro_Driver -IC:\Users\19114\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSI
-S\Core\Include -IC:\Users\19114\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.
-0\Drivers\CMSIS\Device\ST\STM32H7xx\Include --predefine="__MICROLIB SETA 1" --p
-redefine="__UVISION_VERSION SETA 528" --predefine="_RTE_ SETA 1" --predefine="S
-TM32H743xx SETA 1" --list=cpu_a.lst ..\UCOSIII\uC-CPU\ARM-Cortex-M4\ARM\cpu_a.a
-sm
+river -IC:\Users\19114\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Inclu
+de -IC:\Users\19114\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CM
+SIS\Device\ST\STM32H7xx\Include --predefine="__UVISION_VERSION SETA 528" --pred
+efine="_RTE_ SETA 1" --predefine="STM32H743xx SETA 1" --list=cpu_a.lst ..\UCOSI
+II\uC-CPU\ARM-Cortex-M4\ARM\cpu_a.asm
 
 
 
@@ -559,4 +557,4 @@ Symbol: CPU_WaitForInt
       At line 39 in file ..\UCOSIII\uC-CPU\ARM-Cortex-M4\ARM\cpu_a.asm
 Comment: CPU_WaitForInt used once
 10 symbols
-345 symbols in table
+344 symbols in table

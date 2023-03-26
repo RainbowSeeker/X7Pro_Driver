@@ -105,7 +105,7 @@ typedef struct __mavlink_set_position_target_global_int_t {
  * @param yaw_rate [rad/s] yaw rate setpoint
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_set_position_target_global_int_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_set_position_target_global_int_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                                        uint32_t time_boot_ms, uint8_t target_system, uint8_t target_component, uint8_t coordinate_frame, uint16_t type_mask, int32_t lat_int, int32_t lon_int, float alt, float vx, float vy, float vz, float afx, float afy, float afz, float yaw, float yaw_rate)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -178,7 +178,7 @@ __STATIC_INLINE uint16_t mavlink_msg_set_position_target_global_int_pack(uint8_t
  * @param yaw_rate [rad/s] yaw rate setpoint
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_set_position_target_global_int_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_set_position_target_global_int_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                             mavlink_message_t* msg,
                                                                             uint32_t time_boot_ms, uint8_t target_system, uint8_t target_component, uint8_t coordinate_frame, uint16_t type_mask, int32_t lat_int, int32_t lon_int, float alt, float vx, float vy, float vz, float afx, float afy, float afz, float yaw, float yaw_rate)
 {
@@ -236,7 +236,7 @@ __STATIC_INLINE uint16_t mavlink_msg_set_position_target_global_int_pack_chan(ui
  * @param msg The MAVLink message to compress the data into
  * @param set_position_target_global_int C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_set_position_target_global_int_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_set_position_target_global_int_t* set_position_target_global_int)
+static_inline uint16_t mavlink_msg_set_position_target_global_int_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_set_position_target_global_int_t* set_position_target_global_int)
 {
     return mavlink_msg_set_position_target_global_int_pack(system_id, component_id, msg, set_position_target_global_int->time_boot_ms, set_position_target_global_int->target_system, set_position_target_global_int->target_component, set_position_target_global_int->coordinate_frame, set_position_target_global_int->type_mask, set_position_target_global_int->lat_int, set_position_target_global_int->lon_int, set_position_target_global_int->alt, set_position_target_global_int->vx, set_position_target_global_int->vy, set_position_target_global_int->vz, set_position_target_global_int->afx, set_position_target_global_int->afy, set_position_target_global_int->afz, set_position_target_global_int->yaw, set_position_target_global_int->yaw_rate);
 }
@@ -250,7 +250,7 @@ __STATIC_INLINE uint16_t mavlink_msg_set_position_target_global_int_encode(uint8
  * @param msg The MAVLink message to compress the data into
  * @param set_position_target_global_int C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_set_position_target_global_int_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_set_position_target_global_int_t* set_position_target_global_int)
+static_inline uint16_t mavlink_msg_set_position_target_global_int_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_set_position_target_global_int_t* set_position_target_global_int)
 {
     return mavlink_msg_set_position_target_global_int_pack_chan(system_id, component_id, chan, msg, set_position_target_global_int->time_boot_ms, set_position_target_global_int->target_system, set_position_target_global_int->target_component, set_position_target_global_int->coordinate_frame, set_position_target_global_int->type_mask, set_position_target_global_int->lat_int, set_position_target_global_int->lon_int, set_position_target_global_int->alt, set_position_target_global_int->vx, set_position_target_global_int->vy, set_position_target_global_int->vz, set_position_target_global_int->afx, set_position_target_global_int->afy, set_position_target_global_int->afz, set_position_target_global_int->yaw, set_position_target_global_int->yaw_rate);
 }
@@ -278,7 +278,7 @@ __STATIC_INLINE uint16_t mavlink_msg_set_position_target_global_int_encode_chan(
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_set_position_target_global_int_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t target_system, uint8_t target_component, uint8_t coordinate_frame, uint16_t type_mask, int32_t lat_int, int32_t lon_int, float alt, float vx, float vy, float vz, float afx, float afy, float afz, float yaw, float yaw_rate)
+static_inline void mavlink_msg_set_position_target_global_int_send(mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t target_system, uint8_t target_component, uint8_t coordinate_frame, uint16_t type_mask, int32_t lat_int, int32_t lon_int, float alt, float vx, float vy, float vz, float afx, float afy, float afz, float yaw, float yaw_rate)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_SET_POSITION_TARGET_GLOBAL_INT_LEN];
@@ -328,7 +328,7 @@ __STATIC_INLINE void mavlink_msg_set_position_target_global_int_send(mavlink_cha
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_set_position_target_global_int_send_struct(mavlink_channel_t chan, const mavlink_set_position_target_global_int_t* set_position_target_global_int)
+static_inline void mavlink_msg_set_position_target_global_int_send_struct(mavlink_channel_t chan, const mavlink_set_position_target_global_int_t* set_position_target_global_int)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_set_position_target_global_int_send(chan, set_position_target_global_int->time_boot_ms, set_position_target_global_int->target_system, set_position_target_global_int->target_component, set_position_target_global_int->coordinate_frame, set_position_target_global_int->type_mask, set_position_target_global_int->lat_int, set_position_target_global_int->lon_int, set_position_target_global_int->alt, set_position_target_global_int->vx, set_position_target_global_int->vy, set_position_target_global_int->vz, set_position_target_global_int->afx, set_position_target_global_int->afy, set_position_target_global_int->afz, set_position_target_global_int->yaw, set_position_target_global_int->yaw_rate);
@@ -345,7 +345,7 @@ __STATIC_INLINE void mavlink_msg_set_position_target_global_int_send_struct(mavl
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_set_position_target_global_int_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t target_system, uint8_t target_component, uint8_t coordinate_frame, uint16_t type_mask, int32_t lat_int, int32_t lon_int, float alt, float vx, float vy, float vz, float afx, float afy, float afz, float yaw, float yaw_rate)
+static_inline void mavlink_msg_set_position_target_global_int_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint32_t time_boot_ms, uint8_t target_system, uint8_t target_component, uint8_t coordinate_frame, uint16_t type_mask, int32_t lat_int, int32_t lon_int, float alt, float vx, float vy, float vz, float afx, float afy, float afz, float yaw, float yaw_rate)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -400,7 +400,7 @@ __STATIC_INLINE void mavlink_msg_set_position_target_global_int_send_buf(mavlink
  *
  * @return [ms] Timestamp (time since system boot). The rationale for the timestamp in the setpoint is to allow the system to compensate for the transport delay of the setpoint. This allows the system to compensate processing latency.
  */
-__STATIC_INLINE uint32_t mavlink_msg_set_position_target_global_int_get_time_boot_ms(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_set_position_target_global_int_get_time_boot_ms(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 0);
 }
@@ -410,7 +410,7 @@ __STATIC_INLINE uint32_t mavlink_msg_set_position_target_global_int_get_time_boo
  *
  * @return  System ID
  */
-__STATIC_INLINE uint8_t mavlink_msg_set_position_target_global_int_get_target_system(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_set_position_target_global_int_get_target_system(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 50);
 }
@@ -420,7 +420,7 @@ __STATIC_INLINE uint8_t mavlink_msg_set_position_target_global_int_get_target_sy
  *
  * @return  Component ID
  */
-__STATIC_INLINE uint8_t mavlink_msg_set_position_target_global_int_get_target_component(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_set_position_target_global_int_get_target_component(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 51);
 }
@@ -430,7 +430,7 @@ __STATIC_INLINE uint8_t mavlink_msg_set_position_target_global_int_get_target_co
  *
  * @return  Valid options are: MAV_FRAME_GLOBAL_INT = 5, MAV_FRAME_GLOBAL_RELATIVE_ALT_INT = 6, MAV_FRAME_GLOBAL_TERRAIN_ALT_INT = 11
  */
-__STATIC_INLINE uint8_t mavlink_msg_set_position_target_global_int_get_coordinate_frame(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_set_position_target_global_int_get_coordinate_frame(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 52);
 }
@@ -440,7 +440,7 @@ __STATIC_INLINE uint8_t mavlink_msg_set_position_target_global_int_get_coordinat
  *
  * @return  Bitmap to indicate which dimensions should be ignored by the vehicle.
  */
-__STATIC_INLINE uint16_t mavlink_msg_set_position_target_global_int_get_type_mask(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_set_position_target_global_int_get_type_mask(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 48);
 }
@@ -450,7 +450,7 @@ __STATIC_INLINE uint16_t mavlink_msg_set_position_target_global_int_get_type_mas
  *
  * @return [degE7] X Position in WGS84 frame
  */
-__STATIC_INLINE int32_t mavlink_msg_set_position_target_global_int_get_lat_int(const mavlink_message_t* msg)
+static_inline int32_t mavlink_msg_set_position_target_global_int_get_lat_int(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 4);
 }
@@ -460,7 +460,7 @@ __STATIC_INLINE int32_t mavlink_msg_set_position_target_global_int_get_lat_int(c
  *
  * @return [degE7] Y Position in WGS84 frame
  */
-__STATIC_INLINE int32_t mavlink_msg_set_position_target_global_int_get_lon_int(const mavlink_message_t* msg)
+static_inline int32_t mavlink_msg_set_position_target_global_int_get_lon_int(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_int32_t(msg, 8);
 }
@@ -470,7 +470,7 @@ __STATIC_INLINE int32_t mavlink_msg_set_position_target_global_int_get_lon_int(c
  *
  * @return [m] Altitude (MSL, Relative to home, or AGL - depending on frame)
  */
-__STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_alt(const mavlink_message_t* msg)
+static_inline float mavlink_msg_set_position_target_global_int_get_alt(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -480,7 +480,7 @@ __STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_alt(const m
  *
  * @return [m/s] X velocity in NED frame
  */
-__STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_vx(const mavlink_message_t* msg)
+static_inline float mavlink_msg_set_position_target_global_int_get_vx(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -490,7 +490,7 @@ __STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_vx(const ma
  *
  * @return [m/s] Y velocity in NED frame
  */
-__STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_vy(const mavlink_message_t* msg)
+static_inline float mavlink_msg_set_position_target_global_int_get_vy(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 20);
 }
@@ -500,7 +500,7 @@ __STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_vy(const ma
  *
  * @return [m/s] Z velocity in NED frame
  */
-__STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_vz(const mavlink_message_t* msg)
+static_inline float mavlink_msg_set_position_target_global_int_get_vz(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 24);
 }
@@ -510,7 +510,7 @@ __STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_vz(const ma
  *
  * @return [m/s/s] X acceleration or force (if bit 10 of type_mask is set) in NED frame in meter / s^2 or N
  */
-__STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_afx(const mavlink_message_t* msg)
+static_inline float mavlink_msg_set_position_target_global_int_get_afx(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 28);
 }
@@ -520,7 +520,7 @@ __STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_afx(const m
  *
  * @return [m/s/s] Y acceleration or force (if bit 10 of type_mask is set) in NED frame in meter / s^2 or N
  */
-__STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_afy(const mavlink_message_t* msg)
+static_inline float mavlink_msg_set_position_target_global_int_get_afy(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 32);
 }
@@ -530,7 +530,7 @@ __STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_afy(const m
  *
  * @return [m/s/s] Z acceleration or force (if bit 10 of type_mask is set) in NED frame in meter / s^2 or N
  */
-__STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_afz(const mavlink_message_t* msg)
+static_inline float mavlink_msg_set_position_target_global_int_get_afz(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 36);
 }
@@ -540,7 +540,7 @@ __STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_afz(const m
  *
  * @return [rad] yaw setpoint
  */
-__STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_yaw(const mavlink_message_t* msg)
+static_inline float mavlink_msg_set_position_target_global_int_get_yaw(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 40);
 }
@@ -550,7 +550,7 @@ __STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_yaw(const m
  *
  * @return [rad/s] yaw rate setpoint
  */
-__STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_yaw_rate(const mavlink_message_t* msg)
+static_inline float mavlink_msg_set_position_target_global_int_get_yaw_rate(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 44);
 }
@@ -561,7 +561,7 @@ __STATIC_INLINE float mavlink_msg_set_position_target_global_int_get_yaw_rate(co
  * @param msg The message to decode
  * @param set_position_target_global_int C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_set_position_target_global_int_decode(const mavlink_message_t* msg, mavlink_set_position_target_global_int_t* set_position_target_global_int)
+static_inline void mavlink_msg_set_position_target_global_int_decode(const mavlink_message_t* msg, mavlink_set_position_target_global_int_t* set_position_target_global_int)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     set_position_target_global_int->time_boot_ms = mavlink_msg_set_position_target_global_int_get_time_boot_ms(msg);

@@ -5,7 +5,7 @@
 //
 
 #include "spi.h"
-#include "dma/dma.h"
+#include "hal/dma/dma.h"
 
 #define spi_lock(_bus)          os_sem_take(&(_bus->lock), OS_WAITING_FOREVER)
 #define spi_unlock(_bus)        os_sem_release(&(_bus->lock))

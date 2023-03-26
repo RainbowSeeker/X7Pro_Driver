@@ -55,7 +55,7 @@ typedef struct __mavlink_actuator_output_status_t {
  * @param actuator  Servo / motor output array values. Zero values indicate unused channels.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_actuator_output_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_actuator_output_status_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                                uint64_t time_usec, uint32_t active, const float* actuator)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -87,7 +87,7 @@ __STATIC_INLINE uint16_t mavlink_msg_actuator_output_status_pack(uint8_t system_
  * @param actuator  Servo / motor output array values. Zero values indicate unused channels.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_actuator_output_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_actuator_output_status_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                     mavlink_message_t* msg,
                                                                     uint64_t time_usec, uint32_t active, const float* actuator)
 {
@@ -117,7 +117,7 @@ __STATIC_INLINE uint16_t mavlink_msg_actuator_output_status_pack_chan(uint8_t sy
  * @param msg The MAVLink message to compress the data into
  * @param actuator_output_status C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_actuator_output_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_actuator_output_status_t* actuator_output_status)
+static_inline uint16_t mavlink_msg_actuator_output_status_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_actuator_output_status_t* actuator_output_status)
 {
     return mavlink_msg_actuator_output_status_pack(system_id, component_id, msg, actuator_output_status->time_usec, actuator_output_status->active, actuator_output_status->actuator);
 }
@@ -131,7 +131,7 @@ __STATIC_INLINE uint16_t mavlink_msg_actuator_output_status_encode(uint8_t syste
  * @param msg The MAVLink message to compress the data into
  * @param actuator_output_status C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_actuator_output_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_actuator_output_status_t* actuator_output_status)
+static_inline uint16_t mavlink_msg_actuator_output_status_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_actuator_output_status_t* actuator_output_status)
 {
     return mavlink_msg_actuator_output_status_pack_chan(system_id, component_id, chan, msg, actuator_output_status->time_usec, actuator_output_status->active, actuator_output_status->actuator);
 }
@@ -146,7 +146,7 @@ __STATIC_INLINE uint16_t mavlink_msg_actuator_output_status_encode_chan(uint8_t 
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_actuator_output_status_send(mavlink_channel_t chan, uint64_t time_usec, uint32_t active, const float* actuator)
+static_inline void mavlink_msg_actuator_output_status_send(mavlink_channel_t chan, uint64_t time_usec, uint32_t active, const float* actuator)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_ACTUATOR_OUTPUT_STATUS_LEN];
@@ -168,7 +168,7 @@ __STATIC_INLINE void mavlink_msg_actuator_output_status_send(mavlink_channel_t c
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_actuator_output_status_send_struct(mavlink_channel_t chan, const mavlink_actuator_output_status_t* actuator_output_status)
+static_inline void mavlink_msg_actuator_output_status_send_struct(mavlink_channel_t chan, const mavlink_actuator_output_status_t* actuator_output_status)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_actuator_output_status_send(chan, actuator_output_status->time_usec, actuator_output_status->active, actuator_output_status->actuator);
@@ -185,7 +185,7 @@ __STATIC_INLINE void mavlink_msg_actuator_output_status_send_struct(mavlink_chan
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_actuator_output_status_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, uint32_t active, const float* actuator)
+static_inline void mavlink_msg_actuator_output_status_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t time_usec, uint32_t active, const float* actuator)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -212,7 +212,7 @@ __STATIC_INLINE void mavlink_msg_actuator_output_status_send_buf(mavlink_message
  *
  * @return [us] Timestamp (since system boot).
  */
-__STATIC_INLINE uint64_t mavlink_msg_actuator_output_status_get_time_usec(const mavlink_message_t* msg)
+static_inline uint64_t mavlink_msg_actuator_output_status_get_time_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 0);
 }
@@ -222,7 +222,7 @@ __STATIC_INLINE uint64_t mavlink_msg_actuator_output_status_get_time_usec(const 
  *
  * @return  Active outputs
  */
-__STATIC_INLINE uint32_t mavlink_msg_actuator_output_status_get_active(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_actuator_output_status_get_active(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 8);
 }
@@ -232,7 +232,7 @@ __STATIC_INLINE uint32_t mavlink_msg_actuator_output_status_get_active(const mav
  *
  * @return  Servo / motor output array values. Zero values indicate unused channels.
  */
-__STATIC_INLINE uint16_t mavlink_msg_actuator_output_status_get_actuator(const mavlink_message_t* msg, float* actuator)
+static_inline uint16_t mavlink_msg_actuator_output_status_get_actuator(const mavlink_message_t* msg, float* actuator)
 {
     return _MAV_RETURN_float_array(msg, actuator, 32, 12);
 }
@@ -243,7 +243,7 @@ __STATIC_INLINE uint16_t mavlink_msg_actuator_output_status_get_actuator(const m
  * @param msg The message to decode
  * @param actuator_output_status C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_actuator_output_status_decode(const mavlink_message_t* msg, mavlink_actuator_output_status_t* actuator_output_status)
+static_inline void mavlink_msg_actuator_output_status_decode(const mavlink_message_t* msg, mavlink_actuator_output_status_t* actuator_output_status)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     actuator_output_status->time_usec = mavlink_msg_actuator_output_status_get_time_usec(msg);

@@ -75,7 +75,7 @@ typedef struct __mavlink_vicon_position_estimate_t {
  * @param covariance  Row-major representation of 6x6 pose cross-covariance matrix upper right triangle (states: x, y, z, roll, pitch, yaw; first six entries are the first ROW, next five entries are the second ROW, etc.). If unknown, assign NaN value to first element in the array.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_vicon_position_estimate_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_vicon_position_estimate_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                                 uint64_t usec, float x, float y, float z, float roll, float pitch, float yaw, const float* covariance)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -122,7 +122,7 @@ __STATIC_INLINE uint16_t mavlink_msg_vicon_position_estimate_pack(uint8_t system
  * @param covariance  Row-major representation of 6x6 pose cross-covariance matrix upper right triangle (states: x, y, z, roll, pitch, yaw; first six entries are the first ROW, next five entries are the second ROW, etc.). If unknown, assign NaN value to first element in the array.
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_vicon_position_estimate_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_vicon_position_estimate_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                                      mavlink_message_t* msg,
                                                                      uint64_t usec, float x, float y, float z, float roll, float pitch, float yaw, const float* covariance)
 {
@@ -162,7 +162,7 @@ __STATIC_INLINE uint16_t mavlink_msg_vicon_position_estimate_pack_chan(uint8_t s
  * @param msg The MAVLink message to compress the data into
  * @param vicon_position_estimate C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_vicon_position_estimate_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_vicon_position_estimate_t* vicon_position_estimate)
+static_inline uint16_t mavlink_msg_vicon_position_estimate_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_vicon_position_estimate_t* vicon_position_estimate)
 {
     return mavlink_msg_vicon_position_estimate_pack(system_id, component_id, msg, vicon_position_estimate->usec, vicon_position_estimate->x, vicon_position_estimate->y, vicon_position_estimate->z, vicon_position_estimate->roll, vicon_position_estimate->pitch, vicon_position_estimate->yaw, vicon_position_estimate->covariance);
 }
@@ -176,7 +176,7 @@ __STATIC_INLINE uint16_t mavlink_msg_vicon_position_estimate_encode(uint8_t syst
  * @param msg The MAVLink message to compress the data into
  * @param vicon_position_estimate C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_vicon_position_estimate_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_vicon_position_estimate_t* vicon_position_estimate)
+static_inline uint16_t mavlink_msg_vicon_position_estimate_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_vicon_position_estimate_t* vicon_position_estimate)
 {
     return mavlink_msg_vicon_position_estimate_pack_chan(system_id, component_id, chan, msg, vicon_position_estimate->usec, vicon_position_estimate->x, vicon_position_estimate->y, vicon_position_estimate->z, vicon_position_estimate->roll, vicon_position_estimate->pitch, vicon_position_estimate->yaw, vicon_position_estimate->covariance);
 }
@@ -196,7 +196,7 @@ __STATIC_INLINE uint16_t mavlink_msg_vicon_position_estimate_encode_chan(uint8_t
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_vicon_position_estimate_send(mavlink_channel_t chan, uint64_t usec, float x, float y, float z, float roll, float pitch, float yaw, const float* covariance)
+static_inline void mavlink_msg_vicon_position_estimate_send(mavlink_channel_t chan, uint64_t usec, float x, float y, float z, float roll, float pitch, float yaw, const float* covariance)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_VICON_POSITION_ESTIMATE_LEN];
@@ -228,7 +228,7 @@ __STATIC_INLINE void mavlink_msg_vicon_position_estimate_send(mavlink_channel_t 
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_vicon_position_estimate_send_struct(mavlink_channel_t chan, const mavlink_vicon_position_estimate_t* vicon_position_estimate)
+static_inline void mavlink_msg_vicon_position_estimate_send_struct(mavlink_channel_t chan, const mavlink_vicon_position_estimate_t* vicon_position_estimate)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_vicon_position_estimate_send(chan, vicon_position_estimate->usec, vicon_position_estimate->x, vicon_position_estimate->y, vicon_position_estimate->z, vicon_position_estimate->roll, vicon_position_estimate->pitch, vicon_position_estimate->yaw, vicon_position_estimate->covariance);
@@ -245,7 +245,7 @@ __STATIC_INLINE void mavlink_msg_vicon_position_estimate_send_struct(mavlink_cha
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_vicon_position_estimate_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t usec, float x, float y, float z, float roll, float pitch, float yaw, const float* covariance)
+static_inline void mavlink_msg_vicon_position_estimate_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint64_t usec, float x, float y, float z, float roll, float pitch, float yaw, const float* covariance)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -282,7 +282,7 @@ __STATIC_INLINE void mavlink_msg_vicon_position_estimate_send_buf(mavlink_messag
  *
  * @return [us] Timestamp (UNIX time or time since system boot)
  */
-__STATIC_INLINE uint64_t mavlink_msg_vicon_position_estimate_get_usec(const mavlink_message_t* msg)
+static_inline uint64_t mavlink_msg_vicon_position_estimate_get_usec(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint64_t(msg, 0);
 }
@@ -292,7 +292,7 @@ __STATIC_INLINE uint64_t mavlink_msg_vicon_position_estimate_get_usec(const mavl
  *
  * @return [m] Global X position
  */
-__STATIC_INLINE float mavlink_msg_vicon_position_estimate_get_x(const mavlink_message_t* msg)
+static_inline float mavlink_msg_vicon_position_estimate_get_x(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 8);
 }
@@ -302,7 +302,7 @@ __STATIC_INLINE float mavlink_msg_vicon_position_estimate_get_x(const mavlink_me
  *
  * @return [m] Global Y position
  */
-__STATIC_INLINE float mavlink_msg_vicon_position_estimate_get_y(const mavlink_message_t* msg)
+static_inline float mavlink_msg_vicon_position_estimate_get_y(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 12);
 }
@@ -312,7 +312,7 @@ __STATIC_INLINE float mavlink_msg_vicon_position_estimate_get_y(const mavlink_me
  *
  * @return [m] Global Z position
  */
-__STATIC_INLINE float mavlink_msg_vicon_position_estimate_get_z(const mavlink_message_t* msg)
+static_inline float mavlink_msg_vicon_position_estimate_get_z(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 16);
 }
@@ -322,7 +322,7 @@ __STATIC_INLINE float mavlink_msg_vicon_position_estimate_get_z(const mavlink_me
  *
  * @return [rad] Roll angle
  */
-__STATIC_INLINE float mavlink_msg_vicon_position_estimate_get_roll(const mavlink_message_t* msg)
+static_inline float mavlink_msg_vicon_position_estimate_get_roll(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 20);
 }
@@ -332,7 +332,7 @@ __STATIC_INLINE float mavlink_msg_vicon_position_estimate_get_roll(const mavlink
  *
  * @return [rad] Pitch angle
  */
-__STATIC_INLINE float mavlink_msg_vicon_position_estimate_get_pitch(const mavlink_message_t* msg)
+static_inline float mavlink_msg_vicon_position_estimate_get_pitch(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 24);
 }
@@ -342,7 +342,7 @@ __STATIC_INLINE float mavlink_msg_vicon_position_estimate_get_pitch(const mavlin
  *
  * @return [rad] Yaw angle
  */
-__STATIC_INLINE float mavlink_msg_vicon_position_estimate_get_yaw(const mavlink_message_t* msg)
+static_inline float mavlink_msg_vicon_position_estimate_get_yaw(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_float(msg, 28);
 }
@@ -352,7 +352,7 @@ __STATIC_INLINE float mavlink_msg_vicon_position_estimate_get_yaw(const mavlink_
  *
  * @return  Row-major representation of 6x6 pose cross-covariance matrix upper right triangle (states: x, y, z, roll, pitch, yaw; first six entries are the first ROW, next five entries are the second ROW, etc.). If unknown, assign NaN value to first element in the array.
  */
-__STATIC_INLINE uint16_t mavlink_msg_vicon_position_estimate_get_covariance(const mavlink_message_t* msg, float* covariance)
+static_inline uint16_t mavlink_msg_vicon_position_estimate_get_covariance(const mavlink_message_t* msg, float* covariance)
 {
     return _MAV_RETURN_float_array(msg, covariance, 21, 32);
 }
@@ -363,7 +363,7 @@ __STATIC_INLINE uint16_t mavlink_msg_vicon_position_estimate_get_covariance(cons
  * @param msg The message to decode
  * @param vicon_position_estimate C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_vicon_position_estimate_decode(const mavlink_message_t* msg, mavlink_vicon_position_estimate_t* vicon_position_estimate)
+static_inline void mavlink_msg_vicon_position_estimate_decode(const mavlink_message_t* msg, mavlink_vicon_position_estimate_t* vicon_position_estimate)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     vicon_position_estimate->usec = mavlink_msg_vicon_position_estimate_get_usec(msg);

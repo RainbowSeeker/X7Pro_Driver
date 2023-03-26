@@ -59,7 +59,7 @@ typedef struct __mavlink_log_data_t {
  * @param data  log data
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_log_data_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
+static_inline uint16_t mavlink_msg_log_data_pack(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg,
                                                  uint16_t id, uint32_t ofs, uint8_t count, const uint8_t* data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
@@ -94,7 +94,7 @@ __STATIC_INLINE uint16_t mavlink_msg_log_data_pack(uint8_t system_id, uint8_t co
  * @param data  log data
  * @return length of the message in bytes (excluding serial stream start sign)
  */
-__STATIC_INLINE uint16_t mavlink_msg_log_data_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
+static_inline uint16_t mavlink_msg_log_data_pack_chan(uint8_t system_id, uint8_t component_id, uint8_t chan,
                                                       mavlink_message_t* msg,
                                                       uint16_t id, uint32_t ofs, uint8_t count, const uint8_t* data)
 {
@@ -126,7 +126,7 @@ __STATIC_INLINE uint16_t mavlink_msg_log_data_pack_chan(uint8_t system_id, uint8
  * @param msg The MAVLink message to compress the data into
  * @param log_data C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_log_data_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_log_data_t* log_data)
+static_inline uint16_t mavlink_msg_log_data_encode(uint8_t system_id, uint8_t component_id, mavlink_message_t* msg, const mavlink_log_data_t* log_data)
 {
     return mavlink_msg_log_data_pack(system_id, component_id, msg, log_data->id, log_data->ofs, log_data->count, log_data->data);
 }
@@ -140,7 +140,7 @@ __STATIC_INLINE uint16_t mavlink_msg_log_data_encode(uint8_t system_id, uint8_t 
  * @param msg The MAVLink message to compress the data into
  * @param log_data C-struct to read the message contents from
  */
-__STATIC_INLINE uint16_t mavlink_msg_log_data_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_log_data_t* log_data)
+static_inline uint16_t mavlink_msg_log_data_encode_chan(uint8_t system_id, uint8_t component_id, uint8_t chan, mavlink_message_t* msg, const mavlink_log_data_t* log_data)
 {
     return mavlink_msg_log_data_pack_chan(system_id, component_id, chan, msg, log_data->id, log_data->ofs, log_data->count, log_data->data);
 }
@@ -156,7 +156,7 @@ __STATIC_INLINE uint16_t mavlink_msg_log_data_encode_chan(uint8_t system_id, uin
  */
 #ifdef MAVLINK_USE_CONVENIENCE_FUNCTIONS
 
-__STATIC_INLINE void mavlink_msg_log_data_send(mavlink_channel_t chan, uint16_t id, uint32_t ofs, uint8_t count, const uint8_t* data)
+static_inline void mavlink_msg_log_data_send(mavlink_channel_t chan, uint16_t id, uint32_t ofs, uint8_t count, const uint8_t* data)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char buf[MAVLINK_MSG_ID_LOG_DATA_LEN];
@@ -180,7 +180,7 @@ __STATIC_INLINE void mavlink_msg_log_data_send(mavlink_channel_t chan, uint16_t 
  * @param chan MAVLink channel to send the message
  * @param struct The MAVLink struct to serialize
  */
-__STATIC_INLINE void mavlink_msg_log_data_send_struct(mavlink_channel_t chan, const mavlink_log_data_t* log_data)
+static_inline void mavlink_msg_log_data_send_struct(mavlink_channel_t chan, const mavlink_log_data_t* log_data)
 {
     #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     mavlink_msg_log_data_send(chan, log_data->id, log_data->ofs, log_data->count, log_data->data);
@@ -197,7 +197,7 @@ __STATIC_INLINE void mavlink_msg_log_data_send_struct(mavlink_channel_t chan, co
   is usually the receive buffer for the channel, and allows a reply to an
   incoming message with minimum stack space usage.
  */
-__STATIC_INLINE void mavlink_msg_log_data_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint16_t id, uint32_t ofs, uint8_t count, const uint8_t* data)
+static_inline void mavlink_msg_log_data_send_buf(mavlink_message_t* msgbuf, mavlink_channel_t chan, uint16_t id, uint32_t ofs, uint8_t count, const uint8_t* data)
 {
         #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     char* buf = (char*)msgbuf;
@@ -226,7 +226,7 @@ __STATIC_INLINE void mavlink_msg_log_data_send_buf(mavlink_message_t* msgbuf, ma
  *
  * @return  Log id (from LOG_ENTRY reply)
  */
-__STATIC_INLINE uint16_t mavlink_msg_log_data_get_id(const mavlink_message_t* msg)
+static_inline uint16_t mavlink_msg_log_data_get_id(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint16_t(msg, 4);
 }
@@ -236,7 +236,7 @@ __STATIC_INLINE uint16_t mavlink_msg_log_data_get_id(const mavlink_message_t* ms
  *
  * @return  Offset into the log
  */
-__STATIC_INLINE uint32_t mavlink_msg_log_data_get_ofs(const mavlink_message_t* msg)
+static_inline uint32_t mavlink_msg_log_data_get_ofs(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint32_t(msg, 0);
 }
@@ -246,7 +246,7 @@ __STATIC_INLINE uint32_t mavlink_msg_log_data_get_ofs(const mavlink_message_t* m
  *
  * @return [bytes] Number of bytes (zero for end of log)
  */
-__STATIC_INLINE uint8_t mavlink_msg_log_data_get_count(const mavlink_message_t* msg)
+static_inline uint8_t mavlink_msg_log_data_get_count(const mavlink_message_t* msg)
 {
     return _MAV_RETURN_uint8_t(msg, 6);
 }
@@ -256,7 +256,7 @@ __STATIC_INLINE uint8_t mavlink_msg_log_data_get_count(const mavlink_message_t* 
  *
  * @return  log data
  */
-__STATIC_INLINE uint16_t mavlink_msg_log_data_get_data(const mavlink_message_t* msg, uint8_t* data)
+static_inline uint16_t mavlink_msg_log_data_get_data(const mavlink_message_t* msg, uint8_t* data)
 {
     return _MAV_RETURN_uint8_t_array(msg, data, 90, 7);
 }
@@ -267,7 +267,7 @@ __STATIC_INLINE uint16_t mavlink_msg_log_data_get_data(const mavlink_message_t* 
  * @param msg The message to decode
  * @param log_data C-struct to decode the message contents into
  */
-__STATIC_INLINE void mavlink_msg_log_data_decode(const mavlink_message_t* msg, mavlink_log_data_t* log_data)
+static_inline void mavlink_msg_log_data_decode(const mavlink_message_t* msg, mavlink_log_data_t* log_data)
 {
 #if MAVLINK_NEED_BYTE_SWAP || !MAVLINK_ALIGNED_FIELDS
     log_data->ofs = mavlink_msg_log_data_get_ofs(msg);

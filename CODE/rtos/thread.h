@@ -66,7 +66,7 @@ typedef struct thread *os_thread_t;
  * os_thread_get_num
  * @return
  */
-__STATIC_INLINE size_t  os_thread_get_num(void)
+static_inline size_t  os_thread_get_num(void)
 {
     return 0;
 }
@@ -75,7 +75,7 @@ __STATIC_INLINE size_t  os_thread_get_num(void)
  * os_schedule
  * @return
  */
-__STATIC_INLINE err_t os_schedule(void)
+static_inline err_t os_schedule(void)
 {
     return E_OK;
 }

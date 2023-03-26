@@ -9,6 +9,7 @@
 #include "rtdebug.h"
 #include "os.h"
 #include "common_def.h"
+#include "system/systime.h"
 #include "utils/list.h"
 #include "object.h"
 #include "system/systime.h"
@@ -56,6 +57,26 @@
  */
 int __ffs(int value);
 
+void *memset(void *src, int c, size_t n);
+void *memcpy(void *dest, const void *src, size_t n);
+
+int strncmp(const char *cs, const char *ct, size_t count);
+int strcmp(const char *cs, const char *ct);
+size_t strlen(const char *src);
+char *strdup(const char *s);
+#if defined(__CC_ARM) || defined(__CLANG_ARM)
+/* leak strdup interface */
+char* strdup(const char* str);
+#endif
+
+char *strstr(const char *str1, const char *str2);
+int sscanf(const char *buf, const char *fmt, ...);
+char *strncpy(char *dest, const char *src, size_t n);
+void *memmove(void *dest, const void *src, size_t n);
+int memcmp(const void *cs, const void *ct, size_t count);
+int strcasecmp(const char *a, const char *b);
+
+
 /*
  * This function will get errno
  *
@@ -87,7 +108,7 @@ void bsp_os_init(void (*StartupTask)(void *p_arg));
  * os_tick_get
  * @return
  */
-__STATIC_INLINE tick_t os_tick_get(void)
+static_inline tick_t os_tick_get(void)
 {
     return systime_now_ms();
 }
@@ -96,7 +117,7 @@ __STATIC_INLINE tick_t os_tick_get(void)
  * os_delay
  * @param ms
  */
-__STATIC_INLINE void os_delay(uint32_t ms)
+static_inline void os_delay(uint32_t ms)
 {
     OS_ERR err;
     OSTimeDly(TICKS_FROM_MS(ms), OS_OPT_TIME_DLY, &err);
@@ -107,7 +128,7 @@ __STATIC_INLINE void os_delay(uint32_t ms)
  * @param init_tick
  * @param ms
  */
-__STATIC_INLINE void os_delay_until(uint32_t *init_tick, uint32_t ms)
+static_inline void os_delay_until(uint32_t *init_tick, uint32_t ms)
 {
     OS_ERR err;
     OSTimeDly(TICKS_FROM_MS(ms), OS_OPT_TIME_DLY, &err);
@@ -117,7 +138,7 @@ __STATIC_INLINE void os_delay_until(uint32_t *init_tick, uint32_t ms)
  * os_hw_interrupt_disable
  * @return
  */
-__STATIC_INLINE base_t os_hw_interrupt_disable(void)
+static_inline base_t os_hw_interrupt_disable(void)
 {
     return CPU_SR_Save(CPU_CFG_KA_IPL_BOUNDARY << (8u - CPU_CFG_NVIC_PRIO_BITS));
 }
@@ -126,7 +147,7 @@ __STATIC_INLINE base_t os_hw_interrupt_disable(void)
  * os_hw_interrupt_enable
  * @param x
  */
-__STATIC_INLINE void os_hw_interrupt_enable(base_t x)
+static_inline void os_hw_interrupt_enable(base_t x)
 {
     CPU_SR_Restore(x);
 }
@@ -135,12 +156,12 @@ __STATIC_INLINE void os_hw_interrupt_enable(base_t x)
  * os_interrupt_get_nest
  * @return
  */
-__STATIC_INLINE uint8_t os_interrupt_get_nest(void)
+static_inline uint8_t os_interrupt_get_nest(void)
 {
     return OSIntNestingCtr;
 }
 
-__STATIC_INLINE void os_interrupt_enter(void)
+static_inline void os_interrupt_enter(void)
 {
     CPU_SR_ALLOC();
     CPU_CRITICAL_ENTER();
@@ -148,7 +169,7 @@ __STATIC_INLINE void os_interrupt_enter(void)
     CPU_CRITICAL_EXIT();
 }
 
-__STATIC_INLINE void os_interrupt_leave(void)
+static_inline void os_interrupt_leave(void)
 {
     OSIntExit();
 }
