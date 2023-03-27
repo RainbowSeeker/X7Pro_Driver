@@ -62,5 +62,5 @@ ThirdPartyIpNumber=1
 ThirdPartyIpName#0=STMicroelectronics.X-CUBE-ALGOBUILD.1.3.0
 
 [ThirdPartyIp#STMicroelectronics.X-CUBE-ALGOBUILD.1.3.0]
-header=Middlewares\ST\ARM\DSP\Inc\arm_math.h;
+header=..\Middlewares\ST\ARM\DSP\Inc\arm_math.h;
 

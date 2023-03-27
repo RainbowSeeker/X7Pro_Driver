@@ -513,7 +513,7 @@ static void gps_probe(void *parameter)
     }
 
     if (i >= CONFIGURE_RETRY_MAX) {
-        DRV_DBG("GPS configuration fail! Please check if GPS module has connected.");
+        LOG_E("GPS configuration fail! Please check if GPS module has connected.");
     }
 
     os_thread_delete(os_thread_self());

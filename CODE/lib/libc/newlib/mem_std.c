@@ -15,6 +15,8 @@
 
 #include <common.h>
 
+#if defined(__GNUC__) && !defined(__ARMCC_VERSION)
+
 void* malloc(size_t n)
 {
 	return _malloc(n);
@@ -34,3 +36,5 @@ void free(void* rmem)
 {
 	_free(rmem);
 }
+
+#endif
